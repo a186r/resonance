@@ -6,52 +6,65 @@ import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 // 每一轮最后一名参与者获得2.5%奖励，倒数第2名获得1%，倒数3、4、5名各获得0.5%
 
 contract FOMOReward {
+    
     using SafeMath for uint256;
 
-    struct Winner{
-        address winnerAddr;
-        uint256 reward;
-    }
+    event FOMOWinnerInfo(address[] FOMOWinners, uint256[] FOMORewards);
 
-    Winner[] public winners;
-
-    mapping(address => uint) public totalRewardAmount;
+    // 获奖者数组
+    address[] FOMOWinners;
+    // 奖金数组
+    uint256[] FOMORewards;
+    // 获奖者地址和奖金的映射
+    // 公开mapping，可以通过地址查询奖励金额（step=>address=>rewardAmount）
+    mapping(uint256 => mapping(address => uint256)) public rewardAmount;
 
     constructor() public {
 
     }
 
-    // FOMOReward 用于FOMO的奖励,wei
-    function findFOMOWinner(
+    // 获取FOMO获胜者列表和奖金列表
+    function getFOMOWinnerInfo(
+        uint256 _stepIndex,
         address[] memory _funders,
         uint256 _totalFOMOReward
     )
         public
     {
-        uint fundersLen = _funders.length;
-
-        // 第一名获得2.5%的奖励
-        winners.push(Winner(_funders[fundersLen-1], _totalFOMOReward.mul(25).div(1000)));
-
-        // 第二名获得1%的奖励
-        winners.push(Winner(_funders[fundersLen-2], _totalFOMOReward.mul(10).div(1000)));
-
-        // 第3、4、5名各获得0.5%的奖励
-        winners.push(Winner(_funders[fundersLen-3], _totalFOMOReward.mul(5).div(1000)));
-        winners.push(Winner(_funders[fundersLen-4], _totalFOMOReward.mul(5).div(1000)));
-        winners.push(Winner(_funders[fundersLen-5], _totalFOMOReward.mul(5).div(1000)));
+        _dealWinnerInfo(_stepIndex, _funders, _totalFOMOReward);
+        emit FOMOWinnerInfo(FOMOWinners, FOMORewards);
     }
 
-    // 确认奖励金额是正确的
-    function getTotalRewardAmount() public view returns (uint256) {
-        // uint[] memory winners = new uint[](totalRewardAmount[]);
-        uint totalCount = 0;
+    // 处理获奖者信息，分配获奖金额
+    // 接受当前轮次的参与者、FOMO总奖励资金
+    function _dealWinnerInfo(
+        uint256 _stepIndex,
+        address[] memory _funders,
+        uint256 _totalFOMOReward
+    )
+        internal
+    {
+        uint256 fundersLen = _funders.length;
 
-        for(uint i = 0; i < winners.length; i++) {
-            totalCount += winners[i].reward;
+        for(uint i = 1; i < 6; i++){
+            FOMOWinners.push(_funders[fundersLen-i]);
+            if(i == 1) {
+                FOMORewards.push(_totalFOMOReward.mul(25).div(1000));
+            }else if(i == 2) {
+                FOMORewards.push(_totalFOMOReward.mul(10).div(1000));
+            }else{
+                FOMORewards.push(_totalFOMOReward.mul(5).div(1000));
+            }
+
+            rewardAmount[_stepIndex][FOMOWinners[i]] = FOMORewards[i];
         }
-
-        return totalCount;
     }
 
+    // 确认奖励金是正确的
+    function getTotalRewardAmount() public view returns(uint256) {
+        uint totalAmount = 0;
+        for(uint i = 0; i < FOMORewards.length ; i++){
+            totalAmount += FOMORewards[i];
+        }
+    }
 }

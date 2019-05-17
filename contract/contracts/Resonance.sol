@@ -12,10 +12,10 @@ contract Resonance {
     // 成为裂变者
     event ToBeFissionPerson(address fissionPerson,address promoter);
     event FundsInfo(uint256 tokenAmount, uint256 raisedETH);
-    event BuildingPerioInfo();
-    event FundingPeriodInfo();
-
-
+    event BuildingPerioInfo(uint256 bpCountdown, uint256 remainingToken, uint256 personalTokenLimited, uint256 totalTokenAmount);
+    event FundingPeriodInfo(uint256 fpCountdown, uint256 remainingETH, uint256 rasiedETHAmount);
+    event RewardList(address[] fissionRewardList, address[] FOMORewardList, address[] luckyRewardList, address[] faithRewardList);
+    
     // modifier
     modifier onlyAdmin(){
         require(msg.sender == admin, "只有管理员可以调用");
@@ -89,8 +89,8 @@ contract Resonance {
 
     // 推广者 affman
     struct Affman{
-        address addr;
-        uint256 affIncome;
+        address addr; // 推广者地址
+        uint256 affIncome; // 推广所得
     }
 
     // 投资者结构体
@@ -117,15 +117,25 @@ contract Resonance {
         uint256 raisedETH; // 募资期已经募集到的ETH数量
     }
 
+    // 奖励数据结构体
+    // 奖励数据通过两个数组和一个mapping返回，前端更好操作
+    // 两个数组：获奖者数组+获奖奖金数组；一个mapping：mapping(address => uint256) rewards; 地址和奖金的映射关系
+    struct Reward{
+        address[50] fissionRewardList; // 裂变奖励获奖列表
+        uint256[50] fissionRewardAmount; // 裂变奖励奖金列表
+        address[] FOMORewardList; // FOMO奖励获奖列表
+        address[] luckyRewardList; // 幸运奖励获奖列表
+        address[] faithRewardList; // 信仰奖励获奖列表
+    }
+
     // 每一轮
     struct Step{
         mapping(address => Funder) funders;// 裂变者
         mapping(address => Affman) affmans; // 推广者
         Building building; // 当前轮次组建期
         Funding funding; // 当前轮次募资期
+        Reward reward; // 当前轮次各奖励活动获奖列表
         Affman[] affmanArray; // 当前轮次的所有推广者
-        address[50] luckyMan; // 裂变奖励——获奖者数组
-        uint256[50] rewardAmount; // 裂变奖励——奖金数组
         bool fissionRewardIsFinished; // 裂变奖励——是否已经结束
         uint256 upperLimit; // 金额上限
         uint256 softCap; // 软顶
@@ -211,19 +221,15 @@ contract Resonance {
     function getCurrentStepFundsInfo()
         public
         crowdsaleRunning()
-        returns(uint256, uint256)
     {
         emit FundsInfo(steps[currentStep].building.tokenAmount, steps[currentStep].funding.raisedETH);
-        return (steps[currentStep].building.tokenAmount, steps[currentStep].funding.raisedETH);
     }
 
     // 查询组建期信息
     function getBuildingPerioInfo()
         public
-        view
         crowdsaleRunning()
         isBuildingPeriod()
-        returns(uint256, uint256, uint256, uint256)
     {
         uint256 _bpCountdown;
         uint256 _remainingToken;
@@ -234,17 +240,14 @@ contract Resonance {
         _remainingToken = steps[currentStep].building.tokenAmount.sub(steps[currentStep].building.raisedToken);
         _personalTokenLimited = steps[currentStep].building.personalTokenLimited;
         _totalTokenAmount = steps[currentStep].building.raisedTokenAmount;
-
-        return (_bpCountdown, _remainingToken, _personalTokenLimited, _totalTokenAmount);
+        emit BuildingPerioInfo(_bpCountdown, _remainingToken, _personalTokenLimited, _totalTokenAmount);
     }
 
     // 查询募资期信息
     function getFundingPeriodInfo()
         public
-        view
         crowdsaleRunning()
         isFundingPeriod()
-        returns(uint256, uint256, uint256)
     {
         uint256 _fpCountdown;
         uint256 _remainingETH;
@@ -253,17 +256,17 @@ contract Resonance {
         _fpCountdown = (openingTime + 24) - block.timestamp;
         _remainingETH = steps[currentStep].funding.ETHAmount.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
-        return(_fpCountdown, _remainingETH, _rasiedETHAmount);
+        emit FundingPeriodInfo(_fpCountdown, _remainingETH, _rasiedETHAmount);
     }
 
     // 查询当前轮次的获奖地址列表
-    // function getRewardList(uint256 _stepIndex)
-    //     public
-    //     view
-    //     returns(address[], address[], address[], address[])
-    // {
-
-    // }
+    function getRewardList(uint256 _stepIndex)
+        public
+        view
+        crowdsaleRunning()
+    {
+        // emit RewardList();
+    }
 
     // TODO:判断是否达到提前停止轮次的条件
 
@@ -334,20 +337,20 @@ contract Resonance {
         uint256 fissionRewardAmount = UintUtils.toWei(steps[currentStep-1].funding.raisedETH).mul(20).div(100);
 
         // TODO:裂变奖励奖励的是前50个幸运儿，要考虑不足50个的情况
-        for(uint8 i = 0; i <= steps[currentStep-1].rewardAmount.length; i++) {
+        for(uint8 i = 0; i <= steps[currentStep-1].reward.fissionRewardAmount.length; i++) {
 
-            steps[currentStep-1].luckyMan[i] = (steps[currentStep-1].affmanArray[i].addr);
+            steps[currentStep-1].reward.fissionRewardList[i] = (steps[currentStep-1].affmanArray[i].addr);
 
             if (i == 0) { //第1名奖励
-                steps[currentStep-1].rewardAmount[i] = (fissionRewardAmount.mul(20).div(1000));
+                steps[currentStep-1].reward.fissionRewardAmount[i] = (fissionRewardAmount.mul(20).div(1000));
             } else if (i >= 1 && i <= 2) { // 第2、3名奖励
-                steps[currentStep-1].rewardAmount[i] = (fissionRewardAmount.mul(15).div(1000));
+                steps[currentStep-1].reward.fissionRewardAmount[i] = (fissionRewardAmount.mul(15).div(1000));
             } else if (i >= 3 && i <= 5) {
-                steps[currentStep-1].rewardAmount[i] = (fissionRewardAmount.mul(10).div(1000));
+                steps[currentStep-1].reward.fissionRewardAmount[i] = (fissionRewardAmount.mul(10).div(1000));
             } else if (i >= 6 && i <= 9) {
-                steps[currentStep-1].rewardAmount[i] = (fissionRewardAmount.mul(5).div(1000));
+                steps[currentStep-1].reward.fissionRewardAmount[i] = (fissionRewardAmount.mul(5).div(1000));
             } else {
-                steps[currentStep-1].rewardAmount[i] = (fissionRewardAmount.mul(10).div(1000).div(40));
+                steps[currentStep-1].reward.fissionRewardAmount[i] = (fissionRewardAmount.mul(10).div(1000).div(40));
             }
         }
 
@@ -373,8 +376,8 @@ contract Resonance {
         // 遍历求和
         uint256 totalReward;
 
-        for(uint i = 0;i < steps[_stepIndex].rewardAmount.length; i++){
-            totalReward += steps[_stepIndex].rewardAmount[i];
+        for(uint i = 0;i < steps[_stepIndex].reward.fissionRewardAmount.length; i++){
+            totalReward += steps[_stepIndex].reward.fissionRewardAmount[i];
         }
 
         return (totalReward == UintUtils.toWei(steps[_stepIndex].funding.raisedETH).mul(20).div(100));
@@ -386,9 +389,9 @@ contract Resonance {
         public
         payable
     {
-        for(uint8 i = 0; i < steps[currentStep-1].luckyMan.length; i++){
+        for(uint8 i = 0; i < steps[currentStep-1].reward.fissionRewardList.length; i++){
             // 将地址转换为应付地址然后再转账
-            address(uint160(steps[currentStep-1].luckyMan[i])).transfer(steps[currentStep-1].rewardAmount[i]);
+            address(uint160(steps[currentStep-1].reward.fissionRewardList[i])).transfer(steps[currentStep-1].reward.fissionRewardAmount[i]);
         }
 
         // 批量转账之后将该轮次的裂变奖励设置为已结束
