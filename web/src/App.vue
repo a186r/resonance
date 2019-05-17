@@ -1,0 +1,172 @@
+<template>
+  <div id="app">
+    <el-container>
+      <el-header>
+        <div id="nav">
+          <div class="left">
+            <router-link to="/">{{ $t('nav.index') }}</router-link>
+            <router-link to="/offer">{{ $t('nav.offer') }}</router-link>
+          </div>
+          <div class="right">
+            <router-link to="/my">{{ $t('nav.my') }}</router-link>
+            <a class="link-metamask" @click="unlockMetaMask">{{account}}</a>
+            <el-dropdown @command="handleCommand">
+              <span class="el-dropdown-link">
+                {{currentLanguage}}<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="cn">中文简体</el-dropdown-item>
+                <el-dropdown-item command="en">English</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+        </div>    
+      </el-header>
+      <el-main>
+        <router-view></router-view>
+        <!-- <HelloI18n /> -->
+      </el-main>
+    </el-container>
+  </div>
+</template>
+
+<script>
+import Web3 from "web3"
+export default {
+  name: 'app',
+  data () {
+    return {
+      currentLanguage: '中文简体',
+      account: ethereum.selectedAddress || '登录 metamask'
+    }
+  },
+  components: {
+  },
+  methods: {
+    handleCommand(command) {
+      this._i18n.locale = command
+      if (command === 'cn') {
+        this.currentLanguage = '中文简体'
+      } else if (command === 'en') {
+        this.currentLanguage = 'English'
+      }
+    },
+    async unlockMetaMask() {
+      const self = this
+
+      if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+          await ethereum.enable();
+          self.account = ethereum.selectedAddress
+        } catch (error) {
+          // User denied account access...
+          self.$alert('您拒绝了授权使用 MetaMask', '提示', {
+            confirmButtonText: '确定',
+          })
+        }
+      }
+      // Legacy dapp browsers...
+      else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider)
+        const account = web3.eth.accounts[0]
+        if (!account){
+          self.$alert('您的 MetaMask 被锁住了，请先解锁', '提示', {
+            confirmButtonText: '确定',
+          })
+          return
+        }
+        self.account = account
+      }
+      else {
+        self.$alert('您的浏览器还没有安装 MetaMask，请先安装该插件', '提示', {
+          confirmButtonText: '确定',
+        })
+        return
+      }
+    }
+  },
+  mounted () {
+  }
+}
+</script>
+
+<style lang='scss'>
+@import "./assets/base.scss";
+body {
+  margin: 0;
+  height: 100vh;
+}
+
+html {
+  font-size: 10.416666vw;
+}
+
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+ 
+.el-dropdown-link {
+  font-size: 0.18rem;
+}
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  height: 100vh;
+  font-size: 0.18rem;
+}
+
+.el-header, .el-footer {
+  background-color: $dark-main;
+  color: #fff;
+  text-align: center;
+  line-height: 60px;
+}
+
+.el-main {
+  height: 100%;
+  background-color: $main;
+  color: #fff;
+}
+
+.el-container {
+  height: 100%;
+}
+
+#nav {
+  display: flex;
+  justify-content: space-between;
+  .locale-changer {
+    color: #fff;
+    background-color: $dark-main;
+  }
+  .left {
+    display: flex;
+    justify-content: space-around;
+    color: #fff;
+    width: 25%;
+  }
+  .right {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    .link-metamask {
+      cursor: pointer;
+        overflow: hidden;
+        max-width: 1.5rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+  }
+}
+
+</style>
