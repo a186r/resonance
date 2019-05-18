@@ -56,7 +56,6 @@ export default {
 }
 </script>
 <style lang='scss'>
-@import "../assets/base.scss";
 .home {
   // display: flex;
   height: 100%;

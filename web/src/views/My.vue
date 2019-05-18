@@ -6,7 +6,7 @@
           <p>提取 CAD 代币</p>
           <div class="amount-action">
             <p>数量：{{cadAmount}} CAD</p>
-            <el-button size="medium" @click="withdrawCAD">提取</el-button>
+            <button class="custom-button" @click="withdrawCAD">提取</button>
           </div>
         </div>
       </el-col>
@@ -15,7 +15,7 @@
           <p>提取 ETH 代币</p>
           <div class="amount-action">
             <p>数量：{{ethAmount}} ETH</p>
-            <el-button size="medium" @click="withdrawETH">提取</el-button>
+            <button class="custom-button" @click="withdrawETH">提取</button>
           </div>
         </div>
       </el-col>
@@ -89,7 +89,6 @@ export default {
 }
 </script>
 <style lang='scss'>
-@import "../assets/base.scss";
 .my {
   display: flex;
   flex-direction: column;

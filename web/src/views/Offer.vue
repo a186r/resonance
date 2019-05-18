@@ -9,9 +9,9 @@
           <p>当前最大投入：5000000</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
-              <el-input v-model="depostCADAmount" placeholder="CAD投入数量"></el-input>
+              <input class="custom-input" v-model="depostCADAmount" placeholder="CAD投入数量"></input>
             </div>
-            <el-button size="small" @click="depositCAD">投入CAD</el-button>
+            <button class="custom-button" @click="depositCAD">投入CAD</button>
           </div>
         </div>
       </el-col>
@@ -22,9 +22,9 @@
           <p>可投入剩余总额：{{ethRemain}}</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
-              <el-input v-model="depostCADAmount" placeholder="ETH投入数量"></el-input>
+              <input class="custom-input" v-model="depostCADAmount" placeholder="ETH投入数量"></input>
             </div>
-            <el-button size="small" @click="depositETH">投入ETH</el-button>
+            <button class="custom-button" @click="depositETH">投入ETH</button>
           </div>
         </div>
       </el-col>
@@ -84,7 +84,6 @@ export default {
 }
 </script>
 <style lang='scss'>
-@import "../assets/base.scss";
 .offer {
   display: flex;
   flex-direction: column;
