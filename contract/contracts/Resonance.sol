@@ -126,6 +126,8 @@ contract Resonance {
         address[] FOMORewardList; // FOMO奖励获奖列表
         address[] luckyRewardList; // 幸运奖励获奖列表
         address[] faithRewardList; // 信仰奖励获奖列表
+
+        uint256 lockedBlockNum; // 当前轮次结束时的区块高度(用于幸运奖励)
     }
 
     // 每一轮

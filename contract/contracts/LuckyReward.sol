@@ -15,11 +15,53 @@ contract LuckyReward{
 
     using SafeMath for uint256;
 
+    event LuckyInfo(address[] luckyAddress, uint256 luckyRewardAmount);
+
     // 创建数组用于接收中奖地址
-    address[] LuckyAddress;
+    address[] luckyAddress;
+    // 人均奖金
+    uint256 luckyRewardAmount;
+
+    mapping(uint256 => mapping(address => uint256)) public rewardAmount;
 
     constructor() public {
 
+    }
+
+    // 获取幸运者列表和平均获奖金额
+    function getLuckyInfo(
+        address[] memory _funders,
+        uint256 _totalLyckyReward,
+        uint256 _lockedBlockNum
+    )
+        public
+    {
+        _dealLuckyInfo(_funders, _totalLyckyReward, _lockedBlockNum);
+        emit LuckyInfo(luckyAddress, luckyRewardAmount);
+    }
+
+    // 处理幸运者数据
+    function _dealLuckyInfo(
+        address[] memory _funders,
+        uint256 _totalLyckyReward,
+        uint256 _lockedBlockNum
+    )
+        internal
+    {
+        require(block.number >= (_lockedBlockNum + 1), "请等待下一个区块再执行");
+
+        // 获取下一个区块的区块Hash
+        bytes32 nextBlockhash = blockhash(_lockedBlockNum + 1);
+
+        // 比较
+        for(uint i = 0; i < _funders.length; i++){
+            if(StringUtils.compareString(getLastFromAddress(_funders[i]), getLastFromBlockHash(nextBlockhash))) {
+                luckyAddress.push(_funders[i]);
+            }
+        }
+
+        // 计算人均奖金
+        luckyRewardAmount = _totalLyckyReward.div(luckyAddress.length);
     }
 
     // 用户应该来自于募资期转入ETH的用户
@@ -39,11 +81,11 @@ contract LuckyReward{
         // 比较
         for(uint i = 0; i < _funders.length; i++){
             if(StringUtils.compareString(getLastFromAddress(_funders[i]), getLastFromBlockHash(nextBlockhash))) {
-                LuckyAddress.push(_funders[i]);
+                luckyAddress.push(_funders[i]);
             }
         }
 
-        return LuckyAddress;
+        return luckyAddress;
     }
 
     // 获取address的最后一位

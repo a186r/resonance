@@ -6,51 +6,48 @@ import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 contract FaithReward{
     using SafeMath for uint256;
 
-    struct FaithWinner{
-        address winnerAddr;
-        uint256 reward;
-    }
+    event FaithWinnerInfo(uint256 indexed _stepIndex, address[10] _faithWinners, uint256[] _faithRewardAmount);
+    // 幸运奖励获奖金额
+    uint256[] faithRewardAmount;
+
+    mapping(uint256 => mapping(address => uint256)) public rewardAmount;
 
     constructor() public {
 
     }
 
-    FaithWinner[] public faithWinners;
-
-    mapping(address => uint) public totalRewardAmount;
-
-    // 链下排序，这一步只做奖励分配
-    function findFaithWinner(
-        address[] memory _funders,
+    // 链下排序,链上计算奖励分配
+    // _faithWinners 信仰者名单
+    function getFaithWinnerInfo(
+        uint256 _stepIndex,
+        address[10] memory _faithWinners,
         uint256 _totalFaithReward
     )
         public
     {
-        // 第一名获得3%的奖励
-        faithWinners.push(FaithWinner(_funders[0], _totalFaithReward.mul(30).div(1000)));
+        for(uint i = 0 ; i < _faithWinners.length; i++){
+            if(i == 0){ // 第一名获得3%的奖励
+                faithRewardAmount.push(_totalFaithReward.mul(30).div(1000));
+            }else if(i >= 1 && i < 3){ // 第二名获得2%的奖励
+                faithRewardAmount.push(_totalFaithReward.mul(20).div(1000));
+            }else if(i >= 3 && i < 6){ // 第3、4、5名各获得1%的奖励
+                faithRewardAmount.push(_totalFaithReward.mul(10).div(1000));
+            }else{ // 第7、8、9、10各获得0.5%奖励
+                faithRewardAmount.push(_totalFaithReward.mul(5).div(1000));
+            }
 
-        // 第二名获得2%的奖励
-        faithWinners.push(FaithWinner(_funders[1], _totalFaithReward.mul(20).div(1000)));
-        faithWinners.push(FaithWinner(_funders[2], _totalFaithReward.mul(20).div(1000)));
+            rewardAmount[_stepIndex][_faithWinners[i]] = faithRewardAmount[i];
+        }
 
-        // 第3、4、5名各获得1%的奖励
-        faithWinners.push(FaithWinner(_funders[3], _totalFaithReward.mul(10).div(1000)));
-        faithWinners.push(FaithWinner(_funders[4], _totalFaithReward.mul(10).div(1000)));
-        faithWinners.push(FaithWinner(_funders[5], _totalFaithReward.mul(10).div(1000)));
-        // 7、8、9、10各获得0.5%奖励
-        faithWinners.push(FaithWinner(_funders[6], _totalFaithReward.mul(5).div(1000)));
-        faithWinners.push(FaithWinner(_funders[7], _totalFaithReward.mul(5).div(1000)));
-        faithWinners.push(FaithWinner(_funders[8], _totalFaithReward.mul(5).div(1000)));
-        faithWinners.push(FaithWinner(_funders[9], _totalFaithReward.mul(5).div(1000)));
-
+        emit FaithWinnerInfo(_stepIndex, _faithWinners, faithRewardAmount);
     }
 
     // 确认奖励金额是正确的
     function getTotalRewardAmount() public view returns (uint256) {
         uint totalCount = 0;
 
-        for(uint i = 0; i < faithWinners.length; i++) {
-            totalCount += faithWinners[i].reward;
+        for(uint i = 0; i < faithRewardAmount.length; i++) {
+            totalCount += faithRewardAmount[i];
         }
 
         return totalCount;

@@ -16,7 +16,7 @@ contract FOMOReward {
     // 奖金数组
     uint256[] FOMORewards;
     // 获奖者地址和奖金的映射
-    // 公开mapping，可以通过地址查询奖励金额（step=>address=>rewardAmount）
+    // 公开mapping，可以通过地址查询奖励金额（step=>address=>rewardAmount）,这个在withdraw的时候会有用
     mapping(uint256 => mapping(address => uint256)) public rewardAmount;
 
     constructor() public {
