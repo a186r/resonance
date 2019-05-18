@@ -15,14 +15,14 @@ contract LuckyReward{
 
     using SafeMath for uint256;
 
-    event LuckyInfo(address[] luckyAddress, uint256 luckyRewardAmount);
+    event LuckyInfo(address[] luckyAddress, uint256 luckyRewards);
 
     // 创建数组用于接收中奖地址
     address[] luckyAddress;
     // 人均奖金
-    uint256 luckyRewardAmount;
+    uint256 luckyReward;
 
-    mapping(uint256 => mapping(address => uint256)) public rewardAmount;
+    mapping(uint256 => mapping(address => uint256)) public luckyRewardAmount;
 
     constructor() public {
 
@@ -37,7 +37,7 @@ contract LuckyReward{
         public
     {
         _dealLuckyInfo(_funders, _totalLyckyReward, _lockedBlockNum);
-        emit LuckyInfo(luckyAddress, luckyRewardAmount);
+        emit LuckyInfo(luckyAddress, luckyReward);
     }
 
     // 处理幸运者数据
@@ -61,7 +61,7 @@ contract LuckyReward{
         }
 
         // 计算人均奖金
-        luckyRewardAmount = _totalLyckyReward.div(luckyAddress.length);
+        luckyReward = _totalLyckyReward.div(luckyAddress.length);
     }
 
     // 用户应该来自于募资期转入ETH的用户
