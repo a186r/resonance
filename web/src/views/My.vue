@@ -5,7 +5,7 @@
         <div class="withdraw dark-card">
           <p>提取 CAD 代币</p>
           <div class="amount-action">
-            <p>数量：{{cadAmount}} CAD</p>
+            <p>数量：{{myDetail[0]}} CAD</p>
             <button class="custom-button" @click="withdrawCAD">提取</button>
           </div>
         </div>
@@ -14,7 +14,7 @@
         <div class="withdraw dark-card">
           <p>提取 ETH 代币</p>
           <div class="amount-action">
-            <p>数量：{{ethAmount}} ETH</p>
+            <p>数量：{{myDetail[1]}} ETH</p>
             <button class="custom-button" @click="withdrawETH">提取</button>
           </div>
         </div>
@@ -32,18 +32,14 @@
 
 <script>
 import store from '../store'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'home',
+  name: 'my',
   components: {
   },
   data () {
     return {
-      offset1: 1,
-      offset2: 2,
-      offsetMyDetail: 6,
-      cadAmount: 3000,
-      ethAmount: 23,
       detailList: [
         {
           text: '我的邀请链接',
@@ -76,6 +72,11 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState({
+      myDetail: state => state.myDetail,
+    })
+  },
   methods: {
     withdrawETH () {
       console.log('withdraw eth')
@@ -85,6 +86,7 @@ export default {
     }
   },
   mounted() {
+    store.dispatch('getFunderInfo')
   }
 }
 </script>

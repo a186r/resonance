@@ -4,11 +4,11 @@
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
           <p>组建期</p>
-          <countdown :time="bpCountdown">
+          <countdown :time="offerData.bpCountdown">
             <template slot-scope="props">结束时间倒计时：{{ props.hours }} 时 : {{ props.minutes }} 分 : {{ props.seconds }} 秒</template>
           </countdown>
-          <p>可投入剩余CAD数量：{{remainingToken}}</p>
-          <p>当前最大投入：{{totalTokenAmount}}</p>
+          <p>可投入剩余CAD数量：{{offerData.remainingToken}}</p>
+          <p>当前最大投入：{{offerData.totalTokenAmount}}</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
               <input class="custom-input" v-model="depostCADAmount" placeholder="CAD投入数量" />
@@ -20,10 +20,10 @@
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
           <p>募资期</p>
-          <countdown :time="fpCountdown">
+          <countdown :time="offerData.fpCountdown">
             <template slot-scope="props">结束时间倒计时：{{ props.hours }} 时 : {{ props.minutes }} 分 : {{ props.seconds }} 秒</template>
           </countdown>
-          <p>可投入剩余总额：{{remainingETH}}</p>
+          <p>可投入剩余总额：{{offerData.remainingETH}}</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
               <input class="custom-input" v-model="depostCADAmount" placeholder="ETH投入数量" />
@@ -50,17 +50,13 @@
   </div>
 </template>
 <script>
+import store from '../store'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'offer',
   data () {
     return {
-      bpCountdown: 24 * 60 * 60 * 1000,
-      fpCountdown: 24 * 60 * 60 * 1000,
-      currentRound: 3,
-      remainingToken: 3000,
-      remainingETH: 23,
-      totalTokenAmount: 5000000,
       depostCADAmount: '',
       depostETHAmount: '',
       rewardList: [{
@@ -80,6 +76,11 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState({
+      offerData: state => state.offerData,
+    })
+  },
   methods: {
     depositETH () {
       console.log('deposit eth')
@@ -87,6 +88,10 @@ export default {
     depositCAD () {
       console.log('deposit cad')
     }
+  },
+  mounted() {
+    store.dispatch('getBuildingPeriodInfo')
+    store.dispatch('getFundingPeriodInfo')
   }
 }
 </script>

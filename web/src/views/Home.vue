@@ -4,7 +4,7 @@
       <el-col class="col-flex-column"  :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="title dark-card">
           <p>组建期</p>
-          <p>CAD: 10000000 CAD</p>
+          <p>CAD: {{homeData.currentStepTokenAmount}} CAD</p>
           <router-link to="/offer">（点击进入组建期页面）</router-link>
         </div>
         <div class="intro dark-card">
@@ -21,7 +21,7 @@
       <el-col class="col-flex-column"  :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="title dark-card">
           <p>募资期</p>
-          <p>ETH: 100.1234 ETH</p>
+          <p>ETH: {{homeData.currentStepRaisedETH}} ETH</p>
           <router-link to="/offer">（点击进入募资期页面）</router-link>
         </div>
         <div class="intro dark-card">
@@ -41,17 +41,47 @@
 
 <script>
 import store from '../store'
+import { mapState, mapGetters, mapActions } from 'vuex'
+import { formatEth } from '../utils/ethUtils'
+
 export default {
   name: 'home',
   components: {
   },
   data() {
     return {
-      offset1: 1,
-      offset2: 2
+    }
+  },
+  computed: {
+    ...mapState({
+      homeData: state => state.homeData,
+    })
+  },
+  methods: {
+    async getInfo() {
+      const contract = await new web3.eth.Contract(
+        ContractJson.abi,
+        ContractJson["networks"][web3.currentProvider.connection.networkVersion].address
+      )
+      contract.getPastEvents("LogClosedBet", {
+        fromBlock: 4000000
+      })
+      .then(
+        (event) => {
+          console.log(event)
+        })
+      .catch(
+        error => {
+          console.log(error);
+        }
+      )
+      // contract.methods.getCurrentStepFundsInfo().call({}, (err, result) => {
+      //   console.log(err, formatEth(result), contract.address)
+      // })
     }
   },
   mounted() {
+    store.dispatch('getCurrentStepFundsInfo')
   }
 }
 </script>
