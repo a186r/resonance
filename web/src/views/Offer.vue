@@ -4,12 +4,14 @@
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
           <p>组建期</p>
-          <p>结束时间倒计时: 10.59:59</p>
-          <p>可投入剩余CAD数量：{{cadRemain}}</p>
-          <p>当前最大投入：5000000</p>
+          <countdown :time="bpCountdown">
+            <template slot-scope="props">结束时间倒计时：{{ props.hours }} 时 : {{ props.minutes }} 分 : {{ props.seconds }} 秒</template>
+          </countdown>
+          <p>可投入剩余CAD数量：{{remainingToken}}</p>
+          <p>当前最大投入：{{totalTokenAmount}}</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
-              <input class="custom-input" v-model="depostCADAmount" placeholder="CAD投入数量"></input>
+              <input class="custom-input" v-model="depostCADAmount" placeholder="CAD投入数量" />
             </div>
             <button class="custom-button" @click="depositCAD">投入CAD</button>
           </div>
@@ -18,11 +20,13 @@
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
           <p>募资期</p>
-          <p>结束时间倒计时: 10.59:59</p>
-          <p>可投入剩余总额：{{ethRemain}}</p>
+          <countdown :time="fpCountdown">
+            <template slot-scope="props">结束时间倒计时：{{ props.hours }} 时 : {{ props.minutes }} 分 : {{ props.seconds }} 秒</template>
+          </countdown>
+          <p>可投入剩余总额：{{remainingETH}}</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
-              <input class="custom-input" v-model="depostCADAmount" placeholder="ETH投入数量"></input>
+              <input class="custom-input" v-model="depostCADAmount" placeholder="ETH投入数量" />
             </div>
             <button class="custom-button" @click="depositETH">投入ETH</button>
           </div>
@@ -51,9 +55,12 @@ export default {
   name: 'offer',
   data () {
     return {
+      bpCountdown: 24 * 60 * 60 * 1000,
+      fpCountdown: 24 * 60 * 60 * 1000,
       currentRound: 3,
-      cadRemain: 3000,
-      ethRemain: 23,
+      remainingToken: 3000,
+      remainingETH: 23,
+      totalTokenAmount: 5000000,
       depostCADAmount: '',
       depostETHAmount: '',
       rewardList: [{
@@ -116,7 +123,7 @@ export default {
         display: flex;
         justify-content: center;
         .address {
-          width: 70%;
+          max-width: 70%;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
