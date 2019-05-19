@@ -32,12 +32,14 @@
 
 <script>
 import Web3 from "web3"
+import store from './store'
 export default {
   name: 'app',
   data () {
     return {
       currentLanguage: '中文简体',
-      account: ethereum.selectedAddress || '登录 metamask'
+      account: ethereum.selectedAddress || '登录 metamask',
+      
     }
   },
   components: {
@@ -55,7 +57,7 @@ export default {
       const self = this
 
       if (window.ethereum) {
-        window.web3 = new Web3(ethereum);
+        window.web3 = new Web3(ethereum)
         try {
           await ethereum.enable();
           self.account = ethereum.selectedAddress
@@ -86,7 +88,8 @@ export default {
       }
     }
   },
-  mounted () {
+  created () {
+    this.unlockMetaMask()
   }
 }
 </script>
