@@ -4,7 +4,9 @@ import router from './router'
 import store from './store'
 import './plugins/element.js'
 import i18n from './i18n'
+import VueCountdown from '@chenfengyuan/vue-countdown'
 
+Vue.component(VueCountdown.name, VueCountdown)
 Vue.config.productionTip = false
 
 new Vue({
