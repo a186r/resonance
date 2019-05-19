@@ -18,6 +18,9 @@ contract FOMOReward {
     // 获奖者地址和奖金的映射
     // 公开mapping，可以通过地址查询奖励金额（step=>address=>rewardAmount）,这个在withdraw的时候会有用
     mapping(uint256 => mapping(address => uint256)) public FOMORewardAmount;
+    
+    bool hasFinished; // 裂变奖励分配结束
+
 
     constructor() public {
 

@@ -89,15 +89,15 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.2+commit.1df8f40c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"rewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTotalRewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"name\":\"_faithWinners\",\"type\":\"address[10]\"},{\"name\":\"_totalFaithReward\",\"type\":\"uint256\"}],\"name\":\"getFaithWinnerInfo\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"_faithWinners\",\"type\":\"address[10]\"},{\"indexed\":false,\"name\":\"_faithRewardAmount\",\"type\":\"uint256[]\"}],\"name\":\"FaithWinnerInfo\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/FaithReward.sol\":\"FaithReward\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/FaithReward.sol\":{\"keccak256\":\"0x6479a95333b7f7ab54bc9116146fefa5bd0bda300c20bd4596304161390fc2b7\",\"urls\":[\"bzzr://68c25fa5375ffe0422b711fa6de981b6f968dee27f0ef8bb06485054b3f62e3e\"]},\"/Users/a186r/dev/sourcecode/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xc2a200a877c4a9b2475c246c54ffecc69ffde3e11af83319c63c2dc5458bac80\",\"urls\":[\"bzzr://c8876e2c39b60f155d748d71d715c8f3903fae5a405ac599adcb6ad2f9a583f9\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b50610540806100206000396000f3fe608060405234801561001057600080fd5b506004361061005e576000357c0100000000000000000000000000000000000000000000000000000000900480630bf2a6341461006357806310377be3146100c55780633b8505bb146100e3575b600080fd5b6100af6004803603604081101561007957600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061015e565b6040518082815260200191505060405180910390f35b6100cd610183565b6040518082815260200191505060405180910390f35b61015c60048036036101808110156100fa57600080fd5b8101908080359060200190929190806101400190600a806020026040519081016040528092919082600a60200280828437600081840152601f19601f8201169050808301925050505050509192919290803590602001909291905050506101d0565b005b6001602052816000526040600020602052806000526040600020600091509150505481565b6000806000905060008090505b6000805490508110156101c8576000818154811015156101ac57fe5b9060005260206000200154820191508080600101915050610190565b508091505090565b60008090505b600a8110156103ff5760008114156102405760006102126103e8610204601e866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610372565b600181101580156102515750600381105b156102ae5760006102806103e86102726014866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610371565b600381101580156102bf5750600681105b1561031c5760006102ee6103e86102e0600a866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610370565b60006103466103e86103386005866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b90806001815401808255809150509060018203906000526020600020016000909192909190915055505b5b5b60008181548110151561038157fe5b90600052602060002001546001600086815260200190815260200160002060008584600a811015156103af57fe5b602002015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555080806001019150506101d6565b50827fc46ffdb7901c8863f8cc4183319010e80e50ecc9876780aa8f81360d410424be8360006040518083600a60200280838360005b83811015610450578082015181840152602081019050610435565b5050505090500180602001828103825283818154815260200191508054801561049857602002820191906000526020600020905b815481526020019060010190808311610484575b5050935050505060405180910390a2505050565b6000808314156104bf57600090506104e4565b600082840290508284828115156104d257fe5b041415156104df57600080fd5b809150505b92915050565b600080821115156104fa57600080fd5b6000828481151561050757fe5b049050809150509291505056fea165627a7a72305820851a3d4ca5aaa515dede8914b28c3c618d2f38700497b74ae079900a91b755c50029",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061005e576000357c0100000000000000000000000000000000000000000000000000000000900480630bf2a6341461006357806310377be3146100c55780633b8505bb146100e3575b600080fd5b6100af6004803603604081101561007957600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061015e565b6040518082815260200191505060405180910390f35b6100cd610183565b6040518082815260200191505060405180910390f35b61015c60048036036101808110156100fa57600080fd5b8101908080359060200190929190806101400190600a806020026040519081016040528092919082600a60200280828437600081840152601f19601f8201169050808301925050505050509192919290803590602001909291905050506101d0565b005b6001602052816000526040600020602052806000526040600020600091509150505481565b6000806000905060008090505b6000805490508110156101c8576000818154811015156101ac57fe5b9060005260206000200154820191508080600101915050610190565b508091505090565b60008090505b600a8110156103ff5760008114156102405760006102126103e8610204601e866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610372565b600181101580156102515750600381105b156102ae5760006102806103e86102726014866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610371565b600381101580156102bf5750600681105b1561031c5760006102ee6103e86102e0600a866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610370565b60006103466103e86103386005866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b90806001815401808255809150509060018203906000526020600020016000909192909190915055505b5b5b60008181548110151561038157fe5b90600052602060002001546001600086815260200190815260200160002060008584600a811015156103af57fe5b602002015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555080806001019150506101d6565b50827fc46ffdb7901c8863f8cc4183319010e80e50ecc9876780aa8f81360d410424be8360006040518083600a60200280838360005b83811015610450578082015181840152602081019050610435565b5050505090500180602001828103825283818154815260200191508054801561049857602002820191906000526020600020905b815481526020019060010190808311610484575b5050935050505060405180910390a2505050565b6000808314156104bf57600090506104e4565b600082840290508284828115156104d257fe5b041415156104df57600080fd5b809150505b92915050565b600080821115156104fa57600080fd5b6000828481151561050757fe5b049050809150509291505056fea165627a7a72305820851a3d4ca5aaa515dede8914b28c3c618d2f38700497b74ae079900a91b755c50029",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.2+commit.1df8f40c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"rewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTotalRewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"name\":\"_faithWinners\",\"type\":\"address[10]\"},{\"name\":\"_totalFaithReward\",\"type\":\"uint256\"}],\"name\":\"getFaithWinnerInfo\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"_faithWinners\",\"type\":\"address[10]\"},{\"indexed\":false,\"name\":\"_faithRewardAmount\",\"type\":\"uint256[]\"}],\"name\":\"FaithWinnerInfo\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/a186r/dev/contracts/contract/contract/contracts/FaithReward.sol\":\"FaithReward\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/a186r/dev/contracts/contract/contract/contracts/FaithReward.sol\":{\"keccak256\":\"0x6479a95333b7f7ab54bc9116146fefa5bd0bda300c20bd4596304161390fc2b7\",\"urls\":[\"bzzr://68c25fa5375ffe0422b711fa6de981b6f968dee27f0ef8bb06485054b3f62e3e\"]},\"/Users/a186r/dev/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xc2a200a877c4a9b2475c246c54ffecc69ffde3e11af83319c63c2dc5458bac80\",\"urls\":[\"bzzr://c8876e2c39b60f155d748d71d715c8f3903fae5a405ac599adcb6ad2f9a583f9\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610540806100206000396000f3fe608060405234801561001057600080fd5b506004361061005e576000357c0100000000000000000000000000000000000000000000000000000000900480630bf2a6341461006357806310377be3146100c55780633b8505bb146100e3575b600080fd5b6100af6004803603604081101561007957600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061015e565b6040518082815260200191505060405180910390f35b6100cd610183565b6040518082815260200191505060405180910390f35b61015c60048036036101808110156100fa57600080fd5b8101908080359060200190929190806101400190600a806020026040519081016040528092919082600a60200280828437600081840152601f19601f8201169050808301925050505050509192919290803590602001909291905050506101d0565b005b6001602052816000526040600020602052806000526040600020600091509150505481565b6000806000905060008090505b6000805490508110156101c8576000818154811015156101ac57fe5b9060005260206000200154820191508080600101915050610190565b508091505090565b60008090505b600a8110156103ff5760008114156102405760006102126103e8610204601e866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610372565b600181101580156102515750600381105b156102ae5760006102806103e86102726014866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610371565b600381101580156102bf5750600681105b1561031c5760006102ee6103e86102e0600a866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610370565b60006103466103e86103386005866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b90806001815401808255809150509060018203906000526020600020016000909192909190915055505b5b5b60008181548110151561038157fe5b90600052602060002001546001600086815260200190815260200160002060008584600a811015156103af57fe5b602002015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555080806001019150506101d6565b50827fc46ffdb7901c8863f8cc4183319010e80e50ecc9876780aa8f81360d410424be8360006040518083600a60200280838360005b83811015610450578082015181840152602081019050610435565b5050505090500180602001828103825283818154815260200191508054801561049857602002820191906000526020600020905b815481526020019060010190808311610484575b5050935050505060405180910390a2505050565b6000808314156104bf57600090506104e4565b600082840290508284828115156104d257fe5b041415156104df57600080fd5b809150505b92915050565b600080821115156104fa57600080fd5b6000828481151561050757fe5b049050809150509291505056fea165627a7a72305820bba1ddb49cb3d10b5685139251c0dad884b856090908877e43183c339bf783cb0029",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061005e576000357c0100000000000000000000000000000000000000000000000000000000900480630bf2a6341461006357806310377be3146100c55780633b8505bb146100e3575b600080fd5b6100af6004803603604081101561007957600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061015e565b6040518082815260200191505060405180910390f35b6100cd610183565b6040518082815260200191505060405180910390f35b61015c60048036036101808110156100fa57600080fd5b8101908080359060200190929190806101400190600a806020026040519081016040528092919082600a60200280828437600081840152601f19601f8201169050808301925050505050509192919290803590602001909291905050506101d0565b005b6001602052816000526040600020602052806000526040600020600091509150505481565b6000806000905060008090505b6000805490508110156101c8576000818154811015156101ac57fe5b9060005260206000200154820191508080600101915050610190565b508091505090565b60008090505b600a8110156103ff5760008114156102405760006102126103e8610204601e866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610372565b600181101580156102515750600381105b156102ae5760006102806103e86102726014866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610371565b600381101580156102bf5750600681105b1561031c5760006102ee6103e86102e0600a866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b9080600181540180825580915050906001820390600052602060002001600090919290919091505550610370565b60006103466103e86103386005866104ac90919063ffffffff16565b6104ea90919063ffffffff16565b90806001815401808255809150509060018203906000526020600020016000909192909190915055505b5b5b60008181548110151561038157fe5b90600052602060002001546001600086815260200190815260200160002060008584600a811015156103af57fe5b602002015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000208190555080806001019150506101d6565b50827fc46ffdb7901c8863f8cc4183319010e80e50ecc9876780aa8f81360d410424be8360006040518083600a60200280838360005b83811015610450578082015181840152602081019050610435565b5050505090500180602001828103825283818154815260200191508054801561049857602002820191906000526020600020905b815481526020019060010190808311610484575b5050935050505060405180910390a2505050565b6000808314156104bf57600090506104e4565b600082840290508284828115156104d257fe5b041415156104df57600080fd5b809150505b92915050565b600080821115156104fa57600080fd5b6000828481151561050757fe5b049050809150509291505056fea165627a7a72305820bba1ddb49cb3d10b5685139251c0dad884b856090908877e43183c339bf783cb0029",
   "sourceMap": "127:1691:2:-;;;438:29;8:9:-1;5:2;;;30:1;27;20:12;5:2;438:29:2;127:1691;;;;;;",
   "deployedSourceMap": "127:1691:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;127:1691:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;364:67;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;364:67:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1569:246;;;:::i;:::-;;;;;;;;;;;;;;;;;;;555:970;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;555:970:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;93:3;85:6;81:16;74:27;137:4;133:9;126:4;121:3;117:14;113:30;106:37;;169:3;161:6;157:16;147:26;;555:970:2;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;364:67;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;1569:246::-;1622:7;1641:15;1659:1;1641:19;;1675:6;1684:1;1675:10;;1671:110;1691:17;:24;;;;1687:1;:28;1671:110;;;1750:17;1768:1;1750:20;;;;;;;;;;;;;;;;;;1736:34;;;;1717:3;;;;;;;1671:110;;;;1798:10;1791:17;;;1569:246;:::o;555:970::-;727:6;736:1;727:10;;723:719;744:20;740:1;:24;723:719;;;792:1;787;:6;784:568;;;842:17;865:35;895:4;865:25;887:2;865:17;:21;;:25;;;;:::i;:::-;:29;;:35;;;;:::i;:::-;842:59;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;842:59:2;;;;;;;;;;;;;;;;;;;;;;784:568;;;929:1;924;:6;;:15;;;;;938:1;934;:5;924:15;921:431;;;988:17;1011:35;1041:4;1011:25;1033:2;1011:17;:21;;:25;;;;:::i;:::-;:29;;:35;;;;:::i;:::-;988:59;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;988:59:2;;;;;;;;;;;;;;;;;;;;;;921:431;;;1075:1;1070;:6;;:15;;;;;1084:1;1080;:5;1070:15;1067:285;;;1143:17;1166:35;1196:4;1166:25;1188:2;1166:17;:21;;:25;;;;:::i;:::-;:29;;:35;;;;:::i;:::-;1143:59;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;1143:59:2;;;;;;;;;;;;;;;;;;;;;;1067:285;;;1279:17;1302:34;1331:4;1302:24;1324:1;1302:17;:21;;:24;;;;:::i;:::-;:28;;:34;;;;:::i;:::-;1279:58;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;1279:58:2;;;;;;;;;;;;;;;;;;;;;;1067:285;921:431;784:568;1411:17;1429:1;1411:20;;;;;;;;;;;;;;;;;;1366:12;:24;1379:10;1366:24;;;;;;;;;;;:42;1391:13;1405:1;1391:16;;;;;;;;;;;;;1366:42;;;;;;;;;;;;;;;:65;;;;766:3;;;;;;;723:719;;;;1473:10;1457:61;1485:13;1500:17;1457:61;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;1457:61:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;555:970;;;:::o;231:421:11:-;289:7;534:1;529;:6;525:45;;;558:1;551:8;;;;525:45;580:9;596:1;592;:5;580:17;;624:1;619;615;:5;;;;;;;;:10;607:19;;;;;;;;644:1;637:8;;;231:421;;;;;:::o;782:296::-;840:7;937:1;933;:5;925:14;;;;;;;;949:9;965:1;961;:5;;;;;;;;949:17;;1070:1;1063:8;;;782:296;;;;:::o",
   "source": "pragma solidity >=0.4.21 <0.6.0;\n\nimport \"../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol\";\n\n// 信仰奖励\ncontract FaithReward{\n    using SafeMath for uint256;\n\n    event FaithWinnerInfo(uint256 indexed _stepIndex, address[10] _faithWinners, uint256[] _faithRewardAmount);\n    // 幸运奖励获奖金额\n    uint256[] faithRewardAmount;\n\n    mapping(uint256 => mapping(address => uint256)) public rewardAmount;\n\n    constructor() public {\n\n    }\n\n    // 链下排序,链上计算奖励分配\n    // _faithWinners 信仰者名单\n    function getFaithWinnerInfo(\n        uint256 _stepIndex,\n        address[10] memory _faithWinners,\n        uint256 _totalFaithReward\n    )\n        public\n    {\n        for(uint i = 0 ; i < _faithWinners.length; i++){\n            if(i == 0){ // 第一名获得3%的奖励\n                faithRewardAmount.push(_totalFaithReward.mul(30).div(1000));\n            }else if(i >= 1 && i < 3){ // 第二名获得2%的奖励\n                faithRewardAmount.push(_totalFaithReward.mul(20).div(1000));\n            }else if(i >= 3 && i < 6){ // 第3、4、5名各获得1%的奖励\n                faithRewardAmount.push(_totalFaithReward.mul(10).div(1000));\n            }else{ // 第7、8、9、10各获得0.5%奖励\n                faithRewardAmount.push(_totalFaithReward.mul(5).div(1000));\n            }\n\n            rewardAmount[_stepIndex][_faithWinners[i]] = faithRewardAmount[i];\n        }\n\n        emit FaithWinnerInfo(_stepIndex, _faithWinners, faithRewardAmount);\n    }\n\n    // 确认奖励金额是正确的\n    function getTotalRewardAmount() public view returns (uint256) {\n        uint totalCount = 0;\n\n        for(uint i = 0; i < faithRewardAmount.length; i++) {\n            totalCount += faithRewardAmount[i];\n        }\n\n        return totalCount;\n    }\n\n}",
-  "sourcePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/FaithReward.sol",
+  "sourcePath": "/Users/a186r/dev/contracts/contract/contract/contracts/FaithReward.sol",
   "ast": {
-    "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/FaithReward.sol",
+    "absolutePath": "/Users/a186r/dev/contracts/contract/contract/contracts/FaithReward.sol",
     "exportedSymbols": {
       "FaithReward": [
         427
@@ -121,12 +121,12 @@
         "src": "0:32:2"
       },
       {
-        "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
+        "absolutePath": "/Users/a186r/dev/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
         "file": "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
         "id": 253,
         "nodeType": "ImportDirective",
         "scope": 428,
-        "sourceUnit": 2654,
+        "sourceUnit": 2743,
         "src": "34:75:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -151,10 +151,10 @@
               "id": 254,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2653,
+              "referencedDeclaration": 2742,
               "src": "159:8:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$2653",
+                "typeIdentifier": "t_contract$_SafeMath_$2742",
                 "typeString": "library SafeMath"
               }
             },
@@ -827,7 +827,7 @@
                                               "lValueRequested": false,
                                               "memberName": "mul",
                                               "nodeType": "MemberAccess",
-                                              "referencedDeclaration": 2560,
+                                              "referencedDeclaration": 2649,
                                               "src": "1302:21:2",
                                               "typeDescriptions": {
                                                 "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -855,7 +855,7 @@
                                           "lValueRequested": false,
                                           "memberName": "div",
                                           "nodeType": "MemberAccess",
-                                          "referencedDeclaration": 2584,
+                                          "referencedDeclaration": 2673,
                                           "src": "1302:28:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1021,7 +1021,7 @@
                                               "lValueRequested": false,
                                               "memberName": "mul",
                                               "nodeType": "MemberAccess",
-                                              "referencedDeclaration": 2560,
+                                              "referencedDeclaration": 2649,
                                               "src": "1166:21:2",
                                               "typeDescriptions": {
                                                 "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1049,7 +1049,7 @@
                                           "lValueRequested": false,
                                           "memberName": "div",
                                           "nodeType": "MemberAccess",
-                                          "referencedDeclaration": 2584,
+                                          "referencedDeclaration": 2673,
                                           "src": "1166:29:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1216,7 +1216,7 @@
                                             "lValueRequested": false,
                                             "memberName": "mul",
                                             "nodeType": "MemberAccess",
-                                            "referencedDeclaration": 2560,
+                                            "referencedDeclaration": 2649,
                                             "src": "1011:21:2",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1244,7 +1244,7 @@
                                         "lValueRequested": false,
                                         "memberName": "div",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 2584,
+                                        "referencedDeclaration": 2673,
                                         "src": "1011:29:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1411,7 +1411,7 @@
                                           "lValueRequested": false,
                                           "memberName": "mul",
                                           "nodeType": "MemberAccess",
-                                          "referencedDeclaration": 2560,
+                                          "referencedDeclaration": 2649,
                                           "src": "865:21:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1439,7 +1439,7 @@
                                       "lValueRequested": false,
                                       "memberName": "div",
                                       "nodeType": "MemberAccess",
-                                      "referencedDeclaration": 2584,
+                                      "referencedDeclaration": 2673,
                                       "src": "865:29:2",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -2422,7 +2422,7 @@
     "src": "0:1818:2"
   },
   "legacyAST": {
-    "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/FaithReward.sol",
+    "absolutePath": "/Users/a186r/dev/contracts/contract/contract/contracts/FaithReward.sol",
     "exportedSymbols": {
       "FaithReward": [
         427
@@ -2446,12 +2446,12 @@
         "src": "0:32:2"
       },
       {
-        "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
+        "absolutePath": "/Users/a186r/dev/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
         "file": "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
         "id": 253,
         "nodeType": "ImportDirective",
         "scope": 428,
-        "sourceUnit": 2654,
+        "sourceUnit": 2743,
         "src": "34:75:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2476,10 +2476,10 @@
               "id": 254,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2653,
+              "referencedDeclaration": 2742,
               "src": "159:8:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$2653",
+                "typeIdentifier": "t_contract$_SafeMath_$2742",
                 "typeString": "library SafeMath"
               }
             },
@@ -3152,7 +3152,7 @@
                                               "lValueRequested": false,
                                               "memberName": "mul",
                                               "nodeType": "MemberAccess",
-                                              "referencedDeclaration": 2560,
+                                              "referencedDeclaration": 2649,
                                               "src": "1302:21:2",
                                               "typeDescriptions": {
                                                 "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -3180,7 +3180,7 @@
                                           "lValueRequested": false,
                                           "memberName": "div",
                                           "nodeType": "MemberAccess",
-                                          "referencedDeclaration": 2584,
+                                          "referencedDeclaration": 2673,
                                           "src": "1302:28:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -3346,7 +3346,7 @@
                                               "lValueRequested": false,
                                               "memberName": "mul",
                                               "nodeType": "MemberAccess",
-                                              "referencedDeclaration": 2560,
+                                              "referencedDeclaration": 2649,
                                               "src": "1166:21:2",
                                               "typeDescriptions": {
                                                 "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -3374,7 +3374,7 @@
                                           "lValueRequested": false,
                                           "memberName": "div",
                                           "nodeType": "MemberAccess",
-                                          "referencedDeclaration": 2584,
+                                          "referencedDeclaration": 2673,
                                           "src": "1166:29:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -3541,7 +3541,7 @@
                                             "lValueRequested": false,
                                             "memberName": "mul",
                                             "nodeType": "MemberAccess",
-                                            "referencedDeclaration": 2560,
+                                            "referencedDeclaration": 2649,
                                             "src": "1011:21:2",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -3569,7 +3569,7 @@
                                         "lValueRequested": false,
                                         "memberName": "div",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 2584,
+                                        "referencedDeclaration": 2673,
                                         "src": "1011:29:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -3736,7 +3736,7 @@
                                           "lValueRequested": false,
                                           "memberName": "mul",
                                           "nodeType": "MemberAccess",
-                                          "referencedDeclaration": 2560,
+                                          "referencedDeclaration": 2649,
                                           "src": "865:21:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -3764,7 +3764,7 @@
                                       "lValueRequested": false,
                                       "memberName": "div",
                                       "nodeType": "MemberAccess",
-                                      "referencedDeclaration": 2584,
+                                      "referencedDeclaration": 2673,
                                       "src": "865:29:2",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -4751,8 +4751,8 @@
     "version": "0.5.2+commit.1df8f40c.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-18T11:01:06.379Z",
+  "schemaVersion": "3.0.9",
+  "updatedAt": "2019-05-19T18:41:38.812Z",
   "devdoc": {
     "methods": {}
   },
