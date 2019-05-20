@@ -124,12 +124,12 @@ contract Resonance is Ownable{
     // 奖励数据通过两个数组和一个mapping返回，前端更好操作
     // 两个数组：获奖者数组+获奖奖金数组；一个mapping：mapping(address => uint256) rewards; 地址和奖金的映射关系
     // 使用数组来存储变量吧
-    struct FissionReward{
-        address[] fissionRewardList; // 裂变奖励获奖列表
-        uint256[] fissionRewardAmount; // 裂变奖励奖金列表
-        mapping(address => uint256) rewardBalance; // 获奖者对应的裂变奖金余额
-        bool hasFinished; // 裂变奖励分配结束
-    }
+    // struct FissionReward{
+    //     address[] fissionRewardList; // 裂变奖励获奖列表
+    //     uint256[] fissionRewardAmount; // 裂变奖励奖金列表
+    //     mapping(address => uint256) rewardBalance; // 获奖者对应的裂变奖金余额
+    //     bool hasFinished; // 裂变奖励分配结束
+    // }
 
     FissionReward fissionRewardInstance;
     FOMOReward FOMORewardInstance;
@@ -170,6 +170,7 @@ contract Resonance is Ownable{
         ABCToken _abcToken,
         address payable _beneficiary,
         address _initialFissionPerson,
+        address _fassionRewardAddress,
         address _FOMORewardAddress,
         address _luckyRewardAddress,
         address _faithRewardAddress
@@ -182,6 +183,7 @@ contract Resonance is Ownable{
         openingTime = block.timestamp; // 启动时间
 
         // 载入奖励合约实例
+        fissionRewardInstance = FissionReward(_fassionRewardAddress);
         FOMORewardInstance = FOMOReward(_FOMORewardAddress);
         luckyRewardInstance = LuckyReward(_luckyRewardAddress);
         faithRewardInstance = FaithReward(_faithRewardAddress);
@@ -379,11 +381,7 @@ contract Resonance is Ownable{
     function getFissionRewardInfo(uint256 _stepIndex)
         public
     {
-        // FissionReward memory currentStepFissionReward = FissionReward[currentStep];
-        // emit FissionRewardInfo(
-        //     currentStepFissionReward.fissionRewardList,
-        //     currentStepFissionReward.fissionRewardAmount
-        // );
+        fissionRewardInstance.getFissionInfo(_stepIndex);
     }
 
     /// @notice 获取该轮次FOMO奖励详情
@@ -566,6 +564,5 @@ contract Resonance is Ownable{
         if (i < right)
             _quickSort(arr, i, right);
     }
-    // TODO:所有的奖金应该放在轮次结算的function中去。下一轮开始前，将要分配的奖励和token全部转移走。
 
 }

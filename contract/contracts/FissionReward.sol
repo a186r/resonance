@@ -1,6 +1,7 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "./UintUtils.sol";
 
 // 1.裂变奖励
 // 裂变奖励可以在当前轮次的募资期计算结果，并预分配奖励额
@@ -18,6 +19,11 @@ contract FissionReward {
 
     event FissionInfo(uint256 indexed _stepIndex, address[] fissionWinners, uint256[] fissionRewards);
 
+    // 当前轮次的推广者
+    mapping(uint256 => address[]) public affmanArray;
+    // 推广者赚取的Token
+    mapping(uint256 => mapping(address => uint256)) public affmanEarnedToken;
+
     // 获奖者数组
     mapping(uint256 => address[]) public fissionWinners;
     // 奖金数组
@@ -30,11 +36,12 @@ contract FissionReward {
     // 裂变奖励分配结束
     mapping(uint256 => bool) currentStepHasFinished;
 
+    /// @notice 获取裂变奖励信息
     function getFissionInfo(uint256 _stepIndex) public {
         emit FissionInfo(_stepIndex, fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
     }
 
-    /// 处理裂变奖励信息
+    /// @notice 处理裂变奖励信息
     function dealFissionInfo(
         uint256 _stepIndex,
         address[] memory _fissionWinner,
@@ -42,6 +49,29 @@ contract FissionReward {
     ) public {
         require(!currentStepHasFinished[_stepIndex], "本轮次裂变奖励已经分配结束");
         _dealFissionInfo(_stepIndex, _fissionWinner, _totalFissionReward);
+    }
+
+    function addAffman(
+        uint256 _stepIndex,
+        address _promoter,
+        address _initialFissionPerson
+    ) public {
+        if(_promoter != _initialFissionPerson){
+            if(affmanArray[_stepIndex].length == 0){
+                affmanArray[_stepIndex].push(_promoter);
+            }else{
+                for(uint i = 0; i < affmanArray[_stepIndex].length; i++){
+                    if(_promoter != affmanArray[_stepIndex][i]){
+                        affmanArray[_stepIndex].push(_promoter);
+                        affmanEarnedToken[_stepIndex][_promoter] = UintUtils.toWei(5);
+                    }else{
+                        affmanEarnedToken[_stepIndex][_promoter] += UintUtils.toWei(5);
+                    }
+                }
+            }
+        }else{
+            return;
+        }
     }
 
     /// @notice 处理裂变奖励信息
