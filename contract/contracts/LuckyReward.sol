@@ -18,30 +18,42 @@ contract LuckyReward{
     event LuckyInfo(address[] luckyAddress, uint256 luckyRewards);
 
     // 创建数组用于接收中奖地址
-    address[] luckyAddress;
-    // 人均奖金
-    uint256 luckyReward;
+    mapping(uint256 => address[]) luckyAddress;
 
+    // 人均奖金
+    mapping(uint256 => uint256) luckyRewards;
+
+    // step => 获奖地址 => 奖金
     mapping(uint256 => mapping(address => uint256)) public luckyRewardAmount;
+
+    mapping(address => uint256) public luckyFunderTotalBalance;
+
+    // 幸运奖励分配结束
+    mapping(uint256 => bool) currentStepHasFinished;
 
     constructor() public {
 
     }
 
-    // 获取幸运者列表和平均获奖金额
-    function getLuckyInfo(
+    // 获取某轮次幸运者列表和平均获奖金额
+    function getLuckyInfo(uint256 _stepIndex) public {
+        emit LuckyInfo(luckyAddress[_stepIndex], luckyRewards[_stepIndex]);
+    }
+
+    /// @notice 处理信用奖励信息
+    function dealLuckyInfo(
+        uint256 _stepIndex,
         address[] memory _funders,
         uint256 _totalLyckyReward,
         uint256 _lockedBlockNum
-    )
-        public
-    {
-        _dealLuckyInfo(_funders, _totalLyckyReward, _lockedBlockNum);
-        emit LuckyInfo(luckyAddress, luckyReward);
+    ) public {
+        require(!currentStepHasFinished[_stepIndex], "当前轮次的幸运奖励已经计算完成");
+        _dealLuckyInfo(_stepIndex, _funders, _totalLyckyReward, _lockedBlockNum);
     }
 
     // 处理幸运者数据
     function _dealLuckyInfo(
+        uint256 _stepIndex,
         address[] memory _funders,
         uint256 _totalLyckyReward,
         uint256 _lockedBlockNum
@@ -56,36 +68,18 @@ contract LuckyReward{
         // 比较
         for(uint i = 0; i < _funders.length; i++){
             if(StringUtils.compareString(getLastFromAddress(_funders[i]), getLastFromBlockHash(nextBlockhash))) {
-                luckyAddress.push(_funders[i]);
+                luckyAddress[_stepIndex].push(_funders[i]);
             }
         }
 
         // 计算人均奖金
-        luckyReward = _totalLyckyReward.div(luckyAddress.length);
-    }
+        luckyRewards[_stepIndex] = _totalLyckyReward.div(luckyAddress[_stepIndex].length);
 
-    // 用户应该来自于募资期转入ETH的用户
-    // TODO:如果funder数组很大的话，会消耗很多gas，导致执行失败，我之后测试一下
-    function findLuckyMan(
-        address[] memory _funders,
-        uint256 _blockNum
-    )
-        public
-        returns(address[] memory)
-    {
-        require(block.number >= (_blockNum+1), "请等待下一个区块再执行");
+        luckyRewardAmount[_stepIndex][msg.sender] = luckyRewards[_stepIndex];
 
-        // 获取下一个区块的区块Hash
-        bytes32 nextBlockhash = blockhash(_blockNum+1);
+        luckyFunderTotalBalance[msg.sender] += luckyRewards[_stepIndex];
 
-        // 比较
-        for(uint i = 0; i < _funders.length; i++){
-            if(StringUtils.compareString(getLastFromAddress(_funders[i]), getLastFromBlockHash(nextBlockhash))) {
-                luckyAddress.push(_funders[i]);
-            }
-        }
-
-        return luckyAddress;
+        currentStepHasFinished[_stepIndex] = true;
     }
 
     // 获取address的最后一位
