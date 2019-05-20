@@ -4,6 +4,7 @@ import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "./ABCToken.sol";
 import "./UintUtils.sol";
+import "./FissionReward.sol";
 import "./FOMOReward.sol";
 import "./LuckyReward.sol";
 import "./FaithReward.sol";
@@ -66,7 +67,7 @@ contract Resonance is Ownable{
     }
 
     // 共振还在进行中
-    modifier crowdsaleRunning() {
+    modifier crowdsaleIsRunning() {
         require(!crowdsaleClosed, "共振已经结束");
         _;
     }
@@ -83,8 +84,6 @@ contract Resonance is Ownable{
     // 开始时间
     uint256 private openingTime;
 
-    // bool fundingSoftCapReached = false;  // 本轮次是否达到软顶目标
-    // bool fundingHardCapReached = false;  // 本轮次是否达到硬顶目标
     bool crowdsaleClosed = false;   //  共振是否结束
 
     // 推广者 affman
@@ -125,7 +124,6 @@ contract Resonance is Ownable{
     // 奖励数据通过两个数组和一个mapping返回，前端更好操作
     // 两个数组：获奖者数组+获奖奖金数组；一个mapping：mapping(address => uint256) rewards; 地址和奖金的映射关系
     // 使用数组来存储变量吧
-
     struct FissionReward{
         address[] fissionRewardList; // 裂变奖励获奖列表
         uint256[] fissionRewardAmount; // 裂变奖励奖金列表
@@ -133,48 +131,18 @@ contract Resonance is Ownable{
         bool hasFinished; // 裂变奖励分配结束
     }
 
-    // struct FOMOReward{
-    //     address[] FOMORewardList; // FOMO奖励获奖列表
-    //     uint256[] FOMORewards; // FOMO奖励奖金列表
-    //     mapping(address => uint256) rewardBalance; // 获奖者对应的FOMO奖金余额
-    //     bool hasFinished; // FOMO奖励分配结束
-    // }
-
-    // struct LuckyReward{
-    //     address[] luckyRewardList; // 幸运奖励获奖列表
-    //     uint256 luckyRewardAmount; // 幸运奖励奖金
-    //     mapping(address => uint256) rewardBalance; // 获奖者对应的幸运奖金余额
-    //     bool hasFinished; // 幸运奖励分配结束
-    // }
-
-    // struct FaithReward{
-    //     address[] faithRewardList; // 信仰奖励获奖列表
-    //     uint256[] faithRewardAmount; // 信仰奖励获奖金额
-    //     mapping(address => uint256) rewardBalance; // 获奖者对应的信仰奖金余额
-    //     bool hasFinished; // 信仰奖励分配结束
-    // }
-
-    // struct Reward{
-        // FissionReward fissionReward; // 裂变奖励
-    //     // // FOMOReward.FOMOWinners fOMOWinners; // FOMO奖励
-    //     // LuckyReward luckyReward; // 幸运奖励
-    //     // FaithReward faithReward; // 信仰奖励
-    //     // uint256 lockedBlockNum; // 幸运奖励锁定区块
-    // }
-
-    // struct Reward{
-    FOMOReward FOMORewardInstance; // FOMO奖励
+    FissionReward fissionRewardInstance;
+    FOMOReward FOMORewardInstance;
     LuckyReward luckyRewardInstance;
     FaithReward faithRewardInstance;
-    // }
 
     // 每一轮
     struct Step{
         mapping(address => Funder) funders;// 裂变者
-        mapping(address => Affman) affmans; // 推广者
+        // mapping(address => Affman) affmans; // 推广者
         Building building; // 当前轮次组建期
         Funding funding; // 当前轮次募资期
-        Affman[] affmanArray; // 当前轮次的所有推广者
+        // Affman[] affmanArray; // 当前轮次的所有推广者
         uint256 upperLimit; // 金额上限
         uint256 softCap; // 软顶
         uint256 hardCap; // 硬顶
@@ -226,7 +194,7 @@ contract Resonance is Ownable{
         address _promoter
     )
         public
-        crowdsaleRunning()
+        crowdsaleIsRunning()
         isBuildingPeriod()
     {
         require(_promoter != address(0), "推广者不能是空地址");
@@ -242,7 +210,7 @@ contract Resonance is Ownable{
         // 5个给推广者
         abcToken.transfer(address(_promoter), UintUtils.toWei(5));
 
-        _addAffman(_promoter);
+        // _addAffman(_promoter);
 
         // 成为共建者
         _addBuilder(_promoter);
@@ -255,7 +223,7 @@ contract Resonance is Ownable{
         uint256 _tokenAmount
     )
         public
-        crowdsaleRunning()
+        crowdsaleIsRunning()
         isBuildingPeriod()
         isBuilder()
     {
@@ -271,7 +239,7 @@ contract Resonance is Ownable{
     function ()
         external
         payable
-        crowdsaleRunning()
+        crowdsaleIsRunning()
         isFundingPeriod()
     {
         uint amount = msg.value;
@@ -366,7 +334,7 @@ contract Resonance is Ownable{
     // 查询当前轮次组建期开放多少token，募资期已经募得的ETH
     function getCurrentStepFundsInfo()
         public
-        crowdsaleRunning()
+        crowdsaleIsRunning()
     {
         emit FundsInfo(steps[currentStep].building.tokenAmount, steps[currentStep].funding.raisedETH);
     }
@@ -374,7 +342,7 @@ contract Resonance is Ownable{
     // 查询组建期信息
     function getBuildingPerioInfo()
         public
-        crowdsaleRunning()
+        crowdsaleIsRunning()
         isBuildingPeriod()
     {
         uint256 _bpCountdown;
@@ -392,7 +360,7 @@ contract Resonance is Ownable{
     // 查询募资期信息
     function getFundingPeriodInfo()
         public
-        crowdsaleRunning()
+        crowdsaleIsRunning()
         isFundingPeriod()
     {
         uint256 _fpCountdown;
@@ -447,27 +415,27 @@ contract Resonance is Ownable{
 
     /// @notice 添加推广者
     /// @param _promoter msg.sender的推广者
-    function _addAffman(address _promoter) internal {
+    // function _addAffman(address _promoter) internal {
 
-        if(_promoter != initialFissionPerson) {
-            steps[currentStep].affmans[_promoter].affIncome += UintUtils.toWei(5);
-            steps[currentStep].affmans[_promoter].promoterAddr = _promoter;
+    //     if(_promoter != initialFissionPerson) {
+    //         steps[currentStep].affmanArray[currentStep]._promoter.affIncome += UintUtils.toWei(5);
+    //         steps[currentStep].affmans[_promoter].promoterAddr = _promoter;
 
-            if(steps[currentStep].affmanArray.length == 0){
-                steps[currentStep].affmanArray.push(steps[currentStep].affmans[_promoter]);
-            } else {
-                for(uint i = 0; i < steps[currentStep].affmanArray.length; i++){
-                    if(steps[currentStep].affmanArray[i].promoterAddr == _promoter){
-                        steps[currentStep].affmanArray[i].affIncome += 5;
-                    }else{
-                        steps[currentStep].affmanArray.push(steps[currentStep].affmans[_promoter]);
-                    }
-                }
-            }
-        }else{
-            return;
-        }
-    }
+    //         if(steps[currentStep].affmanArray.length == 0){
+    //             steps[currentStep].affmanArray.push(steps[currentStep].affmans[_promoter]);
+    //         } else {
+    //             for(uint i = 0; i < steps[currentStep].affmanArray.length; i++){
+    //                 if(steps[currentStep].affmanArray[i].promoterAddr == _promoter){
+    //                     steps[currentStep].affmanArray[i].affIncome += 5;
+    //                 }else{
+    //                     steps[currentStep].affmanArray.push(steps[currentStep].affmans[_promoter]);
+    //                 }
+    //             }
+    //         }
+    //     }else{
+    //         return;
+    //     }
+    // }
 
     /// @notice 添加共建者
     /// @param _promoter msg.sender的推广者
@@ -543,13 +511,13 @@ contract Resonance is Ownable{
 
     // 排序
     // TODO:在共建期结束的时候就应该调用这个方法排序了
-    function _FissionRank()
-        public
-        isFundingPeriod()
-    {
-        require(steps[currentStep].affmanArray.length != 0, "数组为空");
-        _quickSort(steps[currentStep].affmanArray, 0, steps[currentStep].affmanArray.length - 1);
-    }
+    // function _FissionRank()
+    //     public
+    //     isFundingPeriod()
+    // {
+    //     require(steps[currentStep].affmanArray.length != 0, "数组为空");
+    //     _quickSort(steps[currentStep].affmanArray, 0, steps[currentStep].affmanArray.length - 1);
+    // }
 
     // 验证该回合的奖励总金额是否正确
     // function _totalRewardIsRight(uint _stepIndex) internal view returns(bool){

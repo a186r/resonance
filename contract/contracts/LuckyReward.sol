@@ -65,7 +65,7 @@ contract LuckyReward{
         // 获取下一个区块的区块Hash
         bytes32 nextBlockhash = blockhash(_lockedBlockNum + 1);
 
-        // 比较
+        // 比较,找出幸运者
         for(uint i = 0; i < _funders.length; i++){
             if(StringUtils.compareString(getLastFromAddress(_funders[i]), getLastFromBlockHash(nextBlockhash))) {
                 luckyAddress[_stepIndex].push(_funders[i]);
@@ -75,9 +75,12 @@ contract LuckyReward{
         // 计算人均奖金
         luckyRewards[_stepIndex] = _totalLyckyReward.div(luckyAddress[_stepIndex].length);
 
-        luckyRewardAmount[_stepIndex][msg.sender] = luckyRewards[_stepIndex];
+        for(uint i = 0; i < luckyAddress[_stepIndex].length; i++){
+            luckyRewardAmount[_stepIndex][luckyAddress[_stepIndex][i]] = luckyRewards[_stepIndex];
 
-        luckyFunderTotalBalance[msg.sender] += luckyRewards[_stepIndex];
+            // 累加奖金余额
+            luckyFunderTotalBalance[luckyAddress[_stepIndex][i]] += luckyRewardAmount[_stepIndex][luckyAddress[_stepIndex][i]];
+        }
 
         currentStepHasFinished[_stepIndex] = true;
     }

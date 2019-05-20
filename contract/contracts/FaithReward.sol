@@ -56,7 +56,7 @@ contract FaithReward{
 
             faithRewardAmount[_stepIndex][_faithWinners[i]] = faithRewards[_stepIndex][i];
             // 保存用户信仰奖金总余额
-            faithFunderTotalBalance[_faithWinners[i]] += faithRewards[_stepIndex][i];
+            faithFunderTotalBalance[_faithWinners[i]] += faithRewardAmount[_stepIndex][_faithWinners[i]];
 
         }
 
