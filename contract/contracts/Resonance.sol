@@ -212,10 +212,10 @@ contract Resonance is Ownable{
         // 5个给推广者
         abcToken.transfer(address(_promoter), UintUtils.toWei(5));
 
-        // _addAffman(_promoter);
-
         // 成为共建者
         _addBuilder(_promoter);
+
+        fissionRewardInstance.addAffman(currentStep, _promoter, initialFissionPerson);
 
         emit ToBeFissionPerson(msg.sender, _promoter);
     }
@@ -410,30 +410,6 @@ contract Resonance is Ownable{
     {
         faithRewardInstance.getFaithWinnerInfo(_stepIndex);
     }
-
-    /// @notice 添加推广者
-    /// @param _promoter msg.sender的推广者
-    // function _addAffman(address _promoter) internal {
-
-    //     if(_promoter != initialFissionPerson) {
-    //         steps[currentStep].affmanArray[currentStep]._promoter.affIncome += UintUtils.toWei(5);
-    //         steps[currentStep].affmans[_promoter].promoterAddr = _promoter;
-
-    //         if(steps[currentStep].affmanArray.length == 0){
-    //             steps[currentStep].affmanArray.push(steps[currentStep].affmans[_promoter]);
-    //         } else {
-    //             for(uint i = 0; i < steps[currentStep].affmanArray.length; i++){
-    //                 if(steps[currentStep].affmanArray[i].promoterAddr == _promoter){
-    //                     steps[currentStep].affmanArray[i].affIncome += 5;
-    //                 }else{
-    //                     steps[currentStep].affmanArray.push(steps[currentStep].affmans[_promoter]);
-    //                 }
-    //             }
-    //         }
-    //     }else{
-    //         return;
-    //     }
-    // }
 
     /// @notice 添加共建者
     /// @param _promoter msg.sender的推广者
