@@ -30,6 +30,8 @@ contract Resonance is Ownable{
 
     event WithdrawAllETH(address funder, uint256 ETHAmount);
 
+    event FunderInfo(uint256[] FunderInfoArray);
+
     // 达到软顶
     modifier softCapReached(){
         require(steps[currentStep].funding.raisedETH >= steps[currentStep].softCap, "已达到本轮软顶");
@@ -97,6 +99,8 @@ contract Resonance is Ownable{
         address funderAddr; // 地址
         uint256 tokenAmount; // 共建期已打入的token数量
         uint256 ethAmount; // 募资期已打入的eth数量
+        uint256 inviteesNumber; // 我的邀请人数
+        uint256 earnFormAff; // 邀请所得金额
         address promoter; // 推广人
         bool isBuilder; // 是否是组建者/裂变者（参与组建期）
         bool isFunder; // 是否是募资者（参与募资期）
@@ -190,16 +194,16 @@ contract Resonance is Ownable{
     }
 
     /// @notice 成为裂变者，这是参与共建的第一步
-    /// @param _promoter 推广者
+    /// @param promoter 推广者
     /// @dev 在调用这个方法之前，需要用户前往Token合约调用Approve方法，获得授权
     function toBeFissionPerson(
-        address _promoter
+        address promoter
     )
         public
         crowdsaleIsRunning()
         isBuildingPeriod()
     {
-        require(_promoter != address(0), "推广者不能是空地址");
+        require(promoter != address(0), "推广者不能是空地址");
 
         // 检查授权额度
         require(abcToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(8),"授权额度不足");
@@ -210,14 +214,14 @@ contract Resonance is Ownable{
         abcToken.burn(UintUtils.toWei(3));
 
         // 5个给推广者
-        abcToken.transfer(address(_promoter), UintUtils.toWei(5));
+        abcToken.transfer(address(promoter), UintUtils.toWei(5));
 
         // 成为共建者
-        _addBuilder(_promoter);
+        _addBuilder(promoter);
 
-        fissionRewardInstance.addAffman(currentStep, _promoter, initialFissionPerson);
+        fissionRewardInstance.addAffman(currentStep, promoter, initialFissionPerson);
 
-        emit ToBeFissionPerson(msg.sender, _promoter);
+        emit ToBeFissionPerson(msg.sender, promoter);
     }
 
     // 共建（就是向合约转入token的过程）
@@ -411,6 +415,26 @@ contract Resonance is Ownable{
         faithRewardInstance.getFaithWinnerInfo(_stepIndex);
     }
 
+    /// @notice 获取投资者信息（个人中心界面）
+    function getFunderInfo() public {
+        Funder memory funder = steps[currentStep].funders[msg.sender];
+
+        uint256[] memory funderInfo;
+
+        funderInfo[0] = funder.tokenBalance;
+        funderInfo[1] = funder.ETHBalance;
+        funderInfo[2] = funder.inviteesNumber;
+        funderInfo[3] = funder.earnFormAff;
+        funderInfo[4] = funder.tokenAmount;
+        funderInfo[5] = funder.ethAmount;
+        funderInfo[6] = luckyRewardInstance.luckyFunderTotalBalance(msg.sender);
+        funderInfo[7] = fissionRewardInstance.fissionFunderTotalBalance(msg.sender);
+        funderInfo[8] = FOMORewardInstance.FOMOFunderTotalBalance(msg.sender);
+        funderInfo[9] = faithRewardInstance.faithFunderTotalBalance(msg.sender);
+
+        emit FunderInfo(funderInfo);
+    }
+
     /// @notice 添加共建者
     /// @param _promoter msg.sender的推广者
     function _addBuilder(address _promoter) internal {
@@ -431,114 +455,24 @@ contract Resonance is Ownable{
         beneficiary.transfer(steps[currentStep].funding.raisedETH.mul(60).div(100));
     }
 
-    // 裂变奖励
-    // 新的一轮开始后再结算上一轮
-    // TODO:一定要注意防止结算多次的情况
-    // TODO:为了安全考虑，强制结算 currentStep-1 轮，再之前的轮次不允许结算
-    function _dealFissionReward()
-        internal
-        returns(bool)
-    {
-        // // 第一轮结束之后才能开始结算奖励
-        // require(currentStep >= 1, "第一轮还未结束");
-
-        // require(currentStep-1 < currentStep, "输入的轮次不正确");
-        // // 要结算的轮次已经结束
-        // require(steps[currentStep-1].stepIsClosed, "该轮次尚未结束");
-        // // 第 currentStep-1 轮尚未结算
-        // require(!steps[currentStep].reward.fissionReward.hasFinished, "该轮次奖励已经发放完毕");
-
-        // // 20%的ETH用于裂变奖励
-        // uint256 totalFissionRewardAmount = UintUtils.toWei(steps[currentStep-1].funding.raisedETH).mul(20).div(100);
-
-        // uint256[] memory fissionRewardAmount = steps[currentStep].reward.fissionReward.fissionRewardAmount;
-
-        // address[] memory fissionRewardList = steps[currentStep].reward.fissionReward.fissionRewardList;
-
-        // // TODO:裂变奖励奖励的是前50个幸运儿，要考虑不足50个的情况
-        // for(uint8 i = 0; i <= steps[currentStep].reward.fissionReward.fissionRewardAmount.length; i++) {
-
-        //     steps[currentStep].reward.fissionReward.fissionRewardList[i] = (steps[currentStep-1].affmanArray[i].promoterAddr);
-
-        //     if (i == 0) { //第1名奖励
-        //         fissionRewardAmount[i] = (totalFissionRewardAmount.mul(20).div(1000));
-        //     } else if (i >= 1 && i <= 2) { // 第2、3名奖励
-        //         fissionRewardAmount[i] = (totalFissionRewardAmount.mul(15).div(1000));
-        //     } else if (i >= 3 && i <= 5) {
-        //         fissionRewardAmount[i] = (totalFissionRewardAmount.mul(10).div(1000));
-        //     } else if (i >= 6 && i <= 9) {
-        //         fissionRewardAmount[i] = (totalFissionRewardAmount.mul(5).div(1000));
-        //     } else {
-        //         fissionRewardAmount[i] = (totalFissionRewardAmount.mul(10).div(1000).div(40));
-        //     }
-
-        //     // 设置余额
-        //     steps[currentStep].reward.fissionReward.rewardBalance[fissionRewardList[i]] = fissionRewardAmount[i];
-
-        // }
-
-        // // 开始转账之前验证奖励总金额是否正确
-        // require(_totalRewardIsRight(currentStep-1), "奖励金额有问题，拒绝转账");
-
-        return true;
-    }
-
-    // 排序
-    // TODO:在共建期结束的时候就应该调用这个方法排序了
-    // function _FissionRank()
-    //     public
-    //     isFundingPeriod()
-    // {
-    //     require(steps[currentStep].affmanArray.length != 0, "数组为空");
-    //     _quickSort(steps[currentStep].affmanArray, 0, steps[currentStep].affmanArray.length - 1);
-    // }
-
-    // 验证该回合的奖励总金额是否正确
-    // function _totalRewardIsRight(uint _stepIndex) internal view returns(bool){
-        // // 遍历求和
-        // uint256 totalReward;
-
-        // for(uint i = 0;i < steps[currentStep].reward.fissionReward.fissionRewardAmount.length; i++){
-        //     totalReward += steps[currentStep].reward.fissionReward.fissionRewardAmount[i];
-        // }
-
-        // return (totalReward == UintUtils.toWei(steps[_stepIndex].funding.raisedETH).mul(20).div(100));
-    // }
-
-    // 分配裂变奖励的时候提供批量转账的方法
-    // TODO:放弃批量转账，提供用户自行withdraw的方法
-    // function _batchTransfer()
-    //     public
-    //     payable
-    // {
-    //     for(uint8 i = 0; i < steps[currentStep-1].reward.fissionReward.fissionRewardList.length; i++){
-    //         // 将地址转换为应付地址然后再转账
-    //         address(uint160(steps[currentStep-1].reward.fissionReward.fissionRewardList[i])).
-    //         transfer(steps[currentStep-1].reward.fissionReward.fissionRewardAmount[i]);
-    //     }
-
-    //     // 批量转账之后将该轮次的裂变奖励设置为已结束
-    //     steps[currentStep-1].fissionRewardIsFinished = true;
-    // }
-
     // TODO:快排
-    function _quickSort(Affman[] storage arr, uint left, uint right) internal {
-        uint i = left;
-        uint j = right;
-        uint pivot = arr[left + (right - left) / 2].affIncome;
-        while (i <= j) {
-            while (arr[i].affIncome < pivot) i++;
-            while (pivot < arr[j].affIncome) j--;
-            if (i <= j) {
-                (arr[i], arr[j]) = (arr[j], arr[i]);
-                i++;
-                j--;
-            }
-        }
-        if (left < j)
-            _quickSort(arr, left, j);
-        if (i < right)
-            _quickSort(arr, i, right);
-    }
+    // function _quickSort(Affman[] storage arr, uint left, uint right) internal {
+    //     uint i = left;
+    //     uint j = right;
+    //     uint pivot = arr[left + (right - left) / 2].affIncome;
+    //     while (i <= j) {
+    //         while (arr[i].affIncome < pivot) i++;
+    //         while (pivot < arr[j].affIncome) j--;
+    //         if (i <= j) {
+    //             (arr[i], arr[j]) = (arr[j], arr[i]);
+    //             i++;
+    //             j--;
+    //         }
+    //     }
+    //     if (left < j)
+    //         _quickSort(arr, left, j);
+    //     if (i < right)
+    //         _quickSort(arr, i, right);
+    // }
 
 }
