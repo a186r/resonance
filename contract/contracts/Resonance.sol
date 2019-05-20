@@ -124,17 +124,6 @@ contract Resonance is Ownable{
         uint256 raisedETH; // 募资期已经募集到的ETH数量
     }
 
-    // 奖励数据结构体
-    // 奖励数据通过两个数组和一个mapping返回，前端更好操作
-    // 两个数组：获奖者数组+获奖奖金数组；一个mapping：mapping(address => uint256) rewards; 地址和奖金的映射关系
-    // 使用数组来存储变量吧
-    // struct FissionReward{
-    //     address[] fissionRewardList; // 裂变奖励获奖列表
-    //     uint256[] fissionRewardAmount; // 裂变奖励奖金列表
-    //     mapping(address => uint256) rewardBalance; // 获奖者对应的裂变奖金余额
-    //     bool hasFinished; // 裂变奖励分配结束
-    // }
-
     FissionReward fissionRewardInstance;
     FOMOReward FOMORewardInstance;
     LuckyReward luckyRewardInstance;
@@ -143,10 +132,8 @@ contract Resonance is Ownable{
     // 每一轮
     struct Step{
         mapping(address => Funder) funders;// 裂变者
-        // mapping(address => Affman) affmans; // 推广者
         Building building; // 当前轮次组建期
         Funding funding; // 当前轮次募资期
-        // Affman[] affmanArray; // 当前轮次的所有推广者
         uint256 upperLimit; // 金额上限
         uint256 softCap; // 软顶
         uint256 hardCap; // 硬顶
@@ -254,6 +241,16 @@ contract Resonance is Ownable{
         steps[currentStep].funding.raisedETH += amount;
     }
 
+    // 轮次结算
+    function SettlementStep() 
+        public
+    {
+
+        // 判断是否当前轮次是否已经达到结算条件
+        // 结算奖励
+
+    }
+
     // 判断共振是否结束
     // 共振结束有两个条件
     // 1. 如果当前轮次没有达到软顶 2.共振资金池消耗完毕
@@ -288,7 +285,7 @@ contract Resonance is Ownable{
         abcToken.transfer(owner(), UintUtils.toWei(fundsPool));
     }
 
-    /// @notice 分配奖励
+    /// @notice TODO:分配奖励
     /// @dev 每一轮次结束之后调用此方法分配奖励
     // 结算奖励，当前轮次结束之后，要结算当前轮次各奖励
     // 计算出每个奖励的用户奖金余额
@@ -298,6 +295,9 @@ contract Resonance is Ownable{
         // 结算裂变奖励
         // 结算其实就是两个数组，一个获奖者数组，一个奖励金额数组，提币限额放上去就可以了
         // _settlementFissionReward();
+        // _settlementFOMOReward();
+        // _settlementLuckyReward();
+        // _settlementFaithReward();
     }
 
     /// @notice funder提取自己获奖所得的所有ETH
@@ -316,28 +316,34 @@ contract Resonance is Ownable{
         emit WithdrawAllETH(msg.sender, steps[currentStep].funders[msg.sender].ETHBalance);
     }
 
-    // address[] fissionRewardList; // 裂变奖励获奖列表
-    // uint256[] fissionRewardAmount; // 裂变奖励奖金列表
     // 分配裂变奖励奖金
-    function _settlementFissionReward(address[] memory _fissionRewardList, uint256[] memory fissionRewardAmount) internal {
-
+    function _settlementFissionReward(uint256 _stepIndex, address[] memory _fissionRewardList, uint256 totalFissionReward) internal {
+        fissionRewardInstance.dealFissionInfo(_stepIndex, _fissionRewardList, totalFissionReward);
     }
 
-    // 分配FOMO奖励奖金
-    function _settlementFOMOReward(uint _stepIndex) internal {
-        msg.sender.transfer(FOMORewardInstance.FOMORewardAmount(_stepIndex, msg.sender));
+    // 分配FOMO奖励奖励金
+    function _settlementFOMOReward(uint256 _stepIndex, address[] memory _funders, uint256 _totalFOMOReward) internal {
+        FOMORewardInstance.dealFOMOWinner(_stepIndex, _funders, _totalFOMOReward);
     }
 
-    // 分配奖励提币
-    // _dealFissionReward()
+    // 分配幸运奖励奖励金
+    function _settlementLuckyReward(uint256 _stepIndex, address[] memory _funders, uint256 _totalLyckyReward, uint256 _lockedBlockNum) internal {
+        luckyRewardInstance.dealLuckyInfo(_stepIndex, _funders, _totalLyckyReward, _lockedBlockNum);
+    }
+
+    // 分配信仰奖励奖励金
+    function _settlementFaithReward(uint256 _stepIndex, address[10] memory _faithWinners, uint256 _totalFaithReward) internal {
+        faithRewardInstance.dealFaithWinner(_stepIndex, _faithWinners, _totalFaithReward);
+    }
+
+    /// @notice 提币
     function withdrawMyReward()
         public
     {
         msg.sender.transfer(0);
     }
 
-
-    // 查询当前轮次组建期开放多少token，募资期已经募得的ETH
+    /// @notice 查询当前轮次组建期开放多少token，募资期已经募得的ETH
     function getCurrentStepFundsInfo()
         public
         crowdsaleIsRunning()
@@ -345,7 +351,7 @@ contract Resonance is Ownable{
         emit FundsInfo(steps[currentStep].building.tokenAmount, steps[currentStep].funding.raisedETH);
     }
 
-    // 查询组建期信息
+    /// @notice 查询组建期信息
     function getBuildingPerioInfo()
         public
         crowdsaleIsRunning()
