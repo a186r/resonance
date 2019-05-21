@@ -39,7 +39,6 @@ export default {
     return {
       currentLanguage: '中文简体',
       account: ethereum.selectedAddress || '登录 metamask',
-      
     }
   },
   components: {
@@ -62,7 +61,6 @@ export default {
           await ethereum.enable();
           self.account = ethereum.selectedAddress
         } catch (error) {
-          // User denied account access...
           self.$alert('您拒绝了授权使用 MetaMask', '提示', {
             confirmButtonText: '确定',
           })
@@ -86,6 +84,7 @@ export default {
         })
         return
       }
+      store.state.account = self.account
     }
   },
   created () {
