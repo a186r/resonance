@@ -33,6 +33,8 @@
 <script>
 import Web3 from "web3"
 import store from './store'
+import ResonanceJson from '../../contract/build/contracts/Resonance.json'
+
 export default {
   name: 'app',
   data () {
@@ -51,6 +53,13 @@ export default {
       } else if (command === 'en') {
         this.currentLanguage = 'English'
       }
+    },
+    async initContract() {
+      const contract = await new web3.eth.Contract(
+        ResonanceJson.abi,
+        ResonanceJson["networks"][web3.currentProvider.connection.networkVersion].address
+      )
+      return contract
     },
     async unlockMetaMask() {
       const self = this
@@ -87,8 +96,14 @@ export default {
       store.state.account = self.account
     }
   },
-  created () {
-    this.unlockMetaMask()
+  async created () {
+    await this.unlockMetaMask()
+    const contract = await this.initContract()
+    window.contract = contract
+    store.dispatch('getCurrentStepFundsInfo', contract)
+    store.dispatch('getBuildingPeriodInfo', contract)
+    store.dispatch('getFundingPeriodInfo', contract)
+    store.dispatch('getFunderInfo', contract)
   }
 }
 </script>
