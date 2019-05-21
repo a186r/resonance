@@ -36,7 +36,7 @@ contract FaithReward{
     // _faithWinners 信仰者名单
     function dealFaithWinner(
         uint256 _stepIndex,
-        address[10] memory _faithWinners,
+        address[] memory _faithWinners,
         uint256 _totalFaithReward
     )
         public

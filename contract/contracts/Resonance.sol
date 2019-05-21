@@ -27,10 +27,10 @@ contract Resonance is Ownable{
     event FOMORewardInfo(address[] FOMORewardList, uint256[] FOMORewards);
     event LuckyRewardInfo(address[] luckyRewardList, uint256 luckyReward);
     event FaithRewardInfo(address[] faithRewardList, uint256[] faithRewardAmount);
-
     event WithdrawAllETH(address funder, uint256 ETHAmount);
-
     event FunderInfo(uint256[] FunderInfoArray);
+    event CurrentStepFunders(address[] funderAddress, uint256[] funderTokenAmount);
+    event SettlementStep(uint256 stepIndex);
 
     // 达到软顶
     modifier softCapReached(){
@@ -58,13 +58,13 @@ contract Resonance is Ownable{
 
     // 是否是组建者
     modifier isBuilder() {
-        require(steps[currentStep].funders[msg.sender].isBuilder, "调用者不是组建者/裂变者，没有权限");
+        require(steps[currentStep].funder[msg.sender].isBuilder, "调用者不是组建者/裂变者，没有权限");
         _;
     }
 
     // 是否是募资者
     modifier isFunder() {
-        require(steps[currentStep].funders[msg.sender].isFunder, "调用者不是募资者，没有权限");
+        require(steps[currentStep].funder[msg.sender].isFunder, "调用者不是募资者，没有权限");
         _;
     }
 
@@ -88,16 +88,10 @@ contract Resonance is Ownable{
 
     bool crowdsaleClosed = false;   //  共振是否结束
 
-    // 推广者 affman
-    struct Affman{
-        address promoterAddr; // 推广者地址
-        uint256 affIncome; // 推广所得
-    }
-
     // 投资者结构体
     struct Funder{
         address funderAddr; // 地址
-        uint256 tokenAmount; // 共建期已打入的token数量
+        uint256 tokenAmount; // 组建期已打入的token数量
         uint256 ethAmount; // 募资期已打入的eth数量
         uint256 inviteesNumber; // 我的邀请人数
         uint256 earnFormAff; // 邀请所得金额
@@ -131,13 +125,15 @@ contract Resonance is Ownable{
 
     // 每一轮
     struct Step{
-        mapping(address => Funder) funders;// 裂变者
+        mapping(address => Funder) funder;// 裂变者
+        address[] funders;
         Building building; // 当前轮次组建期
         Funding funding; // 当前轮次募资期
         uint256 upperLimit; // 金额上限
         uint256 softCap; // 软顶
         uint256 hardCap; // 硬顶
         uint256 rate; // 费率
+        bool settlementFinished; // 当前轮次奖励是否结算完成
         bool stepIsClosed; // 当前轮次是否结束
     }
 
@@ -206,6 +202,9 @@ contract Resonance is Ownable{
         // 成为共建者
         _addBuilder(promoter);
 
+        // 加入funder中
+        steps[currentStep].funders.push(msg.sender);
+
         fissionRewardInstance.addAffman(currentStep, promoter, initialFissionPerson);
 
         emit ToBeFissionPerson(msg.sender, promoter);
@@ -220,11 +219,15 @@ contract Resonance is Ownable{
         isBuildingPeriod()
         isBuilder()
     {
+        // TODO:转入额度不能超过限额
+        // require(steps[currentStep].funder[msg.sender].tokenAmount >= xiane, "共建额度已超过限额，不能继续转入");
+
         // 检查授权额度
         require(abcToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(_tokenAmount),"授权额度不足");
+
         // 转入合约
         require(abcToken.transferFrom(msg.sender,address(this), UintUtils.toWei(_tokenAmount)),"转移token到合约失败");
-        steps[currentStep].funders[msg.sender].tokenAmount = UintUtils.toWei(_tokenAmount);
+        steps[currentStep].funder[msg.sender].tokenAmount += UintUtils.toWei(_tokenAmount);
     }
 
     // 募资
@@ -236,19 +239,28 @@ contract Resonance is Ownable{
         isFundingPeriod()
     {
         uint amount = msg.value;
-        steps[currentStep].funders[msg.sender].ethAmount = amount;
-        steps[currentStep].funders[msg.sender].isFunder = true;
+        steps[currentStep].funder[msg.sender].ethAmount = amount;
+        steps[currentStep].funder[msg.sender].isFunder = true;
         steps[currentStep].funding.raisedETH += amount;
     }
 
-    // 轮次结算
-    function SettlementStep() 
+    /// @notice 轮次结算
+    /// @dev 募资期结束之后结算当前轮次的奖励和其他资金，然后进入下一轮
+    /// @param _fissionWinnerList 裂变奖励获奖列表
+    /// @param _LuckyWinnerList 幸运奖励获奖列表
+    /// @param _FaithWinnerList 信仰奖励获奖列表
+    function SettlementStep(
+        address[] memory _fissionWinnerList,
+        address[] memory _LuckyWinnerList,
+        address[] memory _FaithWinnerList
+    )
         public
+        onlyOwner()
     {
-
         // 判断是否当前轮次是否已经达到结算条件
+        require(!crowdsaleClosed, "募资已经结束");
         // 结算奖励
-
+        _settlementReward(_fissionWinnerList, _LuckyWinnerList, _FaithWinnerList);
     }
 
     // 判断共振是否结束
@@ -289,51 +301,72 @@ contract Resonance is Ownable{
     /// @dev 每一轮次结束之后调用此方法分配奖励
     // 结算奖励，当前轮次结束之后，要结算当前轮次各奖励
     // 计算出每个奖励的用户奖金余额
-    function settlementReward()
-        public
+    function _settlementReward(
+        address[] memory _fissionWinnerList,
+        address[] memory _LuckyWinnerList,
+        address[] memory _FaithWinnerList
+    )
+        internal
+        onlyOwner()
     {
+        require(!steps[currentStep].settlementFinished, "当前轮次已经结算完毕");
+        require(!steps[currentStep].stepIsClosed, "当前轮次早已经结束");
+
+        uint256 totalFissionReward = UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(20).div(100));
+        uint256 totalFOMOReward = UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(10).div(100));
+        uint256 totalLuckyReward = UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(5).div(100));
+        uint256 totalFaithReward = UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(5).div(100));
+
         // 结算裂变奖励
         // 结算其实就是两个数组，一个获奖者数组，一个奖励金额数组，提币限额放上去就可以了
-        // _settlementFissionReward();
-        // _settlementFOMOReward();
-        // _settlementLuckyReward();
-        // _settlementFaithReward();
+        _settlementFissionReward(_fissionWinnerList, totalFissionReward);
+        _settlementFOMOReward(steps[currentStep].funders, totalFOMOReward);
+        _settlementLuckyReward(_LuckyWinnerList, totalLuckyReward);
+        _settlementFaithReward(_FaithWinnerList, totalFaithReward);
+
+        steps[currentStep].settlementFinished = true;
+        // 奖励结算完之后当前轮次才算结束
+        steps[currentStep].stepIsClosed = true;
+
+        _crowdsaleIsClosed();
+
+        currentStep++;
     }
 
     /// @notice funder提取自己获奖所得的所有ETH
     /// @dev 提取用户账户中所有的ETH
-    function withdrawAllETH() public payable{
-        require(!steps[currentStep].funders[msg.sender].ETHHasWithdrawn, "已经提币完成");
+    function withdrawAllETH() public payable {
+        require(!steps[currentStep].funder[msg.sender].ETHHasWithdrawn, "已经提币完成");
 
         uint256 amountOfFOMO = FOMORewardInstance.FOMORewardAmount(currentStep, msg.sender);
         uint256 amountOfLucky = luckyRewardInstance.luckyRewardAmount(currentStep, msg.sender);
         uint256 amountOfFaith = faithRewardInstance.faithRewardAmount(currentStep, msg.sender);
 
-        steps[currentStep].funders[msg.sender].ETHBalance = amountOfFOMO.add(amountOfLucky).add(amountOfFaith);
-        steps[currentStep].funders[msg.sender].ETHHasWithdrawn = true;
-        msg.sender.transfer(steps[currentStep].funders[msg.sender].ETHBalance);
+        steps[currentStep].funder[msg.sender].ETHBalance = amountOfFOMO.add(amountOfLucky).add(amountOfFaith);
+        steps[currentStep].funder[msg.sender].ETHHasWithdrawn = true;
+        msg.sender.transfer(steps[currentStep].funder[msg.sender].ETHBalance);
 
-        emit WithdrawAllETH(msg.sender, steps[currentStep].funders[msg.sender].ETHBalance);
+        emit WithdrawAllETH(msg.sender, steps[currentStep].funder[msg.sender].ETHBalance);
     }
 
     // 分配裂变奖励奖金
-    function _settlementFissionReward(uint256 _stepIndex, address[] memory _fissionRewardList, uint256 totalFissionReward) internal {
-        fissionRewardInstance.dealFissionInfo(_stepIndex, _fissionRewardList, totalFissionReward);
+    function _settlementFissionReward(address[] memory _fissionWinnerList, uint256 _totalFissionReward) internal {
+        fissionRewardInstance.dealFissionInfo(currentStep, _fissionWinnerList, _totalFissionReward);
     }
 
     // 分配FOMO奖励奖励金
-    function _settlementFOMOReward(uint256 _stepIndex, address[] memory _funders, uint256 _totalFOMOReward) internal {
-        FOMORewardInstance.dealFOMOWinner(_stepIndex, _funders, _totalFOMOReward);
+    function _settlementFOMOReward(address[] memory _funders, uint256 _totalFOMOReward) internal {
+        FOMORewardInstance.dealFOMOWinner(currentStep, _funders, _totalFOMOReward);
     }
 
     // 分配幸运奖励奖励金
-    function _settlementLuckyReward(uint256 _stepIndex, address[] memory _funders, uint256 _totalLyckyReward, uint256 _lockedBlockNum) internal {
-        luckyRewardInstance.dealLuckyInfo(_stepIndex, _funders, _totalLyckyReward, _lockedBlockNum);
+    function _settlementLuckyReward(address[] memory _LuckyWinnerList, uint256 _totalLyckyReward) internal {
+        luckyRewardInstance.dealLuckyInfo(currentStep, _LuckyWinnerList, _totalLyckyReward);
     }
 
     // 分配信仰奖励奖励金
-    function _settlementFaithReward(uint256 _stepIndex, address[10] memory _faithWinners, uint256 _totalFaithReward) internal {
-        faithRewardInstance.dealFaithWinner(_stepIndex, _faithWinners, _totalFaithReward);
+    function _settlementFaithReward(address[] memory _faithWinners, uint256 _totalFaithReward) internal {
+        faithRewardInstance.dealFaithWinner(currentStep, _faithWinners, _totalFaithReward);
     }
 
     /// @notice 提币
@@ -341,6 +374,20 @@ contract Resonance is Ownable{
         public
     {
         msg.sender.transfer(0);
+    }
+
+    /// @notice 查询某轮次funders(投资者)列表和对应的投入的token列表
+    function getCurrentStepFunders(uint256 _stepIndex) public {
+        address[] memory funderAddress;
+        uint256[] memory funderToken;
+
+        funderAddress = steps[currentStep].funders;
+
+        for(uint i = 0 ; i < funderAddress.length; i++){
+            funderToken[i] = steps[currentStep].funder[funderAddress[i]].tokenAmount;
+        }
+
+        emit CurrentStepFunders(funderAddress, funderToken);
     }
 
     /// @notice 查询当前轮次组建期开放多少token，募资期已经募得的ETH
@@ -423,7 +470,7 @@ contract Resonance is Ownable{
 
     /// @notice 获取投资者信息（个人中心界面）
     function getFunderInfo() public {
-        Funder memory funder = steps[currentStep].funders[msg.sender];
+        Funder memory funder = steps[currentStep].funder[msg.sender];
 
         uint256[] memory funderInfo;
 
@@ -445,9 +492,9 @@ contract Resonance is Ownable{
     /// @param _promoter msg.sender的推广者
     function _addBuilder(address _promoter) internal {
         // 成为共建者
-        steps[currentStep].funders[msg.sender].funderAddr = msg.sender;
-        steps[currentStep].funders[msg.sender].promoter = _promoter;
-        steps[currentStep].funders[msg.sender].isBuilder = true;
+        steps[currentStep].funder[msg.sender].funderAddr = msg.sender;
+        steps[currentStep].funder[msg.sender].promoter = _promoter;
+        steps[currentStep].funder[msg.sender].isBuilder = true;
     }
 
     // 收款方
@@ -460,25 +507,5 @@ contract Resonance is Ownable{
         // 只能转走全部金额的60%
         beneficiary.transfer(steps[currentStep].funding.raisedETH.mul(60).div(100));
     }
-
-    // TODO:快排
-    // function _quickSort(Affman[] storage arr, uint left, uint right) internal {
-    //     uint i = left;
-    //     uint j = right;
-    //     uint pivot = arr[left + (right - left) / 2].affIncome;
-    //     while (i <= j) {
-    //         while (arr[i].affIncome < pivot) i++;
-    //         while (pivot < arr[j].affIncome) j--;
-    //         if (i <= j) {
-    //             (arr[i], arr[j]) = (arr[j], arr[i]);
-    //             i++;
-    //             j--;
-    //         }
-    //     }
-    //     if (left < j)
-    //         _quickSort(arr, left, j);
-    //     if (i < right)
-    //         _quickSort(arr, i, right);
-    // }
 
 }

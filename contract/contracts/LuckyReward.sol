@@ -15,10 +15,10 @@ contract LuckyReward{
 
     using SafeMath for uint256;
 
-    event LuckyInfo(address[] luckyAddress, uint256 luckyRewards);
+    event LuckyInfo(address[] luckyWinners, uint256 luckyRewards);
 
     // 创建数组用于接收中奖地址
-    mapping(uint256 => address[]) luckyAddress;
+    mapping(uint256 => address[]) luckyWinners;
 
     // 人均奖金
     mapping(uint256 => uint256) luckyRewards;
@@ -37,49 +37,48 @@ contract LuckyReward{
 
     // 获取某轮次幸运者列表和平均获奖金额
     function getLuckyInfo(uint256 _stepIndex) public {
-        emit LuckyInfo(luckyAddress[_stepIndex], luckyRewards[_stepIndex]);
+        emit LuckyInfo(luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
     }
 
     /// @notice 处理信用奖励信息
     function dealLuckyInfo(
         uint256 _stepIndex,
-        address[] memory _funders,
-        uint256 _totalLyckyReward,
-        uint256 _lockedBlockNum
+        address[] memory _luckyWinners,
+        uint256 _totalLyckyReward
     ) public {
         require(!currentStepHasFinished[_stepIndex], "当前轮次的幸运奖励已经计算完成");
-        _dealLuckyInfo(_stepIndex, _funders, _totalLyckyReward, _lockedBlockNum);
+        _dealLuckyInfo(_stepIndex, _luckyWinners, _totalLyckyReward);
     }
 
     // 处理幸运者数据
     function _dealLuckyInfo(
         uint256 _stepIndex,
-        address[] memory _funders,
-        uint256 _totalLyckyReward,
-        uint256 _lockedBlockNum
+        address[] memory _luckyWinners,
+        uint256 _totalLyckyReward
     )
         internal
     {
-        require(block.number >= (_lockedBlockNum + 1), "请等待下一个区块再执行");
+        luckyWinners[_stepIndex] = _luckyWinners;
+        // require(block.number >= (_lockedBlockNum + 1), "请等待下一个区块再执行");
 
         // 获取下一个区块的区块Hash
-        bytes32 nextBlockhash = blockhash(_lockedBlockNum + 1);
+        // bytes32 nextBlockhash = blockhash(_lockedBlockNum + 1);
 
         // 比较,找出幸运者
-        for(uint i = 0; i < _funders.length; i++){
-            if(StringUtils.compareString(getLastFromAddress(_funders[i]), getLastFromBlockHash(nextBlockhash))) {
-                luckyAddress[_stepIndex].push(_funders[i]);
-            }
-        }
+        // for(uint i = 0; i < _luckyWinners.length; i++){
+        //     if(StringUtils.compareString(getLastFromAddress(_luckyWinners[i]), getLastFromBlockHash(nextBlockhash))) {
+        //         luckyWinners[_stepIndex].push(_luckyWinners[i]);
+        //     }
+        // }
 
         // 计算人均奖金
-        luckyRewards[_stepIndex] = _totalLyckyReward.div(luckyAddress[_stepIndex].length);
+        luckyRewards[_stepIndex] = _totalLyckyReward.div(luckyWinners[_stepIndex].length);
 
-        for(uint i = 0; i < luckyAddress[_stepIndex].length; i++){
-            luckyRewardAmount[_stepIndex][luckyAddress[_stepIndex][i]] = luckyRewards[_stepIndex];
+        for(uint i = 0; i < luckyWinners[_stepIndex].length; i++){
+            luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]] = luckyRewards[_stepIndex];
 
             // 累加奖金余额
-            luckyFunderTotalBalance[luckyAddress[_stepIndex][i]] += luckyRewardAmount[_stepIndex][luckyAddress[_stepIndex][i]];
+            luckyFunderTotalBalance[luckyWinners[_stepIndex][i]] += luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]];
         }
 
         currentStepHasFinished[_stepIndex] = true;
