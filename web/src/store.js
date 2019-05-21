@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import { formatEth, ethToWei } from './utils/ethUtils'
+
 
 Vue.use(Vuex)
 
@@ -46,8 +48,41 @@ export default new Vuex.Store({
     async getFundingPeriodInfo({ commit }) {
       commit('GET_OFFER_INFO', {})
     },
-    async getCurrentStepFundsInfo({ commit }) {
+    async getCurrentStepFundsInfo({ commit }, contract) {
+      contract.methods.getCurrentStepFundsInfo().call({}, (err, result) => {
+        console.log(err, formatEth(result), contract.address)
+      })
       commit('GET_CURRENT_STEP_FUNDS_INFO', {})
+    },
+    async depositETH({ commit }, amount) {
+      console.log(window.contract, amount)
+      web3.eth.sendTransaction({
+        from: this.state.account,
+        to: window.contract.address,
+        value: ethToWei(amount)
+      })
+      .then(function(receipt){
+        console.log(receipt)
+      })
+    },
+    async depositCAD({ commit }, amount) {
+      // solidity function name: jointlyBuild
+      console.log(amount)
+      window.contract.methods.jointlyBuild(ethToWei(amount)).send({
+        from: this.state.account,
+      }).then(res => {
+        console.log(res)
+      })
+    },
+    async toBeFissionPerson({ commit }, address) {
+      console.log(address)
+    }, 
+    async withdrawAllETH({ commit }) {
+      window.contract.methods.withdrawAllETH().send({
+        from: this.state.account,
+      }).then(res => {
+          console.log(res)
+        })
     },
     async getRewardList({commit}, params) {
       const url = 'test.com'
