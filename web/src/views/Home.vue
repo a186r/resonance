@@ -42,7 +42,6 @@
 <script>
 import store from '../store'
 import { mapState, mapGetters, mapActions } from 'vuex'
-import { formatEth } from '../utils/ethUtils'
 
 export default {
   name: 'home',
@@ -58,30 +57,9 @@ export default {
     })
   },
   methods: {
-    async getInfo() {
-      const contract = await new web3.eth.Contract(
-        ContractJson.abi,
-        ContractJson["networks"][web3.currentProvider.connection.networkVersion].address
-      )
-      contract.getPastEvents("LogClosedBet", {
-        fromBlock: 4000000
-      })
-      .then(
-        (event) => {
-          console.log(event)
-        })
-      .catch(
-        error => {
-          console.log(error);
-        }
-      )
-      // contract.methods.getCurrentStepFundsInfo().call({}, (err, result) => {
-      //   console.log(err, formatEth(result), contract.address)
-      // })
-    }
+
   },
   mounted() {
-    store.dispatch('getCurrentStepFundsInfo')
   }
 }
 </script>
