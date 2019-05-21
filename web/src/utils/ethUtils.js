@@ -9,7 +9,7 @@ export function oneEthInWei() {
 }
 
 export function ethToWei(inEth) {
-  return inEth * oneEthInWei();
+  return new BigNumber(inEth * oneEthInWei());
 }
 
 export function weiToEth(inWei) {
