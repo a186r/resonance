@@ -31,6 +31,7 @@ contract Resonance is Ownable{
     event FunderInfo(uint256[] FunderInfoArray);
     event CurrentStepFunders(address[] funderAddress, uint256[] funderTokenAmount);
     event SettlementStep(uint256 stepIndex);
+    event StartNextStep(uint256 stepIndex);
 
     // 达到软顶
     modifier softCapReached(){
@@ -126,7 +127,7 @@ contract Resonance is Ownable{
     // 每一轮
     struct Step{
         mapping(address => Funder) funder;// 裂变者
-        address[] funders;
+        address[] funders; // 当前轮次的funders
         Building building; // 当前轮次组建期
         Funding funding; // 当前轮次募资期
         uint256 upperLimit; // 金额上限
@@ -249,18 +250,24 @@ contract Resonance is Ownable{
     /// @param _fissionWinnerList 裂变奖励获奖列表
     /// @param _LuckyWinnerList 幸运奖励获奖列表
     /// @param _FaithWinnerList 信仰奖励获奖列表
-    function SettlementStep(
+    function settlementStep(
         address[] memory _fissionWinnerList,
         address[] memory _LuckyWinnerList,
         address[] memory _FaithWinnerList
     )
         public
         onlyOwner()
+        crowdsaleIsRunning()
     {
         // 判断是否当前轮次是否已经达到结算条件
         require(!crowdsaleClosed, "募资已经结束");
         // 结算奖励
         _settlementReward(_fissionWinnerList, _LuckyWinnerList, _FaithWinnerList);
+
+        emit SettlementStep(currentStep);
+
+        // 进入下一轮
+        _startNextStep();
     }
 
     // 判断共振是否结束
@@ -308,6 +315,7 @@ contract Resonance is Ownable{
     )
         internal
         onlyOwner()
+        crowdsaleIsRunning()
     {
         require(!steps[currentStep].settlementFinished, "当前轮次已经结算完毕");
         require(!steps[currentStep].stepIsClosed, "当前轮次早已经结束");
@@ -324,13 +332,22 @@ contract Resonance is Ownable{
         _settlementLuckyReward(_LuckyWinnerList, totalLuckyReward);
         _settlementFaithReward(_FaithWinnerList, totalFaithReward);
 
+    }
+
+    /// 重置变量，开始下一轮
+    function _startNextStep()
+        internal
+        crowdsaleIsRunning()
+    {
+        // 标记当前step已经结算完成
         steps[currentStep].settlementFinished = true;
-        // 奖励结算完之后当前轮次才算结束
+        // 标记当前轮次已经结束
         steps[currentStep].stepIsClosed = true;
-
+        // 判断共振是否已经结束
         _crowdsaleIsClosed();
-
+        // 进入下一轮
         currentStep++;
+        emit StartNextStep(currentStep);
     }
 
     /// @notice funder提取自己获奖所得的所有ETH
