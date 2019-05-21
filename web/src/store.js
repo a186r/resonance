@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    account: '',
     isMobile: false,
     myDetail: [
       30,
@@ -35,17 +37,29 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getFunderInfo: async ({ commit }) => {
+    async getFunderInfo({ commit }) {
       commit('GET_FUNDER_INFO', [3000, 23])
     },
-    getBuildingPeriodInfo: async ({ commit }) => {
+    async getBuildingPeriodInfo({ commit }) {
       commit('GET_OFFER_INFO', {})
     },
-    getFundingPeriodInfo: async ({ commit }) => {
+    async getFundingPeriodInfo({ commit }) {
       commit('GET_OFFER_INFO', {})
     },
-    getCurrentStepFundsInfo: async ({ commit }) => {
+    async getCurrentStepFundsInfo({ commit }) {
       commit('GET_CURRENT_STEP_FUNDS_INFO', {})
     },
+    async getRewardList({commit}, params) {
+      const url = 'test.com'
+      return await axios.get(url, {params}).then(
+        res => {
+          if (res.data.ok) {
+            const data = res.data.data
+          }
+        }
+      ).catch(err => {
+        console.log(err)
+      })
+    }
   }
 })
