@@ -3,17 +3,23 @@
     <el-row :gutter="40">
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
-          <p>组建期</p>
+          <p>{{buildingText}}</p>
           <countdown :time="offerData.bpCountdown">
             <template slot-scope="props">结束时间倒计时：{{ props.hours }} 时 : {{ props.minutes }} 分 : {{ props.seconds }} 秒</template>
           </countdown>
           <p>可投入剩余CAD数量：{{offerData.remainingToken}}</p>
           <p>当前最大投入：{{offerData.totalTokenAmount}}</p>
-          <div class="deposit-area">
+          <div class="deposit-area" v-if="isBuilder">
             <div class="deposit-area-input">
               <input class="custom-input" v-model="depostCADAmount" placeholder="CAD投入数量" />
             </div>
             <button class="custom-button" @click="depositCAD">投入CAD</button>
+          </div>
+          <div class="deposit-area" v-else>
+            <div class="deposit-area-input">
+              <input class="custom-input" :disabled="!isBuilding" v-model="address" placeholder="推荐者地址" />
+            </div>
+            <button class="custom-button" :disabled="!isBuilding" @click="toBeFissionPerson">成为裂变者</button>
           </div>
         </div>
       </el-col>
@@ -57,8 +63,11 @@ export default {
   name: 'offer',
   data () {
     return {
+      isBuilding: false,
+      buildingText: '组建期',
       depostCADAmount: '',
       depostETHAmount: '',
+      address: '',
       rewardList: [{
           text: '裂变奖励',
           value: 23
@@ -79,16 +88,32 @@ export default {
   computed: {
     ...mapState({
       offerData: state => state.offerData,
+      isBuilder: state => state.isBuilder
     })
   },
   methods: {
     depositETH () {
       console.log('deposit eth', this.depostETHAmount)
+      if (this.depostETHAmount > this.offerData.remainingETH) {
+        this.$alert('您投入的 ETH 超出最大值', '提示', {
+          confirmButtonText: '确定',
+        })
+        return
+      }
       store.dispatch('depositETH', this.depostETHAmount)
     },
     depositCAD () {
       console.log('deposit cad', this.depostCADAmount)
+      if (this.depostCADAmount > this.offerData.remainingToken) {
+        this.$alert('您投入的 CAD 超出最大值', '提示', {
+          confirmButtonText: '确定',
+        })
+        return
+      }
       store.dispatch('depositETH', this.depostCADAmount)
+    }, 
+    toBeFissionPerson () {
+      store.dispatch('toBeFissionPerson', this.address || '0x3223AEB8404C7525FcAA6C512f91e287AE9FfE7B')
     }
   },
   mounted() {
