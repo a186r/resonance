@@ -19,8 +19,8 @@
  */
 
 var HDWalletProvider = require('truffle-hdwallet-provider');
-// const infuraKey = "fj4jll3k.....";
-// const fs = require('fs');
+// // const infuraKey = "fj4jll3k.....";
+// // const fs = require('fs');
 var mnemonic = "organ increase urban chief adjust grow ladder motion feature diagram write much";
 
 module.exports = {
@@ -57,27 +57,27 @@ module.exports = {
     // websockets: true        // Enable EventEmitter interface for web3 (default: false)
     // },
 
-    ropsten: {
-      provider: function () {
-        return new HDWalletProvider(mnemonic,
-          "https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4")
-      },
-      network_id: 3,
-      gas: 550000000,
-      confirmations: 2,
-      skipDryRun: true
-    },
+    // ropsten: {
+    //   provider: function () {
+    //     return new HDWalletProvider(mnemonic,
+    //       "https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4")
+    //   },
+    //   network_id: 3,
+    //   gas: 550000000,
+    //   confirmations: 2,
+    //   skipDryRun: true
+    // },
 
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
-    // ropsten: {
-    //   provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4`),
-    //   network_id: 3, // Ropsten's id
-    //   gas: 5500000, // Ropsten has a lower block limit than mainnet
-    //   confirmations: 2, // # of confs to wait between deployments. (default: 0)
-    //   timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
-    //   skipDryRun: true // Skip dry run before migrations? (default: false for public nets )
-    // },
+    ropsten: {
+      provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4`),
+      network_id: 3, // Ropsten's id
+      gas: 5500000, // Ropsten has a lower block limit than mainnet
+      confirmations: 0, // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true // Skip dry run before migrations? (default: false for public nets )
+    },
 
     // Useful for private networks
     // private: {

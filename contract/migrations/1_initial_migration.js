@@ -14,15 +14,6 @@ const Resonance = artifacts.require("Resonance");
 const beneficiaryAddr = "0x0ac26115fEacba375dA2eF39648A87A30519dCB9";
 const initialFissionPerson = "0xAE553492128FfE03Eae35Ea002839A4363E36495";
 
-
-// ABCToken _abcToken,
-// address payable _beneficiary,
-// address _initialFissionPerson,
-// address _fassionRewardAddress,
-// address _FOMORewardAddress,
-// address _luckyRewardAddress,
-// address _faithRewardAddress
-
 module.exports = function (deployer) {
     deployer.then(async () => {
         await deployer.deploy(Migrations)
@@ -56,3 +47,16 @@ module.exports = function (deployer) {
         ])
     })
 }
+
+// // module.exports = function (deployer) {
+// //     deployer.deploy(Migrations);
+// //     deployer.deploy(UintUtils);
+// //     deployer.deploy(StringUtils);
+// //     deployer.deploy(ABCToken, "ABCToken", "ABCT", 18);
+// // };
+
+// var Migrations = artifacts.require('./Migrations.sol');
+
+// module.exports = function (deployer) {
+//     deployer.deploy(Migrations);
+// };
