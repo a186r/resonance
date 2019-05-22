@@ -398,10 +398,10 @@ contract Resonance is Ownable{
         address[] memory funderAddress;
         uint256[] memory funderToken;
 
-        funderAddress = steps[currentStep].funders;
+        funderAddress = steps[_stepIndex].funders;
 
         for(uint i = 0 ; i < funderAddress.length; i++){
-            funderToken[i] = steps[currentStep].funder[funderAddress[i]].tokenAmount;
+            funderToken[i] = steps[_stepIndex].funder[funderAddress[i]].tokenAmount;
         }
 
         emit CurrentStepFunders(funderAddress, funderToken);
