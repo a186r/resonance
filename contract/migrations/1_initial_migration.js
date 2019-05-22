@@ -47,16 +47,3 @@ module.exports = function (deployer) {
         ])
     })
 }
-
-// // module.exports = function (deployer) {
-// //     deployer.deploy(Migrations);
-// //     deployer.deploy(UintUtils);
-// //     deployer.deploy(StringUtils);
-// //     deployer.deploy(ABCToken, "ABCToken", "ABCT", 18);
-// // };
-
-// var Migrations = artifacts.require('./Migrations.sol');
-
-// module.exports = function (deployer) {
-//     deployer.deploy(Migrations);
-// };
