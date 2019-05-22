@@ -28,6 +28,7 @@ contract Resonance is Ownable{
     event LuckyRewardInfo(address[] luckyRewardList, uint256 luckyReward);
     event FaithRewardInfo(address[] faithRewardList, uint256[] faithRewardAmount);
     event WithdrawAllETH(address addr, uint256 ETHAmount);
+    event WhihdrawAllToken(address from, address to, uint256 tokenAmount);
     event MyETHBalance(address funder, uint256 ETHAmount);
     event FunderInfo(uint256[] FunderInfoArray);
     event StepFunders(
@@ -61,18 +62,6 @@ contract Resonance is Ownable{
     // 募资期
     modifier isFundingPeriod() {
         require(block.timestamp >= openingTime + 8 hours && block.timestamp < openingTime + 24 hours, "不在募资期内");
-        _;
-    }
-
-    // 是否是组建者
-    modifier isBuilder() {
-        require(steps[currentStep].funder[msg.sender].isBuilder, "调用者不是组建者/裂变者，没有权限");
-        _;
-    }
-
-    // 是否是募资者
-    modifier isFunder() {
-        require(steps[currentStep].funder[msg.sender].isFunder, "调用者不是募资者，没有权限");
         _;
     }
 
@@ -207,6 +196,7 @@ contract Resonance is Ownable{
 
         // 5个给推广者
         abcToken.transfer(address(promoter), UintUtils.toWei(5));
+        steps[currentStep].funder[promoter].earnFromAff += UintUtils.toWei(5);
 
         // 成为共建者
         _addBuilder(promoter);
@@ -225,8 +215,9 @@ contract Resonance is Ownable{
         public
         crowdsaleIsRunning()
         isBuildingPeriod()
-        isBuilder()
     {
+        // 只有builder才能参与共建
+        require(isBuilder(), "调用者不是Builder");
         // TODO:转入额度不能超过限额
         // require(steps[currentStep].funder[msg.sender].tokenAmount >= xiane, "共建额度已超过限额，不能继续转入");
 
@@ -365,8 +356,6 @@ contract Resonance is Ownable{
     /// @notice 结算用户获得的ETH总量
     /// @dev 结算用户账户中所有的ETH
     function _settlementAllETH() internal {
-        require(!steps[currentStep].funder[msg.sender].ETHHasWithdrawn, "已经提币完成");
-
         uint256 amountOfFission = fissionRewardInstance.fissionRewardAmount(currentStep,msg.sender);
         uint256 amountOfFOMO = FOMORewardInstance.FOMORewardAmount(currentStep, msg.sender);
         uint256 amountOfLucky = luckyRewardInstance.luckyRewardAmount(currentStep, msg.sender);
@@ -397,17 +386,41 @@ contract Resonance is Ownable{
         faithRewardInstance.dealFaithWinner(currentStep, _faithWinners, _totalFaithReward);
     }
 
+    /// @notice 提token（参与募资期的用户通过这个方法提走token）
+    function withdrawAllToken()
+        public
+        payable
+    {
+        require(!steps[currentStep].funder[msg.sender].tokenHasWithdrawn, "用户在当前轮次已经提取token完成");
+        uint256 withdrawAmount = tokenBalance[msg.sender];
+        tokenBalance[msg.sender] = 0;
+        steps[currentStep].funder[msg.sender].tokenHasWithdrawn = true;
+        abcToken.transferFrom(address(this), msg.sender, withdrawAmount);
+        emit WhihdrawAllToken(address(this), msg.sender, withdrawAmount);
+    }
+
     /// @notice 提币(管理员或者用户都通过这个接口提走ETH)
     function withdrawAllETH()
         public
         payable
     {
+        require(!steps[currentStep].funder[msg.sender].ETHHasWithdrawn, "用户在当前轮次已经提币完成");
         uint256 withdrawAmount = ETHBalance[msg.sender];
         ETHBalance[msg.sender] = 0;
-        msg.sender.transfer(withdrawAmount);
         steps[currentStep].funder[msg.sender].ETHHasWithdrawn = true;
-
+        msg.sender.transfer(withdrawAmount);
         emit WithdrawAllETH(msg.sender, withdrawAmount);
+    }
+
+    /// @notice 查询是否是共建者
+    /// @dev 如果是共建者，才可以调用jointlyBuild加入共建，如果不是共建者，则需要先调用toBeFissionPerson
+    function isBuilder() public view returns(bool) {
+        return steps[currentStep].funder[msg.sender].isBuilder;
+    }
+
+    /// @notice 查询是否是募资者，参与募资期
+    function isFunder() public view returns(bool) {
+        return steps[currentStep].funder[msg.sender].isFunder;
     }
 
     /// @notice 查询某轮次funders信息
