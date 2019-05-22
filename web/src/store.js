@@ -38,6 +38,9 @@ export default new Vuex.Store({
     GET_CURRENT_STEP_FUNDS_INFO: (state, data) => {
       return Object.assign(state.homeData, data)
     },
+    GET_ADDRESS_IS_BUILDER: (state, data) => {
+      state.isBuilder = data
+    }
   },
   actions: {
     async getFunderInfo({ commit }, contract) {
@@ -101,6 +104,20 @@ export default new Vuex.Store({
         from: this.state.account,
       }).then(res => {
         console.log(res)
+      })
+    },
+    async withdrawAllCAD({ commit }) {
+      window.contract.methods.withdrawAllToken().send({
+        from: this.state.account,
+      }).then(res => {
+        console.log(res)
+      })
+    },
+    async isBuilder({ commit }) {
+      window.contract.methods.isBuilder().call({
+        from: this.state.account,
+      }).then(res => {
+        commit('GET_ADDRESS_IS_BUILDER', res)
       })
     },
     async getRewardList({commit}, params) {
