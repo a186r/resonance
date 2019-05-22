@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     account: '',
+    isBuilder: false,
     isMobile: false,
     myDetail: [
       30,
@@ -39,7 +40,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async getFunderInfo({ commit }) {
+    async getFunderInfo({ commit }, contract) {
+      contract.methods.getFunderInfo(this.state.account).call({}, (err, result) => {
+        console.log(err, result, contract.address)
+      })
       commit('GET_FUNDER_INFO', [3000, 23])
     },
     async getBuildingPeriodInfo({ commit }) {
@@ -50,7 +54,7 @@ export default new Vuex.Store({
     },
     async getCurrentStepFundsInfo({ commit }, contract) {
       contract.methods.getCurrentStepFundsInfo().call({}, (err, result) => {
-        console.log(err, formatEth(result), contract.address)
+        console.log(err, result, formatEth(result), contract.address)
       })
       commit('GET_CURRENT_STEP_FUNDS_INFO', {})
     },
@@ -76,13 +80,28 @@ export default new Vuex.Store({
     },
     async toBeFissionPerson({ commit }, address) {
       console.log(address)
+      const options ={
+        from: this.state.account,
+        gas: ''
+      }
+      contract.methods.toBeFissionPerson(address).estimateGas()
+        .then(function(gasAmount){
+          options.gas = gasAmount  
+          contract.methods.toBeFissionPerson(address)
+            .send(options, (err, result) => {
+              console.log(err, result, contract.address)
+            })          
+        })
+        .catch(function(error){
+            console.log(error)
+        })
     }, 
     async withdrawAllETH({ commit }) {
       window.contract.methods.withdrawAllETH().send({
         from: this.state.account,
       }).then(res => {
-          console.log(res)
-        })
+        console.log(res)
+      })
     },
     async getRewardList({commit}, params) {
       const url = 'test.com'
