@@ -34,6 +34,7 @@
 import Web3 from "web3"
 import store from './store'
 import ResonanceJson from '../../contract/build/contracts/Resonance.json'
+import TokenJson from '../../contract/build/contracts/ABCToken.json'
 
 export default {
   name: 'app',
@@ -53,6 +54,13 @@ export default {
       } else if (command === 'en') {
         this.currentLanguage = 'English'
       }
+    },
+    async initTokenContract() {
+      const contract = await new web3.eth.Contract(
+        TokenJson.abi,
+        TokenJson["networks"][web3.currentProvider.connection.networkVersion].address
+      )
+      return contract
     },
     async initContract() {
       const contract = await new web3.eth.Contract(
@@ -99,7 +107,9 @@ export default {
   async created () {
     await this.unlockMetaMask()
     const contract = await this.initContract()
+    const tokenContract = await this.initTokenContract()
     window.contract = contract
+    window.tokenContract = tokenContract
     store.dispatch('getCurrentStepFundsInfo', contract)
     store.dispatch('getBuildingPeriodInfo', contract)
     store.dispatch('getFundingPeriodInfo', contract)
