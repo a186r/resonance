@@ -33,13 +33,14 @@
 <script>
 import Web3 from "web3"
 import store from './store'
+import ResonanceJson from '../../contract/build/contracts/Resonance.json'
+
 export default {
   name: 'app',
   data () {
     return {
       currentLanguage: '中文简体',
       account: ethereum.selectedAddress || '登录 metamask',
-      
     }
   },
   components: {
@@ -53,6 +54,13 @@ export default {
         this.currentLanguage = 'English'
       }
     },
+    async initContract() {
+      const contract = await new web3.eth.Contract(
+        ResonanceJson.abi,
+        ResonanceJson["networks"][web3.currentProvider.connection.networkVersion].address
+      )
+      return contract
+    },
     async unlockMetaMask() {
       const self = this
 
@@ -62,7 +70,6 @@ export default {
           await ethereum.enable();
           self.account = ethereum.selectedAddress
         } catch (error) {
-          // User denied account access...
           self.$alert('您拒绝了授权使用 MetaMask', '提示', {
             confirmButtonText: '确定',
           })
@@ -86,10 +93,17 @@ export default {
         })
         return
       }
+      store.state.account = self.account
     }
   },
-  created () {
-    this.unlockMetaMask()
+  async created () {
+    await this.unlockMetaMask()
+    const contract = await this.initContract()
+    window.contract = contract
+    store.dispatch('getCurrentStepFundsInfo', contract)
+    store.dispatch('getBuildingPeriodInfo', contract)
+    store.dispatch('getFundingPeriodInfo', contract)
+    store.dispatch('getFunderInfo', contract)
   }
 }
 </script>

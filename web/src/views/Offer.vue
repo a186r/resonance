@@ -26,7 +26,7 @@
           <p>可投入剩余总额：{{offerData.remainingETH}}</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
-              <input class="custom-input" v-model="depostCADAmount" placeholder="ETH投入数量" />
+              <input class="custom-input" v-model="depostETHAmount" placeholder="ETH投入数量" />
             </div>
             <button class="custom-button" @click="depositETH">投入ETH</button>
           </div>
@@ -83,15 +83,15 @@ export default {
   },
   methods: {
     depositETH () {
-      console.log('deposit eth')
+      console.log('deposit eth', this.depostETHAmount)
+      store.dispatch('depositETH', this.depostETHAmount)
     },
     depositCAD () {
-      console.log('deposit cad')
+      console.log('deposit cad', this.depostCADAmount)
+      store.dispatch('depositETH', this.depostCADAmount)
     }
   },
   mounted() {
-    store.dispatch('getBuildingPeriodInfo')
-    store.dispatch('getFundingPeriodInfo')
   }
 }
 </script>

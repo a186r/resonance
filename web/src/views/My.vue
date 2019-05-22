@@ -6,7 +6,7 @@
           <p>提取 CAD 代币</p>
           <div class="amount-action">
             <p>数量：{{myDetail[0]}} CAD</p>
-            <button class="custom-button" @click="withdrawCAD">提取</button>
+            <button class="custom-button" @click="withdrawAllCAD">提取</button>
           </div>
         </div>
       </el-col>
@@ -15,7 +15,7 @@
           <p>提取 ETH 代币</p>
           <div class="amount-action">
             <p>数量：{{myDetail[1]}} ETH</p>
-            <button class="custom-button" @click="withdrawETH">提取</button>
+            <button class="custom-button" @click="withdrawAllETH">提取</button>
           </div>
         </div>
       </el-col>
@@ -23,7 +23,7 @@
     <el-row>
       <el-col class="col-flex"  :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
         <div class="my-detail dark-card">
-          <p v-for="(item,i) in detailList" :key="i">{{item.text}}：{{item.value}}</p>
+          <p v-for="(item,i) in detailList" :key="i">{{item.text}}：{{getMyDetailValue(i)}}</p>
         </div>
       </el-col>
     </el-row>
@@ -78,15 +78,22 @@ export default {
     })
   },
   methods: {
-    withdrawETH () {
+    withdrawAllETH () {
       console.log('withdraw eth')
+      store.dispatch('withdrawAllETH')
     },
-    withdrawCAD () {
+    withdrawAllCAD () {
       console.log('withdraw cad')
+      store.dispatch('withdrawAllCAD')
+    },
+    getMyDetailValue(i) {
+      if (i === 0) {
+        return document.baseURI + '?uid=' + store.state.account
+      }
+      return this.myDetail[i]
     }
   },
   mounted() {
-    store.dispatch('getFunderInfo')
   }
 }
 </script>

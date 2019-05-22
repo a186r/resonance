@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
+import { formatEth, ethToWei } from './utils/ethUtils'
+
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    account: '',
     isMobile: false,
     myDetail: [
       30,
@@ -35,17 +39,62 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getFunderInfo: async ({ commit }) => {
+    async getFunderInfo({ commit }) {
       commit('GET_FUNDER_INFO', [3000, 23])
     },
-    getBuildingPeriodInfo: async ({ commit }) => {
+    async getBuildingPeriodInfo({ commit }) {
       commit('GET_OFFER_INFO', {})
     },
-    getFundingPeriodInfo: async ({ commit }) => {
+    async getFundingPeriodInfo({ commit }) {
       commit('GET_OFFER_INFO', {})
     },
-    getCurrentStepFundsInfo: async ({ commit }) => {
+    async getCurrentStepFundsInfo({ commit }, contract) {
+      contract.methods.getCurrentStepFundsInfo().call({}, (err, result) => {
+        console.log(err, formatEth(result), contract.address)
+      })
       commit('GET_CURRENT_STEP_FUNDS_INFO', {})
     },
+    async depositETH({ commit }, amount) {
+      console.log(window.contract, amount)
+      web3.eth.sendTransaction({
+        from: this.state.account,
+        to: window.contract.address,
+        value: ethToWei(amount)
+      })
+      .then(function(receipt){
+        console.log(receipt)
+      })
+    },
+    async depositCAD({ commit }, amount) {
+      // solidity function name: jointlyBuild
+      console.log(amount)
+      window.contract.methods.jointlyBuild(ethToWei(amount)).send({
+        from: this.state.account,
+      }).then(res => {
+        console.log(res)
+      })
+    },
+    async toBeFissionPerson({ commit }, address) {
+      console.log(address)
+    }, 
+    async withdrawAllETH({ commit }) {
+      window.contract.methods.withdrawAllETH().send({
+        from: this.state.account,
+      }).then(res => {
+          console.log(res)
+        })
+    },
+    async getRewardList({commit}, params) {
+      const url = 'test.com'
+      return await axios.get(url, {params}).then(
+        res => {
+          if (res.data.ok) {
+            const data = res.data.data
+          }
+        }
+      ).catch(err => {
+        console.log(err)
+      })
+    }
   }
 })
