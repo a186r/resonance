@@ -101,9 +101,9 @@ contract Resonance is Ownable{
 
     // 组建期结构体
     struct Building{
-        uint256 tokenAmount; // 组建期开放多少Token
-        uint256 raisedToken; // 当前轮次已组建token数量
+        uint256 openTokenAmount; // 组建期开放多少Token
         uint256 personalTokenLimited;// 当前轮次每个地址最多投入多少token
+        uint256 raisedToken; // 当前轮次已组建token数量
         uint256 raisedTokenAmount; // 总共募资已投入多少Token
     }
 
@@ -124,7 +124,6 @@ contract Resonance is Ownable{
         address[] funders; // 当前轮次的funders
         Building building; // 当前轮次组建期
         Funding funding; // 当前轮次募资期
-        uint256 upperLimit; // 金额上限
         uint256 softCap; // 软顶
         uint256 hardCap; // 硬顶
         uint256 rate; // 费率
@@ -218,8 +217,15 @@ contract Resonance is Ownable{
     {
         // 只有builder才能参与共建
         require(isBuilder(), "调用者不是Builder");
-        // TODO:转入额度不能超过限额
-        // require(steps[currentStep].funder[msg.sender].tokenAmount >= xiane, "共建额度已超过限额，不能继续转入");
+
+        // 没有超过当前轮次总额
+        require(steps[currentStep].building.raisedToken.add(_tokenAmount) < steps[currentStep].building.openTokenAmount, "当前轮次共建已经足够了");
+
+        // 转入额度不能超过限额
+        require(
+            steps[currentStep].funder[msg.sender].tokenAmount.add(_tokenAmount) < steps[currentStep].building.personalTokenLimited,
+            "共建额度已超过限额，不能继续转入"
+        );
 
         // 检查授权额度
         require(abcToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(_tokenAmount),"授权额度不足");
@@ -451,7 +457,7 @@ contract Resonance is Ownable{
         public
         crowdsaleIsRunning()
     {
-        emit FundsInfo(steps[currentStep].building.tokenAmount, steps[currentStep].funding.raisedETH);
+        emit FundsInfo(steps[currentStep].building.openTokenAmount, steps[currentStep].funding.raisedETH);
     }
 
     /// @notice 查询组建期信息
@@ -466,7 +472,7 @@ contract Resonance is Ownable{
         uint256 _totalTokenAmount;
 
         _bpCountdown = (openingTime + 8 hours) - block.timestamp;
-        _remainingToken = steps[currentStep].building.tokenAmount.sub(steps[currentStep].building.raisedToken);
+        _remainingToken = steps[currentStep].building.openTokenAmount.sub(steps[currentStep].building.raisedToken);
         _personalTokenLimited = steps[currentStep].building.personalTokenLimited;
         _totalTokenAmount = steps[currentStep].building.raisedTokenAmount;
         emit BuildingPerioInfo(_bpCountdown, _remainingToken, _personalTokenLimited, _totalTokenAmount);

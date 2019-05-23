@@ -8,12 +8,12 @@
 #### 合约地址：
 
 ```
-ABCToken：0x7DCF798e3f21A711e266832fd3A4505172d48C38
-FissionReward：0x67A4e840001D4bf5Ec2B9Bb1C5Ac1FA6cEDB98Ba
-FOMOReward：0x12AE91fA8aF54305Ad814D27eD8b6c3d41551410
-LuckyReward：0x4AfceA5B037C0075a36fCD3cC63160287B73Bc5d
-FaithReward：0x5b9a988d4807f73c49A4E2a0019C315E81CFf8C6
-Resonance：0x1F5F0eA5988aFF9703bc7B569b0Eb0343209E9f0
+ABCToken：0xfbd55AE90159d301519e8D273Ba8818b0e8db65C
+FissionReward：0x60E748D72756296261D8E96cc62911DaC19c630F
+FOMOReward：0x946dEcfE63Fd0a8bc0001C23eC96319106547B93
+LuckyReward：0xBE26CBE15e93aedDc1d3Df7ab4e03a87134a2633
+FaithReward：0x53a73f0badf66175225aD01F3B319775f237C448
+Resonance：0xE5f0fE69EFE6A05F6Ba033381B714ab9Ba1D7717
 ``` 
 
 #### 部署日志：
@@ -57,11 +57,11 @@ Starting migrations...
 
    Replacing 'Migrations'
    ----------------------
-   > transaction hash:    0x59bbc98b31a3996cb340b496883f89c1a0929ba0febfaa3d3bdde074fb619da9
-   > Blocks: 0            Seconds: 13
-   > contract address:    0x091fB7cA63645513257E3aBEd4f23861732A9336
+   > transaction hash:    0x11b37f7711c20b9302102b79240c1170e7252e194560aeab092765c9bcee9674
+   > Blocks: 1            Seconds: 21
+   > contract address:    0x4F674e1ea13DD803F8CD5F69C71316a3D06e6CCd
    > account:             0x0ac26115fEacba375dA2eF39648A87A30519dCB9
-   > balance:             6.908354602
+   > balance:             6.656315962
    > gas used:            273162
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -69,15 +69,15 @@ Starting migrations...
 
    Pausing for 1 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 5647486)
+   > confirmation number: 1 (block: 5652498)
 
    Replacing 'UintUtils'
    ---------------------
-   > transaction hash:    0xd024d0a49bf54bba3be8338eeaf23ad5011e7450128c570dcd37d819407b5d92
-   > Blocks: 1            Seconds: 9
-   > contract address:    0x7556B55AaDB81fF7D6C3885c2f7549AcDb455f6D
+   > transaction hash:    0xfb8fbef101e763ae99b0f9e5758f8a5a9ac5adc3ad84ff25ebc7d8eafeeaac68
+   > Blocks: 1            Seconds: 10
+   > contract address:    0x657f53252302b1190c0f80fB0bEc5A0a71438275
    > account:             0x0ac26115fEacba375dA2eF39648A87A30519dCB9
-   > balance:             6.906169642
+   > balance:             6.654131002
    > gas used:            109248
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -85,23 +85,23 @@ Starting migrations...
 
    Pausing for 1 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 5647488)
+   > confirmation number: 1 (block: 5652501)
 
    Linking
    -------
-   * Contract: FissionReward <--> Library: UintUtils (at address: 0x7556B55AaDB81fF7D6C3885c2f7549AcDb455f6D)
+   * Contract: FissionReward <--> Library: UintUtils (at address: 0x657f53252302b1190c0f80fB0bEc5A0a71438275)
 
    Linking
    -------
-   * Contract: Resonance <--> Library: UintUtils (at address: 0x7556B55AaDB81fF7D6C3885c2f7549AcDb455f6D)
+   * Contract: Resonance <--> Library: UintUtils (at address: 0x657f53252302b1190c0f80fB0bEc5A0a71438275)
 
    Replacing 'StringUtils'
    -----------------------
-   > transaction hash:    0x28c57322559e08d3c657bc11577de36ff11ae842345380d6779d01d29fa4baf5
-   > Blocks: 2            Seconds: 13
-   > contract address:    0x315d11C4197a54D01eefe7D4c686206777100C90
+   > transaction hash:    0xf7b587a2e5ee088235c6ed12a6b7d615bd8ff062ca2055f059f4ca505fe0de95
+   > Blocks: 0            Seconds: 41
+   > contract address:    0xe6fFa9D7B5140192eA3E6c36aBc4d7D62b6E99Bb
    > account:             0x0ac26115fEacba375dA2eF39648A87A30519dCB9
-   > balance:             6.891242962
+   > balance:             6.639204322
    > gas used:            746334
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -109,19 +109,19 @@ Starting migrations...
 
    Pausing for 1 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 5647493)
+   > confirmation number: 1 (block: 5652504)
 
    Linking
    -------
-   * Contract: LuckyReward <--> Library: StringUtils (at address: 0x315d11C4197a54D01eefe7D4c686206777100C90)
+   * Contract: LuckyReward <--> Library: StringUtils (at address: 0xe6fFa9D7B5140192eA3E6c36aBc4d7D62b6E99Bb)
 
    Replacing 'ABCToken'
    --------------------
-   > transaction hash:    0x44f63bccdaf191faa2f0638d056ebfa9c512ccfdfb0eef818d842a60c4a627dd
-   > Blocks: 0            Seconds: 5
-   > contract address:    0x7DCF798e3f21A711e266832fd3A4505172d48C38
+   > transaction hash:    0x17aff68ea2e381f573196da7b539ce0801ea9a3d07cfed10a6065ba4ba148d7b
+   > Blocks: 0            Seconds: 14
+   > contract address:    0xfbd55AE90159d301519e8D273Ba8818b0e8db65C
    > account:             0x0ac26115fEacba375dA2eF39648A87A30519dCB9
-   > balance:             6.856172922
+   > balance:             6.604134282
    > gas used:            1753502
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -129,15 +129,15 @@ Starting migrations...
 
    Pausing for 1 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 5647495)
+   > confirmation number: 2 (block: 5652507)
 
    Replacing 'FissionReward'
    -------------------------
-   > transaction hash:    0x8976a28c07957fa92883accc6c7d512ff26496b1c2fd34e496651378e7384651
-   > Blocks: 1            Seconds: 9
-   > contract address:    0x67A4e840001D4bf5Ec2B9Bb1C5Ac1FA6cEDB98Ba
+   > transaction hash:    0xb9468f2392317dce91e97247423a5496796fbc1f156721e2f82732ff1c85cc14
+   > Blocks: 2            Seconds: 25
+   > contract address:    0x60E748D72756296261D8E96cc62911DaC19c630F
    > account:             0x0ac26115fEacba375dA2eF39648A87A30519dCB9
-   > balance:             6.831277742
+   > balance:             6.579239102
    > gas used:            1244759
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -145,15 +145,15 @@ Starting migrations...
 
    Pausing for 1 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 5647497)
+   > confirmation number: 1 (block: 5652512)
 
    Replacing 'FOMOReward'
    ----------------------
-   > transaction hash:    0xac5093440555469524f2cdc5a0ec14cd8855449bcb8d09e35406aac2a29032af
-   > Blocks: 1            Seconds: 14
-   > contract address:    0x12AE91fA8aF54305Ad814D27eD8b6c3d41551410
+   > transaction hash:    0x6ceb1f39fd49f49006ec0e0935567befc96febb506b850c2ba83d22d8552b3eb
+   > Blocks: 1            Seconds: 5
+   > contract address:    0x946dEcfE63Fd0a8bc0001C23eC96319106547B93
    > account:             0x0ac26115fEacba375dA2eF39648A87A30519dCB9
-   > balance:             6.815299982
+   > balance:             6.563261342
    > gas used:            798888
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -161,15 +161,15 @@ Starting migrations...
 
    Pausing for 1 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 5647499)
+   > confirmation number: 1 (block: 5652514)
 
    Replacing 'LuckyReward'
    -----------------------
-   > transaction hash:    0x05647951bd42f9310c65fca34d668f12828f530109a4be79bb779cdb330098c5
-   > Blocks: 1            Seconds: 17
-   > contract address:    0x4AfceA5B037C0075a36fCD3cC63160287B73Bc5d
+   > transaction hash:    0xa7d33bbe3b042ece1c22b9081b0b8432546f87ec3b3b1e82ebc77f01cc8d98f3
+   > Blocks: 0            Seconds: 9
+   > contract address:    0xBE26CBE15e93aedDc1d3Df7ab4e03a87134a2633
    > account:             0x0ac26115fEacba375dA2eF39648A87A30519dCB9
-   > balance:             6.794932182
+   > balance:             6.542893542
    > gas used:            1018390
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -177,15 +177,15 @@ Starting migrations...
 
    Pausing for 1 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 5647502)
+   > confirmation number: 1 (block: 5652516)
 
    Replacing 'FaithReward'
    -----------------------
-   > transaction hash:    0xf41f84f0de130b76e664a620144e2894ed6c0845d74470a14f82a3e5da1e52b5
-   > Blocks: 1            Seconds: 5
-   > contract address:    0x5b9a988d4807f73c49A4E2a0019C315E81CFf8C6
+   > transaction hash:    0x7c551f59e29bc262dfd6e7d1e854bcfbb196ccdd3702ccf31bb0559f32ea6cc0
+   > Blocks: 1            Seconds: 21
+   > contract address:    0x53a73f0badf66175225aD01F3B319775f237C448
    > account:             0x0ac26115fEacba375dA2eF39648A87A30519dCB9
-   > balance:             6.779278522
+   > balance:             6.527239882
    > gas used:            782683
    > gas price:           20 gwei
    > value sent:          0 ETH
@@ -193,33 +193,33 @@ Starting migrations...
 
    Pausing for 1 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 5647508)
+   > confirmation number: 1 (block: 5652521)
 
    Replacing 'Resonance'
    ---------------------
-   > transaction hash:    0xb2384d0a6d56e461489995f44b1cdbc4e56059582487a84157b9a9cbb661d958
-   > Blocks: 1            Seconds: 29
-   > contract address:    0x1F5F0eA5988aFF9703bc7B569b0Eb0343209E9f0
+   > transaction hash:    0xe79e953cd6172a65eaa7848b0366f7998437d1ffb8eaae56a1b5b7fb701108ca
+   > Blocks: 1            Seconds: 5
+   > contract address:    0xE5f0fE69EFE6A05F6Ba033381B714ab9Ba1D7717
    > account:             0x0ac26115fEacba375dA2eF39648A87A30519dCB9
-   > balance:             6.662619762
-   > gas used:            5832938
+   > balance:             6.399907722
+   > gas used:            6366608
    > gas price:           20 gwei
    > value sent:          0 ETH
-   > total cost:          0.11665876 ETH
+   > total cost:          0.12733216 ETH
 
    Pausing for 1 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 5647510)
+   > confirmation number: 1 (block: 5652523)
 
    > Saving migration to chain.
    > Saving artifacts
    -------------------------------------
-   > Total cost:          0.25119808 ETH
+   > Total cost:          0.26187148 ETH
 
 
 Summary
 =======
 > Total deployments:   9
-> Final cost:          0.25119808 ETH
+> Final cost:          0.26187148 ETH
 
 ```
