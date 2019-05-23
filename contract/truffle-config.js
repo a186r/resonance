@@ -42,9 +42,11 @@ module.exports = {
     // options below to some value.
     //
     development: {
-      host: "127.0.0.1", // Localhost (default: none)
+      host: "47.103.41.61", // Localhost (default: none)
       port: 8545, // Standard Ethereum port (default: none)
       network_id: "*", // Any network (default: none)
+      gas: 8000000, // Gas sent with each transaction (default: ~6700000)
+      gasPrice: 20000000000
     },
 
     // Another network with more advanced options...
@@ -57,26 +59,15 @@ module.exports = {
     // websockets: true        // Enable EventEmitter interface for web3 (default: false)
     // },
 
-    // ropsten: {
-    //   provider: function () {
-    //     return new HDWalletProvider(mnemonic,
-    //       "https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4")
-    //   },
-    //   network_id: 3,
-    //   gas: 550000000,
-    //   confirmations: 2,
-    //   skipDryRun: true
-    // },
-
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
     ropsten: {
       provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4`),
       network_id: 3, // Ropsten's id
-      gas: 6721975, // Ropsten has a lower block limit than mainnet
-      confirmations: 1, // # of confs to wait between deployments. (default: 0)
+      gas: 8000000, // Ropsten has a lower block limit than mainnet
+      confirmations: 0, // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
-      skipDryRun: true // Skip dry run before migrations? (default: false for public nets )
+      skipDryRun: false // Skip dry run before migrations? (default: false for public nets )
     },
 
     // Useful for private networks

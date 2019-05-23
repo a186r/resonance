@@ -18,8 +18,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xc28a1af3"
+      "type": "function"
     },
     {
       "constant": true,
@@ -42,15 +41,13 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xdd572ab9"
+      "type": "function"
     },
     {
       "inputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "constructor",
-      "signature": "constructor"
+      "type": "constructor"
     },
     {
       "anonymous": false,
@@ -67,8 +64,7 @@
         }
       ],
       "name": "LuckyInfo",
-      "type": "event",
-      "signature": "0x0cd95afe8941bcad662d0d47269bccbcf1acb74d75824e33c283509e51f75fad"
+      "type": "event"
     },
     {
       "constant": false,
@@ -82,8 +78,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x49327441"
+      "type": "function"
     },
     {
       "constant": false,
@@ -105,8 +100,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xac197f92"
+      "type": "function"
     },
     {
       "constant": true,
@@ -125,8 +119,7 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function",
-      "signature": "0x5fb25f1d"
+      "type": "function"
     },
     {
       "constant": true,
@@ -145,8 +138,7 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function",
-      "signature": "0xf647c196"
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.5.2+commit.1df8f40c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"}],\"name\":\"getLuckyInfo\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_addr\",\"type\":\"address\"}],\"name\":\"getLastFromAddress\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"name\":\"_luckyWinners\",\"type\":\"address[]\"},{\"name\":\"_totalLyckyReward\",\"type\":\"uint256\"}],\"name\":\"dealLuckyInfo\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"luckyFunderTotalBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"luckyRewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_blockHash\",\"type\":\"bytes32\"}],\"name\":\"getLastFromBlockHash\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"luckyWinners\",\"type\":\"address[]\"},{\"indexed\":false,\"name\":\"luckyRewards\",\"type\":\"uint256\"}],\"name\":\"LuckyInfo\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{\"dealLuckyInfo(uint256,address[],uint256)\":{\"notice\":\"\\u5904\\u7406\\u4fe1\\u7528\\u5956\\u52b1\\u4fe1\\u606f\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/LuckyReward.sol\":\"LuckyReward\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/LuckyReward.sol\":{\"keccak256\":\"0x3f502c51b4f9cf6275d4e655d973071fb99cd0b4cfbca92b4a7dc8bd47ce6e21\",\"urls\":[\"bzzr://6a1e2d8121b6cc26acaf669624a510b2ba288197751a58df8d7840449c8dc0bc\"]},\"/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/StringUtils.sol\":{\"keccak256\":\"0x4635cfad3b9b53af3244dc1c0b4a71b5f325316666d2eecd8bf3a3aa7eaf8272\",\"urls\":[\"bzzr://429a6849a36154da385c8c344de7ef069e0b35cc88d9367ed4ed26e741f5b293\"]},\"/Users/a186r/dev/sourcecode/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xc2a200a877c4a9b2475c246c54ffecc69ffde3e11af83319c63c2dc5458bac80\",\"urls\":[\"bzzr://c8876e2c39b60f155d748d71d715c8f3903fae5a405ac599adcb6ad2f9a583f9\"]}},\"version\":1}",
@@ -160,14 +152,14 @@
     "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/LuckyReward.sol",
     "exportedSymbols": {
       "LuckyReward": [
-        1135
+        1071
       ]
     },
-    "id": 1136,
+    "id": 1072,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 929,
+        "id": 865,
         "literals": [
           "solidity",
           ">=",
@@ -183,10 +175,10 @@
       {
         "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
         "file": "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
-        "id": 930,
+        "id": 866,
         "nodeType": "ImportDirective",
-        "scope": 1136,
-        "sourceUnit": 3386,
+        "scope": 1072,
+        "sourceUnit": 3414,
         "src": "34:75:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -194,10 +186,10 @@
       {
         "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/StringUtils.sol",
         "file": "./StringUtils.sol",
-        "id": 931,
+        "id": 867,
         "nodeType": "ImportDirective",
-        "scope": 1136,
-        "sourceUnit": 3040,
+        "scope": 1072,
+        "sourceUnit": 3068,
         "src": "110:27:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -208,31 +200,31 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1135,
+        "id": 1071,
         "linearizedBaseContracts": [
-          1135
+          1071
         ],
         "name": "LuckyReward",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 934,
+            "id": 870,
             "libraryName": {
               "contractScope": null,
-              "id": 932,
+              "id": 868,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3385,
+              "referencedDeclaration": 3413,
               "src": "664:8:4",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$3385",
+                "typeIdentifier": "t_contract$_SafeMath_$3413",
                 "typeString": "library SafeMath"
               }
             },
             "nodeType": "UsingForDirective",
             "src": "658:27:4",
             "typeName": {
-              "id": 933,
+              "id": 869,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "677:7:4",
@@ -245,20 +237,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 941,
+            "id": 877,
             "name": "LuckyInfo",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 940,
+              "id": 876,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 937,
+                  "id": 873,
                   "indexed": false,
                   "name": "luckyWinners",
                   "nodeType": "VariableDeclaration",
-                  "scope": 941,
+                  "scope": 877,
                   "src": "707:22:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -268,7 +260,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 935,
+                      "id": 871,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "707:7:4",
@@ -278,7 +270,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 936,
+                    "id": 872,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "707:9:4",
@@ -292,11 +284,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 939,
+                  "id": 875,
                   "indexed": false,
                   "name": "luckyRewards",
                   "nodeType": "VariableDeclaration",
-                  "scope": 941,
+                  "scope": 877,
                   "src": "731:20:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -305,7 +297,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 938,
+                    "id": 874,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "731:7:4",
@@ -324,10 +316,10 @@
           },
           {
             "constant": false,
-            "id": 946,
+            "id": 882,
             "name": "luckyWinners",
             "nodeType": "VariableDeclaration",
-            "scope": 1135,
+            "scope": 1071,
             "src": "803:42:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -336,9 +328,9 @@
               "typeString": "mapping(uint256 => address[])"
             },
             "typeName": {
-              "id": 945,
+              "id": 881,
               "keyType": {
-                "id": 942,
+                "id": 878,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "811:7:4",
@@ -355,7 +347,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 943,
+                  "id": 879,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "822:7:4",
@@ -365,7 +357,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 944,
+                "id": 880,
                 "length": null,
                 "nodeType": "ArrayTypeName",
                 "src": "822:9:4",
@@ -380,10 +372,10 @@
           },
           {
             "constant": false,
-            "id": 950,
+            "id": 886,
             "name": "luckyRewards",
             "nodeType": "VariableDeclaration",
-            "scope": 1135,
+            "scope": 1071,
             "src": "872:40:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -392,9 +384,9 @@
               "typeString": "mapping(uint256 => uint256)"
             },
             "typeName": {
-              "id": 949,
+              "id": 885,
               "keyType": {
-                "id": 947,
+                "id": 883,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "880:7:4",
@@ -410,7 +402,7 @@
                 "typeString": "mapping(uint256 => uint256)"
               },
               "valueType": {
-                "id": 948,
+                "id": 884,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "891:7:4",
@@ -425,10 +417,10 @@
           },
           {
             "constant": false,
-            "id": 956,
+            "id": 892,
             "name": "luckyRewardAmount",
             "nodeType": "VariableDeclaration",
-            "scope": 1135,
+            "scope": 1071,
             "src": "957:72:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -437,9 +429,9 @@
               "typeString": "mapping(uint256 => mapping(address => uint256))"
             },
             "typeName": {
-              "id": 955,
+              "id": 891,
               "keyType": {
-                "id": 951,
+                "id": 887,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "965:7:4",
@@ -455,9 +447,9 @@
                 "typeString": "mapping(uint256 => mapping(address => uint256))"
               },
               "valueType": {
-                "id": 954,
+                "id": 890,
                 "keyType": {
-                  "id": 952,
+                  "id": 888,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "984:7:4",
@@ -473,7 +465,7 @@
                   "typeString": "mapping(address => uint256)"
                 },
                 "valueType": {
-                  "id": 953,
+                  "id": 889,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "995:7:4",
@@ -489,10 +481,10 @@
           },
           {
             "constant": false,
-            "id": 960,
+            "id": 896,
             "name": "luckyFunderTotalBalance",
             "nodeType": "VariableDeclaration",
-            "scope": 1135,
+            "scope": 1071,
             "src": "1036:58:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -501,9 +493,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 959,
+              "id": 895,
               "keyType": {
-                "id": 957,
+                "id": 893,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1044:7:4",
@@ -519,7 +511,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 958,
+                "id": 894,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "1055:7:4",
@@ -534,10 +526,10 @@
           },
           {
             "constant": false,
-            "id": 964,
+            "id": 900,
             "name": "currentStepHasFinished",
             "nodeType": "VariableDeclaration",
-            "scope": 1135,
+            "scope": 1071,
             "src": "1133:47:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -546,9 +538,9 @@
               "typeString": "mapping(uint256 => bool)"
             },
             "typeName": {
-              "id": 963,
+              "id": 899,
               "keyType": {
-                "id": 961,
+                "id": 897,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "1141:7:4",
@@ -564,7 +556,7 @@
                 "typeString": "mapping(uint256 => bool)"
               },
               "valueType": {
-                "id": 962,
+                "id": 898,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "1152:4:4",
@@ -579,31 +571,31 @@
           },
           {
             "body": {
-              "id": 967,
+              "id": 903,
               "nodeType": "Block",
               "src": "1208:8:4",
               "statements": []
             },
             "documentation": null,
-            "id": 968,
+            "id": 904,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 965,
+              "id": 901,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1198:2:4"
             },
             "returnParameters": {
-              "id": 966,
+              "id": 902,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1208:0:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "1187:29:4",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -611,7 +603,7 @@
           },
           {
             "body": {
-              "id": 982,
+              "id": 918,
               "nodeType": "Block",
               "src": "1330:83:4",
               "statements": [
@@ -623,25 +615,25 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 974,
+                          "id": 910,
                           "name": "luckyWinners",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 946,
+                          "referencedDeclaration": 882,
                           "src": "1355:12:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                             "typeString": "mapping(uint256 => address[] storage ref)"
                           }
                         },
-                        "id": 976,
+                        "id": 912,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 975,
+                          "id": 911,
                           "name": "_stepIndex",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 970,
+                          "referencedDeclaration": 906,
                           "src": "1368:10:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -663,25 +655,25 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 977,
+                          "id": 913,
                           "name": "luckyRewards",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 950,
+                          "referencedDeclaration": 886,
                           "src": "1381:12:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
                             "typeString": "mapping(uint256 => uint256)"
                           }
                         },
-                        "id": 979,
+                        "id": 915,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 978,
+                          "id": 914,
                           "name": "_stepIndex",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 970,
+                          "referencedDeclaration": 906,
                           "src": "1394:10:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -711,18 +703,18 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 973,
+                      "id": 909,
                       "name": "LuckyInfo",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 941,
+                      "referencedDeclaration": 877,
                       "src": "1345:9:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_array$_t_address_$dyn_memory_ptr_$_t_uint256_$returns$__$",
                         "typeString": "function (address[] memory,uint256)"
                       }
                     },
-                    "id": 980,
+                    "id": 916,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -736,29 +728,29 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 981,
+                  "id": 917,
                   "nodeType": "EmitStatement",
                   "src": "1340:66:4"
                 }
               ]
             },
             "documentation": null,
-            "id": 983,
+            "id": 919,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getLuckyInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 971,
+              "id": 907,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 970,
+                  "id": 906,
                   "name": "_stepIndex",
                   "nodeType": "VariableDeclaration",
-                  "scope": 983,
+                  "scope": 919,
                   "src": "1303:18:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -767,7 +759,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 969,
+                    "id": 905,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1303:7:4",
@@ -783,12 +775,12 @@
               "src": "1302:20:4"
             },
             "returnParameters": {
-              "id": 972,
+              "id": 908,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1330:0:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "1281:132:4",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -796,7 +788,7 @@
           },
           {
             "body": {
-              "id": 1007,
+              "id": 943,
               "nodeType": "Block",
               "src": "1599:180:4",
               "statements": [
@@ -806,7 +798,7 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 997,
+                        "id": 933,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -819,25 +811,25 @@
                           "argumentTypes": null,
                           "baseExpression": {
                             "argumentTypes": null,
-                            "id": 994,
+                            "id": 930,
                             "name": "currentStepHasFinished",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 964,
+                            "referencedDeclaration": 900,
                             "src": "1618:22:4",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
                               "typeString": "mapping(uint256 => bool)"
                             }
                           },
-                          "id": 996,
+                          "id": 932,
                           "indexExpression": {
                             "argumentTypes": null,
-                            "id": 995,
+                            "id": 931,
                             "name": "_stepIndex",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 985,
+                            "referencedDeclaration": 921,
                             "src": "1641:10:4",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -863,7 +855,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "e5bd93e5898de8bdaee6aca1e79a84e5b9b8e8bf90e5a596e58ab1e5b7b2e7bb8fe8aea1e7ae97e5ae8ce68890",
-                        "id": 998,
+                        "id": 934,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -890,21 +882,21 @@
                           "typeString": "literal_string \"当前轮次的幸运奖励已经计算完成\""
                         }
                       ],
-                      "id": 993,
+                      "id": 929,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4138,
-                        4139
+                        4166,
+                        4167
                       ],
-                      "referencedDeclaration": 4139,
+                      "referencedDeclaration": 4167,
                       "src": "1609:7:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 999,
+                    "id": 935,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -918,7 +910,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1000,
+                  "id": 936,
                   "nodeType": "ExpressionStatement",
                   "src": "1609:93:4"
                 },
@@ -928,11 +920,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 1002,
+                        "id": 938,
                         "name": "_stepIndex",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 985,
+                        "referencedDeclaration": 921,
                         "src": "1727:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -941,11 +933,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 1003,
+                        "id": 939,
                         "name": "_luckyWinners",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 988,
+                        "referencedDeclaration": 924,
                         "src": "1739:13:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
@@ -954,11 +946,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 1004,
+                        "id": 940,
                         "name": "_totalLyckyReward",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 990,
+                        "referencedDeclaration": 926,
                         "src": "1754:17:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -981,18 +973,18 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 1001,
+                      "id": 937,
                       "name": "_dealLuckyInfo",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1090,
+                      "referencedDeclaration": 1026,
                       "src": "1712:14:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_uint256_$_t_array$_t_address_$dyn_memory_ptr_$_t_uint256_$returns$__$",
                         "typeString": "function (uint256,address[] memory,uint256)"
                       }
                     },
-                    "id": 1005,
+                    "id": 941,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1006,29 +998,29 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1006,
+                  "id": 942,
                   "nodeType": "ExpressionStatement",
                   "src": "1712:60:4"
                 }
               ]
             },
             "documentation": "@notice 处理信用奖励信息",
-            "id": 1008,
+            "id": 944,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "dealLuckyInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 991,
+              "id": 927,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 985,
+                  "id": 921,
                   "name": "_stepIndex",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1008,
+                  "scope": 944,
                   "src": "1492:18:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1037,7 +1029,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 984,
+                    "id": 920,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1492:7:4",
@@ -1051,10 +1043,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 988,
+                  "id": 924,
                   "name": "_luckyWinners",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1008,
+                  "scope": 944,
                   "src": "1520:30:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -1064,7 +1056,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 986,
+                      "id": 922,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "1520:7:4",
@@ -1074,7 +1066,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 987,
+                    "id": 923,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "1520:9:4",
@@ -1088,10 +1080,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 990,
+                  "id": 926,
                   "name": "_totalLyckyReward",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1008,
+                  "scope": 944,
                   "src": "1560:25:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1100,7 +1092,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 989,
+                    "id": 925,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1560:7:4",
@@ -1116,12 +1108,12 @@
               "src": "1482:109:4"
             },
             "returnParameters": {
-              "id": 992,
+              "id": 928,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1599:0:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "1460:319:4",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1129,14 +1121,14 @@
           },
           {
             "body": {
-              "id": 1089,
+              "id": 1025,
               "nodeType": "Block",
               "src": "1968:1095:4",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1022,
+                    "id": 958,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1145,25 +1137,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 1018,
+                        "id": 954,
                         "name": "luckyWinners",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 946,
+                        "referencedDeclaration": 882,
                         "src": "1978:12:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                           "typeString": "mapping(uint256 => address[] storage ref)"
                         }
                       },
-                      "id": 1020,
+                      "id": 956,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1019,
+                        "id": 955,
                         "name": "_stepIndex",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1010,
+                        "referencedDeclaration": 946,
                         "src": "1991:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1185,11 +1177,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 1021,
+                      "id": 957,
                       "name": "_luckyWinners",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1013,
+                      "referencedDeclaration": 949,
                       "src": "2005:13:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
@@ -1202,14 +1194,14 @@
                       "typeString": "address[] storage ref"
                     }
                   },
-                  "id": 1023,
+                  "id": 959,
                   "nodeType": "ExpressionStatement",
                   "src": "1978:40:4"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1034,
+                    "id": 970,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1218,25 +1210,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 1024,
+                        "id": 960,
                         "name": "luckyRewards",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 950,
+                        "referencedDeclaration": 886,
                         "src": "2583:12:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
                           "typeString": "mapping(uint256 => uint256)"
                         }
                       },
-                      "id": 1026,
+                      "id": 962,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1025,
+                        "id": 961,
                         "name": "_stepIndex",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1010,
+                        "referencedDeclaration": 946,
                         "src": "2596:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1265,25 +1257,25 @@
                             "argumentTypes": null,
                             "baseExpression": {
                               "argumentTypes": null,
-                              "id": 1029,
+                              "id": 965,
                               "name": "luckyWinners",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 946,
+                              "referencedDeclaration": 882,
                               "src": "2632:12:4",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                                 "typeString": "mapping(uint256 => address[] storage ref)"
                               }
                             },
-                            "id": 1031,
+                            "id": 967,
                             "indexExpression": {
                               "argumentTypes": null,
-                              "id": 1030,
+                              "id": 966,
                               "name": "_stepIndex",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1010,
+                              "referencedDeclaration": 946,
                               "src": "2645:10:4",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -1301,7 +1293,7 @@
                               "typeString": "address[] storage ref"
                             }
                           },
-                          "id": 1032,
+                          "id": 968,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
@@ -1325,32 +1317,32 @@
                         ],
                         "expression": {
                           "argumentTypes": null,
-                          "id": 1027,
+                          "id": 963,
                           "name": "_totalLyckyReward",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1015,
+                          "referencedDeclaration": 951,
                           "src": "2610:17:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           }
                         },
-                        "id": 1028,
+                        "id": 964,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "div",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 3316,
+                        "referencedDeclaration": 3344,
                         "src": "2610:21:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                           "typeString": "function (uint256,uint256) pure returns (uint256)"
                         }
                       },
-                      "id": 1033,
+                      "id": 969,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1370,20 +1362,20 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 1035,
+                  "id": 971,
                   "nodeType": "ExpressionStatement",
                   "src": "2583:81:4"
                 },
                 {
                   "body": {
-                    "id": 1081,
+                    "id": 1017,
                     "nodeType": "Block",
                     "src": "2732:273:4",
                     "statements": [
                       {
                         "expression": {
                           "argumentTypes": null,
-                          "id": 1061,
+                          "id": 997,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1394,25 +1386,25 @@
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
-                                "id": 1049,
+                                "id": 985,
                                 "name": "luckyRewardAmount",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 956,
+                                "referencedDeclaration": 892,
                                 "src": "2746:17:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_address_$_t_uint256_$_$",
                                   "typeString": "mapping(uint256 => mapping(address => uint256))"
                                 }
                               },
-                              "id": 1056,
+                              "id": 992,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 1050,
+                                "id": 986,
                                 "name": "_stepIndex",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1010,
+                                "referencedDeclaration": 946,
                                 "src": "2764:10:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -1430,32 +1422,32 @@
                                 "typeString": "mapping(address => uint256)"
                               }
                             },
-                            "id": 1057,
+                            "id": 993,
                             "indexExpression": {
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
                                 "baseExpression": {
                                   "argumentTypes": null,
-                                  "id": 1051,
+                                  "id": 987,
                                   "name": "luckyWinners",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 946,
+                                  "referencedDeclaration": 882,
                                   "src": "2776:12:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                                     "typeString": "mapping(uint256 => address[] storage ref)"
                                   }
                                 },
-                                "id": 1053,
+                                "id": 989,
                                 "indexExpression": {
                                   "argumentTypes": null,
-                                  "id": 1052,
+                                  "id": 988,
                                   "name": "_stepIndex",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 1010,
+                                  "referencedDeclaration": 946,
                                   "src": "2789:10:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -1473,14 +1465,14 @@
                                   "typeString": "address[] storage ref"
                                 }
                               },
-                              "id": 1055,
+                              "id": 991,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 1054,
+                                "id": 990,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1037,
+                                "referencedDeclaration": 973,
                                 "src": "2801:1:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -1515,25 +1507,25 @@
                             "argumentTypes": null,
                             "baseExpression": {
                               "argumentTypes": null,
-                              "id": 1058,
+                              "id": 994,
                               "name": "luckyRewards",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 950,
+                              "referencedDeclaration": 886,
                               "src": "2807:12:4",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
                                 "typeString": "mapping(uint256 => uint256)"
                               }
                             },
-                            "id": 1060,
+                            "id": 996,
                             "indexExpression": {
                               "argumentTypes": null,
-                              "id": 1059,
+                              "id": 995,
                               "name": "_stepIndex",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1010,
+                              "referencedDeclaration": 946,
                               "src": "2820:10:4",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -1557,14 +1549,14 @@
                             "typeString": "uint256"
                           }
                         },
-                        "id": 1062,
+                        "id": 998,
                         "nodeType": "ExpressionStatement",
                         "src": "2746:85:4"
                       },
                       {
                         "expression": {
                           "argumentTypes": null,
-                          "id": 1079,
+                          "id": 1015,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1573,43 +1565,43 @@
                             "argumentTypes": null,
                             "baseExpression": {
                               "argumentTypes": null,
-                              "id": 1063,
+                              "id": 999,
                               "name": "luckyFunderTotalBalance",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 960,
+                              "referencedDeclaration": 896,
                               "src": "2880:23:4",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                 "typeString": "mapping(address => uint256)"
                               }
                             },
-                            "id": 1069,
+                            "id": 1005,
                             "indexExpression": {
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
                                 "baseExpression": {
                                   "argumentTypes": null,
-                                  "id": 1064,
+                                  "id": 1000,
                                   "name": "luckyWinners",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 946,
+                                  "referencedDeclaration": 882,
                                   "src": "2904:12:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                                     "typeString": "mapping(uint256 => address[] storage ref)"
                                   }
                                 },
-                                "id": 1066,
+                                "id": 1002,
                                 "indexExpression": {
                                   "argumentTypes": null,
-                                  "id": 1065,
+                                  "id": 1001,
                                   "name": "_stepIndex",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 1010,
+                                  "referencedDeclaration": 946,
                                   "src": "2917:10:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -1627,14 +1619,14 @@
                                   "typeString": "address[] storage ref"
                                 }
                               },
-                              "id": 1068,
+                              "id": 1004,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 1067,
+                                "id": 1003,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1037,
+                                "referencedDeclaration": 973,
                                 "src": "2929:1:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -1671,25 +1663,25 @@
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
-                                "id": 1070,
+                                "id": 1006,
                                 "name": "luckyRewardAmount",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 956,
+                                "referencedDeclaration": 892,
                                 "src": "2936:17:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_address_$_t_uint256_$_$",
                                   "typeString": "mapping(uint256 => mapping(address => uint256))"
                                 }
                               },
-                              "id": 1072,
+                              "id": 1008,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 1071,
+                                "id": 1007,
                                 "name": "_stepIndex",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1010,
+                                "referencedDeclaration": 946,
                                 "src": "2954:10:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -1707,32 +1699,32 @@
                                 "typeString": "mapping(address => uint256)"
                               }
                             },
-                            "id": 1078,
+                            "id": 1014,
                             "indexExpression": {
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
                                 "baseExpression": {
                                   "argumentTypes": null,
-                                  "id": 1073,
+                                  "id": 1009,
                                   "name": "luckyWinners",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 946,
+                                  "referencedDeclaration": 882,
                                   "src": "2966:12:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                                     "typeString": "mapping(uint256 => address[] storage ref)"
                                   }
                                 },
-                                "id": 1075,
+                                "id": 1011,
                                 "indexExpression": {
                                   "argumentTypes": null,
-                                  "id": 1074,
+                                  "id": 1010,
                                   "name": "_stepIndex",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 1010,
+                                  "referencedDeclaration": 946,
                                   "src": "2979:10:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -1750,14 +1742,14 @@
                                   "typeString": "address[] storage ref"
                                 }
                               },
-                              "id": 1077,
+                              "id": 1013,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 1076,
+                                "id": 1012,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1037,
+                                "referencedDeclaration": 973,
                                 "src": "2991:1:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -1792,7 +1784,7 @@
                             "typeString": "uint256"
                           }
                         },
-                        "id": 1080,
+                        "id": 1016,
                         "nodeType": "ExpressionStatement",
                         "src": "2880:114:4"
                       }
@@ -1804,18 +1796,18 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 1045,
+                    "id": 981,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "argumentTypes": null,
-                      "id": 1040,
+                      "id": 976,
                       "name": "i",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1037,
+                      "referencedDeclaration": 973,
                       "src": "2691:1:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -1830,25 +1822,25 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 1041,
+                          "id": 977,
                           "name": "luckyWinners",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 946,
+                          "referencedDeclaration": 882,
                           "src": "2695:12:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                             "typeString": "mapping(uint256 => address[] storage ref)"
                           }
                         },
-                        "id": 1043,
+                        "id": 979,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 1042,
+                          "id": 978,
                           "name": "_stepIndex",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1010,
+                          "referencedDeclaration": 946,
                           "src": "2708:10:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -1866,7 +1858,7 @@
                           "typeString": "address[] storage ref"
                         }
                       },
-                      "id": 1044,
+                      "id": 980,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -1886,18 +1878,18 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 1082,
+                  "id": 1018,
                   "initializationExpression": {
                     "assignments": [
-                      1037
+                      973
                     ],
                     "declarations": [
                       {
                         "constant": false,
-                        "id": 1037,
+                        "id": 973,
                         "name": "i",
                         "nodeType": "VariableDeclaration",
-                        "scope": 1082,
+                        "scope": 1018,
                         "src": "2679:6:4",
                         "stateVariable": false,
                         "storageLocation": "default",
@@ -1906,7 +1898,7 @@
                           "typeString": "uint256"
                         },
                         "typeName": {
-                          "id": 1036,
+                          "id": 972,
                           "name": "uint",
                           "nodeType": "ElementaryTypeName",
                           "src": "2679:4:4",
@@ -1919,11 +1911,11 @@
                         "visibility": "internal"
                       }
                     ],
-                    "id": 1039,
+                    "id": 975,
                     "initialValue": {
                       "argumentTypes": null,
                       "hexValue": "30",
-                      "id": 1038,
+                      "id": 974,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -1944,7 +1936,7 @@
                   "loopExpression": {
                     "expression": {
                       "argumentTypes": null,
-                      "id": 1047,
+                      "id": 983,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1955,11 +1947,11 @@
                       "src": "2728:3:4",
                       "subExpression": {
                         "argumentTypes": null,
-                        "id": 1046,
+                        "id": 982,
                         "name": "i",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1037,
+                        "referencedDeclaration": 973,
                         "src": "2728:1:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1971,7 +1963,7 @@
                         "typeString": "uint256"
                       }
                     },
-                    "id": 1048,
+                    "id": 984,
                     "nodeType": "ExpressionStatement",
                     "src": "2728:3:4"
                   },
@@ -1981,7 +1973,7 @@
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1087,
+                    "id": 1023,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1990,25 +1982,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 1083,
+                        "id": 1019,
                         "name": "currentStepHasFinished",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 964,
+                        "referencedDeclaration": 900,
                         "src": "3015:22:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
                           "typeString": "mapping(uint256 => bool)"
                         }
                       },
-                      "id": 1085,
+                      "id": 1021,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1084,
+                        "id": 1020,
                         "name": "_stepIndex",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1010,
+                        "referencedDeclaration": 946,
                         "src": "3038:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2031,7 +2023,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "74727565",
-                      "id": 1086,
+                      "id": 1022,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -2052,29 +2044,29 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 1088,
+                  "id": 1024,
                   "nodeType": "ExpressionStatement",
                   "src": "3015:41:4"
                 }
               ]
             },
             "documentation": null,
-            "id": 1090,
+            "id": 1026,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_dealLuckyInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1016,
+              "id": 952,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1010,
+                  "id": 946,
                   "name": "_stepIndex",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1090,
+                  "scope": 1026,
                   "src": "1847:18:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2083,7 +2075,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1009,
+                    "id": 945,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1847:7:4",
@@ -2097,10 +2089,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1013,
+                  "id": 949,
                   "name": "_luckyWinners",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1090,
+                  "scope": 1026,
                   "src": "1875:30:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -2110,7 +2102,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 1011,
+                      "id": 947,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "1875:7:4",
@@ -2120,7 +2112,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 1012,
+                    "id": 948,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "1875:9:4",
@@ -2134,10 +2126,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1015,
+                  "id": 951,
                   "name": "_totalLyckyReward",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1090,
+                  "scope": 1026,
                   "src": "1915:25:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2146,7 +2138,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1014,
+                    "id": 950,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1915:7:4",
@@ -2162,12 +2154,12 @@
               "src": "1837:109:4"
             },
             "returnParameters": {
-              "id": 1017,
+              "id": 953,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1968:0:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "1814:1249:4",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -2175,21 +2167,21 @@
           },
           {
             "body": {
-              "id": 1111,
+              "id": 1047,
               "nodeType": "Block",
               "src": "3183:130:4",
               "statements": [
                 {
                   "assignments": [
-                    1098
+                    1034
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 1098,
+                      "id": 1034,
                       "name": "addressStr",
                       "nodeType": "VariableDeclaration",
-                      "scope": 1111,
+                      "scope": 1047,
                       "src": "3193:24:4",
                       "stateVariable": false,
                       "storageLocation": "memory",
@@ -2198,7 +2190,7 @@
                         "typeString": "string"
                       },
                       "typeName": {
-                        "id": 1097,
+                        "id": 1033,
                         "name": "string",
                         "nodeType": "ElementaryTypeName",
                         "src": "3193:6:4",
@@ -2211,17 +2203,17 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 1103,
+                  "id": 1039,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 1101,
+                        "id": 1037,
                         "name": "_addr",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1092,
+                        "referencedDeclaration": 1028,
                         "src": "3244:5:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -2238,32 +2230,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1099,
+                        "id": 1035,
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3039,
+                        "referencedDeclaration": 3067,
                         "src": "3220:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3039_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
-                      "id": 1100,
+                      "id": 1036,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "addr2string",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2859,
+                      "referencedDeclaration": 2887,
                       "src": "3220:23:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_address_$returns$_t_string_memory_ptr_$",
                         "typeString": "function (address) pure returns (string memory)"
                       }
                     },
-                    "id": 1102,
+                    "id": 1038,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2286,11 +2278,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 1106,
+                        "id": 1042,
                         "name": "addressStr",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1098,
+                        "referencedDeclaration": 1034,
                         "src": "3289:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_memory_ptr",
@@ -2300,7 +2292,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "3431",
-                        "id": 1107,
+                        "id": 1043,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -2318,7 +2310,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "3432",
-                        "id": 1108,
+                        "id": 1044,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -2351,32 +2343,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1104,
+                        "id": 1040,
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3039,
+                        "referencedDeclaration": 3067,
                         "src": "3267:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3039_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
-                      "id": 1105,
+                      "id": 1041,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "substring",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2999,
+                      "referencedDeclaration": 3027,
                       "src": "3267:21:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_string_memory_ptr_$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
                         "typeString": "function (string memory,uint256,uint256) pure returns (string memory)"
                       }
                     },
-                    "id": 1109,
+                    "id": 1045,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2390,30 +2382,30 @@
                       "typeString": "string memory"
                     }
                   },
-                  "functionReturnParameters": 1096,
-                  "id": 1110,
+                  "functionReturnParameters": 1032,
+                  "id": 1046,
                   "nodeType": "Return",
                   "src": "3260:46:4"
                 }
               ]
             },
             "documentation": null,
-            "id": 1112,
+            "id": 1048,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getLastFromAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1093,
+              "id": 1029,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1092,
+                  "id": 1028,
                   "name": "_addr",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1112,
+                  "scope": 1048,
                   "src": "3133:13:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2422,7 +2414,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1091,
+                    "id": 1027,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3133:7:4",
@@ -2439,15 +2431,15 @@
               "src": "3132:15:4"
             },
             "returnParameters": {
-              "id": 1096,
+              "id": 1032,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1095,
+                  "id": 1031,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1112,
+                  "scope": 1048,
                   "src": "3168:13:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -2456,7 +2448,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1094,
+                    "id": 1030,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "3168:6:4",
@@ -2471,7 +2463,7 @@
               ],
               "src": "3167:15:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "3105:208:4",
             "stateMutability": "pure",
             "superFunction": null,
@@ -2479,7 +2471,7 @@
           },
           {
             "body": {
-              "id": 1133,
+              "id": 1069,
               "nodeType": "Block",
               "src": "3442:124:4",
               "statements": [
@@ -2492,11 +2484,11 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 1123,
+                            "id": 1059,
                             "name": "_blockHash",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1114,
+                            "referencedDeclaration": 1050,
                             "src": "3509:10:4",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
@@ -2513,32 +2505,32 @@
                           ],
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1121,
+                            "id": 1057,
                             "name": "StringUtils",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3039,
+                            "referencedDeclaration": 3067,
                             "src": "3481:11:4",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_StringUtils_$3039_$",
+                              "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
                               "typeString": "type(library StringUtils)"
                             }
                           },
-                          "id": 1122,
+                          "id": 1058,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "bytes32Tostring",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 2946,
+                          "referencedDeclaration": 2974,
                           "src": "3481:27:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_delegatecall_pure$_t_bytes32_$returns$_t_string_memory_ptr_$",
                             "typeString": "function (bytes32) pure returns (string memory)"
                           }
                         },
-                        "id": 1124,
+                        "id": 1060,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2558,7 +2550,7 @@
                           "typeIdentifier": "t_uint8",
                           "typeString": "uint8"
                         },
-                        "id": 1128,
+                        "id": 1064,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2567,18 +2559,18 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1125,
+                            "id": 1061,
                             "name": "_blockHash",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1114,
+                            "referencedDeclaration": 1050,
                             "src": "3521:10:4",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
                               "typeString": "bytes32"
                             }
                           },
-                          "id": 1126,
+                          "id": 1062,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -2597,7 +2589,7 @@
                         "rightExpression": {
                           "argumentTypes": null,
                           "hexValue": "31",
-                          "id": 1127,
+                          "id": 1063,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2622,18 +2614,18 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 1129,
+                          "id": 1065,
                           "name": "_blockHash",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1114,
+                          "referencedDeclaration": 1050,
                           "src": "3541:10:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
                           }
                         },
-                        "id": 1130,
+                        "id": 1066,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2665,32 +2657,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1119,
+                        "id": 1055,
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3039,
+                        "referencedDeclaration": 3067,
                         "src": "3459:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3039_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
-                      "id": 1120,
+                      "id": 1056,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "substring",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2999,
+                      "referencedDeclaration": 3027,
                       "src": "3459:21:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_string_memory_ptr_$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
                         "typeString": "function (string memory,uint256,uint256) pure returns (string memory)"
                       }
                     },
-                    "id": 1131,
+                    "id": 1067,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2704,30 +2696,30 @@
                       "typeString": "string memory"
                     }
                   },
-                  "functionReturnParameters": 1118,
-                  "id": 1132,
+                  "functionReturnParameters": 1054,
+                  "id": 1068,
                   "nodeType": "Return",
                   "src": "3452:107:4"
                 }
               ]
             },
             "documentation": null,
-            "id": 1134,
+            "id": 1070,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getLastFromBlockHash",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1115,
+              "id": 1051,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1114,
+                  "id": 1050,
                   "name": "_blockHash",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1134,
+                  "scope": 1070,
                   "src": "3388:18:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2736,7 +2728,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 1113,
+                    "id": 1049,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "3388:7:4",
@@ -2752,15 +2744,15 @@
               "src": "3387:20:4"
             },
             "returnParameters": {
-              "id": 1118,
+              "id": 1054,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1117,
+                  "id": 1053,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1134,
+                  "scope": 1070,
                   "src": "3428:13:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -2769,7 +2761,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1116,
+                    "id": 1052,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "3428:6:4",
@@ -2784,14 +2776,14 @@
               ],
               "src": "3427:15:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "3358:208:4",
             "stateMutability": "pure",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 1136,
+        "scope": 1072,
         "src": "631:2937:4"
       }
     ],
@@ -2801,14 +2793,14 @@
     "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/LuckyReward.sol",
     "exportedSymbols": {
       "LuckyReward": [
-        1135
+        1071
       ]
     },
-    "id": 1136,
+    "id": 1072,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 929,
+        "id": 865,
         "literals": [
           "solidity",
           ">=",
@@ -2824,10 +2816,10 @@
       {
         "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
         "file": "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
-        "id": 930,
+        "id": 866,
         "nodeType": "ImportDirective",
-        "scope": 1136,
-        "sourceUnit": 3386,
+        "scope": 1072,
+        "sourceUnit": 3414,
         "src": "34:75:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2835,10 +2827,10 @@
       {
         "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/StringUtils.sol",
         "file": "./StringUtils.sol",
-        "id": 931,
+        "id": 867,
         "nodeType": "ImportDirective",
-        "scope": 1136,
-        "sourceUnit": 3040,
+        "scope": 1072,
+        "sourceUnit": 3068,
         "src": "110:27:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2849,31 +2841,31 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1135,
+        "id": 1071,
         "linearizedBaseContracts": [
-          1135
+          1071
         ],
         "name": "LuckyReward",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 934,
+            "id": 870,
             "libraryName": {
               "contractScope": null,
-              "id": 932,
+              "id": 868,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3385,
+              "referencedDeclaration": 3413,
               "src": "664:8:4",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$3385",
+                "typeIdentifier": "t_contract$_SafeMath_$3413",
                 "typeString": "library SafeMath"
               }
             },
             "nodeType": "UsingForDirective",
             "src": "658:27:4",
             "typeName": {
-              "id": 933,
+              "id": 869,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "677:7:4",
@@ -2886,20 +2878,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 941,
+            "id": 877,
             "name": "LuckyInfo",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 940,
+              "id": 876,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 937,
+                  "id": 873,
                   "indexed": false,
                   "name": "luckyWinners",
                   "nodeType": "VariableDeclaration",
-                  "scope": 941,
+                  "scope": 877,
                   "src": "707:22:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2909,7 +2901,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 935,
+                      "id": 871,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "707:7:4",
@@ -2919,7 +2911,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 936,
+                    "id": 872,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "707:9:4",
@@ -2933,11 +2925,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 939,
+                  "id": 875,
                   "indexed": false,
                   "name": "luckyRewards",
                   "nodeType": "VariableDeclaration",
-                  "scope": 941,
+                  "scope": 877,
                   "src": "731:20:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2946,7 +2938,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 938,
+                    "id": 874,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "731:7:4",
@@ -2965,10 +2957,10 @@
           },
           {
             "constant": false,
-            "id": 946,
+            "id": 882,
             "name": "luckyWinners",
             "nodeType": "VariableDeclaration",
-            "scope": 1135,
+            "scope": 1071,
             "src": "803:42:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2977,9 +2969,9 @@
               "typeString": "mapping(uint256 => address[])"
             },
             "typeName": {
-              "id": 945,
+              "id": 881,
               "keyType": {
-                "id": 942,
+                "id": 878,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "811:7:4",
@@ -2996,7 +2988,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 943,
+                  "id": 879,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "822:7:4",
@@ -3006,7 +2998,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 944,
+                "id": 880,
                 "length": null,
                 "nodeType": "ArrayTypeName",
                 "src": "822:9:4",
@@ -3021,10 +3013,10 @@
           },
           {
             "constant": false,
-            "id": 950,
+            "id": 886,
             "name": "luckyRewards",
             "nodeType": "VariableDeclaration",
-            "scope": 1135,
+            "scope": 1071,
             "src": "872:40:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -3033,9 +3025,9 @@
               "typeString": "mapping(uint256 => uint256)"
             },
             "typeName": {
-              "id": 949,
+              "id": 885,
               "keyType": {
-                "id": 947,
+                "id": 883,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "880:7:4",
@@ -3051,7 +3043,7 @@
                 "typeString": "mapping(uint256 => uint256)"
               },
               "valueType": {
-                "id": 948,
+                "id": 884,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "891:7:4",
@@ -3066,10 +3058,10 @@
           },
           {
             "constant": false,
-            "id": 956,
+            "id": 892,
             "name": "luckyRewardAmount",
             "nodeType": "VariableDeclaration",
-            "scope": 1135,
+            "scope": 1071,
             "src": "957:72:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -3078,9 +3070,9 @@
               "typeString": "mapping(uint256 => mapping(address => uint256))"
             },
             "typeName": {
-              "id": 955,
+              "id": 891,
               "keyType": {
-                "id": 951,
+                "id": 887,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "965:7:4",
@@ -3096,9 +3088,9 @@
                 "typeString": "mapping(uint256 => mapping(address => uint256))"
               },
               "valueType": {
-                "id": 954,
+                "id": 890,
                 "keyType": {
-                  "id": 952,
+                  "id": 888,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "984:7:4",
@@ -3114,7 +3106,7 @@
                   "typeString": "mapping(address => uint256)"
                 },
                 "valueType": {
-                  "id": 953,
+                  "id": 889,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "995:7:4",
@@ -3130,10 +3122,10 @@
           },
           {
             "constant": false,
-            "id": 960,
+            "id": 896,
             "name": "luckyFunderTotalBalance",
             "nodeType": "VariableDeclaration",
-            "scope": 1135,
+            "scope": 1071,
             "src": "1036:58:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -3142,9 +3134,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 959,
+              "id": 895,
               "keyType": {
-                "id": 957,
+                "id": 893,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1044:7:4",
@@ -3160,7 +3152,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 958,
+                "id": 894,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "1055:7:4",
@@ -3175,10 +3167,10 @@
           },
           {
             "constant": false,
-            "id": 964,
+            "id": 900,
             "name": "currentStepHasFinished",
             "nodeType": "VariableDeclaration",
-            "scope": 1135,
+            "scope": 1071,
             "src": "1133:47:4",
             "stateVariable": true,
             "storageLocation": "default",
@@ -3187,9 +3179,9 @@
               "typeString": "mapping(uint256 => bool)"
             },
             "typeName": {
-              "id": 963,
+              "id": 899,
               "keyType": {
-                "id": 961,
+                "id": 897,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "1141:7:4",
@@ -3205,7 +3197,7 @@
                 "typeString": "mapping(uint256 => bool)"
               },
               "valueType": {
-                "id": 962,
+                "id": 898,
                 "name": "bool",
                 "nodeType": "ElementaryTypeName",
                 "src": "1152:4:4",
@@ -3220,31 +3212,31 @@
           },
           {
             "body": {
-              "id": 967,
+              "id": 903,
               "nodeType": "Block",
               "src": "1208:8:4",
               "statements": []
             },
             "documentation": null,
-            "id": 968,
+            "id": 904,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 965,
+              "id": 901,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1198:2:4"
             },
             "returnParameters": {
-              "id": 966,
+              "id": 902,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1208:0:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "1187:29:4",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -3252,7 +3244,7 @@
           },
           {
             "body": {
-              "id": 982,
+              "id": 918,
               "nodeType": "Block",
               "src": "1330:83:4",
               "statements": [
@@ -3264,25 +3256,25 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 974,
+                          "id": 910,
                           "name": "luckyWinners",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 946,
+                          "referencedDeclaration": 882,
                           "src": "1355:12:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                             "typeString": "mapping(uint256 => address[] storage ref)"
                           }
                         },
-                        "id": 976,
+                        "id": 912,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 975,
+                          "id": 911,
                           "name": "_stepIndex",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 970,
+                          "referencedDeclaration": 906,
                           "src": "1368:10:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -3304,25 +3296,25 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 977,
+                          "id": 913,
                           "name": "luckyRewards",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 950,
+                          "referencedDeclaration": 886,
                           "src": "1381:12:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
                             "typeString": "mapping(uint256 => uint256)"
                           }
                         },
-                        "id": 979,
+                        "id": 915,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 978,
+                          "id": 914,
                           "name": "_stepIndex",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 970,
+                          "referencedDeclaration": 906,
                           "src": "1394:10:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -3352,18 +3344,18 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 973,
+                      "id": 909,
                       "name": "LuckyInfo",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 941,
+                      "referencedDeclaration": 877,
                       "src": "1345:9:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_array$_t_address_$dyn_memory_ptr_$_t_uint256_$returns$__$",
                         "typeString": "function (address[] memory,uint256)"
                       }
                     },
-                    "id": 980,
+                    "id": 916,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3377,29 +3369,29 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 981,
+                  "id": 917,
                   "nodeType": "EmitStatement",
                   "src": "1340:66:4"
                 }
               ]
             },
             "documentation": null,
-            "id": 983,
+            "id": 919,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getLuckyInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 971,
+              "id": 907,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 970,
+                  "id": 906,
                   "name": "_stepIndex",
                   "nodeType": "VariableDeclaration",
-                  "scope": 983,
+                  "scope": 919,
                   "src": "1303:18:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3408,7 +3400,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 969,
+                    "id": 905,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1303:7:4",
@@ -3424,12 +3416,12 @@
               "src": "1302:20:4"
             },
             "returnParameters": {
-              "id": 972,
+              "id": 908,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1330:0:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "1281:132:4",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -3437,7 +3429,7 @@
           },
           {
             "body": {
-              "id": 1007,
+              "id": 943,
               "nodeType": "Block",
               "src": "1599:180:4",
               "statements": [
@@ -3447,7 +3439,7 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 997,
+                        "id": 933,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -3460,25 +3452,25 @@
                           "argumentTypes": null,
                           "baseExpression": {
                             "argumentTypes": null,
-                            "id": 994,
+                            "id": 930,
                             "name": "currentStepHasFinished",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 964,
+                            "referencedDeclaration": 900,
                             "src": "1618:22:4",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
                               "typeString": "mapping(uint256 => bool)"
                             }
                           },
-                          "id": 996,
+                          "id": 932,
                           "indexExpression": {
                             "argumentTypes": null,
-                            "id": 995,
+                            "id": 931,
                             "name": "_stepIndex",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 985,
+                            "referencedDeclaration": 921,
                             "src": "1641:10:4",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -3504,7 +3496,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "e5bd93e5898de8bdaee6aca1e79a84e5b9b8e8bf90e5a596e58ab1e5b7b2e7bb8fe8aea1e7ae97e5ae8ce68890",
-                        "id": 998,
+                        "id": 934,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -3531,21 +3523,21 @@
                           "typeString": "literal_string \"当前轮次的幸运奖励已经计算完成\""
                         }
                       ],
-                      "id": 993,
+                      "id": 929,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4138,
-                        4139
+                        4166,
+                        4167
                       ],
-                      "referencedDeclaration": 4139,
+                      "referencedDeclaration": 4167,
                       "src": "1609:7:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 999,
+                    "id": 935,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3559,7 +3551,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1000,
+                  "id": 936,
                   "nodeType": "ExpressionStatement",
                   "src": "1609:93:4"
                 },
@@ -3569,11 +3561,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 1002,
+                        "id": 938,
                         "name": "_stepIndex",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 985,
+                        "referencedDeclaration": 921,
                         "src": "1727:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3582,11 +3574,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 1003,
+                        "id": 939,
                         "name": "_luckyWinners",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 988,
+                        "referencedDeclaration": 924,
                         "src": "1739:13:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
@@ -3595,11 +3587,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 1004,
+                        "id": 940,
                         "name": "_totalLyckyReward",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 990,
+                        "referencedDeclaration": 926,
                         "src": "1754:17:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3622,18 +3614,18 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 1001,
+                      "id": 937,
                       "name": "_dealLuckyInfo",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1090,
+                      "referencedDeclaration": 1026,
                       "src": "1712:14:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_uint256_$_t_array$_t_address_$dyn_memory_ptr_$_t_uint256_$returns$__$",
                         "typeString": "function (uint256,address[] memory,uint256)"
                       }
                     },
-                    "id": 1005,
+                    "id": 941,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3647,29 +3639,29 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 1006,
+                  "id": 942,
                   "nodeType": "ExpressionStatement",
                   "src": "1712:60:4"
                 }
               ]
             },
             "documentation": "@notice 处理信用奖励信息",
-            "id": 1008,
+            "id": 944,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "dealLuckyInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 991,
+              "id": 927,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 985,
+                  "id": 921,
                   "name": "_stepIndex",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1008,
+                  "scope": 944,
                   "src": "1492:18:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3678,7 +3670,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 984,
+                    "id": 920,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1492:7:4",
@@ -3692,10 +3684,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 988,
+                  "id": 924,
                   "name": "_luckyWinners",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1008,
+                  "scope": 944,
                   "src": "1520:30:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -3705,7 +3697,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 986,
+                      "id": 922,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "1520:7:4",
@@ -3715,7 +3707,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 987,
+                    "id": 923,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "1520:9:4",
@@ -3729,10 +3721,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 990,
+                  "id": 926,
                   "name": "_totalLyckyReward",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1008,
+                  "scope": 944,
                   "src": "1560:25:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3741,7 +3733,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 989,
+                    "id": 925,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1560:7:4",
@@ -3757,12 +3749,12 @@
               "src": "1482:109:4"
             },
             "returnParameters": {
-              "id": 992,
+              "id": 928,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1599:0:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "1460:319:4",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -3770,14 +3762,14 @@
           },
           {
             "body": {
-              "id": 1089,
+              "id": 1025,
               "nodeType": "Block",
               "src": "1968:1095:4",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1022,
+                    "id": 958,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3786,25 +3778,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 1018,
+                        "id": 954,
                         "name": "luckyWinners",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 946,
+                        "referencedDeclaration": 882,
                         "src": "1978:12:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                           "typeString": "mapping(uint256 => address[] storage ref)"
                         }
                       },
-                      "id": 1020,
+                      "id": 956,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1019,
+                        "id": 955,
                         "name": "_stepIndex",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1010,
+                        "referencedDeclaration": 946,
                         "src": "1991:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3826,11 +3818,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 1021,
+                      "id": 957,
                       "name": "_luckyWinners",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1013,
+                      "referencedDeclaration": 949,
                       "src": "2005:13:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
@@ -3843,14 +3835,14 @@
                       "typeString": "address[] storage ref"
                     }
                   },
-                  "id": 1023,
+                  "id": 959,
                   "nodeType": "ExpressionStatement",
                   "src": "1978:40:4"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1034,
+                    "id": 970,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3859,25 +3851,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 1024,
+                        "id": 960,
                         "name": "luckyRewards",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 950,
+                        "referencedDeclaration": 886,
                         "src": "2583:12:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
                           "typeString": "mapping(uint256 => uint256)"
                         }
                       },
-                      "id": 1026,
+                      "id": 962,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1025,
+                        "id": 961,
                         "name": "_stepIndex",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1010,
+                        "referencedDeclaration": 946,
                         "src": "2596:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -3906,25 +3898,25 @@
                             "argumentTypes": null,
                             "baseExpression": {
                               "argumentTypes": null,
-                              "id": 1029,
+                              "id": 965,
                               "name": "luckyWinners",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 946,
+                              "referencedDeclaration": 882,
                               "src": "2632:12:4",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                                 "typeString": "mapping(uint256 => address[] storage ref)"
                               }
                             },
-                            "id": 1031,
+                            "id": 967,
                             "indexExpression": {
                               "argumentTypes": null,
-                              "id": 1030,
+                              "id": 966,
                               "name": "_stepIndex",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1010,
+                              "referencedDeclaration": 946,
                               "src": "2645:10:4",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -3942,7 +3934,7 @@
                               "typeString": "address[] storage ref"
                             }
                           },
-                          "id": 1032,
+                          "id": 968,
                           "isConstant": false,
                           "isLValue": true,
                           "isPure": false,
@@ -3966,32 +3958,32 @@
                         ],
                         "expression": {
                           "argumentTypes": null,
-                          "id": 1027,
+                          "id": 963,
                           "name": "_totalLyckyReward",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1015,
+                          "referencedDeclaration": 951,
                           "src": "2610:17:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           }
                         },
-                        "id": 1028,
+                        "id": 964,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "div",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 3316,
+                        "referencedDeclaration": 3344,
                         "src": "2610:21:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                           "typeString": "function (uint256,uint256) pure returns (uint256)"
                         }
                       },
-                      "id": 1033,
+                      "id": 969,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -4011,20 +4003,20 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 1035,
+                  "id": 971,
                   "nodeType": "ExpressionStatement",
                   "src": "2583:81:4"
                 },
                 {
                   "body": {
-                    "id": 1081,
+                    "id": 1017,
                     "nodeType": "Block",
                     "src": "2732:273:4",
                     "statements": [
                       {
                         "expression": {
                           "argumentTypes": null,
-                          "id": 1061,
+                          "id": 997,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -4035,25 +4027,25 @@
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
-                                "id": 1049,
+                                "id": 985,
                                 "name": "luckyRewardAmount",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 956,
+                                "referencedDeclaration": 892,
                                 "src": "2746:17:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_address_$_t_uint256_$_$",
                                   "typeString": "mapping(uint256 => mapping(address => uint256))"
                                 }
                               },
-                              "id": 1056,
+                              "id": 992,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 1050,
+                                "id": 986,
                                 "name": "_stepIndex",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1010,
+                                "referencedDeclaration": 946,
                                 "src": "2764:10:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -4071,32 +4063,32 @@
                                 "typeString": "mapping(address => uint256)"
                               }
                             },
-                            "id": 1057,
+                            "id": 993,
                             "indexExpression": {
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
                                 "baseExpression": {
                                   "argumentTypes": null,
-                                  "id": 1051,
+                                  "id": 987,
                                   "name": "luckyWinners",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 946,
+                                  "referencedDeclaration": 882,
                                   "src": "2776:12:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                                     "typeString": "mapping(uint256 => address[] storage ref)"
                                   }
                                 },
-                                "id": 1053,
+                                "id": 989,
                                 "indexExpression": {
                                   "argumentTypes": null,
-                                  "id": 1052,
+                                  "id": 988,
                                   "name": "_stepIndex",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 1010,
+                                  "referencedDeclaration": 946,
                                   "src": "2789:10:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -4114,14 +4106,14 @@
                                   "typeString": "address[] storage ref"
                                 }
                               },
-                              "id": 1055,
+                              "id": 991,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 1054,
+                                "id": 990,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1037,
+                                "referencedDeclaration": 973,
                                 "src": "2801:1:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -4156,25 +4148,25 @@
                             "argumentTypes": null,
                             "baseExpression": {
                               "argumentTypes": null,
-                              "id": 1058,
+                              "id": 994,
                               "name": "luckyRewards",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 950,
+                              "referencedDeclaration": 886,
                               "src": "2807:12:4",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
                                 "typeString": "mapping(uint256 => uint256)"
                               }
                             },
-                            "id": 1060,
+                            "id": 996,
                             "indexExpression": {
                               "argumentTypes": null,
-                              "id": 1059,
+                              "id": 995,
                               "name": "_stepIndex",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 1010,
+                              "referencedDeclaration": 946,
                               "src": "2820:10:4",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -4198,14 +4190,14 @@
                             "typeString": "uint256"
                           }
                         },
-                        "id": 1062,
+                        "id": 998,
                         "nodeType": "ExpressionStatement",
                         "src": "2746:85:4"
                       },
                       {
                         "expression": {
                           "argumentTypes": null,
-                          "id": 1079,
+                          "id": 1015,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -4214,43 +4206,43 @@
                             "argumentTypes": null,
                             "baseExpression": {
                               "argumentTypes": null,
-                              "id": 1063,
+                              "id": 999,
                               "name": "luckyFunderTotalBalance",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 960,
+                              "referencedDeclaration": 896,
                               "src": "2880:23:4",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                 "typeString": "mapping(address => uint256)"
                               }
                             },
-                            "id": 1069,
+                            "id": 1005,
                             "indexExpression": {
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
                                 "baseExpression": {
                                   "argumentTypes": null,
-                                  "id": 1064,
+                                  "id": 1000,
                                   "name": "luckyWinners",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 946,
+                                  "referencedDeclaration": 882,
                                   "src": "2904:12:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                                     "typeString": "mapping(uint256 => address[] storage ref)"
                                   }
                                 },
-                                "id": 1066,
+                                "id": 1002,
                                 "indexExpression": {
                                   "argumentTypes": null,
-                                  "id": 1065,
+                                  "id": 1001,
                                   "name": "_stepIndex",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 1010,
+                                  "referencedDeclaration": 946,
                                   "src": "2917:10:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -4268,14 +4260,14 @@
                                   "typeString": "address[] storage ref"
                                 }
                               },
-                              "id": 1068,
+                              "id": 1004,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 1067,
+                                "id": 1003,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1037,
+                                "referencedDeclaration": 973,
                                 "src": "2929:1:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -4312,25 +4304,25 @@
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
-                                "id": 1070,
+                                "id": 1006,
                                 "name": "luckyRewardAmount",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 956,
+                                "referencedDeclaration": 892,
                                 "src": "2936:17:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_uint256_$_t_mapping$_t_address_$_t_uint256_$_$",
                                   "typeString": "mapping(uint256 => mapping(address => uint256))"
                                 }
                               },
-                              "id": 1072,
+                              "id": 1008,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 1071,
+                                "id": 1007,
                                 "name": "_stepIndex",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1010,
+                                "referencedDeclaration": 946,
                                 "src": "2954:10:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -4348,32 +4340,32 @@
                                 "typeString": "mapping(address => uint256)"
                               }
                             },
-                            "id": 1078,
+                            "id": 1014,
                             "indexExpression": {
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
                                 "baseExpression": {
                                   "argumentTypes": null,
-                                  "id": 1073,
+                                  "id": 1009,
                                   "name": "luckyWinners",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 946,
+                                  "referencedDeclaration": 882,
                                   "src": "2966:12:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                                     "typeString": "mapping(uint256 => address[] storage ref)"
                                   }
                                 },
-                                "id": 1075,
+                                "id": 1011,
                                 "indexExpression": {
                                   "argumentTypes": null,
-                                  "id": 1074,
+                                  "id": 1010,
                                   "name": "_stepIndex",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 1010,
+                                  "referencedDeclaration": 946,
                                   "src": "2979:10:4",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -4391,14 +4383,14 @@
                                   "typeString": "address[] storage ref"
                                 }
                               },
-                              "id": 1077,
+                              "id": 1013,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 1076,
+                                "id": 1012,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 1037,
+                                "referencedDeclaration": 973,
                                 "src": "2991:1:4",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -4433,7 +4425,7 @@
                             "typeString": "uint256"
                           }
                         },
-                        "id": 1080,
+                        "id": 1016,
                         "nodeType": "ExpressionStatement",
                         "src": "2880:114:4"
                       }
@@ -4445,18 +4437,18 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 1045,
+                    "id": 981,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "argumentTypes": null,
-                      "id": 1040,
+                      "id": 976,
                       "name": "i",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1037,
+                      "referencedDeclaration": 973,
                       "src": "2691:1:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -4471,25 +4463,25 @@
                         "argumentTypes": null,
                         "baseExpression": {
                           "argumentTypes": null,
-                          "id": 1041,
+                          "id": 977,
                           "name": "luckyWinners",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 946,
+                          "referencedDeclaration": 882,
                           "src": "2695:12:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint256_$_t_array$_t_address_$dyn_storage_$",
                             "typeString": "mapping(uint256 => address[] storage ref)"
                           }
                         },
-                        "id": 1043,
+                        "id": 979,
                         "indexExpression": {
                           "argumentTypes": null,
-                          "id": 1042,
+                          "id": 978,
                           "name": "_stepIndex",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1010,
+                          "referencedDeclaration": 946,
                           "src": "2708:10:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -4507,7 +4499,7 @@
                           "typeString": "address[] storage ref"
                         }
                       },
-                      "id": 1044,
+                      "id": 980,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -4527,18 +4519,18 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 1082,
+                  "id": 1018,
                   "initializationExpression": {
                     "assignments": [
-                      1037
+                      973
                     ],
                     "declarations": [
                       {
                         "constant": false,
-                        "id": 1037,
+                        "id": 973,
                         "name": "i",
                         "nodeType": "VariableDeclaration",
-                        "scope": 1082,
+                        "scope": 1018,
                         "src": "2679:6:4",
                         "stateVariable": false,
                         "storageLocation": "default",
@@ -4547,7 +4539,7 @@
                           "typeString": "uint256"
                         },
                         "typeName": {
-                          "id": 1036,
+                          "id": 972,
                           "name": "uint",
                           "nodeType": "ElementaryTypeName",
                           "src": "2679:4:4",
@@ -4560,11 +4552,11 @@
                         "visibility": "internal"
                       }
                     ],
-                    "id": 1039,
+                    "id": 975,
                     "initialValue": {
                       "argumentTypes": null,
                       "hexValue": "30",
-                      "id": 1038,
+                      "id": 974,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -4585,7 +4577,7 @@
                   "loopExpression": {
                     "expression": {
                       "argumentTypes": null,
-                      "id": 1047,
+                      "id": 983,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -4596,11 +4588,11 @@
                       "src": "2728:3:4",
                       "subExpression": {
                         "argumentTypes": null,
-                        "id": 1046,
+                        "id": 982,
                         "name": "i",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1037,
+                        "referencedDeclaration": 973,
                         "src": "2728:1:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -4612,7 +4604,7 @@
                         "typeString": "uint256"
                       }
                     },
-                    "id": 1048,
+                    "id": 984,
                     "nodeType": "ExpressionStatement",
                     "src": "2728:3:4"
                   },
@@ -4622,7 +4614,7 @@
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1087,
+                    "id": 1023,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -4631,25 +4623,25 @@
                       "argumentTypes": null,
                       "baseExpression": {
                         "argumentTypes": null,
-                        "id": 1083,
+                        "id": 1019,
                         "name": "currentStepHasFinished",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 964,
+                        "referencedDeclaration": 900,
                         "src": "3015:22:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_uint256_$_t_bool_$",
                           "typeString": "mapping(uint256 => bool)"
                         }
                       },
-                      "id": 1085,
+                      "id": 1021,
                       "indexExpression": {
                         "argumentTypes": null,
-                        "id": 1084,
+                        "id": 1020,
                         "name": "_stepIndex",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1010,
+                        "referencedDeclaration": 946,
                         "src": "3038:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -4672,7 +4664,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "74727565",
-                      "id": 1086,
+                      "id": 1022,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -4693,29 +4685,29 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 1088,
+                  "id": 1024,
                   "nodeType": "ExpressionStatement",
                   "src": "3015:41:4"
                 }
               ]
             },
             "documentation": null,
-            "id": 1090,
+            "id": 1026,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_dealLuckyInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1016,
+              "id": 952,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1010,
+                  "id": 946,
                   "name": "_stepIndex",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1090,
+                  "scope": 1026,
                   "src": "1847:18:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -4724,7 +4716,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1009,
+                    "id": 945,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1847:7:4",
@@ -4738,10 +4730,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1013,
+                  "id": 949,
                   "name": "_luckyWinners",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1090,
+                  "scope": 1026,
                   "src": "1875:30:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -4751,7 +4743,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 1011,
+                      "id": 947,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "1875:7:4",
@@ -4761,7 +4753,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 1012,
+                    "id": 948,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "1875:9:4",
@@ -4775,10 +4767,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 1015,
+                  "id": 951,
                   "name": "_totalLyckyReward",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1090,
+                  "scope": 1026,
                   "src": "1915:25:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -4787,7 +4779,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1014,
+                    "id": 950,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1915:7:4",
@@ -4803,12 +4795,12 @@
               "src": "1837:109:4"
             },
             "returnParameters": {
-              "id": 1017,
+              "id": 953,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1968:0:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "1814:1249:4",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -4816,21 +4808,21 @@
           },
           {
             "body": {
-              "id": 1111,
+              "id": 1047,
               "nodeType": "Block",
               "src": "3183:130:4",
               "statements": [
                 {
                   "assignments": [
-                    1098
+                    1034
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 1098,
+                      "id": 1034,
                       "name": "addressStr",
                       "nodeType": "VariableDeclaration",
-                      "scope": 1111,
+                      "scope": 1047,
                       "src": "3193:24:4",
                       "stateVariable": false,
                       "storageLocation": "memory",
@@ -4839,7 +4831,7 @@
                         "typeString": "string"
                       },
                       "typeName": {
-                        "id": 1097,
+                        "id": 1033,
                         "name": "string",
                         "nodeType": "ElementaryTypeName",
                         "src": "3193:6:4",
@@ -4852,17 +4844,17 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 1103,
+                  "id": 1039,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 1101,
+                        "id": 1037,
                         "name": "_addr",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1092,
+                        "referencedDeclaration": 1028,
                         "src": "3244:5:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -4879,32 +4871,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1099,
+                        "id": 1035,
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3039,
+                        "referencedDeclaration": 3067,
                         "src": "3220:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3039_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
-                      "id": 1100,
+                      "id": 1036,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "addr2string",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2859,
+                      "referencedDeclaration": 2887,
                       "src": "3220:23:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_address_$returns$_t_string_memory_ptr_$",
                         "typeString": "function (address) pure returns (string memory)"
                       }
                     },
-                    "id": 1102,
+                    "id": 1038,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -4927,11 +4919,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 1106,
+                        "id": 1042,
                         "name": "addressStr",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1098,
+                        "referencedDeclaration": 1034,
                         "src": "3289:10:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_string_memory_ptr",
@@ -4941,7 +4933,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "3431",
-                        "id": 1107,
+                        "id": 1043,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -4959,7 +4951,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "3432",
-                        "id": 1108,
+                        "id": 1044,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -4992,32 +4984,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1104,
+                        "id": 1040,
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3039,
+                        "referencedDeclaration": 3067,
                         "src": "3267:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3039_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
-                      "id": 1105,
+                      "id": 1041,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "substring",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2999,
+                      "referencedDeclaration": 3027,
                       "src": "3267:21:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_string_memory_ptr_$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
                         "typeString": "function (string memory,uint256,uint256) pure returns (string memory)"
                       }
                     },
-                    "id": 1109,
+                    "id": 1045,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -5031,30 +5023,30 @@
                       "typeString": "string memory"
                     }
                   },
-                  "functionReturnParameters": 1096,
-                  "id": 1110,
+                  "functionReturnParameters": 1032,
+                  "id": 1046,
                   "nodeType": "Return",
                   "src": "3260:46:4"
                 }
               ]
             },
             "documentation": null,
-            "id": 1112,
+            "id": 1048,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getLastFromAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1093,
+              "id": 1029,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1092,
+                  "id": 1028,
                   "name": "_addr",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1112,
+                  "scope": 1048,
                   "src": "3133:13:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -5063,7 +5055,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1091,
+                    "id": 1027,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3133:7:4",
@@ -5080,15 +5072,15 @@
               "src": "3132:15:4"
             },
             "returnParameters": {
-              "id": 1096,
+              "id": 1032,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1095,
+                  "id": 1031,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1112,
+                  "scope": 1048,
                   "src": "3168:13:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -5097,7 +5089,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1094,
+                    "id": 1030,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "3168:6:4",
@@ -5112,7 +5104,7 @@
               ],
               "src": "3167:15:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "3105:208:4",
             "stateMutability": "pure",
             "superFunction": null,
@@ -5120,7 +5112,7 @@
           },
           {
             "body": {
-              "id": 1133,
+              "id": 1069,
               "nodeType": "Block",
               "src": "3442:124:4",
               "statements": [
@@ -5133,11 +5125,11 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 1123,
+                            "id": 1059,
                             "name": "_blockHash",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1114,
+                            "referencedDeclaration": 1050,
                             "src": "3509:10:4",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
@@ -5154,32 +5146,32 @@
                           ],
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1121,
+                            "id": 1057,
                             "name": "StringUtils",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3039,
+                            "referencedDeclaration": 3067,
                             "src": "3481:11:4",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_StringUtils_$3039_$",
+                              "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
                               "typeString": "type(library StringUtils)"
                             }
                           },
-                          "id": 1122,
+                          "id": 1058,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "bytes32Tostring",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 2946,
+                          "referencedDeclaration": 2974,
                           "src": "3481:27:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_delegatecall_pure$_t_bytes32_$returns$_t_string_memory_ptr_$",
                             "typeString": "function (bytes32) pure returns (string memory)"
                           }
                         },
-                        "id": 1124,
+                        "id": 1060,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -5199,7 +5191,7 @@
                           "typeIdentifier": "t_uint8",
                           "typeString": "uint8"
                         },
-                        "id": 1128,
+                        "id": 1064,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -5208,18 +5200,18 @@
                           "argumentTypes": null,
                           "expression": {
                             "argumentTypes": null,
-                            "id": 1125,
+                            "id": 1061,
                             "name": "_blockHash",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1114,
+                            "referencedDeclaration": 1050,
                             "src": "3521:10:4",
                             "typeDescriptions": {
                               "typeIdentifier": "t_bytes32",
                               "typeString": "bytes32"
                             }
                           },
-                          "id": 1126,
+                          "id": 1062,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -5238,7 +5230,7 @@
                         "rightExpression": {
                           "argumentTypes": null,
                           "hexValue": "31",
-                          "id": 1127,
+                          "id": 1063,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -5263,18 +5255,18 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 1129,
+                          "id": 1065,
                           "name": "_blockHash",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1114,
+                          "referencedDeclaration": 1050,
                           "src": "3541:10:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bytes32",
                             "typeString": "bytes32"
                           }
                         },
-                        "id": 1130,
+                        "id": 1066,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -5306,32 +5298,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 1119,
+                        "id": 1055,
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3039,
+                        "referencedDeclaration": 3067,
                         "src": "3459:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3039_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
-                      "id": 1120,
+                      "id": 1056,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "substring",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2999,
+                      "referencedDeclaration": 3027,
                       "src": "3459:21:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_string_memory_ptr_$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
                         "typeString": "function (string memory,uint256,uint256) pure returns (string memory)"
                       }
                     },
-                    "id": 1131,
+                    "id": 1067,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -5345,30 +5337,30 @@
                       "typeString": "string memory"
                     }
                   },
-                  "functionReturnParameters": 1118,
-                  "id": 1132,
+                  "functionReturnParameters": 1054,
+                  "id": 1068,
                   "nodeType": "Return",
                   "src": "3452:107:4"
                 }
               ]
             },
             "documentation": null,
-            "id": 1134,
+            "id": 1070,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getLastFromBlockHash",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1115,
+              "id": 1051,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1114,
+                  "id": 1050,
                   "name": "_blockHash",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1134,
+                  "scope": 1070,
                   "src": "3388:18:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -5377,7 +5369,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 1113,
+                    "id": 1049,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "3388:7:4",
@@ -5393,15 +5385,15 @@
               "src": "3387:20:4"
             },
             "returnParameters": {
-              "id": 1118,
+              "id": 1054,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1117,
+                  "id": 1053,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1134,
+                  "scope": 1070,
                   "src": "3428:13:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -5410,7 +5402,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 1116,
+                    "id": 1052,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "3428:6:4",
@@ -5425,14 +5417,14 @@
               ],
               "src": "3427:15:4"
             },
-            "scope": 1135,
+            "scope": 1071,
             "src": "3358:208:4",
             "stateMutability": "pure",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 1136,
+        "scope": 1072,
         "src": "631:2937:4"
       }
     ],
@@ -5461,7 +5453,7 @@
     }
   },
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-23T03:20:47.667Z",
+  "updatedAt": "2019-05-23T10:50:46.450Z",
   "devdoc": {
     "methods": {}
   },

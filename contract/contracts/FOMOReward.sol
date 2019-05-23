@@ -39,9 +39,10 @@ contract FOMOReward {
         uint256 _totalFOMOReward
     )
         public
+        returns(address[] memory)
     {
         require(!currentStepHasFinished[_stepIndex], "当前轮次的FOMO奖励已经计算完成");
-        _dealWinnerInfo(_stepIndex, _funders, _totalFOMOReward);
+        return _dealWinnerInfo(_stepIndex, _funders, _totalFOMOReward);
     }
 
     // 处理获奖者信息，分配获奖金额
@@ -52,11 +53,12 @@ contract FOMOReward {
         uint256 _totalFOMOReward
     )
         internal
+        returns(address[] memory)
     {
         uint256 fundersLen = _funders.length;
 
         for(uint i = 1; i < 6; i++){
-            FOMOWinners[_stepIndex].push(_funders[fundersLen-i]);
+            
             if(i == 1) {
                 FOMORewards[_stepIndex].push(_totalFOMOReward.mul(25).div(1000));
             }else if(i == 2) {
@@ -64,6 +66,8 @@ contract FOMOReward {
             }else{
                 FOMORewards[_stepIndex].push(_totalFOMOReward.mul(5).div(1000));
             }
+            
+            FOMOWinners[_stepIndex].push(_funders[fundersLen-i]);
 
             FOMORewardAmount[_stepIndex][FOMOWinners[_stepIndex][i]] = FOMORewards[_stepIndex][i];
 
@@ -72,6 +76,8 @@ contract FOMOReward {
         }
 
         currentStepHasFinished[_stepIndex] = true;
+
+        return FOMOWinners[_stepIndex];
     }
 
     // 确认奖励金是正确的
