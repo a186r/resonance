@@ -3,11 +3,14 @@
     <el-row>
       <el-col class="col-flex-column"  :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="title dark-card">
-          <p>组建期</p>
-          <p>CAD: {{homeData.currentStepTokenAmount}} CAD</p>
-          <router-link to="/offer">（点击进入组建期页面）</router-link>
+          <div class="building-period">
+            <div class="building-period-icon"></div>
+            <p >组建期</p>
+          </div>
+          <p>CAD: <span class="value-span">{{homeData.currentStepTokenAmount}}</span> CAD</p>
+          <router-link class="to-offer" to="/offer">点击进入组建期页面</router-link>
         </div>
-        <div class="intro dark-card">
+        <div class="intro">
           <p>组建期规则</p>
           <div class="detail">
             <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
@@ -20,11 +23,14 @@
       </el-col>
       <el-col class="col-flex-column"  :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="title dark-card">
-          <p>募资期</p>
-          <p>ETH: {{homeData.currentStepRaisedETH}} ETH</p>
-          <router-link to="/offer">（点击进入募资期页面）</router-link>
+          <div class="funding-period">
+            <div class="funding-period-icon"></div>
+            <p >募资期</p>
+          </div>
+          <p>ETH: <span class="value-span">{{homeData.currentStepRaisedETH}}</span> ETH</p>
+          <router-link class="to-offer" to="/offer">点击进入募资期页面</router-link>
         </div>
-        <div class="intro dark-card">
+        <div class="intro">
           <p>募资期规则</p>
           <div class="detail">
             <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
@@ -63,9 +69,12 @@ export default {
   }
 }
 </script>
-<style lang='scss'>
+<style lang='scss' scoped>
+@import "../assets/variables.scss";
+
 .home {
   // display: flex;
+  font-size: 0.16rem;
   height: 100%;
   width: 100%;
   align-items: center;
@@ -83,8 +92,33 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    .building-period {
+      display: flex;
+      justify-content: center;
+      div {
+        width: .2rem;
+        background-image: url('~@/assets/image/building.png');
+        background-repeat: no-repeat;
+        background-size: .2rem;
+        background-position-y: center;
+      }
+    }
+    .funding-period {
+      display: flex;
+      justify-content: center;
+      div {
+        width: .2rem;
+        background-position-y: center;
+        background-image: url('~@/assets/image/funding.png');
+        background-repeat: no-repeat;
+        background-size: .2rem;
+      }
+    }
     :nth-child(3) {
       font-weight: bold;
+    }
+    .to-offer {
+      color: $theme;
     }
   }
   .intro {
@@ -92,7 +126,9 @@ export default {
     flex-direction: column;
     margin-top: 0.3rem;
     padding-bottom: 0.2rem;
-    // height: 100%;
+    background-color: $dark-main;
+    border-radius: 5px;
+    width: 80%;
     p {
       margin-top: 0.2rem;
       text-align: center;

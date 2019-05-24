@@ -13,7 +13,13 @@ export default new Vuex.Store({
     isMobile: false,
     myDetail: [
       30,
-      3
+      3,
+      12,
+      45,
+      123,
+      12345,
+      23,
+      1
     ],
     offerData: {
       bpCountdown: 24 * 60 * 60 * 1000,
@@ -47,7 +53,7 @@ export default new Vuex.Store({
       contract.methods.getFunderInfo(this.state.account).call({}, (err, result) => {
         console.log(err, result, contract.address)
       })
-      commit('GET_FUNDER_INFO', [3000, 23])
+      // commit('GET_FUNDER_INFO', [3000, 23])
     },
     async getBuildingPeriodInfo({ commit }) {
       commit('GET_OFFER_INFO', {})
@@ -63,6 +69,7 @@ export default new Vuex.Store({
     },
     async depositETH({ commit }, amount) {
       console.log(window.contract, amount)
+      const self = this
       web3.eth.sendTransaction({
         from: this.state.account,
         to: window.contract.address,
@@ -70,19 +77,29 @@ export default new Vuex.Store({
       })
       .then(function(receipt){
         console.log(receipt)
+      }).catch(err => {
+        self._vm.$alert('Metamask 提交失败', '提示', {
+          confirmButtonText: '确定',
+        })
       })
     },
     async depositCAD({ commit }, amount) {
       // solidity function name: jointlyBuild
       console.log(amount)
+      const self = this
       window.contract.methods.jointlyBuild(ethToWei(amount)).send({
         from: this.state.account,
       }).then(res => {
         console.log(res)
+      }).catch(err => {
+        self._vm.$alert('Metamask 提交失败', '提示', {
+          confirmButtonText: '确定',
+        })
       })
     },
     async toBeFissionPerson({ commit }, address) {
       console.log(address)
+      const self = this
       const options ={
         from: this.state.account,
         gas: ''
@@ -96,21 +113,33 @@ export default new Vuex.Store({
             })          
         })
         .catch(function(error){
-            console.log(error)
+          self._vm.$alert('Metamask 提交失败', '提示', {
+            confirmButtonText: '确定',
+          })
         })
     }, 
     async withdrawAllETH({ commit }) {
+      const self = this
       window.contract.methods.withdrawAllETH().send({
         from: this.state.account,
       }).then(res => {
         console.log(res)
+      }).catch(err => {
+        self._vm.$alert('Metamask 提交失败', '提示', {
+          confirmButtonText: '确定',
+        })
       })
     },
     async withdrawAllCAD({ commit }) {
+      const self = this
       window.contract.methods.withdrawAllToken().send({
         from: this.state.account,
       }).then(res => {
         console.log(res)
+      }).catch(err => {
+        self._vm.$alert('Metamask 提交失败', '提示', {
+          confirmButtonText: '确定',
+        })
       })
     },
     async isBuilder({ commit }) {

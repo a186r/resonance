@@ -40,9 +40,13 @@
       </el-col>
     </el-row>
     <el-row :gutter="10">
-      <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" v-for="(item, i) in rewardList" :key="i">
-        <div class="reward-area dark-card">
-          <p>{{item.text}}</p>
+      <el-col class="reward-list" :xs="12" :sm="12" :md="6" :lg="6" :xl="6" v-for="(item, i) in rewardList" :key="i">
+        <div class="reward-area">
+          <div class="reward-type">
+            <div :class="rewardList[i].class"></div>
+            <p>{{item.text}}</p>
+          </div>
+          <p>当前共奖励 <span class="value-span">{{item.value}}</span> ETH</p>
           <div class="reward-detail">
             <div class="reward-detal-item" v-for="i in 5" :key="i">
               <span class="address">0x7525c82e0cf1832e79ff3aff259c5fe853cf95f4</span>
@@ -63,23 +67,27 @@ export default {
   name: 'offer',
   data () {
     return {
-      isBuilding: false,
+      isBuilding: true,
       buildingText: '组建期',
       depostCADAmount: '',
       depostETHAmount: '',
       address: '',
       rewardList: [{
           text: '裂变奖励',
-          value: 23
+          class: 'fission',
+          value: 23,
         },{
           text: 'FOMO 奖励',
+          class: 'fomo',
           value: 23
         },
         {
           text: '幸运奖励',
+          class: 'lucky',
           value: 23
         },{
           text: '信仰奖励',
+          class: 'faith',
           value: 23
         }
       ]
@@ -117,11 +125,15 @@ export default {
     }
   },
   mounted() {
+    store.dispatch('isBuilder')
   }
 }
 </script>
-<style lang='scss'>
+<style lang='scss' scoped>
+@import "../assets/variables.scss";
+
 .offer {
+  font-size: 0.16rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -143,20 +155,50 @@ export default {
       }
     }
   }
-  .reward-area {
-    padding: 0.1rem 0.1rem;
-    margin-bottom: 0.3rem;
-    .reward-detail {
-      font-size: 0.12rem;
-      margin-top: 0.2rem;
-      .reward-detal-item {
+  .reward-list {
+    .reward-area {
+      padding: 0.1rem 0.1rem;
+      margin-bottom: 0.3rem;
+      font-size: .16rem;
+      background-color: $dark-main;
+      border-radius: 5px;
+      .reward-type {
         display: flex;
         justify-content: center;
-        .address {
-          max-width: 70%;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+        div {
+          background-repeat: no-repeat;
+          background-size: .18rem;
+          background-position-y: center;
+          width: .18rem;
+        }
+        div.fission {
+          background-image: url('~@/assets/image/fission.png');
+        }
+        div.fomo {
+          background-image: url('~@/assets/image/fomo.png');
+        }
+        div.lucky {
+          background-image: url('~@/assets/image/lucky.png');
+        }
+        div.faith {
+          background-image: url('~@/assets/image/faith.png');
+        }
+      }
+      p {
+        font-size: .18rem;
+      }
+      .reward-detail {
+        font-size: 0.12rem;
+        margin-top: 0.2rem;
+        .reward-detal-item {
+          display: flex;
+          justify-content: center;
+          .address {
+            max-width: 70%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
         }
       }
     }

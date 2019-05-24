@@ -4,10 +4,13 @@
       <el-header>
         <div id="nav">
           <div class="left">
-            <router-link to="/">{{ $t('nav.index') }}</router-link>
-            <router-link to="/offer">{{ $t('nav.offer') }}</router-link>
+            <div class="logo">
+              <img src="./assets/image/logo.png">
+            </div>
           </div>
           <div class="right">
+            <router-link to="/">{{ $t('nav.index') }}</router-link>
+            <router-link to="/offer">{{ $t('nav.offer') }}</router-link>
             <router-link to="/my">{{ $t('nav.my') }}</router-link>
             <a class="link-metamask" @click="unlockMetaMask">{{account}}</a>
             <el-dropdown @command="handleCommand">
@@ -26,6 +29,7 @@
         <router-view></router-view>
         <!-- <HelloI18n /> -->
       </el-main>
+      <el-footer>Footer</el-footer>
     </el-container>
   </div>
 </template>
@@ -128,20 +132,15 @@ body {
 html {
   font-size: 10.416666vw;
 }
-
-p {
-  margin-block-start: 0;
-  margin-block-end: 0;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
-}
  
 .el-dropdown-link {
-  font-size: 0.18rem;
+  font-size: 0.14rem;
 }
+
+.el-dropdown {
+  display: flex;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -153,15 +152,15 @@ a {
 }
 
 .el-header, .el-footer {
-  background-color: $dark-main;
+  background-color: $main;
   color: #fff;
   text-align: center;
-  line-height: 60px;
+  height: .4rem !important;
 }
 
 .el-main {
   height: 100%;
-  background-color: $main;
+  background-color: $bg;
   color: #fff;
 }
 
@@ -172,6 +171,8 @@ a {
 #nav {
   display: flex;
   justify-content: space-between;
+  font-size: 0.14rem;
+  height: 100%;
   .locale-changer {
     color: #fff;
     background-color: $dark-main;
@@ -180,18 +181,27 @@ a {
     display: flex;
     justify-content: space-around;
     color: #fff;
-    width: 25%;
+    width: 10%;
+    .logo {
+      display: flex;
+      align-items: center;
+      img {
+        margin-left: .6rem;
+        height: .2rem;
+      }
+    }
   }
   .right {
     display: flex;
     justify-content: space-around;
-    width: 40%;
+    align-items: center;
+    width: 50%;
     .link-metamask {
       cursor: pointer;
-        overflow: hidden;
-        max-width: 1.5rem;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+      overflow: hidden;
+      max-width: 1.5rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
