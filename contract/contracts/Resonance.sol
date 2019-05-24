@@ -191,7 +191,7 @@ contract Resonance is Ownable{
     {
         require(crowdsaleIsRunning(), "共振已经结束");
 
-        //TODO: require(steps[currentStep].funder[promoter].isBuilder,"推广者必须是Builder");
+        //TODO: require(steps[currentStep].funder[promoter].isBuilder,"推广者自己必须是Builder");
 
         require(promoter != address(0), "推广者不能是空地址");
 
@@ -206,10 +206,9 @@ contract Resonance is Ownable{
         // 5个给推广者
         abcToken.transfer(address(promoter), UintUtils.toWei(5));
 
-        // steps[currentStep].funder[promoter] = Funder(msg.sender,0,0,(promoter),0, promoter,false,false,false,false);
         steps[currentStep].funder[promoter].earnFromAff += UintUtils.toWei(5);
 
-        // // 成为共建者
+        // 成为共建者
         _addBuilder(promoter);
 
         steps[currentStep].funder[promoter].invitees.push(msg.sender);

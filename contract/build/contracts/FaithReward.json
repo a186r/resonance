@@ -127,14 +127,14 @@
     "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/FaithReward.sol",
     "exportedSymbols": {
       "FaithReward": [
-        498
+        520
       ]
     },
-    "id": 499,
+    "id": 521,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 334,
+        "id": 356,
         "literals": [
           "solidity",
           ">=",
@@ -150,10 +150,10 @@
       {
         "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
         "file": "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
-        "id": 335,
+        "id": 357,
         "nodeType": "ImportDirective",
-        "scope": 499,
-        "sourceUnit": 3498,
+        "scope": 521,
+        "sourceUnit": 3520,
         "src": "34:75:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -164,31 +164,31 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 498,
+        "id": 520,
         "linearizedBaseContracts": [
-          498
+          520
         ],
         "name": "FaithReward",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 338,
+            "id": 360,
             "libraryName": {
               "contractScope": null,
-              "id": 336,
+              "id": 358,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3497,
+              "referencedDeclaration": 3519,
               "src": "159:8:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$3497",
+                "typeIdentifier": "t_contract$_SafeMath_$3519",
                 "typeString": "library SafeMath"
               }
             },
             "nodeType": "UsingForDirective",
             "src": "153:27:2",
             "typeName": {
-              "id": 337,
+              "id": 359,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "172:7:2",
@@ -201,20 +201,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 346,
+            "id": 368,
             "name": "FaithWinnerInfo",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 345,
+              "id": 367,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 341,
+                  "id": 363,
                   "indexed": false,
                   "name": "_faithWinners",
                   "nodeType": "VariableDeclaration",
-                  "scope": 346,
+                  "scope": 368,
                   "src": "208:23:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -224,7 +224,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 339,
+                      "id": 361,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "208:7:2",
@@ -234,7 +234,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 340,
+                    "id": 362,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "208:9:2",
@@ -248,11 +248,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 344,
+                  "id": 366,
                   "indexed": false,
                   "name": "_faithRewardAmount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 346,
+                  "scope": 368,
                   "src": "233:28:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -262,7 +262,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 342,
+                      "id": 364,
                       "name": "uint256",
                       "nodeType": "ElementaryTypeName",
                       "src": "233:7:2",
@@ -271,7 +271,7 @@
                         "typeString": "uint256"
                       }
                     },
-                    "id": 343,
+                    "id": 365,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "233:9:2",
@@ -290,10 +290,10 @@
           },
           {
             "constant": false,
-            "id": 349,
+            "id": 371,
             "name": "faithWinners",
             "nodeType": "VariableDeclaration",
-            "scope": 498,
+            "scope": 520,
             "src": "298:29:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -303,7 +303,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 347,
+                "id": 369,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "298:7:2",
@@ -313,7 +313,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 348,
+              "id": 370,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "298:9:2",
@@ -327,10 +327,10 @@
           },
           {
             "constant": false,
-            "id": 353,
+            "id": 375,
             "name": "faithRewardAmount",
             "nodeType": "VariableDeclaration",
-            "scope": 498,
+            "scope": 520,
             "src": "360:52:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -339,9 +339,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 352,
+              "id": 374,
               "keyType": {
-                "id": 350,
+                "id": 372,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "368:7:2",
@@ -357,7 +357,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 351,
+                "id": 373,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "379:7:2",
@@ -372,10 +372,10 @@
           },
           {
             "constant": false,
-            "id": 356,
+            "id": 378,
             "name": "faithAmounts",
             "nodeType": "VariableDeclaration",
-            "scope": 498,
+            "scope": 520,
             "src": "419:22:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -385,7 +385,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 354,
+                "id": 376,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "419:7:2",
@@ -394,7 +394,7 @@
                   "typeString": "uint256"
                 }
               },
-              "id": 355,
+              "id": 377,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "419:9:2",
@@ -408,10 +408,10 @@
           },
           {
             "constant": false,
-            "id": 358,
+            "id": 380,
             "name": "faithRewardFinished",
             "nodeType": "VariableDeclaration",
-            "scope": 498,
+            "scope": 520,
             "src": "480:31:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -420,7 +420,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 357,
+              "id": 379,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "480:4:2",
@@ -434,31 +434,31 @@
           },
           {
             "body": {
-              "id": 361,
+              "id": 383,
               "nodeType": "Block",
               "src": "539:8:2",
               "statements": []
             },
             "documentation": null,
-            "id": 362,
+            "id": 384,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 359,
+              "id": 381,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "529:2:2"
             },
             "returnParameters": {
-              "id": 360,
+              "id": 382,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "539:0:2"
             },
-            "scope": 498,
+            "scope": 520,
             "src": "518:29:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -466,7 +466,7 @@
           },
           {
             "body": {
-              "id": 370,
+              "id": 392,
               "nodeType": "Block",
               "src": "705:65:2",
               "statements": [
@@ -476,11 +476,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 366,
+                        "id": 388,
                         "name": "faithWinners",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 349,
+                        "referencedDeclaration": 371,
                         "src": "736:12:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -489,11 +489,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 367,
+                        "id": 389,
                         "name": "faithAmounts",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 356,
+                        "referencedDeclaration": 378,
                         "src": "750:12:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
@@ -512,18 +512,18 @@
                           "typeString": "uint256[] storage ref"
                         }
                       ],
-                      "id": 365,
+                      "id": 387,
                       "name": "FaithWinnerInfo",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 346,
+                      "referencedDeclaration": 368,
                       "src": "720:15:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_array$_t_address_$dyn_memory_ptr_$_t_array$_t_uint256_$dyn_memory_ptr_$returns$__$",
                         "typeString": "function (address[] memory,uint256[] memory)"
                       }
                     },
-                    "id": 368,
+                    "id": 390,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -537,32 +537,32 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 369,
+                  "id": 391,
                   "nodeType": "EmitStatement",
                   "src": "715:48:2"
                 }
               ]
             },
             "documentation": "@notice 获取某轮次信仰奖励信息\n @return 轮次、获胜者列表、获胜者奖金列表",
-            "id": 371,
+            "id": 393,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getFaithWinnerInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 363,
+              "id": 385,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "695:2:2"
             },
             "returnParameters": {
-              "id": 364,
+              "id": 386,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "705:0:2"
             },
-            "scope": 498,
+            "scope": 520,
             "src": "668:102:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -570,7 +570,7 @@
           },
           {
             "body": {
-              "id": 496,
+              "id": 518,
               "nodeType": "Block",
               "src": "1005:983:2",
               "statements": [
@@ -580,7 +580,7 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 383,
+                        "id": 405,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -591,11 +591,11 @@
                         "src": "1023:20:2",
                         "subExpression": {
                           "argumentTypes": null,
-                          "id": 382,
+                          "id": 404,
                           "name": "faithRewardFinished",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 358,
+                          "referencedDeclaration": 380,
                           "src": "1024:19:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -610,7 +610,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "e5bd93e5898de8bdaee6aca1e79a84e4bfa1e4bbb0e5a596e58ab1e5b7b2e7bb8fe8aea1e7ae97e5ae8ce68890",
-                        "id": 384,
+                        "id": 406,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -637,21 +637,21 @@
                           "typeString": "literal_string \"当前轮次的信仰奖励已经计算完成\""
                         }
                       ],
-                      "id": 381,
+                      "id": 403,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4250,
-                        4251
+                        4272,
+                        4273
                       ],
-                      "referencedDeclaration": 4251,
+                      "referencedDeclaration": 4273,
                       "src": "1015:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 385,
+                    "id": 407,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -665,13 +665,13 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 386,
+                  "id": 408,
                   "nodeType": "ExpressionStatement",
                   "src": "1015:78:2"
                 },
                 {
                   "body": {
-                    "id": 488,
+                    "id": 510,
                     "nodeType": "Block",
                     "src": "1151:716:2",
                     "statements": [
@@ -682,18 +682,18 @@
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           },
-                          "id": 400,
+                          "id": 422,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftExpression": {
                             "argumentTypes": null,
-                            "id": 398,
+                            "id": 420,
                             "name": "i",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 388,
+                            "referencedDeclaration": 410,
                             "src": "1168:1:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -705,7 +705,7 @@
                           "rightExpression": {
                             "argumentTypes": null,
                             "hexValue": "30",
-                            "id": 399,
+                            "id": 421,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -733,7 +733,7 @@
                               "typeIdentifier": "t_bool",
                               "typeString": "bool"
                             },
-                            "id": 422,
+                            "id": 444,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -744,18 +744,18 @@
                                 "typeIdentifier": "t_uint256",
                                 "typeString": "uint256"
                               },
-                              "id": 418,
+                              "id": 440,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
                               "lValueRequested": false,
                               "leftExpression": {
                                 "argumentTypes": null,
-                                "id": 416,
+                                "id": 438,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 388,
+                                "referencedDeclaration": 410,
                                 "src": "1319:1:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -767,7 +767,7 @@
                               "rightExpression": {
                                 "argumentTypes": null,
                                 "hexValue": "31",
-                                "id": 417,
+                                "id": 439,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": true,
@@ -796,18 +796,18 @@
                                 "typeIdentifier": "t_uint256",
                                 "typeString": "uint256"
                               },
-                              "id": 421,
+                              "id": 443,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
                               "lValueRequested": false,
                               "leftExpression": {
                                 "argumentTypes": null,
-                                "id": 419,
+                                "id": 441,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 388,
+                                "referencedDeclaration": 410,
                                 "src": "1329:1:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -819,7 +819,7 @@
                               "rightExpression": {
                                 "argumentTypes": null,
                                 "hexValue": "33",
-                                "id": 420,
+                                "id": 442,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": true,
@@ -853,7 +853,7 @@
                                 "typeIdentifier": "t_bool",
                                 "typeString": "bool"
                               },
-                              "id": 444,
+                              "id": 466,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -864,18 +864,18 @@
                                   "typeIdentifier": "t_uint256",
                                   "typeString": "uint256"
                                 },
-                                "id": 440,
+                                "id": 462,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
                                 "lValueRequested": false,
                                 "leftExpression": {
                                   "argumentTypes": null,
-                                  "id": 438,
+                                  "id": 460,
                                   "name": "i",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 388,
+                                  "referencedDeclaration": 410,
                                   "src": "1479:1:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -887,7 +887,7 @@
                                 "rightExpression": {
                                   "argumentTypes": null,
                                   "hexValue": "33",
-                                  "id": 439,
+                                  "id": 461,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": true,
@@ -916,18 +916,18 @@
                                   "typeIdentifier": "t_uint256",
                                   "typeString": "uint256"
                                 },
-                                "id": 443,
+                                "id": 465,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
                                 "lValueRequested": false,
                                 "leftExpression": {
                                   "argumentTypes": null,
-                                  "id": 441,
+                                  "id": 463,
                                   "name": "i",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 388,
+                                  "referencedDeclaration": 410,
                                   "src": "1489:1:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -939,7 +939,7 @@
                                 "rightExpression": {
                                   "argumentTypes": null,
                                   "hexValue": "36",
-                                  "id": 442,
+                                  "id": 464,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": true,
@@ -967,14 +967,14 @@
                               }
                             },
                             "falseBody": {
-                              "id": 474,
+                              "id": 496,
                               "nodeType": "Block",
                               "src": "1644:145:2",
                               "statements": [
                                 {
                                   "expression": {
                                     "argumentTypes": null,
-                                    "id": 472,
+                                    "id": 494,
                                     "isConstant": false,
                                     "isLValue": false,
                                     "isPure": false,
@@ -983,41 +983,41 @@
                                       "argumentTypes": null,
                                       "baseExpression": {
                                         "argumentTypes": null,
-                                        "id": 460,
+                                        "id": 482,
                                         "name": "faithRewardAmount",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 353,
+                                        "referencedDeclaration": 375,
                                         "src": "1702:17:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                           "typeString": "mapping(address => uint256)"
                                         }
                                       },
-                                      "id": 464,
+                                      "id": 486,
                                       "indexExpression": {
                                         "argumentTypes": null,
                                         "baseExpression": {
                                           "argumentTypes": null,
-                                          "id": 461,
+                                          "id": 483,
                                           "name": "_faithWinners",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 374,
+                                          "referencedDeclaration": 396,
                                           "src": "1720:13:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                             "typeString": "address[] memory"
                                           }
                                         },
-                                        "id": 463,
+                                        "id": 485,
                                         "indexExpression": {
                                           "argumentTypes": null,
-                                          "id": 462,
+                                          "id": 484,
                                           "name": "i",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 388,
+                                          "referencedDeclaration": 410,
                                           "src": "1734:1:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_uint256",
@@ -1054,7 +1054,7 @@
                                         {
                                           "argumentTypes": null,
                                           "hexValue": "31303030",
-                                          "id": 470,
+                                          "id": 492,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": true,
@@ -1083,7 +1083,7 @@
                                             {
                                               "argumentTypes": null,
                                               "hexValue": "35",
-                                              "id": 467,
+                                              "id": 489,
                                               "isConstant": false,
                                               "isLValue": false,
                                               "isPure": true,
@@ -1108,32 +1108,32 @@
                                             ],
                                             "expression": {
                                               "argumentTypes": null,
-                                              "id": 465,
+                                              "id": 487,
                                               "name": "_totalFaithReward",
                                               "nodeType": "Identifier",
                                               "overloadedDeclarations": [],
-                                              "referencedDeclaration": 376,
+                                              "referencedDeclaration": 398,
                                               "src": "1740:17:2",
                                               "typeDescriptions": {
                                                 "typeIdentifier": "t_uint256",
                                                 "typeString": "uint256"
                                               }
                                             },
-                                            "id": 466,
+                                            "id": 488,
                                             "isConstant": false,
                                             "isLValue": false,
                                             "isPure": false,
                                             "lValueRequested": false,
                                             "memberName": "mul",
                                             "nodeType": "MemberAccess",
-                                            "referencedDeclaration": 3404,
+                                            "referencedDeclaration": 3426,
                                             "src": "1740:21:2",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                               "typeString": "function (uint256,uint256) pure returns (uint256)"
                                             }
                                           },
-                                          "id": 468,
+                                          "id": 490,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": false,
@@ -1147,21 +1147,21 @@
                                             "typeString": "uint256"
                                           }
                                         },
-                                        "id": 469,
+                                        "id": 491,
                                         "isConstant": false,
                                         "isLValue": false,
                                         "isPure": false,
                                         "lValueRequested": false,
                                         "memberName": "div",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 3428,
+                                        "referencedDeclaration": 3450,
                                         "src": "1740:28:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                           "typeString": "function (uint256,uint256) pure returns (uint256)"
                                         }
                                       },
-                                      "id": 471,
+                                      "id": 493,
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": false,
@@ -1181,24 +1181,24 @@
                                       "typeString": "uint256"
                                     }
                                   },
-                                  "id": 473,
+                                  "id": 495,
                                   "nodeType": "ExpressionStatement",
                                   "src": "1702:72:2"
                                 }
                               ]
                             },
-                            "id": 475,
+                            "id": 497,
                             "nodeType": "IfStatement",
                             "src": "1476:313:2",
                             "trueBody": {
-                              "id": 459,
+                              "id": 481,
                               "nodeType": "Block",
                               "src": "1495:145:2",
                               "statements": [
                                 {
                                   "expression": {
                                     "argumentTypes": null,
-                                    "id": 457,
+                                    "id": 479,
                                     "isConstant": false,
                                     "isLValue": false,
                                     "isPure": false,
@@ -1207,41 +1207,41 @@
                                       "argumentTypes": null,
                                       "baseExpression": {
                                         "argumentTypes": null,
-                                        "id": 445,
+                                        "id": 467,
                                         "name": "faithRewardAmount",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 353,
+                                        "referencedDeclaration": 375,
                                         "src": "1552:17:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                           "typeString": "mapping(address => uint256)"
                                         }
                                       },
-                                      "id": 449,
+                                      "id": 471,
                                       "indexExpression": {
                                         "argumentTypes": null,
                                         "baseExpression": {
                                           "argumentTypes": null,
-                                          "id": 446,
+                                          "id": 468,
                                           "name": "_faithWinners",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 374,
+                                          "referencedDeclaration": 396,
                                           "src": "1570:13:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                             "typeString": "address[] memory"
                                           }
                                         },
-                                        "id": 448,
+                                        "id": 470,
                                         "indexExpression": {
                                           "argumentTypes": null,
-                                          "id": 447,
+                                          "id": 469,
                                           "name": "i",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 388,
+                                          "referencedDeclaration": 410,
                                           "src": "1584:1:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_uint256",
@@ -1278,7 +1278,7 @@
                                         {
                                           "argumentTypes": null,
                                           "hexValue": "31303030",
-                                          "id": 455,
+                                          "id": 477,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": true,
@@ -1307,7 +1307,7 @@
                                             {
                                               "argumentTypes": null,
                                               "hexValue": "3130",
-                                              "id": 452,
+                                              "id": 474,
                                               "isConstant": false,
                                               "isLValue": false,
                                               "isPure": true,
@@ -1332,32 +1332,32 @@
                                             ],
                                             "expression": {
                                               "argumentTypes": null,
-                                              "id": 450,
+                                              "id": 472,
                                               "name": "_totalFaithReward",
                                               "nodeType": "Identifier",
                                               "overloadedDeclarations": [],
-                                              "referencedDeclaration": 376,
+                                              "referencedDeclaration": 398,
                                               "src": "1590:17:2",
                                               "typeDescriptions": {
                                                 "typeIdentifier": "t_uint256",
                                                 "typeString": "uint256"
                                               }
                                             },
-                                            "id": 451,
+                                            "id": 473,
                                             "isConstant": false,
                                             "isLValue": false,
                                             "isPure": false,
                                             "lValueRequested": false,
                                             "memberName": "mul",
                                             "nodeType": "MemberAccess",
-                                            "referencedDeclaration": 3404,
+                                            "referencedDeclaration": 3426,
                                             "src": "1590:21:2",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                               "typeString": "function (uint256,uint256) pure returns (uint256)"
                                             }
                                           },
-                                          "id": 453,
+                                          "id": 475,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": false,
@@ -1371,21 +1371,21 @@
                                             "typeString": "uint256"
                                           }
                                         },
-                                        "id": 454,
+                                        "id": 476,
                                         "isConstant": false,
                                         "isLValue": false,
                                         "isPure": false,
                                         "lValueRequested": false,
                                         "memberName": "div",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 3428,
+                                        "referencedDeclaration": 3450,
                                         "src": "1590:29:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                           "typeString": "function (uint256,uint256) pure returns (uint256)"
                                         }
                                       },
-                                      "id": 456,
+                                      "id": 478,
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": false,
@@ -1405,25 +1405,25 @@
                                       "typeString": "uint256"
                                     }
                                   },
-                                  "id": 458,
+                                  "id": 480,
                                   "nodeType": "ExpressionStatement",
                                   "src": "1552:73:2"
                                 }
                               ]
                             }
                           },
-                          "id": 476,
+                          "id": 498,
                           "nodeType": "IfStatement",
                           "src": "1316:473:2",
                           "trueBody": {
-                            "id": 437,
+                            "id": 459,
                             "nodeType": "Block",
                             "src": "1335:136:2",
                             "statements": [
                               {
                                 "expression": {
                                   "argumentTypes": null,
-                                  "id": 435,
+                                  "id": 457,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": false,
@@ -1432,41 +1432,41 @@
                                     "argumentTypes": null,
                                     "baseExpression": {
                                       "argumentTypes": null,
-                                      "id": 423,
+                                      "id": 445,
                                       "name": "faithRewardAmount",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 353,
+                                      "referencedDeclaration": 375,
                                       "src": "1383:17:2",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                         "typeString": "mapping(address => uint256)"
                                       }
                                     },
-                                    "id": 427,
+                                    "id": 449,
                                     "indexExpression": {
                                       "argumentTypes": null,
                                       "baseExpression": {
                                         "argumentTypes": null,
-                                        "id": 424,
+                                        "id": 446,
                                         "name": "_faithWinners",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 374,
+                                        "referencedDeclaration": 396,
                                         "src": "1401:13:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                           "typeString": "address[] memory"
                                         }
                                       },
-                                      "id": 426,
+                                      "id": 448,
                                       "indexExpression": {
                                         "argumentTypes": null,
-                                        "id": 425,
+                                        "id": 447,
                                         "name": "i",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 388,
+                                        "referencedDeclaration": 410,
                                         "src": "1415:1:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_uint256",
@@ -1503,7 +1503,7 @@
                                       {
                                         "argumentTypes": null,
                                         "hexValue": "31303030",
-                                        "id": 433,
+                                        "id": 455,
                                         "isConstant": false,
                                         "isLValue": false,
                                         "isPure": true,
@@ -1532,7 +1532,7 @@
                                           {
                                             "argumentTypes": null,
                                             "hexValue": "3230",
-                                            "id": 430,
+                                            "id": 452,
                                             "isConstant": false,
                                             "isLValue": false,
                                             "isPure": true,
@@ -1557,32 +1557,32 @@
                                           ],
                                           "expression": {
                                             "argumentTypes": null,
-                                            "id": 428,
+                                            "id": 450,
                                             "name": "_totalFaithReward",
                                             "nodeType": "Identifier",
                                             "overloadedDeclarations": [],
-                                            "referencedDeclaration": 376,
+                                            "referencedDeclaration": 398,
                                             "src": "1421:17:2",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_uint256",
                                               "typeString": "uint256"
                                             }
                                           },
-                                          "id": 429,
+                                          "id": 451,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": false,
                                           "lValueRequested": false,
                                           "memberName": "mul",
                                           "nodeType": "MemberAccess",
-                                          "referencedDeclaration": 3404,
+                                          "referencedDeclaration": 3426,
                                           "src": "1421:21:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                             "typeString": "function (uint256,uint256) pure returns (uint256)"
                                           }
                                         },
-                                        "id": 431,
+                                        "id": 453,
                                         "isConstant": false,
                                         "isLValue": false,
                                         "isPure": false,
@@ -1596,21 +1596,21 @@
                                           "typeString": "uint256"
                                         }
                                       },
-                                      "id": 432,
+                                      "id": 454,
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": false,
                                       "lValueRequested": false,
                                       "memberName": "div",
                                       "nodeType": "MemberAccess",
-                                      "referencedDeclaration": 3428,
+                                      "referencedDeclaration": 3450,
                                       "src": "1421:29:2",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                         "typeString": "function (uint256,uint256) pure returns (uint256)"
                                       }
                                     },
-                                    "id": 434,
+                                    "id": 456,
                                     "isConstant": false,
                                     "isLValue": false,
                                     "isPure": false,
@@ -1630,25 +1630,25 @@
                                     "typeString": "uint256"
                                   }
                                 },
-                                "id": 436,
+                                "id": 458,
                                 "nodeType": "ExpressionStatement",
                                 "src": "1383:73:2"
                               }
                             ]
                           }
                         },
-                        "id": 477,
+                        "id": 499,
                         "nodeType": "IfStatement",
                         "src": "1165:624:2",
                         "trueBody": {
-                          "id": 415,
+                          "id": 437,
                           "nodeType": "Block",
                           "src": "1175:136:2",
                           "statements": [
                             {
                               "expression": {
                                 "argumentTypes": null,
-                                "id": 413,
+                                "id": 435,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
@@ -1657,41 +1657,41 @@
                                   "argumentTypes": null,
                                   "baseExpression": {
                                     "argumentTypes": null,
-                                    "id": 401,
+                                    "id": 423,
                                     "name": "faithRewardAmount",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 353,
+                                    "referencedDeclaration": 375,
                                     "src": "1223:17:2",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                       "typeString": "mapping(address => uint256)"
                                     }
                                   },
-                                  "id": 405,
+                                  "id": 427,
                                   "indexExpression": {
                                     "argumentTypes": null,
                                     "baseExpression": {
                                       "argumentTypes": null,
-                                      "id": 402,
+                                      "id": 424,
                                       "name": "_faithWinners",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 374,
+                                      "referencedDeclaration": 396,
                                       "src": "1241:13:2",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                         "typeString": "address[] memory"
                                       }
                                     },
-                                    "id": 404,
+                                    "id": 426,
                                     "indexExpression": {
                                       "argumentTypes": null,
-                                      "id": 403,
+                                      "id": 425,
                                       "name": "i",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 388,
+                                      "referencedDeclaration": 410,
                                       "src": "1255:1:2",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_uint256",
@@ -1728,7 +1728,7 @@
                                     {
                                       "argumentTypes": null,
                                       "hexValue": "31303030",
-                                      "id": 411,
+                                      "id": 433,
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": true,
@@ -1757,7 +1757,7 @@
                                         {
                                           "argumentTypes": null,
                                           "hexValue": "3330",
-                                          "id": 408,
+                                          "id": 430,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": true,
@@ -1782,32 +1782,32 @@
                                         ],
                                         "expression": {
                                           "argumentTypes": null,
-                                          "id": 406,
+                                          "id": 428,
                                           "name": "_totalFaithReward",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 376,
+                                          "referencedDeclaration": 398,
                                           "src": "1261:17:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_uint256",
                                             "typeString": "uint256"
                                           }
                                         },
-                                        "id": 407,
+                                        "id": 429,
                                         "isConstant": false,
                                         "isLValue": false,
                                         "isPure": false,
                                         "lValueRequested": false,
                                         "memberName": "mul",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 3404,
+                                        "referencedDeclaration": 3426,
                                         "src": "1261:21:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                           "typeString": "function (uint256,uint256) pure returns (uint256)"
                                         }
                                       },
-                                      "id": 409,
+                                      "id": 431,
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": false,
@@ -1821,21 +1821,21 @@
                                         "typeString": "uint256"
                                       }
                                     },
-                                    "id": 410,
+                                    "id": 432,
                                     "isConstant": false,
                                     "isLValue": false,
                                     "isPure": false,
                                     "lValueRequested": false,
                                     "memberName": "div",
                                     "nodeType": "MemberAccess",
-                                    "referencedDeclaration": 3428,
+                                    "referencedDeclaration": 3450,
                                     "src": "1261:29:2",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                       "typeString": "function (uint256,uint256) pure returns (uint256)"
                                     }
                                   },
-                                  "id": 412,
+                                  "id": 434,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": false,
@@ -1855,7 +1855,7 @@
                                   "typeString": "uint256"
                                 }
                               },
-                              "id": 414,
+                              "id": 436,
                               "nodeType": "ExpressionStatement",
                               "src": "1223:73:2"
                             }
@@ -1870,41 +1870,41 @@
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
-                                "id": 481,
+                                "id": 503,
                                 "name": "faithRewardAmount",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 353,
+                                "referencedDeclaration": 375,
                                 "src": "1820:17:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                   "typeString": "mapping(address => uint256)"
                                 }
                               },
-                              "id": 485,
+                              "id": 507,
                               "indexExpression": {
                                 "argumentTypes": null,
                                 "baseExpression": {
                                   "argumentTypes": null,
-                                  "id": 482,
+                                  "id": 504,
                                   "name": "_faithWinners",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 374,
+                                  "referencedDeclaration": 396,
                                   "src": "1838:13:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                     "typeString": "address[] memory"
                                   }
                                 },
-                                "id": 484,
+                                "id": 506,
                                 "indexExpression": {
                                   "argumentTypes": null,
-                                  "id": 483,
+                                  "id": 505,
                                   "name": "i",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 388,
+                                  "referencedDeclaration": 410,
                                   "src": "1852:1:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -1943,18 +1943,18 @@
                             ],
                             "expression": {
                               "argumentTypes": null,
-                              "id": 478,
+                              "id": 500,
                               "name": "faithAmounts",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 356,
+                              "referencedDeclaration": 378,
                               "src": "1802:12:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
                                 "typeString": "uint256[] storage ref"
                               }
                             },
-                            "id": 480,
+                            "id": 502,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -1968,7 +1968,7 @@
                               "typeString": "function (uint256) returns (uint256)"
                             }
                           },
-                          "id": 486,
+                          "id": 508,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1982,7 +1982,7 @@
                             "typeString": "uint256"
                           }
                         },
-                        "id": 487,
+                        "id": 509,
                         "nodeType": "ExpressionStatement",
                         "src": "1802:54:2"
                       }
@@ -1994,18 +1994,18 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 394,
+                    "id": 416,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "argumentTypes": null,
-                      "id": 391,
+                      "id": 413,
                       "name": "i",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 388,
+                      "referencedDeclaration": 410,
                       "src": "1121:1:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -2018,18 +2018,18 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 392,
+                        "id": 414,
                         "name": "_faithWinners",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 374,
+                        "referencedDeclaration": 396,
                         "src": "1125:13:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                           "typeString": "address[] memory"
                         }
                       },
-                      "id": 393,
+                      "id": 415,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -2049,18 +2049,18 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 489,
+                  "id": 511,
                   "initializationExpression": {
                     "assignments": [
-                      388
+                      410
                     ],
                     "declarations": [
                       {
                         "constant": false,
-                        "id": 388,
+                        "id": 410,
                         "name": "i",
                         "nodeType": "VariableDeclaration",
-                        "scope": 489,
+                        "scope": 511,
                         "src": "1108:6:2",
                         "stateVariable": false,
                         "storageLocation": "default",
@@ -2069,7 +2069,7 @@
                           "typeString": "uint256"
                         },
                         "typeName": {
-                          "id": 387,
+                          "id": 409,
                           "name": "uint",
                           "nodeType": "ElementaryTypeName",
                           "src": "1108:4:2",
@@ -2082,11 +2082,11 @@
                         "visibility": "internal"
                       }
                     ],
-                    "id": 390,
+                    "id": 412,
                     "initialValue": {
                       "argumentTypes": null,
                       "hexValue": "30",
-                      "id": 389,
+                      "id": 411,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -2107,7 +2107,7 @@
                   "loopExpression": {
                     "expression": {
                       "argumentTypes": null,
-                      "id": 396,
+                      "id": 418,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -2118,11 +2118,11 @@
                       "src": "1147:3:2",
                       "subExpression": {
                         "argumentTypes": null,
-                        "id": 395,
+                        "id": 417,
                         "name": "i",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 388,
+                        "referencedDeclaration": 410,
                         "src": "1147:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2134,7 +2134,7 @@
                         "typeString": "uint256"
                       }
                     },
-                    "id": 397,
+                    "id": 419,
                     "nodeType": "ExpressionStatement",
                     "src": "1147:3:2"
                   },
@@ -2144,18 +2144,18 @@
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 492,
+                    "id": 514,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 490,
+                      "id": 512,
                       "name": "faithRewardFinished",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 358,
+                      "referencedDeclaration": 380,
                       "src": "1919:19:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -2167,7 +2167,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "74727565",
-                      "id": 491,
+                      "id": 513,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -2188,48 +2188,48 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 493,
+                  "id": 515,
                   "nodeType": "ExpressionStatement",
                   "src": "1919:26:2"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 494,
+                    "id": 516,
                     "name": "faithRewardFinished",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 358,
+                    "referencedDeclaration": 380,
                     "src": "1962:19:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 380,
-                  "id": 495,
+                  "functionReturnParameters": 402,
+                  "id": 517,
                   "nodeType": "Return",
                   "src": "1955:26:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 497,
+            "id": 519,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "dealFaithWinner",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 377,
+              "id": 399,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 374,
+                  "id": 396,
                   "name": "_faithWinners",
                   "nodeType": "VariableDeclaration",
-                  "scope": 497,
+                  "scope": 519,
                   "src": "892:30:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -2239,7 +2239,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 372,
+                      "id": 394,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "892:7:2",
@@ -2249,7 +2249,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 373,
+                    "id": 395,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "892:9:2",
@@ -2263,10 +2263,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 376,
+                  "id": 398,
                   "name": "_totalFaithReward",
                   "nodeType": "VariableDeclaration",
-                  "scope": 497,
+                  "scope": 519,
                   "src": "932:25:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2275,7 +2275,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 375,
+                    "id": 397,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "932:7:2",
@@ -2291,15 +2291,15 @@
               "src": "882:81:2"
             },
             "returnParameters": {
-              "id": 380,
+              "id": 402,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 379,
+                  "id": 401,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 497,
+                  "scope": 519,
                   "src": "995:4:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2308,7 +2308,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 378,
+                    "id": 400,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "995:4:2",
@@ -2323,14 +2323,14 @@
               ],
               "src": "994:6:2"
             },
-            "scope": 498,
+            "scope": 520,
             "src": "858:1130:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 499,
+        "scope": 521,
         "src": "127:1864:2"
       }
     ],
@@ -2340,14 +2340,14 @@
     "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/FaithReward.sol",
     "exportedSymbols": {
       "FaithReward": [
-        498
+        520
       ]
     },
-    "id": 499,
+    "id": 521,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 334,
+        "id": 356,
         "literals": [
           "solidity",
           ">=",
@@ -2363,10 +2363,10 @@
       {
         "absolutePath": "/Users/a186r/dev/sourcecode/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
         "file": "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol",
-        "id": 335,
+        "id": 357,
         "nodeType": "ImportDirective",
-        "scope": 499,
-        "sourceUnit": 3498,
+        "scope": 521,
+        "sourceUnit": 3520,
         "src": "34:75:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2377,31 +2377,31 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 498,
+        "id": 520,
         "linearizedBaseContracts": [
-          498
+          520
         ],
         "name": "FaithReward",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 338,
+            "id": 360,
             "libraryName": {
               "contractScope": null,
-              "id": 336,
+              "id": 358,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3497,
+              "referencedDeclaration": 3519,
               "src": "159:8:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$3497",
+                "typeIdentifier": "t_contract$_SafeMath_$3519",
                 "typeString": "library SafeMath"
               }
             },
             "nodeType": "UsingForDirective",
             "src": "153:27:2",
             "typeName": {
-              "id": 337,
+              "id": 359,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "172:7:2",
@@ -2414,20 +2414,20 @@
           {
             "anonymous": false,
             "documentation": null,
-            "id": 346,
+            "id": 368,
             "name": "FaithWinnerInfo",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 345,
+              "id": 367,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 341,
+                  "id": 363,
                   "indexed": false,
                   "name": "_faithWinners",
                   "nodeType": "VariableDeclaration",
-                  "scope": 346,
+                  "scope": 368,
                   "src": "208:23:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2437,7 +2437,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 339,
+                      "id": 361,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "208:7:2",
@@ -2447,7 +2447,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 340,
+                    "id": 362,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "208:9:2",
@@ -2461,11 +2461,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 344,
+                  "id": 366,
                   "indexed": false,
                   "name": "_faithRewardAmount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 346,
+                  "scope": 368,
                   "src": "233:28:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2475,7 +2475,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 342,
+                      "id": 364,
                       "name": "uint256",
                       "nodeType": "ElementaryTypeName",
                       "src": "233:7:2",
@@ -2484,7 +2484,7 @@
                         "typeString": "uint256"
                       }
                     },
-                    "id": 343,
+                    "id": 365,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "233:9:2",
@@ -2503,10 +2503,10 @@
           },
           {
             "constant": false,
-            "id": 349,
+            "id": 371,
             "name": "faithWinners",
             "nodeType": "VariableDeclaration",
-            "scope": 498,
+            "scope": 520,
             "src": "298:29:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2516,7 +2516,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 347,
+                "id": 369,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "298:7:2",
@@ -2526,7 +2526,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 348,
+              "id": 370,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "298:9:2",
@@ -2540,10 +2540,10 @@
           },
           {
             "constant": false,
-            "id": 353,
+            "id": 375,
             "name": "faithRewardAmount",
             "nodeType": "VariableDeclaration",
-            "scope": 498,
+            "scope": 520,
             "src": "360:52:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2552,9 +2552,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 352,
+              "id": 374,
               "keyType": {
-                "id": 350,
+                "id": 372,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "368:7:2",
@@ -2570,7 +2570,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 351,
+                "id": 373,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "379:7:2",
@@ -2585,10 +2585,10 @@
           },
           {
             "constant": false,
-            "id": 356,
+            "id": 378,
             "name": "faithAmounts",
             "nodeType": "VariableDeclaration",
-            "scope": 498,
+            "scope": 520,
             "src": "419:22:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2598,7 +2598,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 354,
+                "id": 376,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "419:7:2",
@@ -2607,7 +2607,7 @@
                   "typeString": "uint256"
                 }
               },
-              "id": 355,
+              "id": 377,
               "length": null,
               "nodeType": "ArrayTypeName",
               "src": "419:9:2",
@@ -2621,10 +2621,10 @@
           },
           {
             "constant": false,
-            "id": 358,
+            "id": 380,
             "name": "faithRewardFinished",
             "nodeType": "VariableDeclaration",
-            "scope": 498,
+            "scope": 520,
             "src": "480:31:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2633,7 +2633,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 357,
+              "id": 379,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "480:4:2",
@@ -2647,31 +2647,31 @@
           },
           {
             "body": {
-              "id": 361,
+              "id": 383,
               "nodeType": "Block",
               "src": "539:8:2",
               "statements": []
             },
             "documentation": null,
-            "id": 362,
+            "id": 384,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 359,
+              "id": 381,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "529:2:2"
             },
             "returnParameters": {
-              "id": 360,
+              "id": 382,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "539:0:2"
             },
-            "scope": 498,
+            "scope": 520,
             "src": "518:29:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -2679,7 +2679,7 @@
           },
           {
             "body": {
-              "id": 370,
+              "id": 392,
               "nodeType": "Block",
               "src": "705:65:2",
               "statements": [
@@ -2689,11 +2689,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 366,
+                        "id": 388,
                         "name": "faithWinners",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 349,
+                        "referencedDeclaration": 371,
                         "src": "736:12:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_storage",
@@ -2702,11 +2702,11 @@
                       },
                       {
                         "argumentTypes": null,
-                        "id": 367,
+                        "id": 389,
                         "name": "faithAmounts",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 356,
+                        "referencedDeclaration": 378,
                         "src": "750:12:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
@@ -2725,18 +2725,18 @@
                           "typeString": "uint256[] storage ref"
                         }
                       ],
-                      "id": 365,
+                      "id": 387,
                       "name": "FaithWinnerInfo",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 346,
+                      "referencedDeclaration": 368,
                       "src": "720:15:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_array$_t_address_$dyn_memory_ptr_$_t_array$_t_uint256_$dyn_memory_ptr_$returns$__$",
                         "typeString": "function (address[] memory,uint256[] memory)"
                       }
                     },
-                    "id": 368,
+                    "id": 390,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2750,32 +2750,32 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 369,
+                  "id": 391,
                   "nodeType": "EmitStatement",
                   "src": "715:48:2"
                 }
               ]
             },
             "documentation": "@notice 获取某轮次信仰奖励信息\n @return 轮次、获胜者列表、获胜者奖金列表",
-            "id": 371,
+            "id": 393,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "getFaithWinnerInfo",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 363,
+              "id": 385,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "695:2:2"
             },
             "returnParameters": {
-              "id": 364,
+              "id": 386,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "705:0:2"
             },
-            "scope": 498,
+            "scope": 520,
             "src": "668:102:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -2783,7 +2783,7 @@
           },
           {
             "body": {
-              "id": 496,
+              "id": 518,
               "nodeType": "Block",
               "src": "1005:983:2",
               "statements": [
@@ -2793,7 +2793,7 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 383,
+                        "id": 405,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2804,11 +2804,11 @@
                         "src": "1023:20:2",
                         "subExpression": {
                           "argumentTypes": null,
-                          "id": 382,
+                          "id": 404,
                           "name": "faithRewardFinished",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 358,
+                          "referencedDeclaration": 380,
                           "src": "1024:19:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
@@ -2823,7 +2823,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "e5bd93e5898de8bdaee6aca1e79a84e4bfa1e4bbb0e5a596e58ab1e5b7b2e7bb8fe8aea1e7ae97e5ae8ce68890",
-                        "id": 384,
+                        "id": 406,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -2850,21 +2850,21 @@
                           "typeString": "literal_string \"当前轮次的信仰奖励已经计算完成\""
                         }
                       ],
-                      "id": 381,
+                      "id": 403,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4250,
-                        4251
+                        4272,
+                        4273
                       ],
-                      "referencedDeclaration": 4251,
+                      "referencedDeclaration": 4273,
                       "src": "1015:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 385,
+                    "id": 407,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2878,13 +2878,13 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 386,
+                  "id": 408,
                   "nodeType": "ExpressionStatement",
                   "src": "1015:78:2"
                 },
                 {
                   "body": {
-                    "id": 488,
+                    "id": 510,
                     "nodeType": "Block",
                     "src": "1151:716:2",
                     "statements": [
@@ -2895,18 +2895,18 @@
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           },
-                          "id": 400,
+                          "id": 422,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftExpression": {
                             "argumentTypes": null,
-                            "id": 398,
+                            "id": 420,
                             "name": "i",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 388,
+                            "referencedDeclaration": 410,
                             "src": "1168:1:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -2918,7 +2918,7 @@
                           "rightExpression": {
                             "argumentTypes": null,
                             "hexValue": "30",
-                            "id": 399,
+                            "id": 421,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -2946,7 +2946,7 @@
                               "typeIdentifier": "t_bool",
                               "typeString": "bool"
                             },
-                            "id": 422,
+                            "id": 444,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -2957,18 +2957,18 @@
                                 "typeIdentifier": "t_uint256",
                                 "typeString": "uint256"
                               },
-                              "id": 418,
+                              "id": 440,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
                               "lValueRequested": false,
                               "leftExpression": {
                                 "argumentTypes": null,
-                                "id": 416,
+                                "id": 438,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 388,
+                                "referencedDeclaration": 410,
                                 "src": "1319:1:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -2980,7 +2980,7 @@
                               "rightExpression": {
                                 "argumentTypes": null,
                                 "hexValue": "31",
-                                "id": 417,
+                                "id": 439,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": true,
@@ -3009,18 +3009,18 @@
                                 "typeIdentifier": "t_uint256",
                                 "typeString": "uint256"
                               },
-                              "id": 421,
+                              "id": 443,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
                               "lValueRequested": false,
                               "leftExpression": {
                                 "argumentTypes": null,
-                                "id": 419,
+                                "id": 441,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 388,
+                                "referencedDeclaration": 410,
                                 "src": "1329:1:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
@@ -3032,7 +3032,7 @@
                               "rightExpression": {
                                 "argumentTypes": null,
                                 "hexValue": "33",
-                                "id": 420,
+                                "id": 442,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": true,
@@ -3066,7 +3066,7 @@
                                 "typeIdentifier": "t_bool",
                                 "typeString": "bool"
                               },
-                              "id": 444,
+                              "id": 466,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -3077,18 +3077,18 @@
                                   "typeIdentifier": "t_uint256",
                                   "typeString": "uint256"
                                 },
-                                "id": 440,
+                                "id": 462,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
                                 "lValueRequested": false,
                                 "leftExpression": {
                                   "argumentTypes": null,
-                                  "id": 438,
+                                  "id": 460,
                                   "name": "i",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 388,
+                                  "referencedDeclaration": 410,
                                   "src": "1479:1:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -3100,7 +3100,7 @@
                                 "rightExpression": {
                                   "argumentTypes": null,
                                   "hexValue": "33",
-                                  "id": 439,
+                                  "id": 461,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": true,
@@ -3129,18 +3129,18 @@
                                   "typeIdentifier": "t_uint256",
                                   "typeString": "uint256"
                                 },
-                                "id": 443,
+                                "id": 465,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
                                 "lValueRequested": false,
                                 "leftExpression": {
                                   "argumentTypes": null,
-                                  "id": 441,
+                                  "id": 463,
                                   "name": "i",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 388,
+                                  "referencedDeclaration": 410,
                                   "src": "1489:1:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -3152,7 +3152,7 @@
                                 "rightExpression": {
                                   "argumentTypes": null,
                                   "hexValue": "36",
-                                  "id": 442,
+                                  "id": 464,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": true,
@@ -3180,14 +3180,14 @@
                               }
                             },
                             "falseBody": {
-                              "id": 474,
+                              "id": 496,
                               "nodeType": "Block",
                               "src": "1644:145:2",
                               "statements": [
                                 {
                                   "expression": {
                                     "argumentTypes": null,
-                                    "id": 472,
+                                    "id": 494,
                                     "isConstant": false,
                                     "isLValue": false,
                                     "isPure": false,
@@ -3196,41 +3196,41 @@
                                       "argumentTypes": null,
                                       "baseExpression": {
                                         "argumentTypes": null,
-                                        "id": 460,
+                                        "id": 482,
                                         "name": "faithRewardAmount",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 353,
+                                        "referencedDeclaration": 375,
                                         "src": "1702:17:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                           "typeString": "mapping(address => uint256)"
                                         }
                                       },
-                                      "id": 464,
+                                      "id": 486,
                                       "indexExpression": {
                                         "argumentTypes": null,
                                         "baseExpression": {
                                           "argumentTypes": null,
-                                          "id": 461,
+                                          "id": 483,
                                           "name": "_faithWinners",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 374,
+                                          "referencedDeclaration": 396,
                                           "src": "1720:13:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                             "typeString": "address[] memory"
                                           }
                                         },
-                                        "id": 463,
+                                        "id": 485,
                                         "indexExpression": {
                                           "argumentTypes": null,
-                                          "id": 462,
+                                          "id": 484,
                                           "name": "i",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 388,
+                                          "referencedDeclaration": 410,
                                           "src": "1734:1:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_uint256",
@@ -3267,7 +3267,7 @@
                                         {
                                           "argumentTypes": null,
                                           "hexValue": "31303030",
-                                          "id": 470,
+                                          "id": 492,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": true,
@@ -3296,7 +3296,7 @@
                                             {
                                               "argumentTypes": null,
                                               "hexValue": "35",
-                                              "id": 467,
+                                              "id": 489,
                                               "isConstant": false,
                                               "isLValue": false,
                                               "isPure": true,
@@ -3321,32 +3321,32 @@
                                             ],
                                             "expression": {
                                               "argumentTypes": null,
-                                              "id": 465,
+                                              "id": 487,
                                               "name": "_totalFaithReward",
                                               "nodeType": "Identifier",
                                               "overloadedDeclarations": [],
-                                              "referencedDeclaration": 376,
+                                              "referencedDeclaration": 398,
                                               "src": "1740:17:2",
                                               "typeDescriptions": {
                                                 "typeIdentifier": "t_uint256",
                                                 "typeString": "uint256"
                                               }
                                             },
-                                            "id": 466,
+                                            "id": 488,
                                             "isConstant": false,
                                             "isLValue": false,
                                             "isPure": false,
                                             "lValueRequested": false,
                                             "memberName": "mul",
                                             "nodeType": "MemberAccess",
-                                            "referencedDeclaration": 3404,
+                                            "referencedDeclaration": 3426,
                                             "src": "1740:21:2",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                               "typeString": "function (uint256,uint256) pure returns (uint256)"
                                             }
                                           },
-                                          "id": 468,
+                                          "id": 490,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": false,
@@ -3360,21 +3360,21 @@
                                             "typeString": "uint256"
                                           }
                                         },
-                                        "id": 469,
+                                        "id": 491,
                                         "isConstant": false,
                                         "isLValue": false,
                                         "isPure": false,
                                         "lValueRequested": false,
                                         "memberName": "div",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 3428,
+                                        "referencedDeclaration": 3450,
                                         "src": "1740:28:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                           "typeString": "function (uint256,uint256) pure returns (uint256)"
                                         }
                                       },
-                                      "id": 471,
+                                      "id": 493,
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": false,
@@ -3394,24 +3394,24 @@
                                       "typeString": "uint256"
                                     }
                                   },
-                                  "id": 473,
+                                  "id": 495,
                                   "nodeType": "ExpressionStatement",
                                   "src": "1702:72:2"
                                 }
                               ]
                             },
-                            "id": 475,
+                            "id": 497,
                             "nodeType": "IfStatement",
                             "src": "1476:313:2",
                             "trueBody": {
-                              "id": 459,
+                              "id": 481,
                               "nodeType": "Block",
                               "src": "1495:145:2",
                               "statements": [
                                 {
                                   "expression": {
                                     "argumentTypes": null,
-                                    "id": 457,
+                                    "id": 479,
                                     "isConstant": false,
                                     "isLValue": false,
                                     "isPure": false,
@@ -3420,41 +3420,41 @@
                                       "argumentTypes": null,
                                       "baseExpression": {
                                         "argumentTypes": null,
-                                        "id": 445,
+                                        "id": 467,
                                         "name": "faithRewardAmount",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 353,
+                                        "referencedDeclaration": 375,
                                         "src": "1552:17:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                           "typeString": "mapping(address => uint256)"
                                         }
                                       },
-                                      "id": 449,
+                                      "id": 471,
                                       "indexExpression": {
                                         "argumentTypes": null,
                                         "baseExpression": {
                                           "argumentTypes": null,
-                                          "id": 446,
+                                          "id": 468,
                                           "name": "_faithWinners",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 374,
+                                          "referencedDeclaration": 396,
                                           "src": "1570:13:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                             "typeString": "address[] memory"
                                           }
                                         },
-                                        "id": 448,
+                                        "id": 470,
                                         "indexExpression": {
                                           "argumentTypes": null,
-                                          "id": 447,
+                                          "id": 469,
                                           "name": "i",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 388,
+                                          "referencedDeclaration": 410,
                                           "src": "1584:1:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_uint256",
@@ -3491,7 +3491,7 @@
                                         {
                                           "argumentTypes": null,
                                           "hexValue": "31303030",
-                                          "id": 455,
+                                          "id": 477,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": true,
@@ -3520,7 +3520,7 @@
                                             {
                                               "argumentTypes": null,
                                               "hexValue": "3130",
-                                              "id": 452,
+                                              "id": 474,
                                               "isConstant": false,
                                               "isLValue": false,
                                               "isPure": true,
@@ -3545,32 +3545,32 @@
                                             ],
                                             "expression": {
                                               "argumentTypes": null,
-                                              "id": 450,
+                                              "id": 472,
                                               "name": "_totalFaithReward",
                                               "nodeType": "Identifier",
                                               "overloadedDeclarations": [],
-                                              "referencedDeclaration": 376,
+                                              "referencedDeclaration": 398,
                                               "src": "1590:17:2",
                                               "typeDescriptions": {
                                                 "typeIdentifier": "t_uint256",
                                                 "typeString": "uint256"
                                               }
                                             },
-                                            "id": 451,
+                                            "id": 473,
                                             "isConstant": false,
                                             "isLValue": false,
                                             "isPure": false,
                                             "lValueRequested": false,
                                             "memberName": "mul",
                                             "nodeType": "MemberAccess",
-                                            "referencedDeclaration": 3404,
+                                            "referencedDeclaration": 3426,
                                             "src": "1590:21:2",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                               "typeString": "function (uint256,uint256) pure returns (uint256)"
                                             }
                                           },
-                                          "id": 453,
+                                          "id": 475,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": false,
@@ -3584,21 +3584,21 @@
                                             "typeString": "uint256"
                                           }
                                         },
-                                        "id": 454,
+                                        "id": 476,
                                         "isConstant": false,
                                         "isLValue": false,
                                         "isPure": false,
                                         "lValueRequested": false,
                                         "memberName": "div",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 3428,
+                                        "referencedDeclaration": 3450,
                                         "src": "1590:29:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                           "typeString": "function (uint256,uint256) pure returns (uint256)"
                                         }
                                       },
-                                      "id": 456,
+                                      "id": 478,
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": false,
@@ -3618,25 +3618,25 @@
                                       "typeString": "uint256"
                                     }
                                   },
-                                  "id": 458,
+                                  "id": 480,
                                   "nodeType": "ExpressionStatement",
                                   "src": "1552:73:2"
                                 }
                               ]
                             }
                           },
-                          "id": 476,
+                          "id": 498,
                           "nodeType": "IfStatement",
                           "src": "1316:473:2",
                           "trueBody": {
-                            "id": 437,
+                            "id": 459,
                             "nodeType": "Block",
                             "src": "1335:136:2",
                             "statements": [
                               {
                                 "expression": {
                                   "argumentTypes": null,
-                                  "id": 435,
+                                  "id": 457,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": false,
@@ -3645,41 +3645,41 @@
                                     "argumentTypes": null,
                                     "baseExpression": {
                                       "argumentTypes": null,
-                                      "id": 423,
+                                      "id": 445,
                                       "name": "faithRewardAmount",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 353,
+                                      "referencedDeclaration": 375,
                                       "src": "1383:17:2",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                         "typeString": "mapping(address => uint256)"
                                       }
                                     },
-                                    "id": 427,
+                                    "id": 449,
                                     "indexExpression": {
                                       "argumentTypes": null,
                                       "baseExpression": {
                                         "argumentTypes": null,
-                                        "id": 424,
+                                        "id": 446,
                                         "name": "_faithWinners",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 374,
+                                        "referencedDeclaration": 396,
                                         "src": "1401:13:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                           "typeString": "address[] memory"
                                         }
                                       },
-                                      "id": 426,
+                                      "id": 448,
                                       "indexExpression": {
                                         "argumentTypes": null,
-                                        "id": 425,
+                                        "id": 447,
                                         "name": "i",
                                         "nodeType": "Identifier",
                                         "overloadedDeclarations": [],
-                                        "referencedDeclaration": 388,
+                                        "referencedDeclaration": 410,
                                         "src": "1415:1:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_uint256",
@@ -3716,7 +3716,7 @@
                                       {
                                         "argumentTypes": null,
                                         "hexValue": "31303030",
-                                        "id": 433,
+                                        "id": 455,
                                         "isConstant": false,
                                         "isLValue": false,
                                         "isPure": true,
@@ -3745,7 +3745,7 @@
                                           {
                                             "argumentTypes": null,
                                             "hexValue": "3230",
-                                            "id": 430,
+                                            "id": 452,
                                             "isConstant": false,
                                             "isLValue": false,
                                             "isPure": true,
@@ -3770,32 +3770,32 @@
                                           ],
                                           "expression": {
                                             "argumentTypes": null,
-                                            "id": 428,
+                                            "id": 450,
                                             "name": "_totalFaithReward",
                                             "nodeType": "Identifier",
                                             "overloadedDeclarations": [],
-                                            "referencedDeclaration": 376,
+                                            "referencedDeclaration": 398,
                                             "src": "1421:17:2",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_uint256",
                                               "typeString": "uint256"
                                             }
                                           },
-                                          "id": 429,
+                                          "id": 451,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": false,
                                           "lValueRequested": false,
                                           "memberName": "mul",
                                           "nodeType": "MemberAccess",
-                                          "referencedDeclaration": 3404,
+                                          "referencedDeclaration": 3426,
                                           "src": "1421:21:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                             "typeString": "function (uint256,uint256) pure returns (uint256)"
                                           }
                                         },
-                                        "id": 431,
+                                        "id": 453,
                                         "isConstant": false,
                                         "isLValue": false,
                                         "isPure": false,
@@ -3809,21 +3809,21 @@
                                           "typeString": "uint256"
                                         }
                                       },
-                                      "id": 432,
+                                      "id": 454,
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": false,
                                       "lValueRequested": false,
                                       "memberName": "div",
                                       "nodeType": "MemberAccess",
-                                      "referencedDeclaration": 3428,
+                                      "referencedDeclaration": 3450,
                                       "src": "1421:29:2",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                         "typeString": "function (uint256,uint256) pure returns (uint256)"
                                       }
                                     },
-                                    "id": 434,
+                                    "id": 456,
                                     "isConstant": false,
                                     "isLValue": false,
                                     "isPure": false,
@@ -3843,25 +3843,25 @@
                                     "typeString": "uint256"
                                   }
                                 },
-                                "id": 436,
+                                "id": 458,
                                 "nodeType": "ExpressionStatement",
                                 "src": "1383:73:2"
                               }
                             ]
                           }
                         },
-                        "id": 477,
+                        "id": 499,
                         "nodeType": "IfStatement",
                         "src": "1165:624:2",
                         "trueBody": {
-                          "id": 415,
+                          "id": 437,
                           "nodeType": "Block",
                           "src": "1175:136:2",
                           "statements": [
                             {
                               "expression": {
                                 "argumentTypes": null,
-                                "id": 413,
+                                "id": 435,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": false,
@@ -3870,41 +3870,41 @@
                                   "argumentTypes": null,
                                   "baseExpression": {
                                     "argumentTypes": null,
-                                    "id": 401,
+                                    "id": 423,
                                     "name": "faithRewardAmount",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 353,
+                                    "referencedDeclaration": 375,
                                     "src": "1223:17:2",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                       "typeString": "mapping(address => uint256)"
                                     }
                                   },
-                                  "id": 405,
+                                  "id": 427,
                                   "indexExpression": {
                                     "argumentTypes": null,
                                     "baseExpression": {
                                       "argumentTypes": null,
-                                      "id": 402,
+                                      "id": 424,
                                       "name": "_faithWinners",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 374,
+                                      "referencedDeclaration": 396,
                                       "src": "1241:13:2",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                         "typeString": "address[] memory"
                                       }
                                     },
-                                    "id": 404,
+                                    "id": 426,
                                     "indexExpression": {
                                       "argumentTypes": null,
-                                      "id": 403,
+                                      "id": 425,
                                       "name": "i",
                                       "nodeType": "Identifier",
                                       "overloadedDeclarations": [],
-                                      "referencedDeclaration": 388,
+                                      "referencedDeclaration": 410,
                                       "src": "1255:1:2",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_uint256",
@@ -3941,7 +3941,7 @@
                                     {
                                       "argumentTypes": null,
                                       "hexValue": "31303030",
-                                      "id": 411,
+                                      "id": 433,
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": true,
@@ -3970,7 +3970,7 @@
                                         {
                                           "argumentTypes": null,
                                           "hexValue": "3330",
-                                          "id": 408,
+                                          "id": 430,
                                           "isConstant": false,
                                           "isLValue": false,
                                           "isPure": true,
@@ -3995,32 +3995,32 @@
                                         ],
                                         "expression": {
                                           "argumentTypes": null,
-                                          "id": 406,
+                                          "id": 428,
                                           "name": "_totalFaithReward",
                                           "nodeType": "Identifier",
                                           "overloadedDeclarations": [],
-                                          "referencedDeclaration": 376,
+                                          "referencedDeclaration": 398,
                                           "src": "1261:17:2",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_uint256",
                                             "typeString": "uint256"
                                           }
                                         },
-                                        "id": 407,
+                                        "id": 429,
                                         "isConstant": false,
                                         "isLValue": false,
                                         "isPure": false,
                                         "lValueRequested": false,
                                         "memberName": "mul",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 3404,
+                                        "referencedDeclaration": 3426,
                                         "src": "1261:21:2",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                           "typeString": "function (uint256,uint256) pure returns (uint256)"
                                         }
                                       },
-                                      "id": 409,
+                                      "id": 431,
                                       "isConstant": false,
                                       "isLValue": false,
                                       "isPure": false,
@@ -4034,21 +4034,21 @@
                                         "typeString": "uint256"
                                       }
                                     },
-                                    "id": 410,
+                                    "id": 432,
                                     "isConstant": false,
                                     "isLValue": false,
                                     "isPure": false,
                                     "lValueRequested": false,
                                     "memberName": "div",
                                     "nodeType": "MemberAccess",
-                                    "referencedDeclaration": 3428,
+                                    "referencedDeclaration": 3450,
                                     "src": "1261:29:2",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
                                       "typeString": "function (uint256,uint256) pure returns (uint256)"
                                     }
                                   },
-                                  "id": 412,
+                                  "id": 434,
                                   "isConstant": false,
                                   "isLValue": false,
                                   "isPure": false,
@@ -4068,7 +4068,7 @@
                                   "typeString": "uint256"
                                 }
                               },
-                              "id": 414,
+                              "id": 436,
                               "nodeType": "ExpressionStatement",
                               "src": "1223:73:2"
                             }
@@ -4083,41 +4083,41 @@
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
-                                "id": 481,
+                                "id": 503,
                                 "name": "faithRewardAmount",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 353,
+                                "referencedDeclaration": 375,
                                 "src": "1820:17:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
                                   "typeString": "mapping(address => uint256)"
                                 }
                               },
-                              "id": 485,
+                              "id": 507,
                               "indexExpression": {
                                 "argumentTypes": null,
                                 "baseExpression": {
                                   "argumentTypes": null,
-                                  "id": 482,
+                                  "id": 504,
                                   "name": "_faithWinners",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 374,
+                                  "referencedDeclaration": 396,
                                   "src": "1838:13:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                     "typeString": "address[] memory"
                                   }
                                 },
-                                "id": 484,
+                                "id": 506,
                                 "indexExpression": {
                                   "argumentTypes": null,
-                                  "id": 483,
+                                  "id": 505,
                                   "name": "i",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 388,
+                                  "referencedDeclaration": 410,
                                   "src": "1852:1:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
@@ -4156,18 +4156,18 @@
                             ],
                             "expression": {
                               "argumentTypes": null,
-                              "id": 478,
+                              "id": 500,
                               "name": "faithAmounts",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 356,
+                              "referencedDeclaration": 378,
                               "src": "1802:12:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
                                 "typeString": "uint256[] storage ref"
                               }
                             },
-                            "id": 480,
+                            "id": 502,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -4181,7 +4181,7 @@
                               "typeString": "function (uint256) returns (uint256)"
                             }
                           },
-                          "id": 486,
+                          "id": 508,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -4195,7 +4195,7 @@
                             "typeString": "uint256"
                           }
                         },
-                        "id": 487,
+                        "id": 509,
                         "nodeType": "ExpressionStatement",
                         "src": "1802:54:2"
                       }
@@ -4207,18 +4207,18 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 394,
+                    "id": 416,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "argumentTypes": null,
-                      "id": 391,
+                      "id": 413,
                       "name": "i",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 388,
+                      "referencedDeclaration": 410,
                       "src": "1121:1:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -4231,18 +4231,18 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 392,
+                        "id": 414,
                         "name": "_faithWinners",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 374,
+                        "referencedDeclaration": 396,
                         "src": "1125:13:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                           "typeString": "address[] memory"
                         }
                       },
-                      "id": 393,
+                      "id": 415,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -4262,18 +4262,18 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 489,
+                  "id": 511,
                   "initializationExpression": {
                     "assignments": [
-                      388
+                      410
                     ],
                     "declarations": [
                       {
                         "constant": false,
-                        "id": 388,
+                        "id": 410,
                         "name": "i",
                         "nodeType": "VariableDeclaration",
-                        "scope": 489,
+                        "scope": 511,
                         "src": "1108:6:2",
                         "stateVariable": false,
                         "storageLocation": "default",
@@ -4282,7 +4282,7 @@
                           "typeString": "uint256"
                         },
                         "typeName": {
-                          "id": 387,
+                          "id": 409,
                           "name": "uint",
                           "nodeType": "ElementaryTypeName",
                           "src": "1108:4:2",
@@ -4295,11 +4295,11 @@
                         "visibility": "internal"
                       }
                     ],
-                    "id": 390,
+                    "id": 412,
                     "initialValue": {
                       "argumentTypes": null,
                       "hexValue": "30",
-                      "id": 389,
+                      "id": 411,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -4320,7 +4320,7 @@
                   "loopExpression": {
                     "expression": {
                       "argumentTypes": null,
-                      "id": 396,
+                      "id": 418,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -4331,11 +4331,11 @@
                       "src": "1147:3:2",
                       "subExpression": {
                         "argumentTypes": null,
-                        "id": 395,
+                        "id": 417,
                         "name": "i",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 388,
+                        "referencedDeclaration": 410,
                         "src": "1147:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -4347,7 +4347,7 @@
                         "typeString": "uint256"
                       }
                     },
-                    "id": 397,
+                    "id": 419,
                     "nodeType": "ExpressionStatement",
                     "src": "1147:3:2"
                   },
@@ -4357,18 +4357,18 @@
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 492,
+                    "id": 514,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 490,
+                      "id": 512,
                       "name": "faithRewardFinished",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 358,
+                      "referencedDeclaration": 380,
                       "src": "1919:19:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -4380,7 +4380,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "74727565",
-                      "id": 491,
+                      "id": 513,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -4401,48 +4401,48 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 493,
+                  "id": 515,
                   "nodeType": "ExpressionStatement",
                   "src": "1919:26:2"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 494,
+                    "id": 516,
                     "name": "faithRewardFinished",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 358,
+                    "referencedDeclaration": 380,
                     "src": "1962:19:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 380,
-                  "id": 495,
+                  "functionReturnParameters": 402,
+                  "id": 517,
                   "nodeType": "Return",
                   "src": "1955:26:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 497,
+            "id": 519,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "dealFaithWinner",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 377,
+              "id": 399,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 374,
+                  "id": 396,
                   "name": "_faithWinners",
                   "nodeType": "VariableDeclaration",
-                  "scope": 497,
+                  "scope": 519,
                   "src": "892:30:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -4452,7 +4452,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 372,
+                      "id": 394,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
                       "src": "892:7:2",
@@ -4462,7 +4462,7 @@
                         "typeString": "address"
                       }
                     },
-                    "id": 373,
+                    "id": 395,
                     "length": null,
                     "nodeType": "ArrayTypeName",
                     "src": "892:9:2",
@@ -4476,10 +4476,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 376,
+                  "id": 398,
                   "name": "_totalFaithReward",
                   "nodeType": "VariableDeclaration",
-                  "scope": 497,
+                  "scope": 519,
                   "src": "932:25:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -4488,7 +4488,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 375,
+                    "id": 397,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "932:7:2",
@@ -4504,15 +4504,15 @@
               "src": "882:81:2"
             },
             "returnParameters": {
-              "id": 380,
+              "id": 402,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 379,
+                  "id": 401,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 497,
+                  "scope": 519,
                   "src": "995:4:2",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -4521,7 +4521,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 378,
+                    "id": 400,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "995:4:2",
@@ -4536,14 +4536,14 @@
               ],
               "src": "994:6:2"
             },
-            "scope": 498,
+            "scope": 520,
             "src": "858:1130:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 499,
+        "scope": 521,
         "src": "127:1864:2"
       }
     ],
@@ -4569,12 +4569,12 @@
     "123456": {
       "events": {},
       "links": {},
-      "address": "0xe6df1820464012850e59e50e15Da0511fc91d43D",
-      "transactionHash": "0x69c9f180076cd7e7b811e4b996acb76582ff0843c0b2fbe6422d84659f128cd1"
+      "address": "0x404392F8F927eeEe1ec26F2736503F7eC5AcBffA",
+      "transactionHash": "0x86657460dea5579fa54fc83e813ccc08dd460dab0b4fef86933739f06921b85d"
     }
   },
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-24T09:39:53.728Z",
+  "updatedAt": "2019-05-24T10:19:19.499Z",
   "devdoc": {
     "methods": {
       "getFaithWinnerInfo()": {

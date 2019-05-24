@@ -9,13 +9,13 @@ var FaithReward = artifacts.require('FaithReward');
 var abcToken;
 var resonance;
 
-var abcTokenAddress = "0x466567fe4644C7e7157B555Ef5E57A55a6cF075b";
+var abcTokenAddress = "0x5AA434CEDca3C7e56a3DaDFEe82BcE76AD295C88";
 
-var fissionRewardAddress = "0xbDDd4E25Dd900a9180051c56235D9D9c5C7D73b8";
-var FOMORewardAddress = "0x923f6f9bd517fcab9859fED37e2aDe9FAD186D14";
-var luckyRewardAddress = "0x2bBd3f4cC153aB05b9ca386037eAAaD43e094196";
-var faithRewardAddress = "0xe6df1820464012850e59e50e15Da0511fc91d43D";
-var resonanceAddress = "0xfC1a6608199ff203085abBFB895FF0eC1dC4c0b2";
+var fissionRewardAddress = "0x980CeC5d6132fc1dE8A9f36609C0703DD1A6F5F2";
+var FOMORewardAddress = "0x60BECE43266A24298dd3902Abf2aCe74C7c77495";
+var luckyRewardAddress = "0x008F09e76180a55Bd0f546996187827c288422E6";
+var faithRewardAddress = "0x404392F8F927eeEe1ec26F2736503F7eC5AcBffA";
+var resonanceAddress = "0x383a284f2D67c154bfe2e1CE6eD1c18Dd64ef5F2";
 
 var fissionReward;
 var FOMOReward;
@@ -41,15 +41,15 @@ contract('TestResonance', async (accounts) => {
         });
         // abcToken = ABCToken.at(abcTokenAddress);
 
-        // await abcToken.mintToken();
+        // let ress = await abcToken.mintToken();
 
         let balanceOf0 = await abcToken.balanceOf(account0) / 1E18;
         console.log("0-----账户0的余额是：", balanceOf0.toString());
 
-        await abcToken.transfer(account1, web3.utils.toWei("1000"), {
-            from: account0
-        });
-        console.log("地址余额", await abcToken.balanceOf(account1) / 1E18);
+        // await abcToken.transfer(account1, web3.utils.toWei("1000"), {
+        //     from: account0
+        // });
+        // console.log("地址余额", await abcToken.balanceOf(account1) / 1E18);
 
         // 把token分配给各账户，各1000个
         // for (var i = 0; i <= 9; i++) {
@@ -106,7 +106,7 @@ contract('TestResonance', async (accounts) => {
         });
 
         // 变为裂变者
-        let result = await resonance.toBeFissionPerson(account0, {
+        let result = await resonance.toBeFissionPerson(account1, {
             from: account0
         });
 
@@ -120,7 +120,7 @@ contract('TestResonance', async (accounts) => {
         console.log("合约token余额是", await abcToken.balanceOf(resonance.address) / 1E18);
 
         // 查一下账户1的余额
-        let balanceOf1 = await abcToken.balanceOf(account0) / 1E18;
+        let balanceOf1 = await abcToken.balanceOf(account1) / 1E18;
         console.log(balanceOf1);
     });
 })
