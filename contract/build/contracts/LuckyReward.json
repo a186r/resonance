@@ -18,7 +18,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0xc28a1af3"
     },
     {
       "constant": true,
@@ -41,13 +42,15 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0xdd572ab9"
     },
     {
       "inputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "constructor"
+      "type": "constructor",
+      "signature": "constructor"
     },
     {
       "anonymous": false,
@@ -64,7 +67,8 @@
         }
       ],
       "name": "LuckyInfo",
-      "type": "event"
+      "type": "event",
+      "signature": "0x0cd95afe8941bcad662d0d47269bccbcf1acb74d75824e33c283509e51f75fad"
     },
     {
       "constant": false,
@@ -78,7 +82,8 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0x49327441"
     },
     {
       "constant": false,
@@ -100,7 +105,8 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0xac197f92"
     },
     {
       "constant": true,
@@ -119,7 +125,8 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "signature": "0x5fb25f1d"
     },
     {
       "constant": true,
@@ -138,7 +145,8 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function"
+      "type": "function",
+      "signature": "0xf647c196"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.5.2+commit.1df8f40c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"}],\"name\":\"getLuckyInfo\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_addr\",\"type\":\"address\"}],\"name\":\"getLastFromAddress\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"name\":\"_luckyWinners\",\"type\":\"address[]\"},{\"name\":\"_totalLyckyReward\",\"type\":\"uint256\"}],\"name\":\"dealLuckyInfo\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"luckyFunderTotalBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"luckyRewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_blockHash\",\"type\":\"bytes32\"}],\"name\":\"getLastFromBlockHash\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"luckyWinners\",\"type\":\"address[]\"},{\"indexed\":false,\"name\":\"luckyRewards\",\"type\":\"uint256\"}],\"name\":\"LuckyInfo\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{\"dealLuckyInfo(uint256,address[],uint256)\":{\"notice\":\"\\u5904\\u7406\\u4fe1\\u7528\\u5956\\u52b1\\u4fe1\\u606f\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/LuckyReward.sol\":\"LuckyReward\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/LuckyReward.sol\":{\"keccak256\":\"0x3f502c51b4f9cf6275d4e655d973071fb99cd0b4cfbca92b4a7dc8bd47ce6e21\",\"urls\":[\"bzzr://6a1e2d8121b6cc26acaf669624a510b2ba288197751a58df8d7840449c8dc0bc\"]},\"/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/StringUtils.sol\":{\"keccak256\":\"0x4635cfad3b9b53af3244dc1c0b4a71b5f325316666d2eecd8bf3a3aa7eaf8272\",\"urls\":[\"bzzr://429a6849a36154da385c8c344de7ef069e0b35cc88d9367ed4ed26e741f5b293\"]},\"/Users/a186r/dev/sourcecode/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xc2a200a877c4a9b2475c246c54ffecc69ffde3e11af83319c63c2dc5458bac80\",\"urls\":[\"bzzr://c8876e2c39b60f155d748d71d715c8f3903fae5a405ac599adcb6ad2f9a583f9\"]}},\"version\":1}",
@@ -178,7 +186,7 @@
         "id": 866,
         "nodeType": "ImportDirective",
         "scope": 1072,
-        "sourceUnit": 3414,
+        "sourceUnit": 3444,
         "src": "34:75:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -189,7 +197,7 @@
         "id": 867,
         "nodeType": "ImportDirective",
         "scope": 1072,
-        "sourceUnit": 3068,
+        "sourceUnit": 3098,
         "src": "110:27:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -214,10 +222,10 @@
               "id": 868,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3413,
+              "referencedDeclaration": 3443,
               "src": "664:8:4",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$3413",
+                "typeIdentifier": "t_contract$_SafeMath_$3443",
                 "typeString": "library SafeMath"
               }
             },
@@ -886,10 +894,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4166,
-                        4167
+                        4196,
+                        4197
                       ],
-                      "referencedDeclaration": 4167,
+                      "referencedDeclaration": 4197,
                       "src": "1609:7:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1335,7 +1343,7 @@
                         "lValueRequested": false,
                         "memberName": "div",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 3344,
+                        "referencedDeclaration": 3374,
                         "src": "2610:21:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -2234,10 +2242,10 @@
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3067,
+                        "referencedDeclaration": 3097,
                         "src": "3220:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3097_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
@@ -2248,7 +2256,7 @@
                       "lValueRequested": false,
                       "memberName": "addr2string",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2887,
+                      "referencedDeclaration": 2917,
                       "src": "3220:23:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_address_$returns$_t_string_memory_ptr_$",
@@ -2347,10 +2355,10 @@
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3067,
+                        "referencedDeclaration": 3097,
                         "src": "3267:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3097_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
@@ -2361,7 +2369,7 @@
                       "lValueRequested": false,
                       "memberName": "substring",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3027,
+                      "referencedDeclaration": 3057,
                       "src": "3267:21:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_string_memory_ptr_$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
@@ -2509,10 +2517,10 @@
                             "name": "StringUtils",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3067,
+                            "referencedDeclaration": 3097,
                             "src": "3481:11:4",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
+                              "typeIdentifier": "t_type$_t_contract$_StringUtils_$3097_$",
                               "typeString": "type(library StringUtils)"
                             }
                           },
@@ -2523,7 +2531,7 @@
                           "lValueRequested": false,
                           "memberName": "bytes32Tostring",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 2974,
+                          "referencedDeclaration": 3004,
                           "src": "3481:27:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_delegatecall_pure$_t_bytes32_$returns$_t_string_memory_ptr_$",
@@ -2661,10 +2669,10 @@
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3067,
+                        "referencedDeclaration": 3097,
                         "src": "3459:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3097_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
@@ -2675,7 +2683,7 @@
                       "lValueRequested": false,
                       "memberName": "substring",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3027,
+                      "referencedDeclaration": 3057,
                       "src": "3459:21:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_string_memory_ptr_$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
@@ -2819,7 +2827,7 @@
         "id": 866,
         "nodeType": "ImportDirective",
         "scope": 1072,
-        "sourceUnit": 3414,
+        "sourceUnit": 3444,
         "src": "34:75:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2830,7 +2838,7 @@
         "id": 867,
         "nodeType": "ImportDirective",
         "scope": 1072,
-        "sourceUnit": 3068,
+        "sourceUnit": 3098,
         "src": "110:27:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2855,10 +2863,10 @@
               "id": 868,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3413,
+              "referencedDeclaration": 3443,
               "src": "664:8:4",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$3413",
+                "typeIdentifier": "t_contract$_SafeMath_$3443",
                 "typeString": "library SafeMath"
               }
             },
@@ -3527,10 +3535,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4166,
-                        4167
+                        4196,
+                        4197
                       ],
-                      "referencedDeclaration": 4167,
+                      "referencedDeclaration": 4197,
                       "src": "1609:7:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3976,7 +3984,7 @@
                         "lValueRequested": false,
                         "memberName": "div",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 3344,
+                        "referencedDeclaration": 3374,
                         "src": "2610:21:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -4875,10 +4883,10 @@
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3067,
+                        "referencedDeclaration": 3097,
                         "src": "3220:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3097_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
@@ -4889,7 +4897,7 @@
                       "lValueRequested": false,
                       "memberName": "addr2string",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2887,
+                      "referencedDeclaration": 2917,
                       "src": "3220:23:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_address_$returns$_t_string_memory_ptr_$",
@@ -4988,10 +4996,10 @@
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3067,
+                        "referencedDeclaration": 3097,
                         "src": "3267:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3097_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
@@ -5002,7 +5010,7 @@
                       "lValueRequested": false,
                       "memberName": "substring",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3027,
+                      "referencedDeclaration": 3057,
                       "src": "3267:21:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_string_memory_ptr_$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
@@ -5150,10 +5158,10 @@
                             "name": "StringUtils",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 3067,
+                            "referencedDeclaration": 3097,
                             "src": "3481:11:4",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
+                              "typeIdentifier": "t_type$_t_contract$_StringUtils_$3097_$",
                               "typeString": "type(library StringUtils)"
                             }
                           },
@@ -5164,7 +5172,7 @@
                           "lValueRequested": false,
                           "memberName": "bytes32Tostring",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 2974,
+                          "referencedDeclaration": 3004,
                           "src": "3481:27:4",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_delegatecall_pure$_t_bytes32_$returns$_t_string_memory_ptr_$",
@@ -5302,10 +5310,10 @@
                         "name": "StringUtils",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 3067,
+                        "referencedDeclaration": 3097,
                         "src": "3459:11:4",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3067_$",
+                          "typeIdentifier": "t_type$_t_contract$_StringUtils_$3097_$",
                           "typeString": "type(library StringUtils)"
                         }
                       },
@@ -5316,7 +5324,7 @@
                       "lValueRequested": false,
                       "memberName": "substring",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 3027,
+                      "referencedDeclaration": 3057,
                       "src": "3459:21:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_delegatecall_pure$_t_string_memory_ptr_$_t_uint256_$_t_uint256_$returns$_t_string_memory_ptr_$",
@@ -5446,14 +5454,14 @@
     "5777": {
       "events": {},
       "links": {
-        "StringUtils": "0x693Ac35cD8383fb82E0aa45674DDeBfe95dac77B"
+        "StringUtils": "0x5e6f1d5900d4791d39d9FF91497D3c3cc8e4344F"
       },
-      "address": "0x8AAecc198dd825f09C1C8f862e737cf3f2b026D8",
-      "transactionHash": "0xeca56504e14df492395b2c30476c44a76fd7dc40e03f509ce2f8dddd3d1ebde3"
+      "address": "0xd07Ffc648778622a0727379e321Ba41a33f4253d",
+      "transactionHash": "0x52bef794f48a00eb393b729e7b9e0302c63eeb1c1fd6207acf0d966e71d6dc19"
     }
   },
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-23T10:52:46.346Z",
+  "updatedAt": "2019-05-24T07:35:41.599Z",
   "devdoc": {
     "methods": {}
   },

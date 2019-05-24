@@ -22,7 +22,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x509b49e9"
     },
     {
       "constant": true,
@@ -45,7 +46,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x5308cf97"
     },
     {
       "constant": true,
@@ -68,7 +70,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x91a3c808"
     },
     {
       "constant": true,
@@ -87,13 +90,15 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0xc7535567"
     },
     {
       "inputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "constructor"
+      "type": "constructor",
+      "signature": "constructor"
     },
     {
       "anonymous": false,
@@ -110,7 +115,8 @@
         }
       ],
       "name": "FOMOWinnerInfo",
-      "type": "event"
+      "type": "event",
+      "signature": "0x7ad3c846b4e57a650cd1a48a0a11bc6a0db12192ad16e89f2366dfdb8cd955ca"
     },
     {
       "constant": false,
@@ -124,7 +130,8 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0x2889cc07"
     },
     {
       "constant": false,
@@ -151,7 +158,8 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0xc21a7743"
     },
     {
       "constant": true,
@@ -170,7 +178,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0xd568d717"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.5.2+commit.1df8f40c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"}],\"name\":\"getFOMOWinnerInfo\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"FOMORewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"FOMOWinners\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"FOMORewards\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"name\":\"_funders\",\"type\":\"address[]\"},{\"name\":\"_totalFOMOReward\",\"type\":\"uint256\"}],\"name\":\"dealFOMOWinner\",\"outputs\":[{\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"FOMOFunderTotalBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"}],\"name\":\"getTotalRewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"FOMOWinners\",\"type\":\"address[]\"},{\"indexed\":false,\"name\":\"FOMORewards\",\"type\":\"uint256[]\"}],\"name\":\"FOMOWinnerInfo\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{\"getFOMOWinnerInfo(uint256)\":{\"notice\":\"\\u83b7\\u53d6FOMO\\u83b7\\u80dc\\u8005\\u5217\\u8868\\u548c\\u5956\\u91d1\\u5217\\u8868\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/FOMOReward.sol\":\"FOMOReward\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/a186r/dev/sourcecode/contracts/contract/contract/contracts/FOMOReward.sol\":{\"keccak256\":\"0xb01db46f0c59f85406013d9a3e169387b073bffe05e27baac32a7ad58cb686fa\",\"urls\":[\"bzzr://ce4a27a967626a81707d98e3d8ae0196d47556794e531e79b2cd91c02071364e\"]},\"/Users/a186r/dev/sourcecode/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xc2a200a877c4a9b2475c246c54ffecc69ffde3e11af83319c63c2dc5458bac80\",\"urls\":[\"bzzr://c8876e2c39b60f155d748d71d715c8f3903fae5a405ac599adcb6ad2f9a583f9\"]}},\"version\":1}",
@@ -210,7 +219,7 @@
         "id": 78,
         "nodeType": "ImportDirective",
         "scope": 333,
-        "sourceUnit": 3414,
+        "sourceUnit": 3444,
         "src": "34:75:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -235,10 +244,10 @@
               "id": 79,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3413,
+              "referencedDeclaration": 3443,
               "src": "270:8:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$3413",
+                "typeIdentifier": "t_contract$_SafeMath_$3443",
                 "typeString": "library SafeMath"
               }
             },
@@ -927,10 +936,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4166,
-                        4167
+                        4196,
+                        4197
                       ],
-                      "referencedDeclaration": 4167,
+                      "referencedDeclaration": 4197,
                       "src": "1264:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1465,7 +1474,7 @@
                                             "lValueRequested": false,
                                             "memberName": "mul",
                                             "nodeType": "MemberAccess",
-                                            "referencedDeclaration": 3320,
+                                            "referencedDeclaration": 3350,
                                             "src": "2116:20:1",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1493,7 +1502,7 @@
                                         "lValueRequested": false,
                                         "memberName": "div",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 3344,
+                                        "referencedDeclaration": 3374,
                                         "src": "2116:27:1",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1686,7 +1695,7 @@
                                             "lValueRequested": false,
                                             "memberName": "mul",
                                             "nodeType": "MemberAccess",
-                                            "referencedDeclaration": 3320,
+                                            "referencedDeclaration": 3350,
                                             "src": "2015:20:1",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1714,7 +1723,7 @@
                                         "lValueRequested": false,
                                         "memberName": "div",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 3344,
+                                        "referencedDeclaration": 3374,
                                         "src": "2015:28:1",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1908,7 +1917,7 @@
                                           "lValueRequested": false,
                                           "memberName": "mul",
                                           "nodeType": "MemberAccess",
-                                          "referencedDeclaration": 3320,
+                                          "referencedDeclaration": 3350,
                                           "src": "1902:20:1",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1936,7 +1945,7 @@
                                       "lValueRequested": false,
                                       "memberName": "div",
                                       "nodeType": "MemberAccess",
-                                      "referencedDeclaration": 3344,
+                                      "referencedDeclaration": 3374,
                                       "src": "1902:28:1",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -3528,7 +3537,7 @@
         "id": 78,
         "nodeType": "ImportDirective",
         "scope": 333,
-        "sourceUnit": 3414,
+        "sourceUnit": 3444,
         "src": "34:75:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -3553,10 +3562,10 @@
               "id": 79,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 3413,
+              "referencedDeclaration": 3443,
               "src": "270:8:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$3413",
+                "typeIdentifier": "t_contract$_SafeMath_$3443",
                 "typeString": "library SafeMath"
               }
             },
@@ -4245,10 +4254,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        4166,
-                        4167
+                        4196,
+                        4197
                       ],
-                      "referencedDeclaration": 4167,
+                      "referencedDeclaration": 4197,
                       "src": "1264:7:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4783,7 +4792,7 @@
                                             "lValueRequested": false,
                                             "memberName": "mul",
                                             "nodeType": "MemberAccess",
-                                            "referencedDeclaration": 3320,
+                                            "referencedDeclaration": 3350,
                                             "src": "2116:20:1",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -4811,7 +4820,7 @@
                                         "lValueRequested": false,
                                         "memberName": "div",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 3344,
+                                        "referencedDeclaration": 3374,
                                         "src": "2116:27:1",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -5004,7 +5013,7 @@
                                             "lValueRequested": false,
                                             "memberName": "mul",
                                             "nodeType": "MemberAccess",
-                                            "referencedDeclaration": 3320,
+                                            "referencedDeclaration": 3350,
                                             "src": "2015:20:1",
                                             "typeDescriptions": {
                                               "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -5032,7 +5041,7 @@
                                         "lValueRequested": false,
                                         "memberName": "div",
                                         "nodeType": "MemberAccess",
-                                        "referencedDeclaration": 3344,
+                                        "referencedDeclaration": 3374,
                                         "src": "2015:28:1",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -5226,7 +5235,7 @@
                                           "lValueRequested": false,
                                           "memberName": "mul",
                                           "nodeType": "MemberAccess",
-                                          "referencedDeclaration": 3320,
+                                          "referencedDeclaration": 3350,
                                           "src": "1902:20:1",
                                           "typeDescriptions": {
                                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -5254,7 +5263,7 @@
                                       "lValueRequested": false,
                                       "memberName": "div",
                                       "nodeType": "MemberAccess",
-                                      "referencedDeclaration": 3344,
+                                      "referencedDeclaration": 3374,
                                       "src": "1902:28:1",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -6830,12 +6839,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x328b1808dFfd9d88C13DAeEDd8Af34Ff4780F816",
-      "transactionHash": "0x5043f501f66151d4816141057b4246bf82ceb33370b13cc1a02240a87a2f8620"
+      "address": "0x37A1f24Cb7e93410A877e29FAc9853748A08255D",
+      "transactionHash": "0x580eddfda34dedb31e7a0f460d88a37dea95ff89bb6a4f4399d44b1b5c7aaadf"
     }
   },
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-23T10:52:46.341Z",
+  "updatedAt": "2019-05-24T07:35:41.634Z",
   "devdoc": {
     "methods": {}
   },
