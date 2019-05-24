@@ -95,12 +95,12 @@ contract('TestResonance', async (accounts) => {
         // account 1授权给合约的token数
         // let amount = await abcToken.allowance(accounts[2],resonance.address);
 
-        // console.log(result);
+        console.log(result);
 
         console.log("合约token余额是", await abcToken.balanceOf(resonance.address) / 1E18);
 
-        // // 查一下9的余额
-        // let balanceOf9 = await abcToken.balanceOf(accounts[9]) / 1E18;
-        // console.log(balanceOf9);
+        // 查一下账户1的余额
+        let balanceOf1 = await abcToken.balanceOf(accounts[1]) / 1E18;
+        console.log(balanceOf1);
     });
 })
