@@ -36,12 +36,12 @@ const account5 = "0x1d341abaf972aafb851798386cedc676222480a0";
 contract('TestResonance', async (accounts) => {
 
     it('0...初始化ABCToken', async () => {
-        abcToken = await ABCToken.new("ABCToken", "ABCT", decimals, {
-            from: account0
-        });
-        // abcToken = ABCToken.at(abcTokenAddress);
+        // abcToken = await ABCToken.new("ABCToken", "ABCT", decimals, {
+        //     from: account0
+        // });  
+        abcToken = ABCToken.at(abcTokenAddress);
 
-        // let ress = await abcToken.mintToken();
+        let ress = await abcToken.mintToken();
 
         let balanceOf0 = await abcToken.balanceOf(account0) / 1E18;
         console.log("0-----账户0的余额是：", balanceOf0.toString());
