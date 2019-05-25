@@ -38,6 +38,7 @@ contract Resonance is Ownable{
         uint256[] funderEarnFromAff
     );
     event SettlementStep(uint256 stepIndex);
+
     event StartNextStep(uint256 stepIndex);
 
     event SetRaiseTarget(uint256 stepIndex, uint256 raiseTarget);
@@ -139,6 +140,7 @@ contract Resonance is Ownable{
     address[] resonances;
     // 参与共振的用户募资金额
     mapping(address => uint256) resonancesRasiedETH;
+    mapping(address => uint256) resonancesRasiedToken;
 
     uint256 currentStep;
 
@@ -244,7 +246,7 @@ contract Resonance is Ownable{
         require(isBuilder(), "调用者不是Builder");
 
         // 没有超过当前轮次总额
-        require(steps[currentStep].building.raisedToken.add(_tokenAmount) < steps[currentStep].building.openTokenAmount, "当前轮次共建已经足够了");
+        require(steps[currentStep].building.raisedToken.add(_tokenAmount) < steps[currentStep].building.openTokenAmount, "当前轮次共建Token已经足够了");
 
         // 转入额度不能超过限额
         require(
@@ -257,7 +259,14 @@ contract Resonance is Ownable{
 
         // 转入合约
         require(abcToken.transferFrom(msg.sender,address(this), UintUtils.toWei(_tokenAmount)),"转移token到合约失败");
+
         steps[currentStep].funder[msg.sender].tokenAmount += UintUtils.toWei(_tokenAmount);
+
+        // 累加用户参与共建的总额度
+        resonancesRasiedToken[msg.sender] += _tokenAmount;
+
+        // 累加token数量
+        steps[currentStep].building.raisedToken += _tokenAmount;
     }
 
     // 募资
@@ -398,7 +407,7 @@ contract Resonance is Ownable{
         uint256 totalFissionReward = UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(20).div(100));
         fissionRewardInstance.dealFissionInfo(currentStep, _fissionWinnerList, totalFissionReward);
         // 在这里累加用户总余额
-        for(uint i =0 ; i < _fissionWinnerList.length; i++){
+        for(uint i = 0; i < _fissionWinnerList.length; i++){
             ETHBalance[_fissionWinnerList[i]] += fissionRewardInstance.fissionRewardAmount(currentStep,_fissionWinnerList[i]);
         }
     }
