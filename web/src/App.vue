@@ -44,9 +44,11 @@ export default {
   name: 'app',
   data () {
     return {
-      currentLanguage: '中文简体',
       account: ethereum.selectedAddress || '登录 metamask',
+      currentLanguage: localStorage.getItem('currentLocale') && localStorage.getItem('currentLocale') == 'en' ? 'English' : '中文简体'
     }
+  },
+  computed: {
   },
   components: {
   },
@@ -58,6 +60,7 @@ export default {
       } else if (command === 'en') {
         this.currentLanguage = 'English'
       }
+      localStorage.setItem('currentLocale', command)
     },
     async initTokenContract() {
       const contract = await new web3.eth.Contract(
@@ -148,7 +151,7 @@ html {
   text-align: center;
   color: #2c3e50;
   height: 100vh;
-  font-size: 0.18rem;
+  font-size: 0.16rem;
 }
 
 .el-header, .el-footer {

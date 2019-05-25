@@ -49,6 +49,7 @@
           <p>当前共奖励 <span class="value-span">{{item.value}}</span> ETH</p>
           <div class="reward-detail">
             <div class="reward-detal-item" v-for="i in 5" :key="i">
+              <span class="rank">{{i > 3 ? i : ''}}  </span>
               <span class="address">0x7525c82e0cf1832e79ff3aff259c5fe853cf95f4</span>
               <span>：</span>
               <span>1.3 ETH</span>
@@ -133,14 +134,14 @@ export default {
 @import "../assets/variables.scss";
 
 .offer {
-  font-size: 0.16rem;
+  font-size: 0.14rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
   .period {
     width: 80%;
-    margin-bottom: 0.3rem;
+    margin-top: .4rem;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
     min-height: 1.4rem;
@@ -159,7 +160,7 @@ export default {
     .reward-area {
       padding: 0.1rem 0.1rem;
       margin-bottom: 0.3rem;
-      font-size: .16rem;
+      font-size: .14rem;
       background-color: $dark-main;
       border-radius: 5px;
       .reward-type {
@@ -185,14 +186,44 @@ export default {
         }
       }
       p {
-        font-size: .18rem;
+        font-size: .16rem;
       }
       .reward-detail {
         font-size: 0.12rem;
         margin-top: 0.2rem;
+        :nth-child(1) {
+          .rank {
+            background-image: url('~@/assets/image/1.png');
+            background-repeat: no-repeat;
+            background-size: .12rem;
+            background-position: center 1px;
+          }
+        }
+        :nth-child(2) {
+          .rank {
+            background-image: url('~@/assets/image/2.png');
+            background-repeat: no-repeat;
+            background-size: .12rem;
+            background-position: center 1px;
+          }
+        }
+        :nth-child(3) {
+          .rank {
+            background-image: url('~@/assets/image/3.png');
+            background-repeat: no-repeat;
+            background-size: .12rem;
+            background-position: center 1px;
+          }
+        }
         .reward-detal-item {
           display: flex;
           justify-content: center;
+          .rank {
+            color: $theme;
+            width: .2rem;
+            height: .26rem;
+            text-align: center;
+          }
           .address {
             max-width: 70%;
             overflow: hidden;
