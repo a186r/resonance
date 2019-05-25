@@ -5,19 +5,26 @@
         <div class="title dark-card">
           <div class="building-period">
             <div class="building-period-icon"></div>
-            <p >组建期</p>
+            <p>{{ $t('index.buildingPeriodText') }}</p>
           </div>
-          <p>CAD: <span class="value-span">{{homeData.currentStepTokenAmount}}</span> CAD</p>
-          <router-link class="to-offer" to="/offer">点击进入组建期页面</router-link>
+          <div class="period-value">
+            <div class="building-period-value"></div>
+            <div class="period-value-enter">
+              <p>CAD: <span class="value-span">{{homeData.currentStepTokenAmount}}</span> CAD</p>
+              <div class="period-enter">
+                <div></div>
+                <router-link class="to-offer" to="/offer">点击进入组建期页面</router-link>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="intro">
-          <p>组建期规则</p>
+          <p>{{ $t('index.buildingRulesText') }}</p>
           <div class="detail">
-            <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
-            <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
-            <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
-            <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
-            <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
+            <p>1. {{ $t('index.buildingRules[0]') }}</p>
+            <p>2. {{ $t('index.buildingRules[1]') }}</p>
+            <p>3. {{ $t('index.buildingRules[2]') }}</p>
+            <p>4. {{ $t('index.buildingRules[3]') }}</p>
           </div>
         </div>
       </el-col>
@@ -25,19 +32,25 @@
         <div class="title dark-card">
           <div class="funding-period">
             <div class="funding-period-icon"></div>
-            <p >募资期</p>
+            <p >{{ $t('index.fundingPeriodText') }}</p>
           </div>
-          <p>ETH: <span class="value-span">{{homeData.currentStepRaisedETH}}</span> ETH</p>
-          <router-link class="to-offer" to="/offer">点击进入募资期页面</router-link>
+          <div class="period-value">
+            <div class="funding-period-value"></div>
+            <div class="period-value-enter">
+              <p>ETH: <span class="value-span">{{homeData.currentStepRaisedETH}}</span> ETH</p>
+              <div class="period-enter">
+                <div></div>
+                <router-link class="to-offer" to="/offer">点击进入募资期页面</router-link>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="intro">
-          <p>募资期规则</p>
+          <p>{{ $t('index.fundingRulesText') }}</p>
           <div class="detail">
-            <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
-            <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
-            <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
-            <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
-            <p>规则一：一二三阿萨德阿萨德奥森奥森阿萨德</p>
+            <p>1. {{ $t('index.fundingRules[0]') }}</p>
+            <p>2. {{ $t('index.fundingRules[1]') }}</p>
+            <p>3. {{ $t('index.fundingRules[2]') }}</p>
           </div>
         </div>
       </el-col>
@@ -73,8 +86,7 @@ export default {
 @import "../assets/variables.scss";
 
 .home {
-  // display: flex;
-  font-size: 0.16rem;
+  font-size: 0.14rem;
   height: 100%;
   width: 100%;
   align-items: center;
@@ -92,26 +104,59 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    .period-value {
+      display: flex;
+      margin-top: .1rem;
+      .funding-period-value {
+        width: .4rem;
+        background-image: url('~@/assets/image/eth.png');
+        background-repeat: no-repeat;
+        background-size: .4rem;
+        background-position-y: center;
+      }
+      .building-period-value {
+        width: .4rem;
+        background-image: url('~@/assets/image/cad.png');
+        background-repeat: no-repeat;
+        background-size: .4rem;
+        background-position-y: center;
+      }
+      .period-value-enter {
+        margin-left: .1rem;
+        .period-enter {
+          display: flex;
+          div {
+            width: .14rem;
+            background-image: url('~@/assets/image/click.png');
+            background-repeat: no-repeat;
+            background-size: .14rem;
+            background-position-y: center;
+          }
+        }
+      }
+    }
     .building-period {
       display: flex;
       justify-content: center;
+      color: $theme;
       div {
-        width: .2rem;
+        width: .18rem;
         background-image: url('~@/assets/image/building.png');
         background-repeat: no-repeat;
-        background-size: .2rem;
+        background-size: .18rem;
         background-position-y: center;
       }
     }
     .funding-period {
       display: flex;
       justify-content: center;
+      color: $theme;
       div {
-        width: .2rem;
+        width: .18rem;
         background-position-y: center;
         background-image: url('~@/assets/image/funding.png');
         background-repeat: no-repeat;
-        background-size: .2rem;
+        background-size: .18rem;
       }
     }
     :nth-child(3) {
@@ -119,6 +164,7 @@ export default {
     }
     .to-offer {
       color: $theme;
+      font-size: .14rem;
     }
   }
   .intro {
@@ -138,7 +184,7 @@ export default {
       flex: 1;
       flex-direction: column;
       justify-content: space-around;
-      font-size: 0.15rem;
+      font-size: 0.14rem;
     }
     margin-bottom: 0.2rem;
   }

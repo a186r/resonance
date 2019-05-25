@@ -3,20 +3,18 @@
     <el-row>
       <el-col class="col-flex"  :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="withdraw dark-card">
+          <div class="withdraw-cad"></div>
           <p>提取 CAD 代币</p>
-          <div class="amount-action">
-            <p>数量：<span class="value-span">{{myDetail[0]}}</span> CAD</p>
-            <button class="custom-button" @click="withdrawAllCAD">提取</button>
-          </div>
+          <p>数量：<span class="value-span">{{myDetail[0]}}</span> CAD</p>
+          <button class="custom-button" @click="withdrawAllCAD">提取</button>
         </div>
       </el-col>
       <el-col class="col-flex"  :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="withdraw dark-card">
-          <p>提取 ETH 代币</p>
-          <div class="amount-action">
-            <p>数量：<span class="value-span">{{myDetail[1]}}</span> ETH</p>
-            <button class="custom-button" @click="withdrawAllETH">提取</button>
-          </div>
+          <div class="withdraw-eth"></div>
+          <p>提取 ETH</p>
+          <p>数量：<span class="value-span">{{myDetail[1]}}</span> ETH</p>
+          <button class="custom-button" @click="withdrawAllETH">提取</button>
         </div>
       </el-col>
     </el-row>
@@ -125,16 +123,28 @@ export default {
   height: 100%;
   font-size: 0.16rem;
   .withdraw {
-    height: 1rem;
+    height: 1.8rem;
     width: 80%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
     margin-bottom: 0.3rem;
-    .amount-action {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
+    .withdraw-cad {
+      width: .4rem;
+      height: .4rem;
+      background-image: url('~@/assets/image/cad.png');
+      background-repeat: no-repeat;
+      background-size: .4rem;
+      background-position-y: center;
+    }
+    .withdraw-eth {
+      width: .4rem;
+      height: .4rem;
+      background-image: url('~@/assets/image/eth.png');
+      background-repeat: no-repeat;
+      background-size: .4rem;
+      background-position-y: center;
     }
   }
   .my-detail {
