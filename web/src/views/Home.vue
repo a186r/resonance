@@ -170,21 +170,22 @@ export default {
   .intro {
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-top: 0.3rem;
+    padding-top: .2rem;
     padding-bottom: 0.2rem;
     background-color: $dark-main;
     border-radius: 5px;
     width: 80%;
-    p {
-      margin-top: 0.2rem;
-      text-align: center;
-    }
     .detail {
       display: flex;
-      flex: 1;
       flex-direction: column;
-      justify-content: space-around;
       font-size: 0.14rem;
+      width: 80%;
+      p {
+        margin-top: 0.2rem;
+        text-align: left;
+      }
     }
     margin-bottom: 0.2rem;
   }
