@@ -619,6 +619,20 @@ contract Resonance is Ownable{
         steps[currentStep].funder[msg.sender].isBuilder = true;
     }
 
+    /// @notice 基金会授权token额度
+    /// @dev 基金会授权一亿枚Token给合约，用于组建共振资金池
+    /// @param _approveAmount 授权数量
+    function approveTokenToContract(uint256 _approveAmount) public onlyOwner() {
+        abcToken.approve(address(this), UintUtils.toWei(_approveAmount));
+    }
+
+    /// @notice 查询剩余多少授权额度
+    /// @dev 公共接口，查询剩余多少Token的剩余额度
+    function getAllowance() public view returns(uint256) {
+        return abcToken.allowance(msg.sender, address(this));
+    }
+
+
     /// @notice 共振还在进行中
     function crowdsaleIsRunning() public view returns(bool) {
         return !crowdsaleClosed;
