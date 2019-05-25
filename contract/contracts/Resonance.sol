@@ -484,7 +484,7 @@ contract Resonance is Ownable{
     /// @notice 查询某轮次funders信息
     /// @dev 查询某轮次funders各个参数，返回各参数的数组，下标一一对应
     /// @param _stepIndex 轮次数
-    function getStepFunders(uint256 _stepIndex) public {
+    function getStepFunders(uint256 _stepIndex) public onlyOwner() {
         address[] memory funderAddress;
         uint256[] memory funderTokenAmount;
         uint256[] memory funderETHAmount;

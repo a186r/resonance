@@ -11,8 +11,8 @@ const LuckyReward = artifacts.require("LuckyReward");
 const FaithReward = artifacts.require("FaithReward");
 const Resonance = artifacts.require("Resonance");
 
-const beneficiaryAddr = "0x0ac26115fEacba375dA2eF39648A87A30519dCB9";
-const initialFissionPerson = "0xAE553492128FfE03Eae35Ea002839A4363E36495";
+const beneficiaryAddr = "0x1d341abaf972aafb851798386cedc676222480a0";
+const initialFissionPerson = "0x2f45ddbf8978257f36f621aa27dd83864dc98075";
 
 module.exports = function (deployer) {
     deployer.then(async () => {
@@ -40,10 +40,10 @@ module.exports = function (deployer) {
 
 
         await deployer.deploy(Resonance, ABCTInstance.address, beneficiaryAddr, initialFissionPerson, FissionRewardInstance.address, FOMORewardInstance.address, LuckyRewardInstance.address, FaithRewardInstance.address)
-        // let ResonanceInstance = await Resonance.deployed()
+        let ResonanceInstance = await Resonance.deployed()
 
         return Promise.all([
-            // ResonanceInstance.toBeFissionPerson("0x2012E149fc31F4D45b17796177c4f771C33D7a61")
+            ResonanceInstance.toBeFissionPerson("0x1b2e39bdb251a17094c51604f7db0e4b2bb83b95")
         ])
     })
 }

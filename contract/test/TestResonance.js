@@ -38,10 +38,15 @@ contract('TestResonance', async (accounts) => {
     it('0...初始化ABCToken', async () => {
         // abcToken = await ABCToken.new("ABCToken", "ABCT", decimals, {
         //     from: account0
-        // });  
-        abcToken = ABCToken.at(abcTokenAddress);
+        // });
 
-        let ress = await abcToken.mintToken();
+        abcToken = await ABCToken.at(abcTokenAddress);
+
+        let ress = await abcToken.mintToken({
+            from: account0
+        });
+
+        console.log(ress);
 
         let balanceOf0 = await abcToken.balanceOf(account0) / 1E18;
         console.log("0-----账户0的余额是：", balanceOf0.toString());
@@ -72,17 +77,17 @@ contract('TestResonance', async (accounts) => {
     it('1...成为裂变者', async () => {
         // await accounts[0].eth.transfer(web3.utils.toWei("20"));
 
-        // resonance = await Resonance.new(
-        //     abcToken.address,
-        //     accounts[0],
-        //     accounts[0],
-        //     fissionReward.address,
-        //     FOMOReward.address,
-        //     luckyReward.address,
-        //     faithReward.address
-        // );
+        resonance = await Resonance.new(
+            abcTokenAddress,
+            accounts[0],
+            accounts[0],
+            fissionRewardAddress,
+            FOMORewardAddress,
+            luckyRewardAddress,
+            resonanceAddress
+        );
 
-        resonance = await Resonance.at(resonanceAddress);
+        // resonance = await Resonance.at(resonanceAddress);
 
         // 允许合约具有转账权
         // for (var i = 0; i <= 0; i++) {
