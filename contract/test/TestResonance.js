@@ -9,13 +9,13 @@ var FaithReward = artifacts.require('FaithReward');
 var abcToken;
 var resonance;
 
-var abcTokenAddress = "0x5AA434CEDca3C7e56a3DaDFEe82BcE76AD295C88";
+var abcTokenAddress = "0xcB75DEbe73716F6c512a90D01B42093622f3699E";
 
-var fissionRewardAddress = "0x980CeC5d6132fc1dE8A9f36609C0703DD1A6F5F2";
-var FOMORewardAddress = "0x60BECE43266A24298dd3902Abf2aCe74C7c77495";
-var luckyRewardAddress = "0x008F09e76180a55Bd0f546996187827c288422E6";
-var faithRewardAddress = "0x404392F8F927eeEe1ec26F2736503F7eC5AcBffA";
-var resonanceAddress = "0x383a284f2D67c154bfe2e1CE6eD1c18Dd64ef5F2";
+var fissionRewardAddress = "0x172f683F020F9ea487eAbCc6ef0b034F98d40F5d";
+var FOMORewardAddress = "0x45398972283b0309e3f9fd44c7D5eFfc7D7Ad6dd";
+var luckyRewardAddress = "0x1b9ABec5BACAB876f211726B24A65B87ef7d1437";
+var faithRewardAddress = "0xb4886428b786db5cc6a00F7de04a29d4bbB7e2d6";
+var resonanceAddress = "0x0383607D453588cDB96bF4E46F93CeBf902aF2bA";
 
 var fissionReward;
 var FOMOReward;
