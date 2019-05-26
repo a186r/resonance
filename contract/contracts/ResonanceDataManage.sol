@@ -1,5 +1,6 @@
 pragma solidity >=0.4.21 <0.6.0;
 
+import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "./UintUtils.sol";
 import "./FissionReward.sol";
 import "./FOMOReward.sol";
@@ -10,6 +11,8 @@ import "./ABCToken.sol";
 /// @title 共振全局数据管理
 /// @dev 在这里处理一些全局数据
 contract ResonanceDataManage{
+
+    using SafeMath for uint256;
 
     event WhihdrawAllToken();
 
@@ -34,6 +37,15 @@ contract ResonanceDataManage{
     // 当前轮次
     uint256 currentStep;
 
+    // 初始Token总额度
+    uint256 initBuildingTokenAmount;
+
+    // 当前轮次组建期项目方Token额度占比
+    uint8 buildingPercentOfParty = 50;
+
+    // 当前轮次组建期社区Token额度占比
+    uint8 buildingPercentOfCommunity = 50;
+
     // 账号可提取总余额
     mapping(address => uint256) private ETHBalance;
     mapping(address => uint256) private tokenBalance;
@@ -50,6 +62,9 @@ contract ResonanceDataManage{
         FOMORewardInstance = FOMOReward(_FOMORewardAddress);
         luckyRewardInstance = LuckyReward(_luckyRewardAddress);
         faithRewardInstance = FaithReward(_faithRewardAddress);
+
+        fundsPool = UintUtils.toWei(150000000);
+        initBuildingTokenAmount = UintUtils.toWei(1500000);
     }
 
     function allowAccess(address _addr) public platform() {
@@ -100,6 +115,14 @@ contract ResonanceDataManage{
         tokenBalance[_addr] = _amount;
     }
 
+    function getBuildingTokenAmount() public platform() view returns(uint256) {
+        return initBuildingTokenAmount;
+    }
+
+    function setBuildingTokenAmount(uint256 _tokenAmount) public platform() {
+        initBuildingTokenAmount = _tokenAmount;
+    }
+
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
         if(block.timestamp >= openingTime && block.timestamp < openingTime + 8 hours) {
@@ -131,7 +154,6 @@ contract ResonanceDataManage{
             crowdsaleClosed = true;
         }
 
-        // TODO:这里要计算一下数额？
         // 2.消耗完资金池的总额度，共振结束
         if(fundsPool == 0) {
             crowdsaleClosed = true;
@@ -239,6 +261,18 @@ contract ResonanceDataManage{
         public
     {
         faithRewardInstance.getFaithWinnerInfo();
+    }
+
+    /// @notice 改变共振资金池共建比例
+    function updateBuildingPercent() public platform() {
+        require(fundsPool > 0, "共建资金池已经消耗完毕");
+        // 随着轮次推进，社区比例每轮次+1%，项目方比例每轮-1%
+        if(buildingPercentOfParty < 66){
+            buildingPercentOfParty += 1;
+            buildingPercentOfCommunity -= 1;
+        }
+        require(currentStep >= 1, "第一轮数值已经初始化过了");
+        initBuildingTokenAmount = initBuildingTokenAmount * 99 / 100 ** currentStep;
     }
 
 }

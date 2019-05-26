@@ -29,7 +29,7 @@ contract Resonance is Ownable{
     event LuckyRewardInfo(address[] luckyRewardList, uint256 luckyReward);
     event FaithRewardInfo(address[] faithRewardList, uint256[] faithRewardAmount);
     event WithdrawAllETH(address addr, uint256 ETHAmount);
-    // event WhihdrawAllToken(address from, address to, uint256 tokenAmount);
+    event WithdrawAllToken(address from, address to, uint256 tokenAmount);
     event FunderInfo(uint256[] FunderInfoArray);
     event StepFunders(
         address[] funderAddress,
@@ -60,34 +60,14 @@ contract Resonance is Ownable{
         _;
     }
 
-    // 共建期
-    // modifier isBuildingPeriod() {
-    //     require(block.timestamp >= openingTime && block.timestamp < openingTime + 8 hours, "不在共建期内");
-    //     _;
-    // }
-
-    // // 募资期
-    // modifier isFundingPeriod() {
-    //     require(block.timestamp >= openingTime + 8 hours && block.timestamp < openingTime + 24 hours, "不在募资期内");
-    //     _;
-    // }
-
     // 变量
     // ERC20
     ABCToken public abcToken;
 
     ResonanceDataManage resonanceDataManage;
 
-    // // 资金池剩余额度
-    // uint256 private fundsPool;
-
     // 收款方（每轮募集的60%转移到这个地址）
     address payable private beneficiary;
-
-    // // 开始时间
-    // uint256 private openingTime;
-
-    // bool crowdsaleClosed = false;   //  共振是否结束
 
     // 投资者结构体
     struct Funder{
@@ -136,10 +116,6 @@ contract Resonance is Ownable{
         uint256 blockNumber; // 当前轮次结束时的区块高度
     }
 
-    // 账号可提取总余额
-    // mapping(address => uint256) public ETHBalance;
-    // mapping(address => uint256) public tokenBalance;
-
     // 参与共振的地址数组
     address[] resonances;
 
@@ -180,9 +156,11 @@ contract Resonance is Ownable{
         abcToken = _abcToken; // abc Token
         beneficiary = _beneficiary; // 收款方
         initialFissionPerson = _initialFissionPerson; // 初始裂变者
+        steps[currentStep].building.openTokenAmount = UintUtils.toWei(1500000); // 第一轮Token限额
     }
 
     /// @notice 设置访问权限并设置开始时间
+    /// @dev 管理员调用这个设置对ResonanceDataManage的访问权限，并初始化开始时间(第一轮)
     function allowAccess() public onlyOwner() {
         resonanceDataManage.allowAccess(address(this));
         resonanceDataManage.allowAccess(msg.sender);
@@ -240,7 +218,11 @@ contract Resonance is Ownable{
         returns(uint256, uint256)
     {
         require(resonanceDataManage.isBuildingPeriod(), "不在共建期内");
-        steps[currentStep].funding.raiseTarget = _raiseTarget;
+        steps[currentStep].funding.raiseTarget = UintUtils.toWei(_raiseTarget);
+        // 当前轮次的软顶和硬顶分别赋值
+        steps[currentStep].softCap = UintUtils.toWei(steps[currentStep].funding.raiseTarget.mul(60).div(100));
+        steps[currentStep].hardCap = UintUtils.toWei(steps[currentStep].funding.raiseTarget);
+
         emit SetRaiseTarget(currentStep, _raiseTarget);
         return(currentStep, _raiseTarget);
     }
@@ -251,12 +233,7 @@ contract Resonance is Ownable{
     }
 
     // 共建（就是向合约转入token的过程）
-    function jointlyBuild(
-        uint256 _tokenAmount
-    )
-        public
-        // isBuildingPeriod()
-    {
+    function jointlyBuild(uint256 _tokenAmount) public {
         require(resonanceDataManage.isBuildingPeriod(), "不在共建期内");
 
         require(!resonanceDataManage.getCrowdsaleClosed(), "共振已经结束");
@@ -280,6 +257,12 @@ contract Resonance is Ownable{
         require(abcToken.transferFrom(msg.sender,address(this), UintUtils.toWei(_tokenAmount)),"转移token到合约失败");
 
         steps[currentStep].funder[msg.sender].tokenAmount += UintUtils.toWei(_tokenAmount);
+
+        // 从当前轮次的Token限额中减去用户转入的Token数量
+        steps[currentStep].building.openTokenAmount -= UintUtils.toWei(_tokenAmount);
+
+        // 从资金池总额度中减去用户转入的Token数量
+        resonanceDataManage.setFundsPool(resonanceDataManage.getFundsPool() - UintUtils.toWei(_tokenAmount));
 
         // 累加用户参与共建的总额度
         resonancesRasiedToken[msg.sender] += _tokenAmount;
@@ -317,12 +300,9 @@ contract Resonance is Ownable{
         onlyOwner()
         returns(bool)
     {
-        // 判断是否当前轮次是否已经达到结算条件
-        require(!resonanceDataManage.getCrowdsaleClosed(), "募资已经结束");
         // 结算奖励
         _settlementReward(_fissionWinnerList, _LuckyWinnerList);
         // 结算收款人余额
-        // ETHBalance[beneficiary] += UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(60).div(100));
         resonanceDataManage.setETHBalance(
             beneficiary,
             resonanceDataManage.getETHBalance(beneficiary) + UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(60).div(100))
@@ -354,42 +334,6 @@ contract Resonance is Ownable{
         );
     }
 
-    // 判断共振是否结束
-    // 共振结束有两个条件
-    // 1. 如果当前轮次没有达到软顶 2.共振资金池消耗完毕
-    /// @dev 每一轮结算的时候调用此方法
-    // function _crowdsaleIsClosed()
-    //     internal
-    //     returns(bool)
-    // {
-    //     // 1.当前轮次募资期募资额度没有达到软顶
-    //     if(UintUtils.toWei(steps[currentStep].funding.raisedETH) < UintUtils.toWei(steps[currentStep].softCap)) {
-    //         resonanceDataManage.setCrowdsaleClosed(true);
-
-    //         // 管理员将剩余Token提走
-    //         _withdrawRemainingToken();
-    //     }
-
-    //     // TODO:这里要计算一下数额？
-    //     // 2.消耗完资金池的总额度
-    //     if(resonanceDataManage.getFundsPool() == 0) {
-    //         crowdsaleClosed = true;
-    //     }
-
-    //     return crowdsaleClosed;
-    // }
-
-    /// @notice 管理员可以提走剩余的Token
-    // function _withdrawRemainingToken()
-    //     internal
-    //     onlyOwner()
-    //     returns(bool)
-    // {
-    //     // 共振结束才可以提走
-    //     require(crowdsaleClosed(), "共振还未结束，不能提走Token");
-    //     abcToken.transfer(owner(), UintUtils.toWei(resonanceDataManage.getFundsPool()));
-    // }
-
     /// @notice 结算裂变奖励、幸运奖励、FOMO奖励
     /// @dev 每一轮次结束之后调用此方法分配奖励
     // 结算奖励，当前轮次结束之后，要结算当前轮次各奖励
@@ -420,8 +364,6 @@ contract Resonance is Ownable{
         );
     }
 
-    // TODO: 开始下一轮之前要设置共建期和募资期的一些限额等参数，还有比例
-
     /// 重置变量，开始下一轮
     function _startNextStep()
         internal
@@ -434,6 +376,13 @@ contract Resonance is Ownable{
         steps[currentStep].stepIsClosed = true;
         // 进入下一轮
         currentStep++;
+        // 下一轮计时
+        resonanceDataManage.setOpeningTime(block.timestamp);
+        // 初始化Token共建比例等参数
+        resonanceDataManage.updateBuildingPercent();
+
+        steps[currentStep].building.openTokenAmount = resonanceDataManage.getBuildingTokenAmount();
+        // TODO:设置共建期数据
         emit StartNextStep(currentStep);
     }
 
@@ -448,6 +397,7 @@ contract Resonance is Ownable{
         resonanceDataManage.emptyTokenBalance();
         steps[currentStep].funder[msg.sender].tokenHasWithdrawn = true;
         abcToken.transferFrom(address(this), msg.sender, withdrawAmount);
+        emit WithdrawAllToken(address(this), msg.sender, withdrawAmount);
         return(address(this), msg.sender, withdrawAmount);
     }
 
@@ -576,41 +526,6 @@ contract Resonance is Ownable{
         return(_fpCountdown, _remainingETH, _rasiedETHAmount);
     }
 
-    // /// @notice 查询当前轮次的裂变奖励获奖详情
-    // /// @dev 查询某轮次裂变奖励列表
-    // /// @param _stepIndex 轮次
-    // function getFissionRewardInfo(uint256 _stepIndex)
-    //     public
-    // {
-    //     fissionRewardInstance.getFissionInfo(_stepIndex);
-    // }
-
-    // /// @notice 获取该轮次FOMO奖励详情
-    // /// @dev 查询某轮次FOMO奖励详情
-    // /// @param _stepIndex 轮次
-    // function getFOMORewardIofo(uint256 _stepIndex)
-    //     public
-    // {
-    //     FOMORewardInstance.getFOMOWinnerInfo(_stepIndex);
-    // }
-
-    // /// @notice 获取该轮次幸运奖励详情
-    // /// @dev 查询某轮次幸运奖励获奖人列表和奖金列表
-    // /// @param _stepIndex 轮次
-    // function getLuckyRewardInfo(uint256 _stepIndex)
-    //     public
-    // {
-    //     luckyRewardInstance.getLuckyInfo(_stepIndex);
-    // }
-
-    // /// @notice 获取信仰奖励信息
-    // /// @dev 查询某轮次信仰奖励获奖人列表和奖金列表
-    // function getFaithRewardInfo()
-    //     public
-    // {
-    //     faithRewardInstance.getFaithWinnerInfo();
-    // }
-
     /// @notice 获取投资者信息（个人中心界面）
     function getFunderInfo(address _funder)
         public
@@ -669,41 +584,41 @@ contract Resonance is Ownable{
         steps[currentStep].funder[msg.sender].isBuilder = true;
     }
 
-    /// @notice 基金会授权token额度
-    /// @dev 基金会授权一亿枚Token给合约，用于组建共振资金池
-    /// @param _approveAmount 授权数量
-    function approveTokenToContract(uint256 _approveAmount)
-        public
-        onlyOwner()
-    {
-        abcToken.approve(address(this), UintUtils.toWei(_approveAmount));
-    }
+    // /// @notice 基金会授权token额度
+    // /// @dev 基金会授权一亿枚Token给合约，用于组建共振资金池
+    // /// @param _approveAmount 授权数量
+    // function approveTokenToContract(uint256 _approveAmount)
+    //     public
+    //     onlyOwner()
+    // {
+    //     abcToken.approve(address(this), UintUtils.toWei(_approveAmount));
+    // }
 
-    /// @notice 基金会增加授权额度
-    function increaseAllowance(uint256 _addedValue)
-        public
-        onlyOwner()
-    {
-        abcToken.increaseAllowance(address(this), _addedValue);
-    }
+    // /// @notice 基金会增加授权额度
+    // function increaseAllowance(uint256 _addedValue)
+    //     public
+    //     onlyOwner()
+    // {
+    //     abcToken.increaseAllowance(address(this), _addedValue);
+    // }
 
-    /// 基金会削减授权额度
-    function decreaseAllowance(uint256 _subtractedValue)
-        public
-        onlyOwner()
-    {
-        abcToken.decreaseAllowance(address(this), _subtractedValue);
-    }
+    // /// 基金会削减授权额度
+    // function decreaseAllowance(uint256 _subtractedValue)
+    //     public
+    //     onlyOwner()
+    // {
+    //     abcToken.decreaseAllowance(address(this), _subtractedValue);
+    // }
 
-    /// @notice 查询剩余多少授权额度
-    /// @dev 公共接口，查询剩余多少Token的剩余额度
-    function getAllowance()
-        public
-        view
-        returns(uint256)
-    {
-        return abcToken.allowance(msg.sender, address(this));
-    }
+    // /// @notice 查询剩余多少授权额度
+    // /// @dev 公共接口，查询剩余多少Token的剩余额度
+    // function getAllowance()
+    //     public
+    //     view
+    //     returns(uint256)
+    // {
+    //     return abcToken.allowance(msg.sender, address(this));
+    // }
 
     /// @notice 返回收款方
     function Beneficiary() public view returns(address payable) {
