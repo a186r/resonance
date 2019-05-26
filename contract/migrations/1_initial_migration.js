@@ -39,11 +39,21 @@ module.exports = function (deployer) {
         let FaithRewardInstance = await FaithReward.deployed()
 
 
-        await deployer.deploy(Resonance, ABCTInstance.address, beneficiaryAddr, initialFissionPerson, FissionRewardInstance.address, FOMORewardInstance.address, LuckyRewardInstance.address, FaithRewardInstance.address)
+        await deployer.deploy(
+            Resonance,
+            ABCTInstance.address,
+            beneficiaryAddr,
+            initialFissionPerson,
+            FissionRewardInstance.address,
+            FOMORewardInstance.address,
+            LuckyRewardInstance.address,
+            FaithRewardInstance.address
+        )
+
         let ResonanceInstance = await Resonance.deployed()
 
         return Promise.all([
-            ResonanceInstance.toBeFissionPerson("0x1b2e39bdb251a17094c51604f7db0e4b2bb83b95")
+            // ResonanceInstance.toBeFissionPerson("0x1b2e39bdb251a17094c51604f7db0e4b2bb83b95")
         ])
     })
 }
