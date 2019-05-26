@@ -205,4 +205,40 @@ contract ResonanceDataManage{
     function emptyETHBalance() public {
         ETHBalance[tx.origin] = 0;
     }
+
+    /// @notice 查询当前轮次的裂变奖励获奖详情
+    /// @dev 查询某轮次裂变奖励列表
+    /// @param _stepIndex 轮次
+    function getFissionRewardInfo(uint256 _stepIndex)
+        public
+    {
+        fissionRewardInstance.getFissionInfo(_stepIndex);
+    }
+
+    /// @notice 获取该轮次FOMO奖励详情
+    /// @dev 查询某轮次FOMO奖励详情
+    /// @param _stepIndex 轮次
+    function getFOMORewardIofo(uint256 _stepIndex)
+        public
+    {
+        FOMORewardInstance.getFOMOWinnerInfo(_stepIndex);
+    }
+
+    /// @notice 获取该轮次幸运奖励详情
+    /// @dev 查询某轮次幸运奖励获奖人列表和奖金列表
+    /// @param _stepIndex 轮次
+    function getLuckyRewardInfo(uint256 _stepIndex)
+        public
+    {
+        luckyRewardInstance.getLuckyInfo(_stepIndex);
+    }
+
+    /// @notice 获取信仰奖励信息
+    /// @dev 查询某轮次信仰奖励获奖人列表和奖金列表
+    function getFaithRewardInfo()
+        public
+    {
+        faithRewardInstance.getFaithWinnerInfo();
+    }
+
 }

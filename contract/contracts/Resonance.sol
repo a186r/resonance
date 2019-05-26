@@ -142,6 +142,7 @@ contract Resonance is Ownable{
 
     // 参与共振的地址数组
     address[] resonances;
+
     // 参与共振的用户募资金额
     mapping(address => uint256) resonancesRasiedETH;
     mapping(address => uint256) resonancesRasiedToken;
@@ -235,7 +236,6 @@ contract Resonance is Ownable{
         uint256 _raiseTarget
     )
         public
-        // isBuildingPeriod()
         onlyOwner()
         returns(uint256, uint256)
     {
@@ -541,7 +541,6 @@ contract Resonance is Ownable{
     function getBuildingPerioInfo()
         public
         onlyOwner()
-        // isBuildingPeriod()
         returns(uint256, uint256, uint256, uint256)
     {
         require(resonanceDataManage.isBuildingPeriod(), "不在共建期内");
@@ -577,40 +576,40 @@ contract Resonance is Ownable{
         return(_fpCountdown, _remainingETH, _rasiedETHAmount);
     }
 
-    /// @notice 查询当前轮次的裂变奖励获奖详情
-    /// @dev 查询某轮次裂变奖励列表
-    /// @param _stepIndex 轮次
-    function getFissionRewardInfo(uint256 _stepIndex)
-        public
-    {
-        fissionRewardInstance.getFissionInfo(_stepIndex);
-    }
+    // /// @notice 查询当前轮次的裂变奖励获奖详情
+    // /// @dev 查询某轮次裂变奖励列表
+    // /// @param _stepIndex 轮次
+    // function getFissionRewardInfo(uint256 _stepIndex)
+    //     public
+    // {
+    //     fissionRewardInstance.getFissionInfo(_stepIndex);
+    // }
 
-    /// @notice 获取该轮次FOMO奖励详情
-    /// @dev 查询某轮次FOMO奖励详情
-    /// @param _stepIndex 轮次
-    function getFOMORewardIofo(uint256 _stepIndex)
-        public
-    {
-        FOMORewardInstance.getFOMOWinnerInfo(_stepIndex);
-    }
+    // /// @notice 获取该轮次FOMO奖励详情
+    // /// @dev 查询某轮次FOMO奖励详情
+    // /// @param _stepIndex 轮次
+    // function getFOMORewardIofo(uint256 _stepIndex)
+    //     public
+    // {
+    //     FOMORewardInstance.getFOMOWinnerInfo(_stepIndex);
+    // }
 
-    /// @notice 获取该轮次幸运奖励详情
-    /// @dev 查询某轮次幸运奖励获奖人列表和奖金列表
-    /// @param _stepIndex 轮次
-    function getLuckyRewardInfo(uint256 _stepIndex)
-        public
-    {
-        luckyRewardInstance.getLuckyInfo(_stepIndex);
-    }
+    // /// @notice 获取该轮次幸运奖励详情
+    // /// @dev 查询某轮次幸运奖励获奖人列表和奖金列表
+    // /// @param _stepIndex 轮次
+    // function getLuckyRewardInfo(uint256 _stepIndex)
+    //     public
+    // {
+    //     luckyRewardInstance.getLuckyInfo(_stepIndex);
+    // }
 
-    /// @notice 获取信仰奖励信息
-    /// @dev 查询某轮次信仰奖励获奖人列表和奖金列表
-    function getFaithRewardInfo()
-        public
-    {
-        faithRewardInstance.getFaithWinnerInfo();
-    }
+    // /// @notice 获取信仰奖励信息
+    // /// @dev 查询某轮次信仰奖励获奖人列表和奖金列表
+    // function getFaithRewardInfo()
+    //     public
+    // {
+    //     faithRewardInstance.getFaithWinnerInfo();
+    // }
 
     /// @notice 获取投资者信息（个人中心界面）
     function getFunderInfo(address _funder)
@@ -670,27 +669,41 @@ contract Resonance is Ownable{
         steps[currentStep].funder[msg.sender].isBuilder = true;
     }
 
-    // /// @notice 基金会授权token额度
-    // /// @dev 基金会授权一亿枚Token给合约，用于组建共振资金池
-    // /// @param _approveAmount 授权数量
-    // function approveTokenToContract(uint256 _approveAmount)
-    //     public
-    //     onlyOwner()
-    // {
-    //     abcToken.approve(address(this), UintUtils.toWei(_approveAmount));
-    // }
+    /// @notice 基金会授权token额度
+    /// @dev 基金会授权一亿枚Token给合约，用于组建共振资金池
+    /// @param _approveAmount 授权数量
+    function approveTokenToContract(uint256 _approveAmount)
+        public
+        onlyOwner()
+    {
+        abcToken.approve(address(this), UintUtils.toWei(_approveAmount));
+    }
 
-    // /// @notice 基金会撤销授权
+    /// @notice 基金会增加授权额度
+    function increaseAllowance(uint256 _addedValue)
+        public
+        onlyOwner()
+    {
+        abcToken.increaseAllowance(address(this), _addedValue);
+    }
 
-    // /// @notice 查询剩余多少授权额度
-    // /// @dev 公共接口，查询剩余多少Token的剩余额度
-    // function getAllowance()
-    //     public
-    //     view
-    //     returns(uint256)
-    // {
-    //     return abcToken.allowance(msg.sender, address(this));
-    // }
+    /// 基金会削减授权额度
+    function decreaseAllowance(uint256 _subtractedValue)
+        public
+        onlyOwner()
+    {
+        abcToken.decreaseAllowance(address(this), _subtractedValue);
+    }
+
+    /// @notice 查询剩余多少授权额度
+    /// @dev 公共接口，查询剩余多少Token的剩余额度
+    function getAllowance()
+        public
+        view
+        returns(uint256)
+    {
+        return abcToken.allowance(msg.sender, address(this));
+    }
 
     /// @notice 返回收款方
     function Beneficiary() public view returns(address payable) {

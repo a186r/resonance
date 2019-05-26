@@ -247,14 +247,14 @@
     "absolutePath": "/Users/a186r/dev/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol",
     "exportedSymbols": {
       "ERC20Detailed": [
-        4707
+        4776
       ]
     },
-    "id": 4708,
+    "id": 4777,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4651,
+        "id": 4720,
         "literals": [
           "solidity",
           "^",
@@ -267,10 +267,10 @@
       {
         "absolutePath": "/Users/a186r/dev/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
         "file": "./IERC20.sol",
-        "id": 4652,
+        "id": 4721,
         "nodeType": "ImportDirective",
-        "scope": 4708,
-        "sourceUnit": 4805,
+        "scope": 4777,
+        "sourceUnit": 4874,
         "src": "25:22:17",
         "symbolAliases": [],
         "unitAlias": ""
@@ -281,41 +281,41 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 4653,
+              "id": 4722,
               "name": "IERC20",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 4804,
+              "referencedDeclaration": 4873,
               "src": "308:6:17",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IERC20_$4804",
+                "typeIdentifier": "t_contract$_IERC20_$4873",
                 "typeString": "contract IERC20"
               }
             },
-            "id": 4654,
+            "id": 4723,
             "nodeType": "InheritanceSpecifier",
             "src": "308:6:17"
           }
         ],
         "contractDependencies": [
-          4804
+          4873
         ],
         "contractKind": "contract",
         "documentation": "@title ERC20Detailed token\n@dev The decimals are only for visualization purposes.\nAll the operations are done using the smallest and indivisible token unit,\njust as on Ethereum all the operations are done in wei.",
         "fullyImplemented": false,
-        "id": 4707,
+        "id": 4776,
         "linearizedBaseContracts": [
-          4707,
-          4804
+          4776,
+          4873
         ],
         "name": "ERC20Detailed",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 4656,
+            "id": 4725,
             "name": "_name",
             "nodeType": "VariableDeclaration",
-            "scope": 4707,
+            "scope": 4776,
             "src": "321:20:17",
             "stateVariable": true,
             "storageLocation": "default",
@@ -324,7 +324,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 4655,
+              "id": 4724,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "321:6:17",
@@ -338,10 +338,10 @@
           },
           {
             "constant": false,
-            "id": 4658,
+            "id": 4727,
             "name": "_symbol",
             "nodeType": "VariableDeclaration",
-            "scope": 4707,
+            "scope": 4776,
             "src": "347:22:17",
             "stateVariable": true,
             "storageLocation": "default",
@@ -350,7 +350,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 4657,
+              "id": 4726,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "347:6:17",
@@ -364,10 +364,10 @@
           },
           {
             "constant": false,
-            "id": 4660,
+            "id": 4729,
             "name": "_decimals",
             "nodeType": "VariableDeclaration",
-            "scope": 4707,
+            "scope": 4776,
             "src": "375:23:17",
             "stateVariable": true,
             "storageLocation": "default",
@@ -376,7 +376,7 @@
               "typeString": "uint8"
             },
             "typeName": {
-              "id": 4659,
+              "id": 4728,
               "name": "uint8",
               "nodeType": "ElementaryTypeName",
               "src": "375:5:17",
@@ -390,25 +390,25 @@
           },
           {
             "body": {
-              "id": 4681,
+              "id": 4750,
               "nodeType": "Block",
               "src": "483:85:17",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4671,
+                    "id": 4740,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 4669,
+                      "id": 4738,
                       "name": "_name",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4656,
+                      "referencedDeclaration": 4725,
                       "src": "493:5:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
@@ -419,11 +419,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 4670,
+                      "id": 4739,
                       "name": "name",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4662,
+                      "referencedDeclaration": 4731,
                       "src": "501:4:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
@@ -436,25 +436,25 @@
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 4672,
+                  "id": 4741,
                   "nodeType": "ExpressionStatement",
                   "src": "493:12:17"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4675,
+                    "id": 4744,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 4673,
+                      "id": 4742,
                       "name": "_symbol",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4658,
+                      "referencedDeclaration": 4727,
                       "src": "515:7:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
@@ -465,11 +465,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 4674,
+                      "id": 4743,
                       "name": "symbol",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4664,
+                      "referencedDeclaration": 4733,
                       "src": "525:6:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
@@ -482,25 +482,25 @@
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 4676,
+                  "id": 4745,
                   "nodeType": "ExpressionStatement",
                   "src": "515:16:17"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4679,
+                    "id": 4748,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 4677,
+                      "id": 4746,
                       "name": "_decimals",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4660,
+                      "referencedDeclaration": 4729,
                       "src": "541:9:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -511,11 +511,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 4678,
+                      "id": 4747,
                       "name": "decimals",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4666,
+                      "referencedDeclaration": 4735,
                       "src": "553:8:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -528,29 +528,29 @@
                       "typeString": "uint8"
                     }
                   },
-                  "id": 4680,
+                  "id": 4749,
                   "nodeType": "ExpressionStatement",
                   "src": "541:20:17"
                 }
               ]
             },
             "documentation": null,
-            "id": 4682,
+            "id": 4751,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4667,
+              "id": 4736,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4662,
+                  "id": 4731,
                   "name": "name",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4682,
+                  "scope": 4751,
                   "src": "418:18:17",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -559,7 +559,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4661,
+                    "id": 4730,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "418:6:17",
@@ -573,10 +573,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 4664,
+                  "id": 4733,
                   "name": "symbol",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4682,
+                  "scope": 4751,
                   "src": "438:20:17",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -585,7 +585,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4663,
+                    "id": 4732,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "438:6:17",
@@ -599,10 +599,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 4666,
+                  "id": 4735,
                   "name": "decimals",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4682,
+                  "scope": 4751,
                   "src": "460:14:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -611,7 +611,7 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 4665,
+                    "id": 4734,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "460:5:17",
@@ -627,12 +627,12 @@
               "src": "417:58:17"
             },
             "returnParameters": {
-              "id": 4668,
+              "id": 4737,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "483:0:17"
             },
-            "scope": 4707,
+            "scope": 4776,
             "src": "405:163:17",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -640,54 +640,54 @@
           },
           {
             "body": {
-              "id": 4689,
+              "id": 4758,
               "nodeType": "Block",
               "src": "680:29:17",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4687,
+                    "id": 4756,
                     "name": "_name",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 4656,
+                    "referencedDeclaration": 4725,
                     "src": "697:5:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "functionReturnParameters": 4686,
-                  "id": 4688,
+                  "functionReturnParameters": 4755,
+                  "id": 4757,
                   "nodeType": "Return",
                   "src": "690:12:17"
                 }
               ]
             },
             "documentation": "@return the name of the token.",
-            "id": 4690,
+            "id": 4759,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "name",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4683,
+              "id": 4752,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "641:2:17"
             },
             "returnParameters": {
-              "id": 4686,
+              "id": 4755,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4685,
+                  "id": 4754,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4690,
+                  "scope": 4759,
                   "src": "665:13:17",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -696,7 +696,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4684,
+                    "id": 4753,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "665:6:17",
@@ -711,7 +711,7 @@
               ],
               "src": "664:15:17"
             },
-            "scope": 4707,
+            "scope": 4776,
             "src": "628:81:17",
             "stateMutability": "view",
             "superFunction": null,
@@ -719,54 +719,54 @@
           },
           {
             "body": {
-              "id": 4697,
+              "id": 4766,
               "nodeType": "Block",
               "src": "825:31:17",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4695,
+                    "id": 4764,
                     "name": "_symbol",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 4658,
+                    "referencedDeclaration": 4727,
                     "src": "842:7:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "functionReturnParameters": 4694,
-                  "id": 4696,
+                  "functionReturnParameters": 4763,
+                  "id": 4765,
                   "nodeType": "Return",
                   "src": "835:14:17"
                 }
               ]
             },
             "documentation": "@return the symbol of the token.",
-            "id": 4698,
+            "id": 4767,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "symbol",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4691,
+              "id": 4760,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "786:2:17"
             },
             "returnParameters": {
-              "id": 4694,
+              "id": 4763,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4693,
+                  "id": 4762,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4698,
+                  "scope": 4767,
                   "src": "810:13:17",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -775,7 +775,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4692,
+                    "id": 4761,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "810:6:17",
@@ -790,7 +790,7 @@
               ],
               "src": "809:15:17"
             },
-            "scope": 4707,
+            "scope": 4776,
             "src": "771:85:17",
             "stateMutability": "view",
             "superFunction": null,
@@ -798,54 +798,54 @@
           },
           {
             "body": {
-              "id": 4705,
+              "id": 4774,
               "nodeType": "Block",
               "src": "978:33:17",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4703,
+                    "id": 4772,
                     "name": "_decimals",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 4660,
+                    "referencedDeclaration": 4729,
                     "src": "995:9:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
                     }
                   },
-                  "functionReturnParameters": 4702,
-                  "id": 4704,
+                  "functionReturnParameters": 4771,
+                  "id": 4773,
                   "nodeType": "Return",
                   "src": "988:16:17"
                 }
               ]
             },
             "documentation": "@return the number of decimals of the token.",
-            "id": 4706,
+            "id": 4775,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "decimals",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4699,
+              "id": 4768,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "947:2:17"
             },
             "returnParameters": {
-              "id": 4702,
+              "id": 4771,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4701,
+                  "id": 4770,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4706,
+                  "scope": 4775,
                   "src": "971:5:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -854,7 +854,7 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 4700,
+                    "id": 4769,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "971:5:17",
@@ -869,14 +869,14 @@
               ],
               "src": "970:7:17"
             },
-            "scope": 4707,
+            "scope": 4776,
             "src": "930:81:17",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 4708,
+        "scope": 4777,
         "src": "282:731:17"
       }
     ],
@@ -886,14 +886,14 @@
     "absolutePath": "/Users/a186r/dev/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol",
     "exportedSymbols": {
       "ERC20Detailed": [
-        4707
+        4776
       ]
     },
-    "id": 4708,
+    "id": 4777,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4651,
+        "id": 4720,
         "literals": [
           "solidity",
           "^",
@@ -906,10 +906,10 @@
       {
         "absolutePath": "/Users/a186r/dev/contracts/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
         "file": "./IERC20.sol",
-        "id": 4652,
+        "id": 4721,
         "nodeType": "ImportDirective",
-        "scope": 4708,
-        "sourceUnit": 4805,
+        "scope": 4777,
+        "sourceUnit": 4874,
         "src": "25:22:17",
         "symbolAliases": [],
         "unitAlias": ""
@@ -920,41 +920,41 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 4653,
+              "id": 4722,
               "name": "IERC20",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 4804,
+              "referencedDeclaration": 4873,
               "src": "308:6:17",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_IERC20_$4804",
+                "typeIdentifier": "t_contract$_IERC20_$4873",
                 "typeString": "contract IERC20"
               }
             },
-            "id": 4654,
+            "id": 4723,
             "nodeType": "InheritanceSpecifier",
             "src": "308:6:17"
           }
         ],
         "contractDependencies": [
-          4804
+          4873
         ],
         "contractKind": "contract",
         "documentation": "@title ERC20Detailed token\n@dev The decimals are only for visualization purposes.\nAll the operations are done using the smallest and indivisible token unit,\njust as on Ethereum all the operations are done in wei.",
         "fullyImplemented": false,
-        "id": 4707,
+        "id": 4776,
         "linearizedBaseContracts": [
-          4707,
-          4804
+          4776,
+          4873
         ],
         "name": "ERC20Detailed",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 4656,
+            "id": 4725,
             "name": "_name",
             "nodeType": "VariableDeclaration",
-            "scope": 4707,
+            "scope": 4776,
             "src": "321:20:17",
             "stateVariable": true,
             "storageLocation": "default",
@@ -963,7 +963,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 4655,
+              "id": 4724,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "321:6:17",
@@ -977,10 +977,10 @@
           },
           {
             "constant": false,
-            "id": 4658,
+            "id": 4727,
             "name": "_symbol",
             "nodeType": "VariableDeclaration",
-            "scope": 4707,
+            "scope": 4776,
             "src": "347:22:17",
             "stateVariable": true,
             "storageLocation": "default",
@@ -989,7 +989,7 @@
               "typeString": "string"
             },
             "typeName": {
-              "id": 4657,
+              "id": 4726,
               "name": "string",
               "nodeType": "ElementaryTypeName",
               "src": "347:6:17",
@@ -1003,10 +1003,10 @@
           },
           {
             "constant": false,
-            "id": 4660,
+            "id": 4729,
             "name": "_decimals",
             "nodeType": "VariableDeclaration",
-            "scope": 4707,
+            "scope": 4776,
             "src": "375:23:17",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1015,7 +1015,7 @@
               "typeString": "uint8"
             },
             "typeName": {
-              "id": 4659,
+              "id": 4728,
               "name": "uint8",
               "nodeType": "ElementaryTypeName",
               "src": "375:5:17",
@@ -1029,25 +1029,25 @@
           },
           {
             "body": {
-              "id": 4681,
+              "id": 4750,
               "nodeType": "Block",
               "src": "483:85:17",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4671,
+                    "id": 4740,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 4669,
+                      "id": 4738,
                       "name": "_name",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4656,
+                      "referencedDeclaration": 4725,
                       "src": "493:5:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
@@ -1058,11 +1058,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 4670,
+                      "id": 4739,
                       "name": "name",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4662,
+                      "referencedDeclaration": 4731,
                       "src": "501:4:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
@@ -1075,25 +1075,25 @@
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 4672,
+                  "id": 4741,
                   "nodeType": "ExpressionStatement",
                   "src": "493:12:17"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4675,
+                    "id": 4744,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 4673,
+                      "id": 4742,
                       "name": "_symbol",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4658,
+                      "referencedDeclaration": 4727,
                       "src": "515:7:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_storage",
@@ -1104,11 +1104,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 4674,
+                      "id": 4743,
                       "name": "symbol",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4664,
+                      "referencedDeclaration": 4733,
                       "src": "525:6:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_string_memory_ptr",
@@ -1121,25 +1121,25 @@
                       "typeString": "string storage ref"
                     }
                   },
-                  "id": 4676,
+                  "id": 4745,
                   "nodeType": "ExpressionStatement",
                   "src": "515:16:17"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4679,
+                    "id": 4748,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 4677,
+                      "id": 4746,
                       "name": "_decimals",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4660,
+                      "referencedDeclaration": 4729,
                       "src": "541:9:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -1150,11 +1150,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 4678,
+                      "id": 4747,
                       "name": "decimals",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 4666,
+                      "referencedDeclaration": 4735,
                       "src": "553:8:17",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint8",
@@ -1167,29 +1167,29 @@
                       "typeString": "uint8"
                     }
                   },
-                  "id": 4680,
+                  "id": 4749,
                   "nodeType": "ExpressionStatement",
                   "src": "541:20:17"
                 }
               ]
             },
             "documentation": null,
-            "id": 4682,
+            "id": 4751,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4667,
+              "id": 4736,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4662,
+                  "id": 4731,
                   "name": "name",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4682,
+                  "scope": 4751,
                   "src": "418:18:17",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -1198,7 +1198,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4661,
+                    "id": 4730,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "418:6:17",
@@ -1212,10 +1212,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 4664,
+                  "id": 4733,
                   "name": "symbol",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4682,
+                  "scope": 4751,
                   "src": "438:20:17",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -1224,7 +1224,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4663,
+                    "id": 4732,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "438:6:17",
@@ -1238,10 +1238,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 4666,
+                  "id": 4735,
                   "name": "decimals",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4682,
+                  "scope": 4751,
                   "src": "460:14:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1250,7 +1250,7 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 4665,
+                    "id": 4734,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "460:5:17",
@@ -1266,12 +1266,12 @@
               "src": "417:58:17"
             },
             "returnParameters": {
-              "id": 4668,
+              "id": 4737,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "483:0:17"
             },
-            "scope": 4707,
+            "scope": 4776,
             "src": "405:163:17",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1279,54 +1279,54 @@
           },
           {
             "body": {
-              "id": 4689,
+              "id": 4758,
               "nodeType": "Block",
               "src": "680:29:17",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4687,
+                    "id": 4756,
                     "name": "_name",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 4656,
+                    "referencedDeclaration": 4725,
                     "src": "697:5:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "functionReturnParameters": 4686,
-                  "id": 4688,
+                  "functionReturnParameters": 4755,
+                  "id": 4757,
                   "nodeType": "Return",
                   "src": "690:12:17"
                 }
               ]
             },
             "documentation": "@return the name of the token.",
-            "id": 4690,
+            "id": 4759,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "name",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4683,
+              "id": 4752,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "641:2:17"
             },
             "returnParameters": {
-              "id": 4686,
+              "id": 4755,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4685,
+                  "id": 4754,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4690,
+                  "scope": 4759,
                   "src": "665:13:17",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -1335,7 +1335,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4684,
+                    "id": 4753,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "665:6:17",
@@ -1350,7 +1350,7 @@
               ],
               "src": "664:15:17"
             },
-            "scope": 4707,
+            "scope": 4776,
             "src": "628:81:17",
             "stateMutability": "view",
             "superFunction": null,
@@ -1358,54 +1358,54 @@
           },
           {
             "body": {
-              "id": 4697,
+              "id": 4766,
               "nodeType": "Block",
               "src": "825:31:17",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4695,
+                    "id": 4764,
                     "name": "_symbol",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 4658,
+                    "referencedDeclaration": 4727,
                     "src": "842:7:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage",
                       "typeString": "string storage ref"
                     }
                   },
-                  "functionReturnParameters": 4694,
-                  "id": 4696,
+                  "functionReturnParameters": 4763,
+                  "id": 4765,
                   "nodeType": "Return",
                   "src": "835:14:17"
                 }
               ]
             },
             "documentation": "@return the symbol of the token.",
-            "id": 4698,
+            "id": 4767,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "symbol",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4691,
+              "id": 4760,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "786:2:17"
             },
             "returnParameters": {
-              "id": 4694,
+              "id": 4763,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4693,
+                  "id": 4762,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4698,
+                  "scope": 4767,
                   "src": "810:13:17",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -1414,7 +1414,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 4692,
+                    "id": 4761,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "810:6:17",
@@ -1429,7 +1429,7 @@
               ],
               "src": "809:15:17"
             },
-            "scope": 4707,
+            "scope": 4776,
             "src": "771:85:17",
             "stateMutability": "view",
             "superFunction": null,
@@ -1437,54 +1437,54 @@
           },
           {
             "body": {
-              "id": 4705,
+              "id": 4774,
               "nodeType": "Block",
               "src": "978:33:17",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 4703,
+                    "id": 4772,
                     "name": "_decimals",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 4660,
+                    "referencedDeclaration": 4729,
                     "src": "995:9:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
                     }
                   },
-                  "functionReturnParameters": 4702,
-                  "id": 4704,
+                  "functionReturnParameters": 4771,
+                  "id": 4773,
                   "nodeType": "Return",
                   "src": "988:16:17"
                 }
               ]
             },
             "documentation": "@return the number of decimals of the token.",
-            "id": 4706,
+            "id": 4775,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "decimals",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4699,
+              "id": 4768,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "947:2:17"
             },
             "returnParameters": {
-              "id": 4702,
+              "id": 4771,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4701,
+                  "id": 4770,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4706,
+                  "scope": 4775,
                   "src": "971:5:17",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1493,7 +1493,7 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 4700,
+                    "id": 4769,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "971:5:17",
@@ -1508,14 +1508,14 @@
               ],
               "src": "970:7:17"
             },
-            "scope": 4707,
+            "scope": 4776,
             "src": "930:81:17",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 4708,
+        "scope": 4777,
         "src": "282:731:17"
       }
     ],
@@ -1527,7 +1527,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.9",
-  "updatedAt": "2019-05-26T16:10:08.368Z",
+  "updatedAt": "2019-05-26T17:52:20.186Z",
   "devdoc": {
     "details": "The decimals are only for visualization purposes. All the operations are done using the smallest and indivisible token unit, just as on Ethereum all the operations are done in wei.",
     "methods": {
