@@ -36,8 +36,12 @@ contract LuckyReward{
     }
 
     // 获取某轮次幸运者列表和平均获奖金额
-    function getLuckyInfo(uint256 _stepIndex) public {
+    function getLuckyInfo(uint256 _stepIndex)
+        public
+        returns(address[] memory, uint256)
+    {
         emit LuckyInfo(luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
+        return(luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
     }
 
     /// @notice 处理信用奖励信息

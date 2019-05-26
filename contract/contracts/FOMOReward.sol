@@ -28,7 +28,10 @@ contract FOMOReward {
     }
 
     /// @notice 获取FOMO获胜者列表和奖金列表
-    function getFOMOWinnerInfo(uint256 _stepIndex) public {
+    function getFOMOWinnerInfo(uint256 _stepIndex)
+        public
+        returns(address[] memory, uint256[] memory)
+    {
         emit FOMOWinnerInfo(FOMOWinners[_stepIndex], FOMORewards[_stepIndex]);
     }
 

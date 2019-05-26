@@ -37,8 +37,12 @@ contract FissionReward {
     mapping(uint256 => bool) currentStepHasFinished;
 
     /// @notice 获取裂变奖励信息
-    function getFissionInfo(uint256 _stepIndex) public {
+    function getFissionInfo(uint256 _stepIndex)
+        public
+        returns(uint256, address[] memory, uint256[] memory)
+    {
         emit FissionInfo(_stepIndex, fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
+        return(_stepIndex, fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
     }
 
     /// @notice 处理裂变奖励信息
@@ -79,7 +83,9 @@ contract FissionReward {
         uint256 _stepIndex,
         address[] memory _fissionWinner,
         uint256 _totalFissionReward
-    ) internal {
+    )
+        internal
+    {
         for(uint8 i = 0; i < 50; i++) {
             fissionWinners[_stepIndex] = _fissionWinner;
 
@@ -103,7 +109,6 @@ contract FissionReward {
         }
 
         currentStepHasFinished[_stepIndex] = true;
-
     }
 
 }

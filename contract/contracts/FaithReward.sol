@@ -25,8 +25,12 @@ contract FaithReward{
 
     /// @notice 获取某轮次信仰奖励信息
     /// @return 轮次、获胜者列表、获胜者奖金列表
-    function getFaithWinnerInfo() public {
+    function getFaithWinnerInfo()
+        public
+        returns(address[] memory, uint256[] memory)
+    {
         emit FaithWinnerInfo(faithWinners, faithAmounts);
+        return(faithWinners, faithAmounts);
     }
 
     // 链下排序,链上计算奖励分配

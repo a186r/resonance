@@ -50,7 +50,7 @@ module.exports = function (deployer) {
             FaithRewardInstance.address
         )
 
-        let ResonanceInstance = await Resonance.deployed()
+        // let ResonanceInstance = await Resonance.deployed()
 
         return Promise.all([
             // ResonanceInstance.toBeFissionPerson("0x1b2e39bdb251a17094c51604f7db0e4b2bb83b95")
