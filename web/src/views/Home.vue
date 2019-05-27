@@ -13,7 +13,7 @@
               <p>CAD: <span class="value-span">{{homeData.currentStepTokenAmount}}</span> CAD</p>
               <div class="period-enter">
                 <div></div>
-                <router-link class="to-offer" to="/offer">点击进入组建期页面</router-link>
+                <router-link class="to-offer" to="/offer">{{ $t('index.enterBuilding') }}</router-link>
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
               <p>ETH: <span class="value-span">{{homeData.currentStepRaisedETH}}</span> ETH</p>
               <div class="period-enter">
                 <div></div>
-                <router-link class="to-offer" to="/offer">点击进入募资期页面</router-link>
+                <router-link class="to-offer" to="/offer">{{ $t('index.enterFunding') }}</router-link>
               </div>
             </div>
           </div>
@@ -131,6 +131,7 @@ export default {
             background-repeat: no-repeat;
             background-size: .14rem;
             background-position-y: center;
+            margin-right: .05rem;
           }
         }
       }
@@ -145,6 +146,7 @@ export default {
         background-repeat: no-repeat;
         background-size: .18rem;
         background-position-y: center;
+        margin-right: .1rem;
       }
     }
     .funding-period {
@@ -157,6 +159,7 @@ export default {
         background-image: url('~@/assets/image/funding.png');
         background-repeat: no-repeat;
         background-size: .18rem;
+        margin-right: .1rem;
       }
     }
     :nth-child(3) {

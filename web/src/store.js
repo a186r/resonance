@@ -11,16 +11,7 @@ export default new Vuex.Store({
     account: '',
     isBuilder: false,
     isMobile: false,
-    myDetail: [
-      30,
-      3,
-      12,
-      45,
-      123,
-      12345,
-      23,
-      1
-    ],
+    myDetail: [],
     offerData: {
       bpCountdown: 24 * 60 * 60 * 1000,
       fpCountdown: 24 * 60 * 60 * 1000,
@@ -31,7 +22,8 @@ export default new Vuex.Store({
     },
     homeData: {
       currentStepTokenAmount: 10000000,
-      currentStepRaisedETH: 100.1234
+      currentStepRaisedETH: 100.1234,
+      stepIndex: 1
     }
   },
   mutations: {
@@ -39,10 +31,11 @@ export default new Vuex.Store({
       state.myDetail = data
     },
     GET_OFFER_INFO: (state, data) => {
-      return Object.assign(state.offerData, data)
+      Object.assign(state.offerData, data)
     },
     GET_CURRENT_STEP_FUNDS_INFO: (state, data) => {
-      return Object.assign(state.homeData, data)
+      Object.assign(state.homeData, data)
+      data.this.dispatch('queryRewardList', state.homeData.stepIndex)
     },
     GET_ADDRESS_IS_BUILDER: (state, data) => {
       state.isBuilder = data
@@ -53,19 +46,37 @@ export default new Vuex.Store({
       contract.methods.getFunderInfo(this.state.account).call({}, (err, result) => {
         console.log(err, result, contract.address)
       })
-      // commit('GET_FUNDER_INFO', [3000, 23])
+      commit('GET_FUNDER_INFO', [
+        30,
+        3,
+        12,
+        45,
+        123,
+        12345,
+        23,
+        1
+      ])
     },
     async getBuildingPeriodInfo({ commit }) {
-      commit('GET_OFFER_INFO', {})
+      contract.methods.getCurrentStepFundsInfo().call({}, (err, result) => {
+        console.log(err, result, contract.address)
+        commit('GET_OFFER_INFO', {})
+      })
     },
     async getFundingPeriodInfo({ commit }) {
-      commit('GET_OFFER_INFO', {})
+      contract.methods.getFundingPeriodInfo().call({}, (err, result) => {
+        console.log(err, result, contract.address)
+        commit('GET_OFFER_INFO', {})
+      })
     },
     async getCurrentStepFundsInfo({ commit }, contract) {
+      const self = this
       contract.methods.getCurrentStepFundsInfo().call({}, (err, result) => {
-        console.log(err, result, formatEth(result), contract.address)
+        console.log(err, result, contract.address)
+        result.currentStepRaisedETH = 200.13
+        result.this = self
+        commit('GET_CURRENT_STEP_FUNDS_INFO', result)
       })
-      commit('GET_CURRENT_STEP_FUNDS_INFO', {})
     },
     async depositETH({ commit }, amount) {
       console.log(window.contract, amount)
@@ -100,23 +111,15 @@ export default new Vuex.Store({
     async toBeFissionPerson({ commit }, address) {
       console.log(address)
       const self = this
-      const options ={
-        from: this.state.account,
-        gas: ''
-      }
-      contract.methods.toBeFissionPerson(address).estimateGas()
-        .then(function(gasAmount){
-          options.gas = gasAmount  
-          contract.methods.toBeFissionPerson(address)
-            .send(options, (err, result) => {
-              console.log(err, result, contract.address)
-            })          
+      contract.methods.toBeFissionPerson(address).send({
+        from: self.state.account
+      }).then(res => {
+        console.log(res)
+      }).catch(function(error){
+        self._vm.$alert('Metamask 提交失败', '提示', {
+          confirmButtonText: '确定',
         })
-        .catch(function(error){
-          self._vm.$alert('Metamask 提交失败', '提示', {
-            confirmButtonText: '确定',
-          })
-        })
+      })
     }, 
     async withdrawAllETH({ commit }) {
       const self = this
@@ -142,11 +145,33 @@ export default new Vuex.Store({
         })
       })
     },
-    async isBuilder({ commit }) {
-      window.contract.methods.isBuilder().call({
+    async isBuilder({ commit }, contract) {
+      contract.methods.isBuilder().call({
         from: this.state.account,
       }).then(res => {
         commit('GET_ADDRESS_IS_BUILDER', res)
+      })
+    },
+    async queryRewardList({commit}, stepIndex) {
+      window.contract.methods.getFissionRewardInfo().call({
+        from: this.state.account,
+      }).then(res => {
+        commit('GET_REWARD_LIST', res)
+      })
+      window.contract.methods.getFOMORewardIofo().call({
+        from: this.state.account,
+      }).then(res => {
+        commit('GET_REWARD_LIST', res)
+      })
+      window.contract.methods.getLuckyRewardInfo().call({
+        from: this.state.account,
+      }).then(res => {
+        commit('GET_REWARD_LIST', res)
+      })
+      window.contract.methods.getFaithRewardInfo().call({
+        from: this.state.account,
+      }).then(res => {
+        commit('GET_REWARD_LIST', res)
       })
     },
     async getRewardList({commit}, params) {

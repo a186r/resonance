@@ -126,7 +126,7 @@ export default {
     }
   },
   mounted() {
-    store.dispatch('isBuilder')
+    
   }
 }
 </script>
@@ -225,7 +225,7 @@ export default {
             text-align: center;
           }
           .address {
-            max-width: 70%;
+            max-width: 60%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
