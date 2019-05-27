@@ -145,14 +145,18 @@ contract Resonance is Ownable{
         initialFissionPerson = _initialFissionPerson; // 初始裂变者
     }
 
-    /// @notice 设置访问权限并设置开始时间
+    bool firstParamInitialized;
+
+    /// @notice 初始化第一轮次的部分参数
     /// @dev 管理员调用这个设置对ResonanceDataManage的访问权限，并初始化第一轮的部分参数
-    function allowAccess() public onlyOwner() {
-        resonanceDataManage.allowAccess(address(this));
-        resonanceDataManage.allowAccess(msg.sender);
+    function initParamForFirstStep() public onlyOwner() {
+        require(!firstParamInitialized, "第一轮次数据已经初始化过了");
+        // resonanceDataManage.allowAccess(address(this));
+        // resonanceDataManage.allowAccess(msg.sender);
         resonanceDataManage.setOpeningTime(block.timestamp); // 设置启动时间
         steps[currentStep].building.openTokenAmount = UintUtils.toWei(1500000); // 第一轮Token限额
         resonanceDataManage.setParamForFirstStep();
+        firstParamInitialized = true;
     }
 
     /// @notice 成为裂变者，这是参与共建的第一步

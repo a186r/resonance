@@ -145,10 +145,14 @@ contract ResonanceDataManage{
     }
 
     /// @notice 判断共振是否结束
+    /// @dev 根据共振结束条件判断共振是否结束，修改变量
+    /// @param raisedETH 募资期已经募集的ETH数量
+    /// @param softCap 当前轮次软顶
     function crowdsaleIsClosed(
         uint256 raisedETH,
         uint256 softCap
     )
+        platform()
         public
         returns(bool)
     {
@@ -161,7 +165,11 @@ contract ResonanceDataManage{
         if(fundsPool == 0) {
             crowdsaleClosed = true;
         }
+    }
 
+    /// @notice 查询共振是否结束
+    /// @dev view修饰符返回crowdsaleClosed
+    function getResonanceIsClosed() public view returns(bool) {
         return crowdsaleClosed;
     }
 
