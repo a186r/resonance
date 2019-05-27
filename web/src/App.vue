@@ -121,6 +121,7 @@ export default {
     store.dispatch('getBuildingPeriodInfo', contract)
     store.dispatch('getFundingPeriodInfo', contract)
     store.dispatch('getFunderInfo', contract)
+    store.dispatch('isBuilder', contract)
   }
 }
 </script>
