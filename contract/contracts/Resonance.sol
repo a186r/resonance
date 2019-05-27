@@ -48,18 +48,6 @@ contract Resonance is Ownable{
 
     event FunderTotalRaised(uint256 resonancesRasiedETH);
 
-    // 达到软顶
-    modifier softCapReached(){
-        require(steps[currentStep].funding.raisedETH >= steps[currentStep].softCap, "已达到本轮软顶");
-        _;
-    }
-
-    // 达到硬顶
-    modifier hardCapReached(){
-        require(steps[currentStep].funding.raisedETH < steps[currentStep].hardCap, "已达到本轮硬顶");
-        _;
-    }
-
     // 变量
     // ERC20
     ABCToken public abcToken;
@@ -110,7 +98,6 @@ contract Resonance is Ownable{
         Funding funding; // 当前轮次募资期
         uint256 softCap; // 软顶
         uint256 hardCap; // 硬顶
-        uint256 rate; // 费率
         bool settlementFinished; // 当前轮次奖励是否结算完成
         bool stepIsClosed; // 当前轮次是否结束
         uint256 blockNumber; // 当前轮次结束时的区块高度
@@ -156,15 +143,16 @@ contract Resonance is Ownable{
         abcToken = _abcToken; // abc Token
         beneficiary = _beneficiary; // 收款方
         initialFissionPerson = _initialFissionPerson; // 初始裂变者
-        steps[currentStep].building.openTokenAmount = UintUtils.toWei(1500000); // 第一轮Token限额
     }
 
     /// @notice 设置访问权限并设置开始时间
-    /// @dev 管理员调用这个设置对ResonanceDataManage的访问权限，并初始化开始时间(第一轮)
+    /// @dev 管理员调用这个设置对ResonanceDataManage的访问权限，并初始化第一轮的部分参数
     function allowAccess() public onlyOwner() {
         resonanceDataManage.allowAccess(address(this));
         resonanceDataManage.allowAccess(msg.sender);
         resonanceDataManage.setOpeningTime(block.timestamp); // 设置启动时间
+        steps[currentStep].building.openTokenAmount = UintUtils.toWei(1500000); // 第一轮Token限额
+        resonanceDataManage.setParamForFirstStep();
     }
 
     /// @notice 成为裂变者，这是参与共建的第一步
@@ -174,13 +162,12 @@ contract Resonance is Ownable{
         address promoter
     )
         public
-        // isBuildingPeriod()
         returns(address, address)
     {
         require(resonanceDataManage.isBuildingPeriod(), "不在共建期内");
         require(!resonanceDataManage.getCrowdsaleClosed(), "共振已经结束");
 
-        //TODO: require(steps[currentStep].funder[promoter].isBuilder,"推广者自己必须是Builder");
+        require(steps[currentStep].funder[promoter].isBuilder,"推广者自己必须是Builder");
 
         require(promoter != address(0), "推广者不能是空地址");
 

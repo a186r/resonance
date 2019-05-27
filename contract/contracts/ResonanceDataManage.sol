@@ -62,7 +62,10 @@ contract ResonanceDataManage{
         FOMORewardInstance = FOMOReward(_FOMORewardAddress);
         luckyRewardInstance = LuckyReward(_luckyRewardAddress);
         faithRewardInstance = FaithReward(_faithRewardAddress);
+    }
 
+    // 设置第一轮参数
+    function setParamForFirstStep() public platform{
         fundsPool = UintUtils.toWei(150000000);
         initBuildingTokenAmount = UintUtils.toWei(1500000);
     }

@@ -78,11 +78,11 @@ contract('TestResonance', async (accounts) => {
             console.log("获得的可挪用额度是", allowanceAmount.toString() / 1E18);
 
             // 变为裂变者
-            let result = await resonance.toBeFissionPerson(accounts[i+1], {
+            let result = await resonance.toBeFissionPerson(accounts[i + 1], {
                 from: accounts[i]
             });
 
-            console.log("账户作为推广者，余额是：",await abcToken.balanceOf(accounts[i]) / 1E18);
+            console.log("账户作为推广者，余额是：", await abcToken.balanceOf(accounts[i]) / 1E18);
         }
     });
 
