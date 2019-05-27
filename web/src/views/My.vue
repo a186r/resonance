@@ -170,7 +170,7 @@ export default {
         line-height: .4rem;
       }
       .copy-button {
-        background-color: $dark-main;
+        background-color: #161616;
         cursor: pointer;
         margin-right: .1rem;
         background-image: url('~@/assets/image/copy.png');
