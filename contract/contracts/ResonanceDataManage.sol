@@ -82,7 +82,7 @@ contract ResonanceDataManage{
         fundsPool = _fundsPool;
     }
 
-    function getFundsPool() public platform() view returns(uint256) {
+    function getFundsPool() public view returns(uint256) {
         return fundsPool;
     }
 
@@ -90,7 +90,7 @@ contract ResonanceDataManage{
         openingTime = _openingTime;
     }
 
-    function getOpeningTime() public platform() view returns(uint256){
+    function getOpeningTime() public view returns(uint256){
         return openingTime;
     }
 
@@ -98,11 +98,11 @@ contract ResonanceDataManage{
         crowdsaleClosed = _crowdsaleClosed;
     }
 
-    function getCrowdsaleClosed() public platform() view returns(bool) {
+    function getCrowdsaleClosed() public view returns(bool) {
         return crowdsaleClosed;
     }
 
-    function getETHBalance(address _addr) public platform() view returns(uint256) {
+    function getETHBalance(address _addr) public view returns(uint256) {
         return ETHBalance[_addr];
     }
 
@@ -110,7 +110,7 @@ contract ResonanceDataManage{
         ETHBalance[_addr] = _amount;
     }
 
-    function getTokenBalance(address _addr) public platform() view returns(uint256) {
+    function getTokenBalance(address _addr) public view returns(uint256) {
         return tokenBalance[_addr];
     }
 
@@ -118,7 +118,7 @@ contract ResonanceDataManage{
         tokenBalance[_addr] = _amount;
     }
 
-    function getBuildingTokenAmount() public platform() view returns(uint256) {
+    function getBuildingTokenAmount() public view returns(uint256) {
         return initBuildingTokenAmount;
     }
 

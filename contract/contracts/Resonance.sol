@@ -90,7 +90,7 @@ contract Resonance is Ownable{
     LuckyReward luckyRewardInstance;
     FaithReward faithRewardInstance;
 
-    // // 每一轮
+    // 每一轮
     struct Step{
         mapping(address => Funder) funder;// 裂变者
         address[] funders; // 当前轮次的funders
@@ -347,6 +347,7 @@ contract Resonance is Ownable{
             UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(10).div(100))
         );
 
+        // TODO:幸运奖励单独拆一下
         resonanceDataManage.settlementLuckyReward(
             currentStep,
             _LuckyWinnerList,
@@ -484,7 +485,6 @@ contract Resonance is Ownable{
     function getBuildingPerioInfo()
         public
         view
-        onlyOwner()
         returns(uint256, uint256, uint256, uint256)
     {
         require(resonanceDataManage.isBuildingPeriod(), "不在共建期内");
@@ -505,7 +505,6 @@ contract Resonance is Ownable{
     function getFundingPeriodInfo()
         public
         view
-        onlyOwner()
         returns(uint256, uint256, uint256)
     {
         require(resonanceDataManage.isFundingPeriod(), "不在募资期内");
@@ -522,10 +521,10 @@ contract Resonance is Ownable{
     }
 
     /// @notice 获取投资者信息（个人中心界面）
-    function getFunderInfo(address _funder)
+    // TODO:个人中心msg.sender
+    function getFunderInfo()
         public
         view
-        onlyOwner()
         returns
     (
         uint256,
@@ -541,20 +540,20 @@ contract Resonance is Ownable{
     )
 
     {
-        Funder memory funder = steps[currentStep].funder[_funder];
+        Funder memory funder = steps[currentStep].funder[msg.sender];
 
         uint256[] memory funderInfo;
 
-        funderInfo[0] = resonanceDataManage.getTokenBalance(_funder);
-        funderInfo[1] = resonanceDataManage.getETHBalance(_funder);
+        funderInfo[0] = resonanceDataManage.getTokenBalance(msg.sender);
+        funderInfo[1] = resonanceDataManage.getETHBalance(msg.sender);
         funderInfo[2] = funder.invitees.length;
         funderInfo[3] = funder.earnFromAff;
         funderInfo[4] = funder.tokenAmount;
         funderInfo[5] = funder.ethAmount;
-        funderInfo[6] = luckyRewardInstance.luckyFunderTotalBalance(_funder);
-        funderInfo[7] = fissionRewardInstance.fissionFunderTotalBalance(_funder);
-        funderInfo[8] = FOMORewardInstance.FOMOFunderTotalBalance(_funder);
-        funderInfo[9] = faithRewardInstance.faithRewardAmount(_funder);
+        funderInfo[6] = luckyRewardInstance.luckyFunderTotalBalance(msg.sender);
+        funderInfo[7] = fissionRewardInstance.fissionFunderTotalBalance(msg.sender);
+        funderInfo[8] = FOMORewardInstance.FOMOFunderTotalBalance(msg.sender);
+        funderInfo[9] = faithRewardInstance.faithRewardAmount(msg.sender);
 
         // emit FunderInfo(funderInfo);
         return(
