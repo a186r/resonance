@@ -81,7 +81,7 @@ contract Resonance is Ownable{
 
     // 募资期结构体
     struct Funding{
-        uint256 raiseTarget; // 募资期一共可以投入多少ETH
+        uint256 raiseTarget; // 募资期一共可以投入多少ETH(募资目标)
         uint256 raisedETH; // 募资期已经募集到的ETH数量
     }
 

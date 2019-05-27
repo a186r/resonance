@@ -90,6 +90,7 @@ contract ResonanceDataManage{
         openingTime = _openingTime;
     }
 
+    /// @notice 当前轮次的开始时间
     function getOpeningTime() public view returns(uint256){
         return openingTime;
     }
