@@ -31,6 +31,8 @@ contract LuckyReward{
     // 幸运奖励分配结束
     mapping(uint256 => bool) currentStepHasFinished;
 
+    mapping(uint256 => uint256) totalLyckyReward;
+
     constructor() public {
 
     }
@@ -38,10 +40,11 @@ contract LuckyReward{
     // 获取某轮次幸运者列表和平均获奖金额
     function getLuckyInfo(uint256 _stepIndex)
         public
-        returns(address[] memory, uint256)
+        view
+        returns(uint256, address[] memory, uint256)
     {
-        emit LuckyInfo(luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
-        return(luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
+        // emit LuckyInfo(luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
+        return(totalLyckyReward[_stepIndex], luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
     }
 
     /// @notice 处理信用奖励信息
@@ -63,17 +66,6 @@ contract LuckyReward{
         internal
     {
         luckyWinners[_stepIndex] = _luckyWinners;
-        // require(block.number >= (_lockedBlockNum + 1), "请等待下一个区块再执行");
-
-        // 获取下一个区块的区块Hash
-        // bytes32 nextBlockhash = blockhash(_lockedBlockNum + 1);
-
-        // 比较,找出幸运者
-        // for(uint i = 0; i < _luckyWinners.length; i++){
-        //     if(StringUtils.compareString(getLastFromAddress(_luckyWinners[i]), getLastFromBlockHash(nextBlockhash))) {
-        //         luckyWinners[_stepIndex].push(_luckyWinners[i]);
-        //     }
-        // }
 
         // 计算人均奖金
         luckyRewards[_stepIndex] = _totalLyckyReward.div(luckyWinners[_stepIndex].length);
@@ -86,6 +78,7 @@ contract LuckyReward{
         }
 
         currentStepHasFinished[_stepIndex] = true;
+        totalLyckyReward[_stepIndex] = _totalLyckyReward;
     }
 
     // 获取address的最后一位

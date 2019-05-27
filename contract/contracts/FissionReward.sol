@@ -36,13 +36,17 @@ contract FissionReward {
     // 裂变奖励分配结束
     mapping(uint256 => bool) currentStepHasFinished;
 
+    // 轮次=>奖励金
+    mapping(uint256 => uint256) totalFissionReward;
+ 
     /// @notice 获取裂变奖励信息
     function getFissionInfo(uint256 _stepIndex)
         public
+        view
         returns(uint256, address[] memory, uint256[] memory)
     {
-        emit FissionInfo(_stepIndex, fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
-        return(_stepIndex, fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
+        // emit FissionInfo(_stepIndex, fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
+        return(totalFissionReward[_stepIndex], fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
     }
 
     /// @notice 处理裂变奖励信息
@@ -107,6 +111,8 @@ contract FissionReward {
             // 保存总奖励金额
             fissionFunderTotalBalance[fissionWinners[_stepIndex][i]] += fissionRewardAmount[_stepIndex][fissionWinners[_stepIndex][i]];
         }
+
+        totalFissionReward[_stepIndex] = _totalFissionReward;
 
         currentStepHasFinished[_stepIndex] = true;
     }
