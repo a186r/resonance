@@ -34,7 +34,7 @@ contract ResonanceDataManage{
     uint256 private openingTime;
     // 共振是否结束
     bool crowdsaleClosed = false;
-    // // 当前轮次
+    // 当前轮次
     // uint256 currentStep;
 
     // 初始Token总额度
@@ -152,8 +152,8 @@ contract ResonanceDataManage{
         uint256 raisedETH,
         uint256 softCap
     )
-        platform()
         public
+        platform()
         returns(bool)
     {
         // 1.当前轮次募资期募资额度没有达到软顶，共振结束

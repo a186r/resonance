@@ -151,8 +151,6 @@ contract Resonance is Ownable{
     /// @dev 管理员调用这个设置对ResonanceDataManage的访问权限，并初始化第一轮的部分参数
     function initParamForFirstStep() public onlyOwner() {
         require(!firstParamInitialized, "第一轮次数据已经初始化过了");
-        // resonanceDataManage.allowAccess(address(this));
-        // resonanceDataManage.allowAccess(msg.sender);
         resonanceDataManage.setOpeningTime(block.timestamp); // 设置启动时间
         steps[currentStep].building.openTokenAmount = UintUtils.toWei(1500000); // 第一轮Token限额
         resonanceDataManage.setParamForFirstStep();
@@ -237,7 +235,7 @@ contract Resonance is Ownable{
 
         // 转入额度不能超过限额
         require(
-            steps[currentStep].funder[msg.sender].tokenAmount.add(_tokenAmount) < steps[currentStep].building.personalTokenLimited,
+            steps[currentStep].funder[msg.sender].tokenAmount.add(_tokenAmount) <= steps[currentStep].building.openTokenAmount.mul(1).div(100),
             "共建额度已超过限额，不能继续转入"
         );
 
@@ -591,6 +589,11 @@ contract Resonance is Ownable{
     /// @notice 返回下一个高度的区块hash
     function getBlockHash() public view returns(bytes32 blockHash) {
         return blockhash(steps[currentStep].blockNumber.add(1));
+    }
+
+    /// @notice 查询轮次是否结束
+    function currentStepIsClosed(uint256 _stepIndex) public view returns(bool) {
+        return steps[_stepIndex].stepIsClosed;
     }
 
 }
