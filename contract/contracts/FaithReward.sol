@@ -19,6 +19,8 @@ contract FaithReward{
     // 信仰奖励分配结束
     bool public faithRewardFinished;
 
+    uint256 totalFaithReward;
+
     constructor() public {
 
     }
@@ -27,10 +29,11 @@ contract FaithReward{
     /// @return 轮次、获胜者列表、获胜者奖金列表
     function getFaithWinnerInfo()
         public
-        returns(address[] memory, uint256[] memory)
+        view
+        returns(uint256, address[] memory, uint256[] memory)
     {
-        emit FaithWinnerInfo(faithWinners, faithAmounts);
-        return(faithWinners, faithAmounts);
+        // emit FaithWinnerInfo(faithWinners, faithAmounts);
+        return(totalFaithReward, faithWinners, faithAmounts);
     }
 
     // 链下排序,链上计算奖励分配
@@ -59,6 +62,7 @@ contract FaithReward{
 
         // 信仰奖励已经分配完成
         faithRewardFinished = true;
+        totalFaithReward = _totalFaithReward;
         return faithRewardFinished;
     }
 

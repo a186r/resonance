@@ -34,8 +34,8 @@ contract ResonanceDataManage{
     uint256 private openingTime;
     // 共振是否结束
     bool crowdsaleClosed = false;
-    // 当前轮次
-    uint256 currentStep;
+    // // 当前轮次
+    // uint256 currentStep;
 
     // 初始Token总额度
     uint256 initBuildingTokenAmount;
@@ -166,35 +166,35 @@ contract ResonanceDataManage{
     }
 
     /// @notice 分配裂变奖励奖金
-    function settlementFissionReward(address[] memory _fissionWinnerList, uint256 totalFissionReward)
+    function settlementFissionReward(uint256 _stepIndex, address[] memory _fissionWinnerList, uint256 totalFissionReward)
         public
         platform()
     {
-        fissionRewardInstance.dealFissionInfo(currentStep, _fissionWinnerList, totalFissionReward);
+        fissionRewardInstance.dealFissionInfo(_stepIndex, _fissionWinnerList, totalFissionReward);
         // 在这里累加用户总余额
         for(uint i = 0; i < _fissionWinnerList.length; i++){
-            ETHBalance[_fissionWinnerList[i]] += fissionRewardInstance.fissionRewardAmount(currentStep,_fissionWinnerList[i]);
+            ETHBalance[_fissionWinnerList[i]] += fissionRewardInstance.fissionRewardAmount(_stepIndex,_fissionWinnerList[i]);
         }
     }
 
-    function settlementFOMOReward(address[] memory _funders, uint256 totalFOMOReward)
+    function settlementFOMOReward(uint256 _stepIndex, address[] memory _funders, uint256 totalFOMOReward)
         public
         platform()
     {
-        address[] memory FOMOWinnerList = FOMORewardInstance.dealFOMOWinner(currentStep, _funders, totalFOMOReward);
+        address[] memory FOMOWinnerList = FOMORewardInstance.dealFOMOWinner(_stepIndex, _funders, totalFOMOReward);
 
         for(uint i = 0; i < FOMOWinnerList.length; i++){
-            ETHBalance[FOMOWinnerList[i]] += FOMORewardInstance.FOMORewardAmount(currentStep,FOMOWinnerList[i]);
+            ETHBalance[FOMOWinnerList[i]] += FOMORewardInstance.FOMORewardAmount(_stepIndex,FOMOWinnerList[i]);
         }
     }
 
-    function settlementLuckyReward(address[] memory _LuckyWinnerList, uint256 totalLuckyReward)
+    function settlementLuckyReward(uint256 _stepIndex, address[] memory _LuckyWinnerList, uint256 totalLuckyReward)
         public
         platform()
     {
-        luckyRewardInstance.dealLuckyInfo(currentStep, _LuckyWinnerList, totalLuckyReward);
+        luckyRewardInstance.dealLuckyInfo(_stepIndex, _LuckyWinnerList, totalLuckyReward);
         for(uint i = 0; i < _LuckyWinnerList.length; i++){
-            ETHBalance[_LuckyWinnerList[i]] += luckyRewardInstance.luckyRewardAmount(currentStep,_LuckyWinnerList[i]);
+            ETHBalance[_LuckyWinnerList[i]] += luckyRewardInstance.luckyRewardAmount(_stepIndex,_LuckyWinnerList[i]);
         }
     }
 
@@ -211,14 +211,12 @@ contract ResonanceDataManage{
         return faithRewardFinished;
     }
 
-    /// @notice 提取Token
-    /// @dev 不要单独调用这个接口
+    /// @notice 返回可提取Token数量
     function withdrawTokenAmount(address _addr) public view returns (uint256) {
         return tokenBalance[_addr];
     }
 
-    /// @notice 提取ETH
-    /// @dev 请不要单独调用这个接口
+    /// @notice 返回可提取的ETH数量
     function withdrawETHAmount(address _addr) public view returns (uint256) {
         return ETHBalance[_addr];
     }
@@ -236,8 +234,10 @@ contract ResonanceDataManage{
     /// @param _stepIndex 轮次
     function getFissionRewardInfo(uint256 _stepIndex)
         public
+        view
+        returns(uint256, address[] memory, uint256[] memory)
     {
-        fissionRewardInstance.getFissionInfo(_stepIndex);
+        return fissionRewardInstance.getFissionInfo(_stepIndex);
     }
 
     /// @notice 获取该轮次FOMO奖励详情
@@ -245,8 +245,10 @@ contract ResonanceDataManage{
     /// @param _stepIndex 轮次
     function getFOMORewardIofo(uint256 _stepIndex)
         public
+        view
+        returns(uint256, address[] memory, uint256[] memory)
     {
-        FOMORewardInstance.getFOMOWinnerInfo(_stepIndex);
+        return FOMORewardInstance.getFOMOWinnerInfo(_stepIndex);
     }
 
     /// @notice 获取该轮次幸运奖励详情
@@ -254,28 +256,34 @@ contract ResonanceDataManage{
     /// @param _stepIndex 轮次
     function getLuckyRewardInfo(uint256 _stepIndex)
         public
+        view
+        returns(uint256, address[] memory, uint256)
     {
-        luckyRewardInstance.getLuckyInfo(_stepIndex);
+        return luckyRewardInstance.getLuckyInfo(_stepIndex);
     }
 
     /// @notice 获取信仰奖励信息
     /// @dev 查询某轮次信仰奖励获奖人列表和奖金列表
     function getFaithRewardInfo()
         public
+        view
+        returns(uint256, address[] memory, uint256[] memory)
     {
-        faithRewardInstance.getFaithWinnerInfo();
+        return faithRewardInstance.getFaithWinnerInfo();
     }
 
     /// @notice 改变共振资金池共建比例
-    function updateBuildingPercent() public platform() {
+    function updateBuildingPercent(uint256 _stepIndex) public platform() returns (bool) {
         require(fundsPool > 0, "共建资金池已经消耗完毕");
         // 随着轮次推进，社区比例每轮次+1%，项目方比例每轮-1%
         if(buildingPercentOfParty < 66){
             buildingPercentOfParty += 1;
             buildingPercentOfCommunity -= 1;
         }
-        require(currentStep >= 1, "第一轮数值已经初始化过了");
-        initBuildingTokenAmount = initBuildingTokenAmount * 99 / 100 ** currentStep;
+        require(_stepIndex >= 1, "第一轮数值已经初始化过了");
+        initBuildingTokenAmount = initBuildingTokenAmount * 99 / 100 ** _stepIndex;
+
+        return true;
     }
 
 }

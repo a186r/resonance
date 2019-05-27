@@ -23,6 +23,8 @@ contract FOMOReward {
     // 裂变奖励分配结束
     mapping(uint256 => bool) currentStepHasFinished;
 
+    mapping(uint256 => uint256) totalFOMOReward;
+
     constructor() public {
 
     }
@@ -30,9 +32,11 @@ contract FOMOReward {
     /// @notice 获取FOMO获胜者列表和奖金列表
     function getFOMOWinnerInfo(uint256 _stepIndex)
         public
-        returns(address[] memory, uint256[] memory)
+        view
+        returns(uint256, address[] memory, uint256[] memory)
     {
-        emit FOMOWinnerInfo(FOMOWinners[_stepIndex], FOMORewards[_stepIndex]);
+        // emit FOMOWinnerInfo(FOMOWinners[_stepIndex], FOMORewards[_stepIndex]);
+        return(totalFOMOReward[_stepIndex], FOMOWinners[_stepIndex], FOMORewards[_stepIndex]);
     }
 
     // 处理FOMO奖励
@@ -79,7 +83,7 @@ contract FOMOReward {
         }
 
         currentStepHasFinished[_stepIndex] = true;
-
+        totalFOMOReward[_stepIndex] = _totalFOMOReward;
         return FOMOWinners[_stepIndex];
     }
 
