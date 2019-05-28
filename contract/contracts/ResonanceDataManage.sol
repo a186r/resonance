@@ -295,6 +295,11 @@ contract ResonanceDataManage{
         return faithRewardInstance.getFaithWinnerInfo();
     }
 
+    /// @notice 获取当前轮次项目方占比
+    function getBuildingPercentOfParty() public view returns(uint256) {
+        return buildingPercentOfParty;
+    }
+
     /// @notice 改变共振资金池共建比例
     function updateBuildingPercent(uint256 _stepIndex) public platform() returns (bool) {
         require(fundsPool > 0, "共建资金池已经消耗完毕");

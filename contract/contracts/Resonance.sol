@@ -297,12 +297,6 @@ contract Resonance is Ownable{
         steps[currentStep].funder[msg.sender].isFunder = true;
         steps[currentStep].funding.raisedETH += amount;
 
-        // 如果地址是管理员地址，设置项目方投入的ETH数量
-        if(msg.sender == owner()) {
-            ETHFromParty[currentStep] = msg.value;
-            totalETHFromParty += msg.value;
-        }
-
         resonances.push(msg.sender);
         resonancesRasiedETH[msg.sender] += amount;
     }
@@ -319,6 +313,9 @@ contract Resonance is Ownable{
         onlyOwner()
         returns(bool)
     {
+        // 计算奖励金
+        ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH.mul(resonanceDataManage.getBuildingPercentOfParty()).mul(40).div(100);
+        totalETHFromParty += ETHFromParty[currentStep];
         // 结算裂变奖励、FOMO奖励
         _settlementReward(_fissionWinnerList);
         // 结算幸运奖励
@@ -659,7 +656,7 @@ contract Resonance is Ownable{
         }
 
         refundIsFinished = true;
-        
+
         return refundIsFinished;
     }
 
