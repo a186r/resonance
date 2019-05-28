@@ -116,6 +116,10 @@ contract Resonance is Ownable{
 
     address initialFissionPerson; // 部署时设置的初始裂变者
 
+    mapping(uint256 => uint256) ETHFromParty; // 项目方投入的ETH数量
+
+    uint256 totalETHFromParty; // 基金会募资总额
+
     // 设定相关属性
     /// @notice 构造函数
     /// @param _abcToken 用于共建的Token
@@ -269,10 +273,18 @@ contract Resonance is Ownable{
         require(resonanceDataManage.isFundingPeriod(), "不在募资期内");
 
         require(!resonanceDataManage.getCrowdsaleClosed(), "共振已经结束");
+
         uint amount = msg.value;
         steps[currentStep].funder[msg.sender].ethAmount = amount;
         steps[currentStep].funder[msg.sender].isFunder = true;
         steps[currentStep].funding.raisedETH += amount;
+
+        // 如果地址是管理员地址，设置项目方投入的ETH数量
+        if(msg.sender == owner()) {
+            ETHFromParty[currentStep] = msg.value;
+            totalETHFromParty += msg.value;
+        }
+
         resonances.push(msg.sender);
         resonancesRasiedETH[msg.sender] += amount;
     }
@@ -289,8 +301,10 @@ contract Resonance is Ownable{
         onlyOwner()
         returns(bool)
     {
-        // 结算奖励
-        _settlementReward(_fissionWinnerList, _LuckyWinnerList);
+        // 结算裂变奖励、FOMO奖励
+        _settlementReward(_fissionWinnerList);
+        // 结算幸运奖励
+        _settlementLuckyReward(_LuckyWinnerList);
         // 结算收款人余额
         resonanceDataManage.setETHBalance(
             beneficiary,
@@ -319,17 +333,14 @@ contract Resonance is Ownable{
         require(resonanceDataManage.getCrowdsaleClosed(), "共振还未结束");
         return resonanceDataManage.dmSettlementFaithReward(
             _FaithWinnerList,
-            UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(5).div(100))
+            UintUtils.toWei(totalETHFromParty.mul(5).div(100))
         );
     }
 
     /// @notice 结算裂变奖励、幸运奖励、FOMO奖励
-    /// @dev 每一轮次结束之后调用此方法分配奖励
-    // 结算奖励，当前轮次结束之后，要结算当前轮次各奖励
-    // 计算出每个奖励的用户奖金余额
+    /// @dev 每一轮次结束之后调用此方法分配奖励,幸运奖励拆开结算
     function _settlementReward(
-        address[] memory _fissionWinnerList,
-        address[] memory _LuckyWinnerList
+        address[] memory _fissionWinnerList
     )
         internal
         onlyOwner()
@@ -340,20 +351,27 @@ contract Resonance is Ownable{
         resonanceDataManage.settlementFissionReward(
             currentStep,
             _fissionWinnerList,
-            steps[currentStep].funding.raisedETH.mul(20).div(100)
+            ETHFromParty[currentStep].mul(20).div(100)
         );
 
         resonanceDataManage.settlementFOMOReward(
             currentStep,
             steps[currentStep].funders,
-            UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(10).div(100))
+            UintUtils.toWei(ETHFromParty[currentStep].mul(10).div(100))
         );
+    }
 
-        // TODO:幸运奖励单独拆一下
+    /// @notice 结算幸运奖励
+    function _settlementLuckyReward(
+        address[] memory _LuckyWinnerList
+    )
+        public
+        onlyOwner()
+    {
         resonanceDataManage.settlementLuckyReward(
             currentStep,
             _LuckyWinnerList,
-            UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(5).div(100))
+            UintUtils.toWei(ETHFromParty[currentStep].mul(5).div(100))
         );
     }
 
