@@ -37,14 +37,20 @@ contract ResonanceDataManage{
     // 当前轮次
     // uint256 currentStep;
 
+    // 共振结束时的Step
+    uint256 resonanceClosedStep;
+
     // 初始Token总额度
     uint256 initBuildingTokenAmount;
 
     // 当前轮次组建期项目方Token额度占比
-    uint8 buildingPercentOfParty = 50;
+    uint256 buildingPercentOfParty = 50;
+
+    // 当前轮次组建期基金会投入的Token数量；
+    uint256 buildingTokenFromParty;
 
     // 当前轮次组建期社区Token额度占比
-    uint8 buildingPercentOfCommunity = 50;
+    uint256 buildingPercentOfCommunity = 50;
 
     // 账号可提取总余额
     mapping(address => uint256) private ETHBalance;
@@ -151,7 +157,8 @@ contract ResonanceDataManage{
     /// @param softCap 当前轮次软顶
     function crowdsaleIsClosed(
         uint256 raisedETH,
-        uint256 softCap
+        uint256 softCap,
+        uint256 stepIndex
     )
         public
         platform()
@@ -159,13 +166,20 @@ contract ResonanceDataManage{
     {
         // 1.当前轮次募资期募资额度没有达到软顶，共振结束
         if(UintUtils.toWei(raisedETH) < UintUtils.toWei(softCap)) {
+            resonanceClosedStep = stepIndex;
             crowdsaleClosed = true;
         }
 
         // 2.消耗完资金池的总额度，共振结束
         if(fundsPool == 0) {
+            resonanceClosedStep = stepIndex;
             crowdsaleClosed = true;
         }
+    }
+
+    /// @notice 查询共振结束时的轮次Index
+    function getResonanceClosedStep() public view returns(uint256){
+        return resonanceClosedStep;
     }
 
     /// @notice 查询共振是否结束
@@ -291,8 +305,18 @@ contract ResonanceDataManage{
         }
         require(_stepIndex >= 1, "第一轮数值已经初始化过了");
         initBuildingTokenAmount = initBuildingTokenAmount * 99 / 100 ** _stepIndex;
-
+        setBuildingTokenFromParty(initBuildingTokenAmount);
         return true;
+    }
+
+    /// @notice 设置当前轮次基金会应该投入的Token数量
+    function setBuildingTokenFromParty(uint256 _buildingPercentOfParty) internal platform() {
+        buildingTokenFromParty = _buildingPercentOfParty.mul(initBuildingTokenAmount);
+    }
+
+    /// @notice 当前轮次基金会应该投入的Token数量
+    function getBuildingTokenFromParty() public view returns(uint256) {
+        return buildingTokenFromParty;
     }
 
 }

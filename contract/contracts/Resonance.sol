@@ -116,9 +116,11 @@ contract Resonance is Ownable{
 
     address initialFissionPerson; // 部署时设置的初始裂变者
 
-    mapping(uint256 => uint256) ETHFromParty; // 项目方投入的ETH数量
+    mapping(uint256 => uint256) ETHFromParty; // 基金会投入的ETH数量
 
     uint256 totalETHFromParty; // 基金会募资总额
+
+    mapping(uint256 => uint256) tokenFromParty; //基金会转入的token
 
     // 设定相关属性
     /// @notice 构造函数
@@ -264,6 +266,22 @@ contract Resonance is Ownable{
         steps[currentStep].building.raisedToken += _tokenAmount;
     }
 
+    /// @notice 共建期基金会调用此方法转入Token
+    function transferToken() public payable returns(bool) {
+        // 检查剩余的授权额度是否足够
+        require(abcToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(resonanceDataManage.getBuildingTokenFromParty()),
+            "授权额度不足"
+        );
+        // 转入合约
+        require(abcToken.transferFrom(
+            msg.sender,address(this),
+            UintUtils.toWei(resonanceDataManage.getBuildingTokenFromParty())),
+            "转移token到合约失败"
+        );
+
+        return true;
+    }
+
     // 募资
     // 向合约转账时会调用此方法
     function ()
@@ -365,7 +383,7 @@ contract Resonance is Ownable{
     function _settlementLuckyReward(
         address[] memory _LuckyWinnerList
     )
-        public
+        internal
         onlyOwner()
     {
         resonanceDataManage.settlementLuckyReward(
@@ -380,7 +398,7 @@ contract Resonance is Ownable{
         internal
     {
         // 共振没有结束才可以进入下一轮
-        require(!resonanceDataManage.crowdsaleIsClosed(steps[currentStep].funding.raisedETH, steps[currentStep].softCap), "共振已经结束");
+        require(!resonanceDataManage.crowdsaleIsClosed(currentStep, steps[currentStep].funding.raisedETH, steps[currentStep].softCap), "共振已经结束");
         // 标记当前step已经结算完成
         steps[currentStep].settlementFinished = true;
         // 标记当前轮次已经结束
@@ -612,6 +630,37 @@ contract Resonance is Ownable{
     /// @notice 查询轮次是否结束
     function currentStepIsClosed(uint256 _stepIndex) public view returns(bool) {
         return steps[_stepIndex].stepIsClosed;
+    }
+
+    bool refundIsFinished;
+
+    /// @notice 发起退款
+    /// @dev 共振结束那一轮转入的token和ETH全部退回
+    function refund() public onlyOwner() returns(bool){
+
+        // 是否已完成退款
+        require(!refundIsFinished, "退款已经完成了");
+
+        // 为投资者设置可提取额度
+        uint256 resonanceClosedStep = resonanceDataManage.getResonanceClosedStep();
+        address[] memory funders = steps[resonanceClosedStep].funders;
+
+        // 设置可以退款的ETH数量
+        for(uint i = 0; i < funders.length; i++){
+            resonanceDataManage.setETHBalance(
+                funders[i],
+                resonanceDataManage.getETHBalance(funders[i]) + steps[resonanceClosedStep].funder[funders[i]].ethAmount
+            );
+
+            resonanceDataManage.setETHBalance(
+                funders[i],
+                resonanceDataManage.getTokenBalance(funders[i]) + steps[resonanceClosedStep].funder[funders[i]].tokenAmount
+            );
+        }
+
+        refundIsFinished = true;
+        
+        return refundIsFinished;
     }
 
 }
