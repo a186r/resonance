@@ -48,6 +48,7 @@ module.exports = {
       port: 8545, // Standard Ethereum port (default: none)
       network_id: "*", // Any network (default: none)
       gas: 8000000, // Gas sent with each transaction (default: ~6700000)
+      gasPrice: 100000000000
     },
 
     geth: {
@@ -55,6 +56,7 @@ module.exports = {
       port: 8545, // Standard Ethereum port (default: none)
       network_id: "*", // Any network (default: none)
       gas: 8000000, // Gas sent with each transaction (default: ~6700000)
+      gasPrice: 100000000000,
       private: "33779B12DB7A04FD5690E22C70B37C43BCF9CCE004F74835FC4EA200C95EA923"
     },
 
@@ -74,6 +76,7 @@ module.exports = {
       provider: () => new HDWalletProvider(private, `https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4`),
       network_id: 3, // Ropsten's id
       gas: 8000000, // Ropsten has a lower block limit than mainnet
+      gasPrice: 100000000000,
       confirmations: 0, // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
       // skipDryRun: true // Skip dry run before migrations? (default: false for public nets )
