@@ -51,14 +51,14 @@ contract('TestResonance', async (accounts) => {
 
     });
 
-    it('0...部署奖励合约', async () => {
+    it('1...部署奖励合约', async () => {
         fissionReward = await FissionReward.new();
         FOMOReward = await FOMOReward.new();
         luckyReward = await LuckyReward.new();
         faithReward = await FaithReward.new();
     });
 
-    it('1...初始化权限', async () => {
+    it('2...初始化权限', async () => {
         resonanceDataManage = await ResonanceDataManage.new(
             fissionReward.address,
             FOMOReward.address,
@@ -74,7 +74,7 @@ contract('TestResonance', async (accounts) => {
 
     });
 
-    it('2...初始化参数', async () => {
+    it('3...初始化参数', async () => {
         resonance = await Resonance.new(
             resonanceDataManage.address,
             abcToken.address,
@@ -93,7 +93,7 @@ contract('TestResonance', async (accounts) => {
         console.log(initParamForFirstStepLog);
     })
 
-    it('3...成为裂变者', async () => {
+    it('4...成为裂变者', async () => {
 
         // 允许合约具有转账权
         for (var i = 0; i <= 8; i++) {
@@ -108,26 +108,26 @@ contract('TestResonance', async (accounts) => {
             let result = await resonance.toBeFissionPerson(accounts[7], {
                 from: accounts[i]
             });
-        }
+        } 
 
         console.log("账户作为推广者，余额是：", await abcToken.balanceOf(accounts[7]) / 1E18);
 
     });
 
-    it("4...设置当前轮次募资目标", async () => {
+    it("5...设置当前轮次募资目标", async () => {
         await resonance.setRaiseTarget(5000);
 
         console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(0));
         console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(1));
     });
 
-    it("5...基金会转入Token", async () => {
+    it("6...基金会转入Token", async () => {
         // 查询组建期基金会应转入额度
         let getBuildingTokenAmount = await resonanceDataManage.getBuildingTokenAmount();
         console.log("当前轮次组建期基金会应转入额度",getBuildingTokenAmount);
 
-        // 基金会授权合约1亿Token额度
-        await abcToken.approve(resonance.address, web3.utils.toWei("150000000000"), {
+        // 基金会授权合约Token额度
+        await abcToken.approve(resonance.address, web3.utils.toWei("750000"), {
             from: accounts[0]
         });
 
