@@ -13,12 +13,14 @@
             <div class="deposit-area-input">
               <input class="custom-input" v-model="depostCADAmount" placeholder="CAD投入数量" />
             </div>
+            <button class="custom-button" :disabled="!isBuilding" @click="approve">授权合约</button>
             <button class="custom-button" @click="depositCAD">投入CAD</button>
           </div>
           <div class="deposit-area" v-else>
             <div class="deposit-area-input">
               <input class="custom-input" :disabled="!isBuilding" v-model="address" placeholder="推荐者地址" />
             </div>
+            <button class="custom-button" :disabled="!isBuilding" @click="approve">授权合约</button>
             <button class="custom-button" :disabled="!isBuilding" @click="toBeFissionPerson">成为裂变者</button>
           </div>
         </div>
@@ -69,6 +71,7 @@ export default {
   name: 'offer',
   data () {
     return {
+      approveAmount: 0,
       isBuilding: true,
       buildingText: '组建期',
       depostCADAmount: '',
@@ -103,6 +106,12 @@ export default {
     })
   },
   methods: {
+    approve () {
+      store.dispatch('approve', this.depostCADAmount)
+    },
+    approveFission () {
+      store.dispatch('approve', 8)
+    },
     depositETH () {
       console.log('deposit eth', this.depostETHAmount)
       if (this.depostETHAmount > this.offerData.remainingETH) {
@@ -121,7 +130,7 @@ export default {
         })
         return
       }
-      store.dispatch('depositETH', this.depostCADAmount)
+      store.dispatch('depositCAD', this.depostCADAmount)
     }, 
     toBeFissionPerson () {
       store.dispatch('toBeFissionPerson', this.address || '0x3223AEB8404C7525FcAA6C512f91e287AE9FfE7B')
@@ -135,8 +144,8 @@ export default {
     },
   },
   async created() {
-    const contract = await this.initDataContract()
-    store.dispatch('queryRewardList', contract)
+    // const contract = await this.initDataContract()
+    // store.dispatch('queryRewardList', contract)
   }
 }
 </script>
