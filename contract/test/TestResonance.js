@@ -122,16 +122,20 @@ contract('TestResonance', async (accounts) => {
     });
 
     it("5...基金会转入Token", async () => {
-        // 基金会授权合约1亿Token额度
+        // 查询组建期基金会应转入额度
+        let getBuildingTokenAmount = await resonanceDataManage.getBuildingTokenAmount();
+        console.log("当前轮次组建期基金会应转入额度",getBuildingTokenAmount);
 
-        await abcToken.approve(resonance.address, web3.utils.toWei("150000000"), {
+        // 基金会授权合约1亿Token额度
+        await abcToken.approve(resonance.address, web3.utils.toWei("150000000000"), {
             from: accounts[0]
         });
 
+        let allowanceAmount = await abcToken.allowance(accounts[0], resonance.address);
+        console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
+
         let result = await resonance.transferToken();
         console.log(result);
-
-        // 基金会地址余额
 
     });
 })

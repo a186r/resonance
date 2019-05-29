@@ -167,6 +167,7 @@ contract Resonance is Ownable{
         initialFissionPerson = _initialFissionPerson;
         resonanceDataManage.setOpeningTime(block.timestamp); // 设置启动时间
         steps[currentStep].building.openTokenAmount = UintUtils.toWei(1500000); // 第一轮Token限额
+        // 设置fundsPool和initBuildingTokenAmount
         resonanceDataManage.setParamForFirstStep();
         // 初始化Token共建比例等参数
         resonanceDataManage.updateBuildingPercent(currentStep);
@@ -207,7 +208,7 @@ contract Resonance is Ownable{
         steps[currentStep].funder[promoter].earnFromAff += UintUtils.toWei(5);
 
         // 成为共建者
-        _addBuilder(promoter);
+        _addBuilder(msg.sender);
 
         steps[currentStep].funder[promoter].invitees.push(msg.sender);
 
@@ -281,16 +282,15 @@ contract Resonance is Ownable{
     }
 
     /// @notice 共建期基金会调用此方法转入Token
-    function transferToken() public payable onlyOwner() returns(bool) {
+    function transferToken() public payable onlyOwner() returns(bool){
         require(!tokenTransfered[currentStep], "当前轮次基金会已经转入过Token了");
         // 检查剩余的授权额度是否足够
-        require(abcToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(resonanceDataManage.getBuildingTokenFromParty()),
+        require(abcToken.allowance(msg.sender, address(this)) >= resonanceDataManage.getBuildingTokenFromParty(),
             "授权额度不足"
         );
+
         // 转入合约
-        require(abcToken.transferFrom(
-            msg.sender,address(this),
-            UintUtils.toWei(resonanceDataManage.getBuildingTokenFromParty())),
+        require(abcToken.transferFrom(msg.sender, address(this), resonanceDataManage.getBuildingTokenFromParty()),
             "转移token到合约失败"
         );
 
@@ -525,7 +525,6 @@ contract Resonance is Ownable{
     function getCurrentStepFundsInfo()
         public
         view
-        onlyOwner()
         returns(uint256, uint256, uint256)
     {
         // emit FundsInfo(steps[currentStep].building.openTokenAmount, steps[currentStep].funding.raisedETH);
@@ -538,13 +537,13 @@ contract Resonance is Ownable{
         view
         returns(uint256, uint256, uint256, uint256)
     {
-        require(resonanceDataManage.isBuildingPeriod(), "不在共建期内");
         uint256 _bpCountdown;
         uint256 _remainingToken;
         uint256 _personalTokenLimited;
         uint256 _totalTokenAmount;
 
-        _bpCountdown = (resonanceDataManage.getOpeningTime() + 8 hours) - block.timestamp;
+        // TODO:
+        _bpCountdown = (resonanceDataManage.getOpeningTime() + 20 minutes) - block.timestamp;
         _remainingToken = steps[currentStep].building.openTokenAmount.sub(steps[currentStep].building.raisedToken);
         _personalTokenLimited = steps[currentStep].building.personalTokenLimited;
         _totalTokenAmount = steps[currentStep].building.raisedTokenAmount;
@@ -558,13 +557,12 @@ contract Resonance is Ownable{
         view
         returns(uint256, uint256, uint256)
     {
-        require(resonanceDataManage.isFundingPeriod(), "不在募资期内");
-
         uint256 _fpCountdown;
         uint256 _remainingETH;
         uint256 _rasiedETHAmount;
 
-        _fpCountdown = (resonanceDataManage.getOpeningTime() + 24) - block.timestamp;
+        // TODO:
+        _fpCountdown = (resonanceDataManage.getOpeningTime() + 20 minutes) - block.timestamp;
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
         // emit FundingPeriodInfo(_fpCountdown, _remainingETH, _rasiedETHAmount);
@@ -572,7 +570,6 @@ contract Resonance is Ownable{
     }
 
     /// @notice 获取投资者信息（个人中心界面）
-    // TODO:个人中心msg.sender
     function getFunderInfo()
         public
         view

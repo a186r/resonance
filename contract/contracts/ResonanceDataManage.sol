@@ -128,9 +128,9 @@ contract ResonanceDataManage{
         return initBuildingTokenAmount;
     }
 
-    function setBuildingTokenAmount(uint256 _tokenAmount) public platform() {
-        initBuildingTokenAmount = _tokenAmount;
-    }
+    // function setBuildingTokenAmount(uint256 _tokenAmount) public platform() {
+    //     initBuildingTokenAmount = _tokenAmount;
+    // }
 
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
@@ -321,7 +321,7 @@ contract ResonanceDataManage{
 
     /// @notice 设置当前轮次基金会应该投入的Token数量
     function setBuildingTokenFromParty(uint256 _buildingPercentOfParty) internal platform() {
-        buildingTokenFromParty = _buildingPercentOfParty.mul(initBuildingTokenAmount);
+        buildingTokenFromParty = _buildingPercentOfParty;
     }
 
     /// @notice 当前轮次基金会应该投入的Token数量
