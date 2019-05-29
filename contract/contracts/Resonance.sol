@@ -122,6 +122,8 @@ contract Resonance is Ownable{
 
     mapping(uint256 => uint256) tokenFromParty; //基金会转入的token
 
+    mapping(uint256 => bool) public tokenTransfered; // 当前轮次基金会已经转入Token
+
     // 设定相关属性
     /// @notice 构造函数
     /// @param _abcToken 用于共建的Token
@@ -151,7 +153,7 @@ contract Resonance is Ownable{
         initialFissionPerson = _initialFissionPerson; // 初始裂变者
     }
 
-    bool firstParamInitialized;
+    bool public firstParamInitialized;
 
     /// @notice 初始化第一轮次的部分参数
     /// @dev 管理员调用这个设置对ResonanceDataManage的访问权限，并初始化第一轮的部分参数
@@ -268,6 +270,7 @@ contract Resonance is Ownable{
 
     /// @notice 共建期基金会调用此方法转入Token
     function transferToken() public payable returns(bool) {
+        require(!tokenTransfered[currentStep], "当前轮次基金会已经转入过Token了");
         // 检查剩余的授权额度是否足够
         require(abcToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(resonanceDataManage.getBuildingTokenFromParty()),
             "授权额度不足"
@@ -279,7 +282,7 @@ contract Resonance is Ownable{
             "转移token到合约失败"
         );
 
-        return true;
+        return tokenTransfered[currentStep];
     }
 
     // 募资

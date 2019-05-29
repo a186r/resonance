@@ -49,47 +49,47 @@ contract('TestResonance', async (accounts) => {
 
     });
 
-    it('0...部署奖励合约', async () => {
-        fissionReward = await FissionReward.new();
-        FOMOReward = await FOMOReward.new();
-        luckyReward = await LuckyReward.new();
-        faithReward = await FaithReward.new();
-    });
-
-    it('1...成为裂变者', async () => {
-
-        resonance = await Resonance.new(
-            abcToken.address,
-            accounts[0],
-            accounts[0],
-            fissionReward.address,
-            FOMOReward.address,
-            luckyReward.address,
-            faithReward.address
-        );
-
-        // 允许合约具有转账权
-        for (var i = 0; i <= 8; i++) {
-            await abcToken.approve(resonance.address, web3.utils.toWei("8"), {
-                from: accounts[i]
-            });
-
-            let allowanceAmount = await abcToken.allowance(accounts[i], resonance.address);
-            console.log("获得的可挪用额度是", allowanceAmount.toString() / 1E18);
-
-            // 变为裂变者
-            let result = await resonance.toBeFissionPerson(accounts[i + 1], {
-                from: accounts[i]
-            });
-
-            console.log("账户作为推广者，余额是：", await abcToken.balanceOf(accounts[i]) / 1E18);
-        }
-    });
-
-    // it("2...设置当前轮次募资目标", async() => {
-    //     await resonance.setRaiseTarget(3000 * 1E18);
-
-    //     console.log("当前轮次募资目标是：",resonance.getRaiseTarget(0));
-    //     console.log("当前轮次募资目标是：",resonance.getRaiseTarget(1));
+    // it('0...部署奖励合约', async () => {
+    //     fissionReward = await FissionReward.new();
+    //     FOMOReward = await FOMOReward.new();
+    //     luckyReward = await LuckyReward.new();
+    //     faithReward = await FaithReward.new();
     // });
+
+    // it('1...成为裂变者', async () => {
+
+    //     resonance = await Resonance.new(
+    //         abcToken.address,
+    //         accounts[0],
+    //         accounts[0],
+    //         fissionReward.address,
+    //         FOMOReward.address,
+    //         luckyReward.address,
+    //         faithReward.address
+    //     );
+
+    //     // 允许合约具有转账权
+    //     for (var i = 0; i <= 8; i++) {
+    //         await abcToken.approve(resonance.address, web3.utils.toWei("8"), {
+    //             from: accounts[i]
+    //         });
+
+    //         let allowanceAmount = await abcToken.allowance(accounts[i], resonance.address);
+    //         console.log("获得的可挪用额度是", allowanceAmount.toString() / 1E18);
+
+    //         // 变为裂变者
+    //         let result = await resonance.toBeFissionPerson(accounts[i + 1], {
+    //             from: accounts[i]
+    //         });
+
+    //         console.log("账户作为推广者，余额是：", await abcToken.balanceOf(accounts[i]) / 1E18);
+    //     }
+    // });
+
+    // // it("2...设置当前轮次募资目标", async() => {
+    // //     await resonance.setRaiseTarget(3000 * 1E18);
+
+    // //     console.log("当前轮次募资目标是：",resonance.getRaiseTarget(0));
+    // //     console.log("当前轮次募资目标是：",resonance.getRaiseTarget(1));
+    // // });
 })

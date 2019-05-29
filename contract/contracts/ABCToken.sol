@@ -6,7 +6,7 @@ import "../node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Capped.
 import "../node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Burnable.sol";
 
 // 测试用的Token
-contract ABCToken is ERC20, ERC20Detailed, ERC20Burnable, ERC20Capped {
+contract ABCToken is ERC20, ERC20Detailed, ERC20Burnable {
 
     event CreateTokenSuccess(address owner, uint256 balance);
 
@@ -16,7 +16,7 @@ contract ABCToken is ERC20, ERC20Detailed, ERC20Burnable, ERC20Capped {
         uint8 decimals
     )
         ERC20Burnable()
-        ERC20Capped(150000000 * (10 ** uint256(decimals)))
+        // ERC20Capped(150000000 * (10 ** uint256(decimals)))
         ERC20Detailed(name, symbol, decimals)
         ERC20()
         public
@@ -28,7 +28,7 @@ contract ABCToken is ERC20, ERC20Detailed, ERC20Burnable, ERC20Capped {
 
     function mintToken() public {
         // 创建1.5亿个
-        mint(msg.sender,150000000 * (10 ** uint256(18)));
+        _mint(msg.sender,150000000 * (10 ** uint256(18)));
         emit CreateTokenSuccess(msg.sender,balanceOf(msg.sender));
     }
 }
