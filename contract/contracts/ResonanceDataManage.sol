@@ -302,14 +302,18 @@ contract ResonanceDataManage{
     /// @notice 改变共振资金池共建比例
     function updateBuildingPercent(uint256 _stepIndex) public platform() returns (bool) {
         require(fundsPool > 0, "共建资金池已经消耗完毕");
-        // 随着轮次推进，社区比例每轮次+1%，项目方比例每轮-1%
-        if(buildingPercentOfParty < 66){
-            buildingPercentOfParty += 1;
-            buildingPercentOfCommunity -= 1;
+        if(_stepIndex == 0){
+            setBuildingTokenFromParty(initBuildingTokenAmount.mul(50).div(100));
+        }else{
+            // 随着轮次推进，社区比例每轮次+1%，项目方比例每轮-1%
+            if(buildingPercentOfParty < 66){
+                buildingPercentOfParty += 1;
+                buildingPercentOfCommunity -= 1;
+            }
+            initBuildingTokenAmount = initBuildingTokenAmount * 99 / 100 ** _stepIndex;
+            setBuildingTokenFromParty(initBuildingTokenAmount);
         }
-        require(_stepIndex >= 1, "第一轮数值已经初始化过了");
-        initBuildingTokenAmount = initBuildingTokenAmount * 99 / 100 ** _stepIndex;
-        setBuildingTokenFromParty(initBuildingTokenAmount);
+
         return true;
     }
 
