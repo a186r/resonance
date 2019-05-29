@@ -33,5 +33,7 @@ contract('TestResonance', async (accounts) => {
         let balanceOf2 = await abcToken.balanceOf(accounts[2]) / 1E18;
         console.log("2-----账户2的余额是：", balanceOf2.toString());
 
+        console.log(mint2);
+
     });
 })

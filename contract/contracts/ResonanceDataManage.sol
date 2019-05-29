@@ -14,9 +14,10 @@ contract ResonanceDataManage{
 
     using SafeMath for uint256;
 
-    event WhihdrawAllToken();
+    event AllowAccess(address indexed);
 
-    mapping(address => bool) accessAllowed;
+    // 地址是否有访问权限
+    mapping(address => bool) public accessAllowed;
 
     modifier platform() {
         require(accessAllowed[msg.sender], "调用者没有调用权限");
@@ -34,8 +35,6 @@ contract ResonanceDataManage{
     uint256 private openingTime;
     // 共振是否结束
     bool crowdsaleClosed = false;
-    // 当前轮次
-    // uint256 currentStep;
 
     // 共振结束时的Step
     uint256 resonanceClosedStep;
@@ -71,7 +70,7 @@ contract ResonanceDataManage{
     }
 
     // 设置第一轮参数
-    function setParamForFirstStep() public platform{
+    function setParamForFirstStep() public platform() {
         fundsPool = UintUtils.toWei(150000000);
         initBuildingTokenAmount = UintUtils.toWei(1500000);
     }
