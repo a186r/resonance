@@ -22,9 +22,9 @@ contract('TestResonance', async (accounts) => {
             from: accounts[1]
         });
 
-        let lsogAllwAccess = await resonanceDataManage.allowAccess(accounts[3], {
-            from: accounts[4]
-        });
+        // let lsogAllwAccess = await resonanceDataManage.allowAccess(accounts[3], {
+        //     from: accounts[4]
+        // });
 
         console.log(logAllwAccess);
 

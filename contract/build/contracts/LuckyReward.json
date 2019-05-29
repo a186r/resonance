@@ -18,8 +18,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xc28a1af3"
+      "type": "function"
     },
     {
       "constant": true,
@@ -42,15 +41,13 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xdd572ab9"
+      "type": "function"
     },
     {
       "inputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "constructor",
-      "signature": "constructor"
+      "type": "constructor"
     },
     {
       "anonymous": false,
@@ -67,8 +64,7 @@
         }
       ],
       "name": "LuckyInfo",
-      "type": "event",
-      "signature": "0x0cd95afe8941bcad662d0d47269bccbcf1acb74d75824e33c283509e51f75fad"
+      "type": "event"
     },
     {
       "constant": true,
@@ -95,8 +91,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x49327441"
+      "type": "function"
     },
     {
       "constant": false,
@@ -118,8 +113,7 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0xac197f92"
+      "type": "function"
     },
     {
       "constant": true,
@@ -138,8 +132,7 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function",
-      "signature": "0x5fb25f1d"
+      "type": "function"
     },
     {
       "constant": true,
@@ -158,8 +151,7 @@
       ],
       "payable": false,
       "stateMutability": "pure",
-      "type": "function",
-      "signature": "0xf647c196"
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.5.2+commit.1df8f40c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"}],\"name\":\"getLuckyInfo\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address[]\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_addr\",\"type\":\"address\"}],\"name\":\"getLastFromAddress\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"name\":\"_luckyWinners\",\"type\":\"address[]\"},{\"name\":\"_totalLyckyReward\",\"type\":\"uint256\"}],\"name\":\"dealLuckyInfo\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"luckyFunderTotalBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"luckyRewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_blockHash\",\"type\":\"bytes32\"}],\"name\":\"getLastFromBlockHash\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"luckyWinners\",\"type\":\"address[]\"},{\"indexed\":false,\"name\":\"luckyRewards\",\"type\":\"uint256\"}],\"name\":\"LuckyInfo\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{\"dealLuckyInfo(uint256,address[],uint256)\":{\"notice\":\"\\u5904\\u7406\\u4fe1\\u7528\\u5956\\u52b1\\u4fe1\\u606f\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/a186r/dev/sourcecode/contract/contract/contracts/LuckyReward.sol\":\"LuckyReward\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/a186r/dev/sourcecode/contract/contract/contracts/LuckyReward.sol\":{\"keccak256\":\"0xc733a36567fbe93e8e510be34da27bd40e063deef8de6031281d900c2d0b2e93\",\"urls\":[\"bzzr://4531a7897e9b914c3b24d9a825687286d570e4b82e27230d12c6ef3b4352ec7d\"]},\"/Users/a186r/dev/sourcecode/contract/contract/contracts/StringUtils.sol\":{\"keccak256\":\"0x4635cfad3b9b53af3244dc1c0b4a71b5f325316666d2eecd8bf3a3aa7eaf8272\",\"urls\":[\"bzzr://429a6849a36154da385c8c344de7ef069e0b35cc88d9367ed4ed26e741f5b293\"]},\"/Users/a186r/dev/sourcecode/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xc2a200a877c4a9b2475c246c54ffecc69ffde3e11af83319c63c2dc5458bac80\",\"urls\":[\"bzzr://c8876e2c39b60f155d748d71d715c8f3903fae5a405ac599adcb6ad2f9a583f9\"]}},\"version\":1}",
@@ -5908,17 +5900,17 @@
     "version": "0.5.2+commit.1df8f40c.Emscripten.clang"
   },
   "networks": {
-    "123456": {
+    "5777": {
       "events": {},
       "links": {
-        "StringUtils": "0x4EA111a37BAA53fc5FD2B53e97D88cDE6853F3aF"
+        "StringUtils": "0x165061A617FCF911F86121d58821EEA8Cf5D00EF"
       },
-      "address": "0x391c11B84fcAA1Abce25893D043d7F3dD85a440d",
-      "transactionHash": "0x7ce3dab708b3d77d7a0fb19207a45ab365cc910d5cf9db094a961821a2d32f14"
+      "address": "0x1764B719E4760a01b7b15baeD7243C84bE0Ca8D8",
+      "transactionHash": "0xfa9517e5ffe0d68643d1301565bde6c5fe14f7d9c6f183dd1ece422a6aa847d4"
     }
   },
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-29T06:44:52.367Z",
+  "updatedAt": "2019-05-29T08:40:40.695Z",
   "devdoc": {
     "methods": {}
   },
