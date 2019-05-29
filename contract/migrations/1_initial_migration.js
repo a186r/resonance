@@ -12,11 +12,6 @@ const FaithReward = artifacts.require("FaithReward");
 const Resonance = artifacts.require("Resonance");
 const ResonanceDataManage = artifacts.require("ResonanceDataManage");
 
-// 基金会地址
-const beneficiaryAddr = "0x1d341abaf972aafb851798386cedc676222480a0";
-// 第一个推广者地址
-const initialFissionPerson = "0x2f45ddbf8978257f36f621aa27dd83864dc98075";
-
 module.exports = function (deployer) {
     deployer.then(async () => {
         await deployer.deploy(Migrations)
@@ -53,8 +48,6 @@ module.exports = function (deployer) {
             Resonance,
             ResonanceDataManage.address,
             ABCTInstance.address,
-            beneficiaryAddr,
-            initialFissionPerson,
             FissionRewardInstance.address,
             FOMORewardInstance.address,
             LuckyRewardInstance.address,

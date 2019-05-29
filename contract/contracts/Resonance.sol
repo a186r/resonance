@@ -55,7 +55,7 @@ contract Resonance is Ownable{
     ResonanceDataManage resonanceDataManage;
 
     // 收款方（每轮募集的60%转移到这个地址）
-    address payable private beneficiary;
+    address payable public beneficiary;
 
     // 投资者结构体
     struct Funder{
@@ -114,7 +114,7 @@ contract Resonance is Ownable{
 
     mapping(uint256 => Step) steps;
 
-    address initialFissionPerson; // 部署时设置的初始裂变者
+    address public initialFissionPerson; // 设置的初始裂变者
 
     mapping(uint256 => uint256) ETHFromParty; // 基金会投入的ETH数量
 
@@ -124,16 +124,14 @@ contract Resonance is Ownable{
 
     mapping(uint256 => bool) public tokenTransfered; // 当前轮次基金会已经转入Token
 
+    bool public firstParamInitialized;
+
     // 设定相关属性
     /// @notice 构造函数
     /// @param _abcToken 用于共建的Token
-    /// @param _beneficiary 募资后的收款方
-    /// @param _initialFissionPerson 初始裂变者
     constructor(
         address _resonanceDataManageAddress,
         ABCToken _abcToken,
-        address payable _beneficiary,
-        address _initialFissionPerson,
         address _fassionRewardAddress,
         address _FOMORewardAddress,
         address _luckyRewardAddress,
@@ -149,20 +147,30 @@ contract Resonance is Ownable{
         faithRewardInstance = FaithReward(_faithRewardAddress);
         currentStep = 0;
         abcToken = _abcToken; // abc Token
-        beneficiary = _beneficiary; // 收款方
-        initialFissionPerson = _initialFissionPerson; // 初始裂变者
     }
 
-    bool public firstParamInitialized;
 
     /// @notice 初始化第一轮次的部分参数
     /// @dev 管理员调用这个设置对ResonanceDataManage的访问权限，并初始化第一轮的部分参数
-    function initParamForFirstStep() public onlyOwner() {
+    function initParamForFirstStep(
+        address _newOwner,
+        address payable _beneficiary,
+        address _initialFissionPerson
+    )
+        public
+        onlyOwner()
+    {
         require(!firstParamInitialized, "第一轮次数据已经初始化过了");
+        // 设置基金会收款地址
+        beneficiary = _beneficiary;
+        // 设置初始裂变者地址
+        initialFissionPerson = _initialFissionPerson;
         resonanceDataManage.setOpeningTime(block.timestamp); // 设置启动时间
         steps[currentStep].building.openTokenAmount = UintUtils.toWei(1500000); // 第一轮Token限额
         resonanceDataManage.setParamForFirstStep();
         firstParamInitialized = true;
+        // 转移合约所有权
+        transferOwnership(_newOwner);
     }
 
     /// @notice 成为裂变者，这是参与共建的第一步
@@ -177,8 +185,9 @@ contract Resonance is Ownable{
         require(resonanceDataManage.isBuildingPeriod(), "不在共建期内");
         require(!resonanceDataManage.getCrowdsaleClosed(), "共振已经结束");
 
-        require(steps[currentStep].funder[promoter].isBuilder,"推广者自己必须是Builder");
-
+        if(initialFissionPerson != promoter){
+            require(steps[currentStep].funder[promoter].isBuilder,"推广者自己必须是Builder");
+        }
         require(promoter != address(0), "推广者不能是空地址");
 
         // 检查授权额度
@@ -269,7 +278,7 @@ contract Resonance is Ownable{
     }
 
     /// @notice 共建期基金会调用此方法转入Token
-    function transferToken() public payable returns(bool) {
+    function transferToken() public payable onlyOwner() returns(bool) {
         require(!tokenTransfered[currentStep], "当前轮次基金会已经转入过Token了");
         // 检查剩余的授权额度是否足够
         require(abcToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(resonanceDataManage.getBuildingTokenFromParty()),
@@ -316,6 +325,7 @@ contract Resonance is Ownable{
         onlyOwner()
         returns(bool)
     {
+        require(beneficiary != address(0), "基金会收款地址尚未设置");
         // 计算奖励金
         ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH.mul(resonanceDataManage.getBuildingPercentOfParty()).mul(40).div(100);
         totalETHFromParty += ETHFromParty[currentStep];
@@ -615,11 +625,6 @@ contract Resonance is Ownable{
         steps[currentStep].funder[msg.sender].funderAddr = msg.sender;
         steps[currentStep].funder[msg.sender].promoter = _promoter;
         steps[currentStep].funder[msg.sender].isBuilder = true;
-    }
-
-    /// @notice 返回收款方
-    function Beneficiary() public view returns(address payable) {
-        return beneficiary;
     }
 
     /// @notice 返回下一个高度的区块hash
