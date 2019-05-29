@@ -118,7 +118,7 @@ contract Resonance is Ownable{
 
     mapping(uint256 => uint256) ETHFromParty; // 基金会投入的ETH数量
 
-    uint256 totalETHFromParty; // 基金会募资总额
+    uint256 public totalETHFromParty; // 基金会募资总额
 
     mapping(uint256 => uint256) tokenFromParty; //基金会转入的token
 
@@ -168,6 +168,8 @@ contract Resonance is Ownable{
         resonanceDataManage.setOpeningTime(block.timestamp); // 设置启动时间
         steps[currentStep].building.openTokenAmount = UintUtils.toWei(1500000); // 第一轮Token限额
         resonanceDataManage.setParamForFirstStep();
+        // 初始化Token共建比例等参数
+        resonanceDataManage.updateBuildingPercent(currentStep);
         firstParamInitialized = true;
         // 转移合约所有权
         transferOwnership(_newOwner);
@@ -188,6 +190,7 @@ contract Resonance is Ownable{
         if(initialFissionPerson != promoter){
             require(steps[currentStep].funder[promoter].isBuilder,"推广者自己必须是Builder");
         }
+
         require(promoter != address(0), "推广者不能是空地址");
 
         // 检查授权额度
