@@ -24,6 +24,9 @@ export default new Vuex.Store({
       currentStepTokenAmount: 10000000,
       currentStepRaisedETH: 100.1234,
       stepIndex: 1
+    },
+    rewardList: {
+
     }
   },
   mutations: {
@@ -35,16 +38,20 @@ export default new Vuex.Store({
     },
     GET_CURRENT_STEP_FUNDS_INFO: (state, data) => {
       Object.assign(state.homeData, data)
-      data.this.dispatch('queryRewardList', state.homeData.stepIndex)
+      // data.this.dispatch('queryRewardList', state.homeData.stepIndex)
     },
     GET_ADDRESS_IS_BUILDER: (state, data) => {
       state.isBuilder = data
+    },
+    GET_REWARD_LIST: (state, data) => {
+      console.log('reward ', data)
+      state.rewardList = data
     }
   },
   actions: {
     async getFunderInfo({ commit }, contract) {
       contract.methods.getFunderInfo(this.state.account).call({}, (err, result) => {
-        console.log(err, result, contract.address)
+        console.log(err, 'get funder info', result, contract.address)
       })
       commit('GET_FUNDER_INFO', [
         30,
@@ -57,24 +64,24 @@ export default new Vuex.Store({
         1
       ])
     },
-    async getBuildingPeriodInfo({ commit }) {
-      contract.methods.getCurrentStepFundsInfo().call({}, (err, result) => {
-        console.log(err, result, contract.address)
+    async getBuildingPeriodInfo({ commit }, contract) {
+      contract.methods.getBuildingPerioInfo().call({}, (err, result) => {
+        console.log(err, 'getBuildingPerioInfo', result, contract.address)
         commit('GET_OFFER_INFO', {})
       })
     },
-    async getFundingPeriodInfo({ commit }) {
+    async getFundingPeriodInfo({ commit }, contract) {
       contract.methods.getFundingPeriodInfo().call({}, (err, result) => {
-        console.log(err, result, contract.address)
+        console.log(err, 'getFundingPeriodInfo', result, contract.address)
         commit('GET_OFFER_INFO', {})
       })
     },
     async getCurrentStepFundsInfo({ commit }, contract) {
       const self = this
       contract.methods.getCurrentStepFundsInfo().call({}, (err, result) => {
-        console.log(err, result, contract.address)
+        console.log(err, 'getCurrentStepFundsInfo', result, contract.address)
         result.currentStepRaisedETH = 200.13
-        result.this = self
+        // result.this = self
         commit('GET_CURRENT_STEP_FUNDS_INFO', result)
       })
     },
@@ -111,7 +118,7 @@ export default new Vuex.Store({
     async toBeFissionPerson({ commit }, address) {
       console.log(address)
       const self = this
-      contract.methods.toBeFissionPerson(address).send({
+      window.contract.methods.toBeFissionPerson(address).send({
         from: self.state.account
       }).then(res => {
         console.log(res)
@@ -152,23 +159,29 @@ export default new Vuex.Store({
         commit('GET_ADDRESS_IS_BUILDER', res)
       })
     },
-    async queryRewardList({commit}, stepIndex) {
-      window.contract.methods.getFissionRewardInfo().call({
+    async queryRewardList({commit}, contract) {
+      const stepIndex = this.state.homeData.stepIndex
+      console.log('stepIndex')
+      contract.methods.getFissionRewardInfo(stepIndex).call({
+        from: this.state.account,
+      }).then(res => {
+        const data = {
+
+        }
+        console.log('fission reward', res)
+        commit('GET_REWARD_LIST', res)
+      })
+      contract.methods.getFOMORewardIofo(stepIndex).call({
         from: this.state.account,
       }).then(res => {
         commit('GET_REWARD_LIST', res)
       })
-      window.contract.methods.getFOMORewardIofo().call({
+      contract.methods.getLuckyRewardInfo(stepIndex).call({
         from: this.state.account,
       }).then(res => {
         commit('GET_REWARD_LIST', res)
       })
-      window.contract.methods.getLuckyRewardInfo().call({
-        from: this.state.account,
-      }).then(res => {
-        commit('GET_REWARD_LIST', res)
-      })
-      window.contract.methods.getFaithRewardInfo().call({
+      contract.methods.getFaithRewardInfo().call({
         from: this.state.account,
       }).then(res => {
         commit('GET_REWARD_LIST', res)
