@@ -63,6 +63,7 @@
 <script>
 import store from '../store'
 import { mapState, mapGetters, mapActions } from 'vuex'
+import ResonanceDataManageJson from '../../../contract/build/contracts/ResonanceDataManage.json'
 
 export default {
   name: 'offer',
@@ -97,7 +98,8 @@ export default {
   computed: {
     ...mapState({
       offerData: state => state.offerData,
-      isBuilder: state => state.isBuilder
+      isBuilder: state => state.isBuilder,
+      rewardListData: state => state.rewardList
     })
   },
   methods: {
@@ -123,10 +125,18 @@ export default {
     }, 
     toBeFissionPerson () {
       store.dispatch('toBeFissionPerson', this.address || '0x3223AEB8404C7525FcAA6C512f91e287AE9FfE7B')
-    }
+    },
+    async initDataContract() {
+      const contract = await new web3.eth.Contract(
+        ResonanceDataManageJson.abi,
+        ResonanceDataManageJson["networks"][web3.currentProvider.connection.networkVersion].address
+      )
+      return contract
+    },
   },
-  mounted() {
-    
+  async created() {
+    const contract = await this.initDataContract()
+    store.dispatch('queryRewardList', contract)
   }
 }
 </script>
