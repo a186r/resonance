@@ -595,7 +595,7 @@ contract Resonance is Ownable{
         uint256 _totalTokenAmount;
 
         // TODO:
-        _bpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp;
+        _bpCountdown = (resonanceDataManage.getOpeningTime() + 30 minutes) - block.timestamp;
         _remainingToken = steps[currentStep].building.openTokenAmount.sub(steps[currentStep].building.raisedToken);
         _personalTokenLimited = steps[currentStep].building.personalTokenLimited;
         _totalTokenAmount = steps[currentStep].building.raisedTokenAmount;
@@ -614,7 +614,7 @@ contract Resonance is Ownable{
         uint256 _rasiedETHAmount;
 
         // TODO:
-        _fpCountdown = (resonanceDataManage.getOpeningTime() + 2 hours) - block.timestamp;
+        _fpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp;
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
         // emit FundingPeriodInfo(_fpCountdown, _remainingETH, _rasiedETHAmount);
