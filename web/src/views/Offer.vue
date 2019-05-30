@@ -20,7 +20,7 @@
             <div class="deposit-area-input">
               <input class="custom-input" :disabled="!isBuilding" v-model="address" placeholder="推荐者地址" />
             </div>
-            <button class="custom-button" :disabled="!isBuilding" @click="approve">授权合约</button>
+            <button class="custom-button" :disabled="!isBuilding" @click="approveFission">授权合约</button>
             <button class="custom-button" :disabled="!isBuilding" @click="toBeFissionPerson">成为裂变者</button>
           </div>
         </div>
@@ -48,14 +48,17 @@
             <div :class="rewardList[i].class"></div>
             <p>{{item.text}}</p>
           </div>
-          <p>当前共奖励 <span class="value-span">{{item.value}}</span> ETH</p>
-          <div class="reward-detail">
-            <div class="reward-detal-item" v-for="i in 5" :key="i">
-              <span class="rank">{{i > 3 ? i : ''}}  </span>
-              <span class="address">0x7525c82e0cf1832e79ff3aff259c5fe853cf95f4</span>
+          <p>当前共奖励 <span class="value-span">{{rewardListData[i-1] && rewardListData[i-1][0]}}</span> ETH</p>
+          <div class="reward-detail" v-if="rewardListData[i-1] && rewardListData[i-1].length">
+            <div class="reward-detal-item" v-for="j in rewardListData[i-1].length > 5 ? 5 : rewardListData[i-1].length" :key="j">
+              <span class="rank">{{j > 3 ? j : ''}}  </span>
+              <span class="address">{{rewardListData[i-1][1][j]}}</span>
               <span>：</span>
-              <span>1.3 ETH</span>
+              <span>{{rewardListData[i-1][2][j]}} ETH</span>
             </div>
+          </div>
+          <div v-else>
+            <span>暂无数据</span>
           </div>
         </div>
       </el-col>
@@ -144,8 +147,8 @@ export default {
     },
   },
   async created() {
-    // const contract = await this.initDataContract()
-    // store.dispatch('queryRewardList', contract)
+    const contract = await this.initDataContract()
+    store.dispatch('queryRewardList', contract)
   }
 }
 </script>
