@@ -294,11 +294,12 @@ contract Resonance is Ownable{
             "转移token到合约失败"
         );
 
-        return tokenTransfered[currentStep];
+        tokenTransfered[currentStep] = true;
+
+        return true;
     }
 
-    // 募资
-    // 向合约转账时会调用此方法
+    /// @notice 回调函数
     function ()
         external
         payable
@@ -418,7 +419,7 @@ contract Resonance is Ownable{
         steps[currentStep].stepIsClosed = true;
         // 进入下一轮
         currentStep++;
-        // 下一轮计时
+        // 下一轮开始计时
         resonanceDataManage.setOpeningTime(block.timestamp);
         // 初始化Token共建比例等参数
         resonanceDataManage.updateBuildingPercent(currentStep);
@@ -449,13 +450,26 @@ contract Resonance is Ownable{
         payable
         returns(address, uint256)
     {
+        address payable dest = address(uint160(msg.sender));
+
         require(!steps[currentStep].funder[msg.sender].ETHHasWithdrawn, "用户在当前轮次已经提取ETH完成");
         uint256 withdrawAmount = resonanceDataManage.withdrawETHAmount(msg.sender);
         resonanceDataManage.emptyETHBalance();
         steps[currentStep].funder[msg.sender].ETHHasWithdrawn = true;
-        msg.sender.transfer(withdrawAmount);
-        // emit WithdrawAllETH(msg.sender, withdrawAmount);
+
+        dest.transfer(withdrawAmount);
+
         return(msg.sender, withdrawAmount);
+    }
+
+    /// @notice 管理员可以提走合约内所有的ETH
+    /// @dev 防止ETH被锁死在合约内
+    function witthdrawAllETHByOwner()
+        public
+        payable
+        onlyOwner()
+    {
+        beneficiary.transfer(address(this).balance);
     }
 
     /// @notice 查询是否是共建者
@@ -562,7 +576,7 @@ contract Resonance is Ownable{
         uint256 _rasiedETHAmount;
 
         // TODO:
-        _fpCountdown = (resonanceDataManage.getOpeningTime() + 2 hours) - block.timestamp;
+        _fpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp;
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
         // emit FundingPeriodInfo(_fpCountdown, _remainingETH, _rasiedETHAmount);
@@ -590,7 +604,7 @@ contract Resonance is Ownable{
     {
         Funder memory funder = steps[currentStep].funder[msg.sender];
 
-        uint256[] memory funderInfo;
+        uint256[] memory funderInfo = new uint256[](10);
 
         funderInfo[0] = resonanceDataManage.getTokenBalance(msg.sender);
         funderInfo[1] = resonanceDataManage.getETHBalance(msg.sender);
@@ -603,7 +617,6 @@ contract Resonance is Ownable{
         funderInfo[8] = FOMORewardInstance.FOMOFunderTotalBalance(msg.sender);
         funderInfo[9] = faithRewardInstance.faithRewardAmount(msg.sender);
 
-        // emit FunderInfo(funderInfo);
         return(
             funderInfo[0],
             funderInfo[1],

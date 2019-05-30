@@ -22,7 +22,7 @@ const decimals = web3.utils.toBN(18);
 contract('TestResonance', async (accounts) => {
 
     it('1...初始化ABCToken', async () => {
-        abcToken = await ABCToken.new("ABCToken", "ABCT", decimals, {
+        abcToken = await ABCToken.new(tokenName, symbol, decimals, {
             from: accounts[0]
         });
 
@@ -150,13 +150,23 @@ contract('TestResonance', async (accounts) => {
         console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
 
         // 转入Token
-        let result = await resonance.jointlyBuild(100, {
+        await resonance.jointlyBuild(100, {
             from: accounts[3]
         });
 
         // 社区成员accounts[3]的余额是
         console.log("社区成员的余额是", await abcToken.balanceOf(accounts[3]) / 1E18);
 
-        // console.log(result);
     });
+
+    // it("9...募资期社区成员转入ETH", async () => {
+    //     await send(web3.utils.toWei("3"));
+    // });
+
+    it("10...获取投资者信息", async () => {
+        let funderInfo = await resonance.getFunderInfo({
+            from: accounts[7]
+        });
+        console.log(funderInfo);
+    })
 })
