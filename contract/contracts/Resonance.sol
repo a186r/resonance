@@ -254,10 +254,17 @@ contract Resonance is Ownable{
         // 计算每个人限额
         steps[currentStep].building.personalTokenLimited = steps[currentStep].building.openTokenAmount.mul(1).div(100);
 
-        // 没有超过当前轮次总额
-        require(steps[currentStep].building.raisedToken.add(_tokenAmount) < steps[currentStep].building.openTokenAmount, "当前轮次共建Token已经足够了");
+        // 转账数量不能超过社区可转账总额
+        require(
+            steps[currentStep].building.raisedToken.add(_tokenAmount) <=
+            steps[currentStep].building.openTokenAmount.sub(resonanceDataManage.getBuildingTokenFromParty()),
+            "转账数量不能超过社区可转账总额"
+        );
 
-        // 转入额度不能超过限额
+        // 转账额度不能超过当前轮次总额
+        require(steps[currentStep].building.raisedToken.add(_tokenAmount) <= steps[currentStep].building.openTokenAmount, "当前轮次共建Token已经足够了");
+
+        // 转入额度不能超过个人限额
         require(
             steps[currentStep].funder[msg.sender].tokenAmount.add(_tokenAmount) <= steps[currentStep].building.personalTokenLimited,
             "共建额度已超过限额，不能继续转入"
