@@ -51,6 +51,8 @@ contract ResonanceDataManage{
     // 当前轮次组建期社区Token额度占比
     uint256 buildingPercentOfCommunity = 50;
 
+    uint256 personalTokenLimited;// 当前轮次每个地址最多投入多少token
+
     // 账号可提取总余额
     mapping(address => uint256) private ETHBalance;
     mapping(address => uint256) private tokenBalance;

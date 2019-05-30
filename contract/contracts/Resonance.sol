@@ -168,6 +168,7 @@ contract Resonance is Ownable{
         initialFissionPerson = _initialFissionPerson;
         resonanceDataManage.setOpeningTime(block.timestamp); // 设置启动时间
         steps[currentStep].building.openTokenAmount = UintUtils.toWei(1500000); // 第一轮Token限额
+        steps[currentStep].building.personalTokenLimited = steps[currentStep].building.openTokenAmount.mul(1).div(100);
         // 设置fundsPool和initBuildingTokenAmount
         resonanceDataManage.setParamForFirstStep();
         // 初始化Token共建比例等参数
@@ -251,9 +252,6 @@ contract Resonance is Ownable{
 
         // 只有builder才能参与共建
         require(isBuilder(), "调用者不是Builder");
-
-        // 计算每个人限额
-        steps[currentStep].building.personalTokenLimited = steps[currentStep].building.openTokenAmount.mul(1).div(100);
 
         // 转账数量不能超过社区可转账总额
         require(
@@ -450,8 +448,8 @@ contract Resonance is Ownable{
         resonanceDataManage.updateBuildingPercent(currentStep);
 
         steps[currentStep].building.openTokenAmount = resonanceDataManage.getBuildingTokenAmount();
-        // TODO:设置共建期数据
-        // emit StartNextStep(currentStep);
+        // 设置本轮个人限额
+        steps[currentStep].building.personalTokenLimited = steps[currentStep].building.openTokenAmount.mul(1).div(100);
     }
 
     /// @notice 提token（参与募资期的用户通过这个方法提走token）
