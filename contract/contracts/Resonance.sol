@@ -251,12 +251,15 @@ contract Resonance is Ownable{
         // 只有builder才能参与共建
         require(isBuilder(), "调用者不是Builder");
 
+        // 计算每个人限额
+        steps[currentStep].building.personalTokenLimited = steps[currentStep].building.openTokenAmount.mul(1).div(100);
+
         // 没有超过当前轮次总额
         require(steps[currentStep].building.raisedToken.add(_tokenAmount) < steps[currentStep].building.openTokenAmount, "当前轮次共建Token已经足够了");
 
         // 转入额度不能超过限额
         require(
-            steps[currentStep].funder[msg.sender].tokenAmount.add(_tokenAmount) <= steps[currentStep].building.openTokenAmount.mul(1).div(100),
+            steps[currentStep].funder[msg.sender].tokenAmount.add(_tokenAmount) <= steps[currentStep].building.personalTokenLimited,
             "共建额度已超过限额，不能继续转入"
         );
 
@@ -576,7 +579,7 @@ contract Resonance is Ownable{
         uint256 _rasiedETHAmount;
 
         // TODO:
-        _fpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp;
+        _fpCountdown = (resonanceDataManage.getOpeningTime() + 2 hours) - block.timestamp;
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
         // emit FundingPeriodInfo(_fpCountdown, _remainingETH, _rasiedETHAmount);

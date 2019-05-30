@@ -67,18 +67,24 @@ contract LuckyReward{
     {
         luckyWinners[_stepIndex] = _luckyWinners;
 
-        // 计算人均奖金
-        luckyRewards[_stepIndex] = _totalLyckyReward.div(luckyWinners[_stepIndex].length);
+        if(_luckyWinners.length > 0){
+            // 计算人均奖金
+            luckyRewards[_stepIndex] = _totalLyckyReward.div(luckyWinners[_stepIndex].length);
 
-        for(uint i = 0; i < luckyWinners[_stepIndex].length; i++){
-            luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]] = luckyRewards[_stepIndex];
+            for(uint i = 0; i < luckyWinners[_stepIndex].length; i++){
+                luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]] = luckyRewards[_stepIndex];
 
-            // 累加奖金余额
-            luckyFunderTotalBalance[luckyWinners[_stepIndex][i]] += luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]];
+                // 累加奖金余额
+                luckyFunderTotalBalance[luckyWinners[_stepIndex][i]] += luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]];
+            }
+
+            currentStepHasFinished[_stepIndex] = true;
+            totalLyckyReward[_stepIndex] = _totalLyckyReward;
+        }else{ // 如果没有人中奖，设置一下状态就行了嗷，不用再循环结算了
+            currentStepHasFinished[_stepIndex] = true;
+            totalLyckyReward[_stepIndex] = _totalLyckyReward;
+            return;
         }
-
-        currentStepHasFinished[_stepIndex] = true;
-        totalLyckyReward[_stepIndex] = _totalLyckyReward;
     }
 
     // 获取address的最后一位

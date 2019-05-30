@@ -128,10 +128,6 @@ contract ResonanceDataManage{
         return initBuildingTokenAmount;
     }
 
-    // function setBuildingTokenAmount(uint256 _tokenAmount) public platform() {
-    //     initBuildingTokenAmount = _tokenAmount;
-    // }
-
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
         // if(block.timestamp >= openingTime && block.timestamp < openingTime + 8 hours) {
