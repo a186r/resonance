@@ -65,6 +65,9 @@ contract LuckyReward{
     )
         internal
     {
+
+        luckyWinners[_stepIndex] = new address[](_luckyWinners.length);
+
         luckyWinners[_stepIndex] = _luckyWinners;
 
         if(_luckyWinners.length > 0){
