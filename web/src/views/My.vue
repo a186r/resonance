@@ -27,12 +27,12 @@
           </div>
           <div class="my-detail-list">
             <div class="my-detail-list-left">
-              <p v-for="i in 4" :key="i">{{detailList[i-1].text}}：{{myDetail[i-1]}}</p>
+              <p v-for="i in 4" :key="i">{{detailList[i-1].text}}：{{myDetail[i+1]}}</p>
             </div>
             <div class="my-detail-list-middle">
             </div>
             <div class="my-detail-list-right">
-              <p v-for="i in 4" :key="i">{{detailList[i+3].text}}：{{myDetail[i+3]}}</p>
+              <p v-for="i in 4" :key="i">{{detailList[i+3].text}}：{{myDetail[i+5]}}</p>
             </div>
           </div>
         </div>
