@@ -535,11 +535,12 @@ contract Resonance is Ownable{
         onlyOwner()
         returns
     (
-            address[] memory,
-            uint256[] memory,
-            uint256[] memory,
-            uint256[] memory,
-            uint256[] memory
+        address[] memory,
+        uint256[] memory,
+        uint256[] memory,
+        uint256[] memory,
+        uint256[] memory,
+        uint256[] memory
     )
     {
         address[] memory funderAddress;
@@ -547,18 +548,29 @@ contract Resonance is Ownable{
         uint256[] memory funderETHAmount;
         uint256[] memory funderInvitees;
         uint256[] memory earnFromAff;
+        uint256[] memory inviteesTotalAmount;
+
 
         funderAddress = steps[_stepIndex].funders;
+
+        funderAddress = new address[](funderAddress.length);
+        funderTokenAmount = new uint256[](funderAddress.length);
+        funderETHAmount = new uint256[](funderAddress.length);
+        funderInvitees = new uint256[](funderAddress.length);
+        earnFromAff = new uint256[](funderAddress.length);
+        inviteesTotalAmount = new uint256[](funderAddress.length);
+
 
         for(uint i = 0 ; i < funderAddress.length; i++){
             funderTokenAmount[i] = steps[_stepIndex].funder[funderAddress[i]].tokenAmount;
             funderETHAmount[i] = steps[_stepIndex].funder[funderAddress[i]].ethAmount;
             funderInvitees[i] = steps[_stepIndex].funder[funderAddress[i]].invitees.length;
             earnFromAff[i] = steps[currentStep].funder[funderAddress[i]].earnFromAff;
+            inviteesTotalAmount[i] = steps[currentStep].funder[funderAddress[i]].inviteesTotalAmount;
         }
 
         // emit StepFunders(funderAddress, funderTokenAmount, funderETHAmount, funderInvitees, earnFromAff);
-        return (funderAddress, funderTokenAmount, funderETHAmount, funderInvitees, earnFromAff);
+        return (funderAddress, funderTokenAmount, funderETHAmount, funderInvitees, earnFromAff, inviteesTotalAmount);
     }
 
     /// @notice 查询当前轮次组建期开放多少token，募资期已经募得的ETH
