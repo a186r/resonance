@@ -312,7 +312,7 @@ contract ResonanceDataManage{
                 buildingPercentOfParty += 1;
                 buildingPercentOfCommunity -= 1;
             }
-            initBuildingTokenAmount = initBuildingTokenAmount * 99 / 100 ** _stepIndex;
+            initBuildingTokenAmount = (initBuildingTokenAmount * 99 / 100) ** _stepIndex;
             setBuildingTokenFromParty(initBuildingTokenAmount);
         }
 

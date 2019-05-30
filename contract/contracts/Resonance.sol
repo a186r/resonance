@@ -459,9 +459,11 @@ contract Resonance is Ownable{
         returns(address, address, uint256)
     {
         require(!steps[currentStep].funder[msg.sender].tokenHasWithdrawn, "用户在当前轮次已经提取token完成");
-        // TODO:计算用户应提token额度
-        uint256 withdrawAmount = steps[currentStep].building.raisedToken.mul(
-            steps[currentStep].funder[msg.sender].ethAmount.div(steps[currentStep].funding.raisedETH)
+        // TODO:计算用户应提token额度，计算上一轮的
+        require(currentStep == 0, "等到下一轮才能提取第一轮的token");
+
+        uint256 withdrawAmount = steps[currentStep-1].building.raisedToken.mul(
+            steps[currentStep-1].funder[msg.sender].ethAmount.div(steps[currentStep-1].funding.raisedETH)
         );
         resonanceDataManage.emptyTokenBalance(msg.sender);
         steps[currentStep].funder[msg.sender].tokenHasWithdrawn = true;
