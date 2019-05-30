@@ -270,27 +270,27 @@ contract Resonance is Ownable{
         );
 
         // 检查授权额度
-        require(abcToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(_tokenAmount),"授权额度不足");
+        require(abcToken.allowance(msg.sender, address(this)) >= _tokenAmount,"授权额度不足");
 
         // 转入合约
-        require(abcToken.transferFrom(msg.sender,address(this), UintUtils.toWei(_tokenAmount)),"转移token到合约失败");
+        require(abcToken.transferFrom(msg.sender,address(this), _tokenAmount),"转移token到合约失败");
 
-        steps[currentStep].funder[msg.sender].tokenAmount += UintUtils.toWei(_tokenAmount);
+        steps[currentStep].funder[msg.sender].tokenAmount += _tokenAmount;
 
         // 累加msg.sender的上级邀请人总花费
-        steps[currentStep].funder[steps[currentStep].funder[msg.sender].promoter].inviteesTotalAmount += UintUtils.toWei(_tokenAmount);
+        steps[currentStep].funder[steps[currentStep].funder[msg.sender].promoter].inviteesTotalAmount += _tokenAmount;
 
         // 从当前轮次的Token限额中减去用户转入的Token数量
-        steps[currentStep].building.openTokenAmount -= UintUtils.toWei(_tokenAmount);
+        steps[currentStep].building.openTokenAmount -= _tokenAmount;
 
         // 从资金池总额度中减去用户转入的Token数量
-        resonanceDataManage.setFundsPool(resonanceDataManage.getFundsPool() - UintUtils.toWei(_tokenAmount));
+        resonanceDataManage.setFundsPool(resonanceDataManage.getFundsPool() - _tokenAmount);
 
         // 累加用户参与共建的总额度
-        resonancesRasiedToken[msg.sender] += UintUtils.toWei(_tokenAmount);
+        resonancesRasiedToken[msg.sender] += _tokenAmount;
 
         // 累加token数量
-        steps[currentStep].building.raisedToken += UintUtils.toWei(_tokenAmount);
+        steps[currentStep].building.raisedToken += _tokenAmount;
     }
 
     /// @notice 共建期基金会调用此方法转入Token
