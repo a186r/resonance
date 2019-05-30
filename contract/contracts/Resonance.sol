@@ -319,6 +319,13 @@ contract Resonance is Ownable{
         require(!resonanceDataManage.getCrowdsaleClosed(), "共振已经结束");
 
         uint amount = msg.value;
+
+        // 转入ETH不能超出当前轮次募资目标
+        require(
+            msg.value.add(steps[currentStep].funding.raisedETH) <= steps[currentStep].funding.raiseTarget,
+            "当前轮次已募集到足够的ETH"
+        );
+
         steps[currentStep].funder[msg.sender].ethAmount = amount;
         steps[currentStep].funder[msg.sender].isFunder = true;
         steps[currentStep].funding.raisedETH += amount;
