@@ -3,40 +3,40 @@
     <el-row :gutter="40">
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
-          <p>{{buildingText}}</p>
+          <p>{{ $t('index.buildingPeriodText') }}</p>
           <countdown :time="offerData.bpCountdown">
-            <template slot-scope="props">结束时间倒计时：{{ props.hours }} 时 : {{ props.minutes }} 分 : {{ props.seconds }} 秒</template>
+            <template slot-scope="props">{{ $t('offer.countDown') }}：{{ props.hours }} {{ $t('offer.hour') }} : {{ props.minutes }} {{ $t('offer.minute') }} : {{ props.seconds }} {{ $t('offer.second') }}</template>
           </countdown>
-          <p>可投入剩余CAD数量：{{offerData.remainingToken}}</p>
-          <p>当前最大投入：{{offerData.totalTokenAmount}}</p>
+          <p>{{ $t('offer.remainCAD') }}：{{offerData.remainingToken}}</p>
+          <p>{{ $t('offer.totalRaisedCAD') }}：{{offerData.totalTokenAmount}}</p>
           <div class="deposit-area" v-if="isBuilder">
             <div class="deposit-area-input">
-              <input class="custom-input" v-model="depostCADAmount" placeholder="CAD投入数量" />
+              <input class="custom-input" v-model="depostCADAmount" :placeholder="'CAD ' + $t('offer.depositAmount')" />
             </div>
-            <button class="custom-button" :disabled="!isBuilding" @click="approve">授权合约</button>
-            <button class="custom-button" @click="depositCAD">投入CAD</button>
+            <button class="custom-button" :disabled="!isBuilding" @click="approve">{{ $t('offer.approveContract') }}</button>
+            <button class="custom-button" @click="depositCAD">{{ $t('offer.depositCAD') }}</button>
           </div>
           <div class="deposit-area" v-else>
             <div class="deposit-area-input">
-              <input class="custom-input" :disabled="!isBuilding" v-model="address" placeholder="推荐者地址" />
+              <input class="custom-input" :disabled="!isBuilding" v-model="address" :placeholder="$t('offer.referrerAddress')" />
             </div>
-            <button class="custom-button" :disabled="!isBuilding" @click="approveFission">授权合约</button>
-            <button class="custom-button" :disabled="!isBuilding" @click="toBeFissionPerson">成为裂变者</button>
+            <button class="custom-button" :disabled="!isBuilding" @click="approveFission">{{ $t('offer.approveContract') }}</button>
+            <button class="custom-button" :disabled="!isBuilding" @click="toBeFissionPerson">{{ $t('offer.toBeFission') }}</button>
           </div>
         </div>
       </el-col>
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
-          <p>募资期</p>
+          <p>{{ $t('index.fundingPeriodText') }}</p>
           <countdown :time="offerData.fpCountdown">
-            <template slot-scope="props">结束时间倒计时：{{ props.hours }} 时 : {{ props.minutes }} 分 : {{ props.seconds }} 秒</template>
+            <template slot-scope="props">{{ $t('offer.countDown') }}：{{ props.hours }} {{ $t('offer.hour') }} : {{ props.minutes }} {{ $t('offer.minute') }} : {{ props.seconds }} {{ $t('offer.second') }}</template>
           </countdown>
-          <p>可投入剩余总额：{{offerData.remainingETH}}</p>
+          <p>{{ $t('offer.remainETH') }}：{{offerData.remainingETH}}</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
-              <input class="custom-input" v-model="depostETHAmount" placeholder="ETH投入数量" />
+              <input class="custom-input" v-model="depostETHAmount" :placeholder="'ETH ' + $t('offer.depositAmount')" />
             </div>
-            <button class="custom-button" @click="depositETH">投入ETH</button>
+            <button class="custom-button" @click="depositETH">{{ $t('offer.depositETH') }}</button>
           </div>
         </div>
       </el-col>
@@ -48,7 +48,7 @@
             <div :class="rewardList[i].class"></div>
             <p>{{item.text}}</p>
           </div>
-          <p>当前共奖励 <span class="value-span">{{rewardListData[i-1] && rewardListData[i-1][0]}}</span> ETH</p>
+          <p>{{ $t('offer.currentTotalReward') }} <span class="value-span">{{rewardListData[i-1] && rewardListData[i-1][0]}}</span> ETH</p>
           <div class="reward-detail" v-if="rewardListData[i-1] && rewardListData[i-1].length">
             <div class="reward-detal-item" v-for="j in rewardListData[i-1].length > 5 ? 5 : rewardListData[i-1].length" :key="j">
               <span class="rank">{{j > 3 ? j : ''}}  </span>
@@ -58,7 +58,7 @@
             </div>
           </div>
           <div v-else>
-            <span>暂无数据</span>
+            <span>{{ $t('offer.noData') }}</span>
           </div>
         </div>
       </el-col>
@@ -139,9 +139,11 @@ export default {
       store.dispatch('toBeFissionPerson', this.address || '0x3223AEB8404C7525FcAA6C512f91e287AE9FfE7B')
     },
     async initDataContract() {
+      const address = ResonanceDataManageJson["networks"][web3.currentProvider.connection.networkVersion].address
+      console.log('data contract address:', address)
       const contract = await new web3.eth.Contract(
         ResonanceDataManageJson.abi,
-        ResonanceDataManageJson["networks"][web3.currentProvider.connection.networkVersion].address
+        address
       )
       return contract
     },

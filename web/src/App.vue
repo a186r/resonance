@@ -63,16 +63,20 @@ export default {
       localStorage.setItem('currentLocale', command)
     },
     async initTokenContract() {
+      const address = TokenJson["networks"][web3.currentProvider.connection.networkVersion].address
+      console.log('token contract address:', address)
       const contract = await new web3.eth.Contract(
         TokenJson.abi,
-        TokenJson["networks"][web3.currentProvider.connection.networkVersion].address
+        address
       )
       return contract
     },
     async initContract() {
+      const address = ResonanceJson["networks"][web3.currentProvider.connection.networkVersion].address
+      console.log('contract address:', address)
       const contract = await new web3.eth.Contract(
         ResonanceJson.abi,
-        ResonanceJson["networks"][web3.currentProvider.connection.networkVersion].address
+        address
       )
       return contract
     },
