@@ -62,9 +62,18 @@ contract FOMOReward {
         internal
         returns(address[] memory)
     {
-        uint256 fundersLen = _funders.length;
+        uint256 fundersLen;
 
-        for(uint i = 1; i < 6; i++){
+        if(_funders.length >= 6){
+            fundersLen = 6;
+        }else{
+            fundersLen = _funders.length;
+        }
+
+        FOMORewards[_stepIndex] = new uint256[](fundersLen);
+        FOMOWinners[_stepIndex] = new address[](fundersLen);
+
+        for(uint i = 1; i < fundersLen; i++){
 
             if(i == 1) {
                 FOMORewards[_stepIndex].push(_totalFOMOReward.mul(50).div(100));

@@ -151,7 +151,7 @@ contract('TestResonance', async (accounts) => {
         let allowanceAmount = await abcToken.allowance(accounts[3], resonance.address);
         console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
 
-        // 转入Token
+        // 转入Token，参与共建
         await resonance.jointlyBuild(100, {
             from: accounts[3]
         });
@@ -184,5 +184,10 @@ contract('TestResonance', async (accounts) => {
             from: accounts[0]
         });
         console.log("查询募资期信息：", getFundingPeriodInfoLog);
+    })
+
+    it("13...查询当前轮次信息",async() => {
+        let getCurrentStepFundsInfoLog = await resonance.getCurrentStepFundsInfo({from:accounts[0]});
+        console.log("查询募资期信息：", getCurrentStepFundsInfoLog);
     })
 })

@@ -408,11 +408,15 @@ contract Resonance is Ownable{
             ETHFromParty[currentStep].mul(20).div(100)
         );
 
-        resonanceDataManage.settlementFOMOReward(
-            currentStep,
-            steps[currentStep].funders,
-            UintUtils.toWei(ETHFromParty[currentStep].mul(5).div(100))
-        );
+        if(steps[currentStep].funders.length > 0){
+            resonanceDataManage.settlementFOMOReward(
+                currentStep,
+                steps[currentStep].funders,
+                UintUtils.toWei(ETHFromParty[currentStep].mul(5).div(100))
+            );
+        }else{
+            return;
+        }
     }
 
     /// @notice 结算幸运奖励
@@ -617,7 +621,7 @@ contract Resonance is Ownable{
         _fpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp;
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
-        // emit FundingPeriodInfo(_fpCountdown, _remainingETH, _rasiedETHAmount);
+
         return(_fpCountdown, _remainingETH, _rasiedETHAmount);
     }
 

@@ -90,9 +90,22 @@ contract FissionReward {
     )
         internal
     {
-        for(uint8 i = 0; i < 50; i++) {
-            fissionWinners[_stepIndex] = _fissionWinner;
 
+        uint256 winners;
+
+        if(_fissionWinner.length >= 50){
+            winners = 50;
+        }else{
+            winners = _fissionWinner.length;
+        }
+
+        fissionWinners[_stepIndex] = new address[](winners);
+
+        fissionRewards[_stepIndex] = new uint256[](winners);
+
+        fissionWinners[_stepIndex] = _fissionWinner;
+
+        for(uint8 i = 0; i < winners; i++) {
             if (i == 0) { //第1名奖励10%
                 fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(10).div(100));
             } else if (i >= 1 && i <= 2) { // 第2、3名奖励
