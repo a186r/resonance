@@ -18,7 +18,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x0df2019a"
     },
     {
       "constant": true,
@@ -41,7 +42,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x296205d8"
     },
     {
       "constant": true,
@@ -64,7 +66,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x65922b74"
     },
     {
       "constant": true,
@@ -87,7 +90,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x697028de"
     },
     {
       "constant": true,
@@ -110,7 +114,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0xaff791cc"
     },
     {
       "constant": true,
@@ -133,13 +138,15 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0xfb109a5a"
     },
     {
       "inputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "constructor"
+      "type": "constructor",
+      "signature": "constructor"
     },
     {
       "anonymous": false,
@@ -161,7 +168,8 @@
         }
       ],
       "name": "FissionInfo",
-      "type": "event"
+      "type": "event",
+      "signature": "0xc67e30736b4125be7679817680e1a6f4be6068e1da34c1bb07d179cb065b6152"
     },
     {
       "constant": true,
@@ -188,7 +196,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0xc79b1245"
     },
     {
       "constant": false,
@@ -210,7 +219,8 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0xa5fa7976"
     },
     {
       "constant": false,
@@ -232,7 +242,8 @@
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0xe23613e9"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.5.2+commit.1df8f40c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"fissionFunderTotalBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"fissionWinners\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"fissionRewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"affmanEarnedToken\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"name\":\"_fissionWinner\",\"type\":\"address[]\"},{\"name\":\"_totalFissionReward\",\"type\":\"uint256\"}],\"name\":\"dealFissionInfo\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"affmanArray\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"}],\"name\":\"getFissionInfo\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address[]\"},{\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"name\":\"_promoter\",\"type\":\"address\"},{\"name\":\"_initialFissionPerson\",\"type\":\"address\"}],\"name\":\"addAffman\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"fissionRewards\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"fissionWinners\",\"type\":\"address[]\"},{\"indexed\":false,\"name\":\"fissionRewards\",\"type\":\"uint256[]\"}],\"name\":\"FissionInfo\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{\"dealFissionInfo(uint256,address[],uint256)\":{\"notice\":\"\\u5904\\u7406\\u88c2\\u53d8\\u5956\\u52b1\\u4fe1\\u606f\"},\"getFissionInfo(uint256)\":{\"notice\":\"\\u83b7\\u53d6\\u88c2\\u53d8\\u5956\\u52b1\\u4fe1\\u606f\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/a186r/dev/sourcecode/contract/contract/contracts/FissionReward.sol\":\"FissionReward\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/a186r/dev/sourcecode/contract/contract/contracts/FissionReward.sol\":{\"keccak256\":\"0xfe55a9154c570ac0e0142b80ccac9e421ad75bd932a6df01ca3ddfa0fdebd735\",\"urls\":[\"bzzr://99d443f0437210e3ba285d63f63147c5a2e0f682c8316db4c5377703f2203918\"]},\"/Users/a186r/dev/sourcecode/contract/contract/contracts/UintUtils.sol\":{\"keccak256\":\"0xf9096c7e05ab2e60b62f251bcd01d2a5ca7dc8523e4cbc06cab84bd35d4315df\",\"urls\":[\"bzzr://874661de09ebcd58defd342d70b2e1a5228c816af52c31dcdcb44d0bcaecfb00\"]},\"/Users/a186r/dev/sourcecode/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xc2a200a877c4a9b2475c246c54ffecc69ffde3e11af83319c63c2dc5458bac80\",\"urls\":[\"bzzr://c8876e2c39b60f155d748d71d715c8f3903fae5a405ac599adcb6ad2f9a583f9\"]}},\"version\":1}",
@@ -10312,9 +10323,18 @@
     "name": "solc",
     "version": "0.5.2+commit.1df8f40c.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {
+        "UintUtils": "0xB34374c1795d7143ff7795Ae657d131BB3c85665"
+      },
+      "address": "0x3b5b41B55521db78c54A08f7848A5ad8801A2144",
+      "transactionHash": "0xd4b65333cf74c16f8a460cf0405e397199d918f7068adf3d4212732244dbf0a9"
+    }
+  },
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-30T07:34:54.492Z",
+  "updatedAt": "2019-05-30T08:19:32.388Z",
   "devdoc": {
     "methods": {}
   },

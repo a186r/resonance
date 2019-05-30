@@ -437,7 +437,7 @@ contract Resonance is Ownable{
     {
         require(!steps[currentStep].funder[msg.sender].tokenHasWithdrawn, "用户在当前轮次已经提取token完成");
         uint256 withdrawAmount = resonanceDataManage.withdrawTokenAmount(msg.sender);
-        resonanceDataManage.emptyTokenBalance();
+        resonanceDataManage.emptyTokenBalance(msg.sender);
         steps[currentStep].funder[msg.sender].tokenHasWithdrawn = true;
         abcToken.transferFrom(address(this), msg.sender, withdrawAmount);
         // emit WithdrawAllToken(address(this), msg.sender, withdrawAmount);
@@ -454,7 +454,7 @@ contract Resonance is Ownable{
 
         require(!steps[currentStep].funder[msg.sender].ETHHasWithdrawn, "用户在当前轮次已经提取ETH完成");
         uint256 withdrawAmount = resonanceDataManage.withdrawETHAmount(msg.sender);
-        resonanceDataManage.emptyETHBalance();
+        resonanceDataManage.emptyETHBalance(msg.sender);
         steps[currentStep].funder[msg.sender].ETHHasWithdrawn = true;
 
         dest.transfer(withdrawAmount);

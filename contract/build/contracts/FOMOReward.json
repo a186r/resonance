@@ -22,7 +22,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x509b49e9"
     },
     {
       "constant": true,
@@ -45,7 +46,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x5308cf97"
     },
     {
       "constant": true,
@@ -68,7 +70,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x91a3c808"
     },
     {
       "constant": true,
@@ -87,13 +90,15 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0xc7535567"
     },
     {
       "inputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "constructor"
+      "type": "constructor",
+      "signature": "constructor"
     },
     {
       "anonymous": false,
@@ -110,7 +115,8 @@
         }
       ],
       "name": "FOMOWinnerInfo",
-      "type": "event"
+      "type": "event",
+      "signature": "0x7ad3c846b4e57a650cd1a48a0a11bc6a0db12192ad16e89f2366dfdb8cd955ca"
     },
     {
       "constant": true,
@@ -137,7 +143,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0x2889cc07"
     },
     {
       "constant": false,
@@ -164,7 +171,8 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function"
+      "type": "function",
+      "signature": "0xc21a7743"
     },
     {
       "constant": true,
@@ -183,7 +191,8 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "signature": "0xd568d717"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.5.2+commit.1df8f40c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"}],\"name\":\"getFOMOWinnerInfo\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address[]\"},{\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"FOMORewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"FOMOWinners\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"FOMORewards\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"},{\"name\":\"_funders\",\"type\":\"address[]\"},{\"name\":\"_totalFOMOReward\",\"type\":\"uint256\"}],\"name\":\"dealFOMOWinner\",\"outputs\":[{\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"FOMOFunderTotalBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_stepIndex\",\"type\":\"uint256\"}],\"name\":\"getTotalRewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"FOMOWinners\",\"type\":\"address[]\"},{\"indexed\":false,\"name\":\"FOMORewards\",\"type\":\"uint256[]\"}],\"name\":\"FOMOWinnerInfo\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{\"getFOMOWinnerInfo(uint256)\":{\"notice\":\"\\u83b7\\u53d6FOMO\\u83b7\\u80dc\\u8005\\u5217\\u8868\\u548c\\u5956\\u91d1\\u5217\\u8868\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/a186r/dev/sourcecode/contract/contract/contracts/FOMOReward.sol\":\"FOMOReward\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/a186r/dev/sourcecode/contract/contract/contracts/FOMOReward.sol\":{\"keccak256\":\"0xea99f9c1a25ac60f5946a41197b72d75542fb7856bc995c447ed662de6cdba94\",\"urls\":[\"bzzr://3024f967344351ed6029380c4481b81adab8db089128c32158d86c3b8936a239\"]},\"/Users/a186r/dev/sourcecode/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xc2a200a877c4a9b2475c246c54ffecc69ffde3e11af83319c63c2dc5458bac80\",\"urls\":[\"bzzr://c8876e2c39b60f155d748d71d715c8f3903fae5a405ac599adcb6ad2f9a583f9\"]}},\"version\":1}",
@@ -7305,9 +7314,16 @@
     "name": "solc",
     "version": "0.5.2+commit.1df8f40c.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x84413fb1e31743141F5027B14401721F6D5f697C",
+      "transactionHash": "0xa448dc8e7cb19cf47f4dcb734329ff95a91eba95e315bb66c1e559abbf540da7"
+    }
+  },
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-30T07:34:54.459Z",
+  "updatedAt": "2019-05-30T08:19:32.363Z",
   "devdoc": {
     "methods": {}
   },

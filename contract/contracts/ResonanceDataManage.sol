@@ -245,12 +245,12 @@ contract ResonanceDataManage{
         return ETHBalance[_addr];
     }
 
-    function emptyTokenBalance() public {
-        tokenBalance[tx.origin] = 0;
+    function emptyTokenBalance(address _addr) public {
+        tokenBalance[_addr] = 0;
     }
 
-    function emptyETHBalance() public {
-        ETHBalance[tx.origin] = 0;
+    function emptyETHBalance(address _addr) public {
+        ETHBalance[_addr] = 0;
     }
 
     /// @notice 查询当前轮次的裂变奖励获奖详情

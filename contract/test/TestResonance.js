@@ -86,7 +86,9 @@ contract('TestResonance', async (accounts) => {
 
         let setAccessForResonance = await resonanceDataManage.allowAccess(resonance.address, {
             from: accounts[0]
-        })
+        });
+
+        console.log("设置合约访问权:", setAccessForResonance);
 
         let initParamForFirstStepLog = await resonance.initParamForFirstStep(accounts[0], accounts[8], accounts[7]);
 
