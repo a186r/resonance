@@ -328,7 +328,7 @@ contract Resonance is Ownable{
             "当前轮次已募集到足够的ETH"
         );
 
-        steps[currentStep].funder[msg.sender].ethAmount = amount;
+        steps[currentStep].funder[msg.sender].ethAmount += amount;
         steps[currentStep].funder[msg.sender].isFunder = true;
         steps[currentStep].funding.raisedETH += amount;
 
@@ -351,8 +351,8 @@ contract Resonance is Ownable{
     {
         require(beneficiary != address(0), "基金会收款地址尚未设置");
         // 计算奖励金
-        ETHFromParty[currentStep] =
-            steps[currentStep].funding.raisedETH.mul(resonanceDataManage.getBuildingPercentOfParty().div(100)).mul(40).div(100);
+        ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH.mul(
+            resonanceDataManage.getBuildingPercentOfParty().div(100)).mul(40).div(100);
 
         totalETHFromParty += ETHFromParty[currentStep];
         // 结算裂变奖励、FOMO奖励
@@ -364,7 +364,6 @@ contract Resonance is Ownable{
             beneficiary,
             resonanceDataManage.getETHBalance(beneficiary) + UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(60).div(100))
         );
-        // emit SettlementStep(currentStep);
 
         if(resonanceDataManage.getCrowdsaleClosed()) {
             return true;
@@ -460,7 +459,10 @@ contract Resonance is Ownable{
         returns(address, address, uint256)
     {
         require(!steps[currentStep].funder[msg.sender].tokenHasWithdrawn, "用户在当前轮次已经提取token完成");
-        uint256 withdrawAmount = resonanceDataManage.withdrawTokenAmount(msg.sender);
+        // TODO:计算用户应提token额度
+        uint256 withdrawAmount = steps[currentStep].building.raisedToken.mul(
+            steps[currentStep].funder[msg.sender].ethAmount.div(steps[currentStep].funding.raisedETH)
+        );
         resonanceDataManage.emptyTokenBalance(msg.sender);
         steps[currentStep].funder[msg.sender].tokenHasWithdrawn = true;
         abcToken.transferFrom(address(this), msg.sender, withdrawAmount);
@@ -595,7 +597,12 @@ contract Resonance is Ownable{
         uint256 _totalTokenAmount;
 
         // TODO:
-        _bpCountdown = (resonanceDataManage.getOpeningTime() + 30 minutes) - block.timestamp;
+        // 共建期结束，返回0
+        if((resonanceDataManage.getOpeningTime() + 30 minutes) - block.timestamp <= 0){
+            _bpCountdown = 0;
+        }else{
+            _bpCountdown = (resonanceDataManage.getOpeningTime() + 30 minutes) - block.timestamp;
+        }
         _remainingToken = steps[currentStep].building.openTokenAmount.sub(steps[currentStep].building.raisedToken);
         _personalTokenLimited = steps[currentStep].building.personalTokenLimited;
         _totalTokenAmount = steps[currentStep].building.raisedTokenAmount;
@@ -614,7 +621,12 @@ contract Resonance is Ownable{
         uint256 _rasiedETHAmount;
 
         // TODO:
-        _fpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp;
+        // 募资期结束，返回0
+        if((resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp <= 0){
+            _fpCountdown = 0;
+        }else{
+            _fpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp;
+        }
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
 
