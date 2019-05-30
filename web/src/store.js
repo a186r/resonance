@@ -29,9 +29,12 @@ export default new Vuex.Store({
       currentStepRaisedETH: 100.1234,
       stepIndex: 0
     },
-    rewardList: [
-      [13, ['0x7525c82e0cf1832e79ff3aff259c5fe853cf95f4'], [1.3]]
-    ]
+    rewardList: {
+      0: [],
+      1: [],
+      2: [],
+      3: []
+    }
   },
   mutations: {
     GET_FUNDER_INFO: (state, data) => {
@@ -55,24 +58,15 @@ export default new Vuex.Store({
     async getFunderInfo({ commit }, contract) {
       contract.methods.getFunderInfo().call({}, (err, result) => {
         console.log(err, 'get funder info', result, contract.address)
+        commit('GET_FUNDER_INFO', result)
       })
-      commit('GET_FUNDER_INFO', [
-        30,
-        3,
-        12,
-        45,
-        123,
-        12345,
-        23,
-        1
-      ])
     },
     async getBuildingPeriodInfo({ commit }, contract) {
       contract.methods.getBuildingPerioInfo().call()
         .then(result => {
           console.log('get building info', result)
           const data = {}
-          // data.bpCountdown = result[0].toNumber()
+          data.bpCountdown = result[0].toNumber() * 1000
           data.remainingToken = web3.utils.fromWei(result[1].toString())
           data.eachAddressLimit = web3.utils.fromWei(result[2].toString())
           data.totalTokenAmount = web3.utils.fromWei(result[3].toString())
@@ -87,7 +81,7 @@ export default new Vuex.Store({
         .then(result => {
           console.log('get funding info', result)
           const data = {}
-          data.fpCountdown = result[0].toNumber()
+          data.fpCountdown = result[0].toNumber() * 1000
           data.remainingETH = web3.utils.fromWei(result[1].toString())
           data.totalETHAmount = web3.utils.fromWei(result[2].toString())
           commit('GET_OFFER_INFO', data)
@@ -143,7 +137,7 @@ export default new Vuex.Store({
     },
     async approve({ commit }, amount) {
       const self = this
-      window.tokenContract.methods.approve(window.contract.address, web3.utils.toWei(amount)).send({
+      window.tokenContract.methods.approve(window.contract.address, web3.utils.toWei(String(amount))).send({
         from: self.state.account
       }).then(res => {
         console.log(res)
@@ -204,24 +198,32 @@ export default new Vuex.Store({
         from: this.state.account,
       }).then(res => {
         res.index = 0
+        res[0] = web3.utils.fromWei(res[0].toString())
+        res[2] = res[2].map(item => web3.utils.fromWei(item.toString()))
         commit('GET_REWARD_LIST', res)
       })
       contract.methods.getFOMORewardIofo(stepIndex).call({
         from: this.state.account,
       }).then(res => {
         res.index = 1
+        res[0] = web3.utils.fromWei(res[0].toString())
+        res[2] = res[2].map(item => web3.utils.fromWei(item.toString()))
         commit('GET_REWARD_LIST', res)
       })
       contract.methods.getLuckyRewardInfo(stepIndex).call({
         from: this.state.account,
       }).then(res => {
         res.index = 2
+        res[0] = web3.utils.fromWei(res[0].toString())
+        res[2] = res[1].map(item => web3.utils.fromWei(res[1].toString()))
         commit('GET_REWARD_LIST', res)
       })
       contract.methods.getFaithRewardInfo().call({
         from: this.state.account,
       }).then(res => {
         res.index = 3
+        res[0] = web3.utils.fromWei(res[0].toString())
+        res[2] = res[2].map(item => web3.utils.fromWei(item.toString()))
         commit('GET_REWARD_LIST', res)
       })
     },
