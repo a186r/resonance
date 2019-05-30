@@ -18,8 +18,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x4a681787"
+      "type": "function"
     },
     {
       "constant": true,
@@ -33,8 +32,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0x856924e9"
+      "type": "function"
     },
     {
       "constant": true,
@@ -53,15 +51,13 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xf3d8fcd4"
+      "type": "function"
     },
     {
       "inputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "constructor",
-      "signature": "constructor"
+      "type": "constructor"
     },
     {
       "anonymous": false,
@@ -78,8 +74,7 @@
         }
       ],
       "name": "FaithWinnerInfo",
-      "type": "event",
-      "signature": "0x02685de7aa64f5e622d501021b0c9ef2cbf2e85cbb558fdbbcf909702fe59207"
+      "type": "event"
     },
     {
       "constant": true,
@@ -101,8 +96,7 @@
       ],
       "payable": false,
       "stateMutability": "view",
-      "type": "function",
-      "signature": "0xc62461cc"
+      "type": "function"
     },
     {
       "constant": false,
@@ -125,8 +119,7 @@
       ],
       "payable": false,
       "stateMutability": "nonpayable",
-      "type": "function",
-      "signature": "0x1e238d10"
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.5.2+commit.1df8f40c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"name\":\"_faithWinners\",\"type\":\"address[]\"},{\"name\":\"_totalFaithReward\",\"type\":\"uint256\"}],\"name\":\"dealFaithWinner\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"faithRewardAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"faithRewardFinished\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getFaithWinnerInfo\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"address[]\"},{\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"faithWinners\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"_faithWinners\",\"type\":\"address[]\"},{\"indexed\":false,\"name\":\"_faithRewardAmount\",\"type\":\"uint256[]\"}],\"name\":\"FaithWinnerInfo\",\"type\":\"event\"}],\"devdoc\":{\"methods\":{\"getFaithWinnerInfo()\":{\"return\":\"\\u8f6e\\u6b21\\u3001\\u83b7\\u80dc\\u8005\\u5217\\u8868\\u3001\\u83b7\\u80dc\\u8005\\u5956\\u91d1\\u5217\\u8868\"}}},\"userdoc\":{\"methods\":{\"getFaithWinnerInfo()\":{\"notice\":\"\\u83b7\\u53d6\\u67d0\\u8f6e\\u6b21\\u4fe1\\u4ef0\\u5956\\u52b1\\u4fe1\\u606f\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/a186r/dev/sourcecode/contract/contract/contracts/FaithReward.sol\":\"FaithReward\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/a186r/dev/sourcecode/contract/contract/contracts/FaithReward.sol\":{\"keccak256\":\"0xb1009c62e68480d5675c13a1cfe075aaf7589a2a26868edfbebb1548c8293cc2\",\"urls\":[\"bzzr://311b9863e9aa3ece749ee665cb555ab01c4c1be893077b26a9803c3ccf2cf7f0\"]},\"/Users/a186r/dev/sourcecode/contract/contract/node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol\":{\"keccak256\":\"0xc2a200a877c4a9b2475c246c54ffecc69ffde3e11af83319c63c2dc5458bac80\",\"urls\":[\"bzzr://c8876e2c39b60f155d748d71d715c8f3903fae5a405ac599adcb6ad2f9a583f9\"]}},\"version\":1}",
@@ -4892,16 +4885,9 @@
     "name": "solc",
     "version": "0.5.2+commit.1df8f40c.Emscripten.clang"
   },
-  "networks": {
-    "5777": {
-      "events": {},
-      "links": {},
-      "address": "0xA434ccb37a078204804Dfb2AAf62B314607342D4",
-      "transactionHash": "0xe80689031161bf243ef1a71f838ab54d936d7a07fe803c483f4db60b07e23dfd"
-    }
-  },
+  "networks": {},
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-30T06:55:05.942Z",
+  "updatedAt": "2019-05-30T07:34:54.463Z",
   "devdoc": {
     "methods": {
       "getFaithWinnerInfo()": {
