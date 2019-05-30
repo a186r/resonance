@@ -275,10 +275,10 @@ contract Resonance is Ownable{
         resonanceDataManage.setFundsPool(resonanceDataManage.getFundsPool() - UintUtils.toWei(_tokenAmount));
 
         // 累加用户参与共建的总额度
-        resonancesRasiedToken[msg.sender] += _tokenAmount;
+        resonancesRasiedToken[msg.sender] += UintUtils.toWei(_tokenAmount);
 
         // 累加token数量
-        steps[currentStep].building.raisedToken += _tokenAmount;
+        steps[currentStep].building.raisedToken += UintUtils.toWei(_tokenAmount);
     }
 
     /// @notice 共建期基金会调用此方法转入Token
