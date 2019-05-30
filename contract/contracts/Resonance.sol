@@ -251,12 +251,22 @@ contract Resonance is Ownable{
         // 只有builder才能参与共建
         require(isBuilder(), "调用者不是Builder");
 
-        // 没有超过当前轮次总额
-        require(steps[currentStep].building.raisedToken.add(_tokenAmount) < steps[currentStep].building.openTokenAmount, "当前轮次共建Token已经足够了");
+        // 计算每个人限额
+        steps[currentStep].building.personalTokenLimited = steps[currentStep].building.openTokenAmount.mul(1).div(100);
 
-        // 转入额度不能超过限额
+        // 转账数量不能超过社区可转账总额
         require(
-            steps[currentStep].funder[msg.sender].tokenAmount.add(_tokenAmount) <= steps[currentStep].building.openTokenAmount.mul(1).div(100),
+            steps[currentStep].building.raisedToken.add(_tokenAmount) <=
+            steps[currentStep].building.openTokenAmount.sub(resonanceDataManage.getBuildingTokenFromParty()),
+            "转账数量不能超过社区可转账总额"
+        );
+
+        // 转账额度不能超过当前轮次总额
+        require(steps[currentStep].building.raisedToken.add(_tokenAmount) <= steps[currentStep].building.openTokenAmount, "当前轮次共建Token已经足够了");
+
+        // 转入额度不能超过个人限额
+        require(
+            steps[currentStep].funder[msg.sender].tokenAmount.add(_tokenAmount) <= steps[currentStep].building.personalTokenLimited,
             "共建额度已超过限额，不能继续转入"
         );
 
@@ -309,6 +319,13 @@ contract Resonance is Ownable{
         require(!resonanceDataManage.getCrowdsaleClosed(), "共振已经结束");
 
         uint amount = msg.value;
+
+        // 转入ETH不能超出当前轮次募资目标
+        require(
+            msg.value.add(steps[currentStep].funding.raisedETH) <= steps[currentStep].funding.raiseTarget,
+            "当前轮次已募集到足够的ETH"
+        );
+
         steps[currentStep].funder[msg.sender].ethAmount = amount;
         steps[currentStep].funder[msg.sender].isFunder = true;
         steps[currentStep].funding.raisedETH += amount;
@@ -332,6 +349,7 @@ contract Resonance is Ownable{
         require(beneficiary != address(0), "基金会收款地址尚未设置");
         // 计算奖励金
         ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH.mul(resonanceDataManage.getBuildingPercentOfParty()).mul(40).div(100);
+
         totalETHFromParty += ETHFromParty[currentStep];
         // 结算裂变奖励、FOMO奖励
         _settlementReward(_fissionWinnerList);
@@ -576,7 +594,7 @@ contract Resonance is Ownable{
         uint256 _rasiedETHAmount;
 
         // TODO:
-        _fpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp;
+        _fpCountdown = (resonanceDataManage.getOpeningTime() + 2 hours) - block.timestamp;
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
         // emit FundingPeriodInfo(_fpCountdown, _remainingETH, _rasiedETHAmount);

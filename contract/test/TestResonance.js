@@ -171,4 +171,18 @@ contract('TestResonance', async (accounts) => {
         });
         console.log(funderInfo);
     })
+
+    it("11...查询组建期信息", async () => {
+        let getBuildingPerioInfoLog = await resonance.getBuildingPerioInfo({
+            from: accounts[0]
+        });
+        console.log("查询组建期信息：", getBuildingPerioInfoLog);
+    })
+
+    it("12...查询募资期信息", async () => {
+        let getFundingPeriodInfoLog = await resonance.getFundingPeriodInfo({
+            from: accounts[0]
+        });
+        console.log("查询募资期信息：", getFundingPeriodInfoLog);
+    })
 })
