@@ -342,6 +342,7 @@ contract Resonance is Ownable{
         require(beneficiary != address(0), "基金会收款地址尚未设置");
         // 计算奖励金
         ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH.mul(resonanceDataManage.getBuildingPercentOfParty()).mul(40).div(100);
+
         totalETHFromParty += ETHFromParty[currentStep];
         // 结算裂变奖励、FOMO奖励
         _settlementReward(_fissionWinnerList);
