@@ -190,4 +190,9 @@ contract('TestResonance', async (accounts) => {
         let getCurrentStepFundsInfoLog = await resonance.getCurrentStepFundsInfo({from:accounts[0]});
         console.log("查询募资期信息：", getCurrentStepFundsInfoLog);
     })
+
+    it("14...查询轮次funders信息",async() => {
+        let getStepFundersLog = await resonance.getStepFunders(0, {from:accounts[0]});
+        console.log("查询轮次funders信息:", getStepFundersLog);
+    })
 })

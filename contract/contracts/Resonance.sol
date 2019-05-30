@@ -351,7 +351,8 @@ contract Resonance is Ownable{
     {
         require(beneficiary != address(0), "基金会收款地址尚未设置");
         // 计算奖励金
-        ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH.mul(resonanceDataManage.getBuildingPercentOfParty()).mul(40).div(100);
+        ETHFromParty[currentStep] =
+            steps[currentStep].funding.raisedETH.mul(resonanceDataManage.getBuildingPercentOfParty().div(100)).mul(40).div(100);
 
         totalETHFromParty += ETHFromParty[currentStep];
         // 结算裂变奖励、FOMO奖励
@@ -552,16 +553,14 @@ contract Resonance is Ownable{
         uint256[] memory earnFromAff;
         uint256[] memory inviteesTotalAmount;
 
-
-        funderAddress = steps[_stepIndex].funders;
-
-        funderAddress = new address[](funderAddress.length);
+        funderAddress = new address[](steps[_stepIndex].funders.length);
         funderTokenAmount = new uint256[](funderAddress.length);
         funderETHAmount = new uint256[](funderAddress.length);
         funderInvitees = new uint256[](funderAddress.length);
         earnFromAff = new uint256[](funderAddress.length);
         inviteesTotalAmount = new uint256[](funderAddress.length);
 
+        funderAddress = steps[_stepIndex].funders;
 
         for(uint i = 0 ; i < funderAddress.length; i++){
             funderTokenAmount[i] = steps[_stepIndex].funder[funderAddress[i]].tokenAmount;
@@ -571,7 +570,6 @@ contract Resonance is Ownable{
             inviteesTotalAmount[i] = steps[currentStep].funder[funderAddress[i]].inviteesTotalAmount;
         }
 
-        // emit StepFunders(funderAddress, funderTokenAmount, funderETHAmount, funderInvitees, earnFromAff);
         return (funderAddress, funderTokenAmount, funderETHAmount, funderInvitees, earnFromAff, inviteesTotalAmount);
     }
 
