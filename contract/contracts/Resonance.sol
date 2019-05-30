@@ -230,10 +230,10 @@ contract Resonance is Ownable{
         returns(uint256, uint256)
     {
         require(resonanceDataManage.isBuildingPeriod(), "不在共建期内");
-        steps[currentStep].funding.raiseTarget = UintUtils.toWei(_raiseTarget);
+        steps[currentStep].funding.raiseTarget = _raiseTarget;
         // 当前轮次的软顶和硬顶分别赋值
-        steps[currentStep].softCap = UintUtils.toWei(steps[currentStep].funding.raiseTarget.mul(60).div(100));
-        steps[currentStep].hardCap = UintUtils.toWei(steps[currentStep].funding.raiseTarget);
+        steps[currentStep].softCap = steps[currentStep].funding.raiseTarget.mul(60).div(100);
+        steps[currentStep].hardCap = steps[currentStep].funding.raiseTarget;
 
         // emit SetRaiseTarget(currentStep, _raiseTarget);
         return(currentStep, _raiseTarget);
@@ -362,7 +362,7 @@ contract Resonance is Ownable{
         // 结算收款人余额
         resonanceDataManage.setETHBalance(
             beneficiary,
-            resonanceDataManage.getETHBalance(beneficiary) + UintUtils.toWei(steps[currentStep].funding.raisedETH.mul(60).div(100))
+            resonanceDataManage.getETHBalance(beneficiary) + steps[currentStep].funding.raisedETH.mul(60).div(100)
         );
 
         if(resonanceDataManage.getCrowdsaleClosed()) {
@@ -386,7 +386,7 @@ contract Resonance is Ownable{
         require(resonanceDataManage.getCrowdsaleClosed(), "共振还未结束");
         return resonanceDataManage.dmSettlementFaithReward(
             _FaithWinnerList,
-            UintUtils.toWei(totalETHFromParty.mul(5).div(100))
+            totalETHFromParty.mul(5).div(100)
         );
     }
 
@@ -410,7 +410,7 @@ contract Resonance is Ownable{
             resonanceDataManage.settlementFOMOReward(
                 currentStep,
                 steps[currentStep].funders,
-                UintUtils.toWei(ETHFromParty[currentStep].mul(5).div(100))
+                ETHFromParty[currentStep].mul(5).div(100)
             );
         }else{
             return;
@@ -426,7 +426,7 @@ contract Resonance is Ownable{
         resonanceDataManage.settlementLuckyReward(
             currentStep,
             _LuckyWinnerList,
-            UintUtils.toWei(ETHFromParty[currentStep].mul(10).div(100))
+            ETHFromParty[currentStep].mul(10).div(100)
         );
     }
 
@@ -600,10 +600,10 @@ contract Resonance is Ownable{
 
         // TODO:
         // 共建期结束，返回0
-        if((resonanceDataManage.getOpeningTime() + 30 minutes) - block.timestamp <= 0){
+        if((resonanceDataManage.getOpeningTime() + 30 minutes).sub(block.timestamp) <= 0){
             _bpCountdown = 0;
         }else{
-            _bpCountdown = (resonanceDataManage.getOpeningTime() + 30 minutes) - block.timestamp;
+            _bpCountdown = (resonanceDataManage.getOpeningTime() + 30 minutes).sub(block.timestamp);
         }
         _remainingToken = steps[currentStep].building.openTokenAmount.sub(steps[currentStep].building.raisedToken);
         _personalTokenLimited = steps[currentStep].building.personalTokenLimited;
@@ -624,10 +624,10 @@ contract Resonance is Ownable{
 
         // TODO:
         // 募资期结束，返回0
-        if((resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp <= 0){
+        if((resonanceDataManage.getOpeningTime() + 1 hours).sub(block.timestamp) <= 0){
             _fpCountdown = 0;
         }else{
-            _fpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours) - block.timestamp;
+            _fpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours).sub(block.timestamp);
         }
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;

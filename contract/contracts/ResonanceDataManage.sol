@@ -164,7 +164,7 @@ contract ResonanceDataManage{
         returns(bool)
     {
         // 1.当前轮次募资期募资额度没有达到软顶，共振结束
-        if(UintUtils.toWei(raisedETH) < UintUtils.toWei(softCap)) {
+        if(raisedETH < softCap) {
             resonanceClosedStep = stepIndex;
             crowdsaleClosed = true;
         }
