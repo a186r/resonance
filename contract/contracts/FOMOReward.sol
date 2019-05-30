@@ -65,15 +65,15 @@ contract FOMOReward {
         uint256 fundersLen = _funders.length;
 
         for(uint i = 1; i < 6; i++){
-            
+
             if(i == 1) {
-                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(25).div(1000));
+                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(50).div(100));
             }else if(i == 2) {
-                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(10).div(1000));
+                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(20).div(100));
             }else{
-                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(5).div(1000));
+                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(10).div(100));
             }
-            
+
             FOMOWinners[_stepIndex].push(_funders[fundersLen-i]);
 
             FOMORewardAmount[_stepIndex][FOMOWinners[_stepIndex][i]] = FOMORewards[_stepIndex][i];
@@ -93,5 +93,7 @@ contract FOMOReward {
         for(uint i = 0; i < FOMORewards[_stepIndex].length ; i++){
             totalAmount += FOMORewards[_stepIndex][i];
         }
+
+        return totalAmount;
     }
 }

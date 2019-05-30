@@ -93,16 +93,16 @@ contract FissionReward {
         for(uint8 i = 0; i < 50; i++) {
             fissionWinners[_stepIndex] = _fissionWinner;
 
-            if (i == 0) { //第1名奖励
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(20).div(1000));
+            if (i == 0) { //第1名奖励10%
+                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(10).div(100));
             } else if (i >= 1 && i <= 2) { // 第2、3名奖励
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(15).div(1000));
+                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(75).div(1000));
             } else if (i >= 3 && i <= 5) {
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(10).div(1000));
+                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(5).div(100));
             } else if (i >= 6 && i <= 9) {
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(5).div(1000));
+                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(25).div(1000));
             } else {
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(10).div(1000).div(40));
+                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(50).div(100).div(40));
             }
 
             // 设置余额

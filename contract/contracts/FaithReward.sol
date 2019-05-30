@@ -48,14 +48,14 @@ contract FaithReward{
         require(!faithRewardFinished, "当前轮次的信仰奖励已经计算完成");
 
         for(uint i = 0 ; i < _faithWinners.length; i++){
-            if(i == 0){ // 第一名获得3%的奖励
-                faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(30).div(1000);
-            }else if(i >= 1 && i < 3){ // 第二名获得2%的奖励
-                faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(20).div(1000);
-            }else if(i >= 3 && i < 6){ // 第3、4、5名各获得1%的奖励
-                faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(10).div(1000);
+            if(i == 0){ // 第1名获得3%的奖励
+                faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(20).div(100);
+            }else if(i >= 1 && i < 3){ // 第2、3名获得15%的奖励
+                faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(15).div(100);
+            }else if(i >= 3 && i < 6){ // 第4、5、6名各获得1%的奖励
+                faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(10).div(100);
             }else{ // 第7、8、9、10各获得0.5%奖励
-                faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(5).div(1000);
+                faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(5).div(100);
             }
             faithAmounts.push(faithRewardAmount[_faithWinners[i]]);
         }

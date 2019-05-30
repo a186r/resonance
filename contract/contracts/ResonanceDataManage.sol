@@ -172,6 +172,8 @@ contract ResonanceDataManage{
             resonanceClosedStep = stepIndex;
             crowdsaleClosed = true;
         }
+
+        return crowdsaleClosed;
     }
 
     /// @notice 查询共振结束时的轮次Index

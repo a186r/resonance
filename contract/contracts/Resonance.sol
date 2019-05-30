@@ -62,7 +62,8 @@ contract Resonance is Ownable{
         address funderAddr; // 地址
         uint256 tokenAmount; // 组建期已打入的token数量
         uint256 ethAmount; // 募资期已打入的eth数量
-        address[] invitees; // 我的邀请人数
+        address[] invitees; // 我的邀请人
+        uint256 inviteesTotalAmount; // 我的邀请人打入的Token总量
         uint256 earnFromAff; // 邀请所得金额
         address promoter; // 推广人
         bool isBuilder; // 是否是组建者/裂变者（参与组建期）
@@ -278,6 +279,9 @@ contract Resonance is Ownable{
 
         steps[currentStep].funder[msg.sender].tokenAmount += UintUtils.toWei(_tokenAmount);
 
+        // 累加msg.sender的上级邀请人总花费
+        steps[currentStep].funder[steps[currentStep].funder[msg.sender].promoter].inviteesTotalAmount += UintUtils.toWei(_tokenAmount);
+
         // 从当前轮次的Token限额中减去用户转入的Token数量
         steps[currentStep].building.openTokenAmount -= UintUtils.toWei(_tokenAmount);
 
@@ -331,6 +335,7 @@ contract Resonance is Ownable{
         steps[currentStep].funding.raisedETH += amount;
 
         resonances.push(msg.sender);
+        steps[currentStep].funders.push(msg.sender);
         resonancesRasiedETH[msg.sender] += amount;
     }
 
@@ -393,7 +398,6 @@ contract Resonance is Ownable{
         address[] memory _fissionWinnerList
     )
         internal
-        onlyOwner()
     {
         require(!steps[currentStep].settlementFinished, "当前轮次已经结算完毕");
         require(!steps[currentStep].stepIsClosed, "当前轮次早已经结束");
@@ -407,7 +411,7 @@ contract Resonance is Ownable{
         resonanceDataManage.settlementFOMOReward(
             currentStep,
             steps[currentStep].funders,
-            UintUtils.toWei(ETHFromParty[currentStep].mul(10).div(100))
+            UintUtils.toWei(ETHFromParty[currentStep].mul(5).div(100))
         );
     }
 
@@ -416,12 +420,11 @@ contract Resonance is Ownable{
         address[] memory _LuckyWinnerList
     )
         internal
-        onlyOwner()
     {
         resonanceDataManage.settlementLuckyReward(
             currentStep,
             _LuckyWinnerList,
-            UintUtils.toWei(ETHFromParty[currentStep].mul(5).div(100))
+            UintUtils.toWei(ETHFromParty[currentStep].mul(10).div(100))
         );
     }
 
@@ -499,6 +502,11 @@ contract Resonance is Ownable{
     /// @notice 查询是否是募资者，参与募资期
     function isFunder() public view returns(bool) {
         return steps[currentStep].funder[msg.sender].isFunder;
+    }
+
+    /// @notice 查询funder的邀请人集合
+    function getInvitees(address _funder) public view returns(address[] memory) {
+        return steps[currentStep].funder[_funder].invitees;
     }
 
     /// @notice 查询所有参与共振的用户的地址集合
@@ -681,14 +689,14 @@ contract Resonance is Ownable{
         uint256 resonanceClosedStep = resonanceDataManage.getResonanceClosedStep();
         address[] memory funders = steps[resonanceClosedStep].funders;
 
-        // 设置可以退款的ETH数量
+        // 设置可以退款的ETH数量和Token数量
         for(uint i = 0; i < funders.length; i++){
             resonanceDataManage.setETHBalance(
                 funders[i],
                 resonanceDataManage.getETHBalance(funders[i]) + steps[resonanceClosedStep].funder[funders[i]].ethAmount
             );
 
-            resonanceDataManage.setETHBalance(
+            resonanceDataManage.setTokenBalance(
                 funders[i],
                 resonanceDataManage.getTokenBalance(funders[i]) + steps[resonanceClosedStep].funder[funders[i]].tokenAmount
             );
