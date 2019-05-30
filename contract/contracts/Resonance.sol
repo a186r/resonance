@@ -328,12 +328,15 @@ contract Resonance is Ownable{
             "当前轮次已募集到足够的ETH"
         );
 
+        if(!steps[currentStep].funder[msg.sender].isFunder){
+            steps[currentStep].funders.push(msg.sender);
+        }
+
         steps[currentStep].funder[msg.sender].ethAmount += amount;
         steps[currentStep].funder[msg.sender].isFunder = true;
         steps[currentStep].funding.raisedETH += amount;
-
+        
         resonances.push(msg.sender);
-        steps[currentStep].funders.push(msg.sender);
         resonancesRasiedETH[msg.sender] += amount;
     }
 
