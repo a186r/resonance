@@ -54708,6 +54708,349 @@
     "version": "0.5.2+commit.1df8f40c.Emscripten.clang"
   },
   "networks": {
+    "3": {
+      "events": {
+        "0x95b9b14e81807a19f0d780820ad803eba32584f0671e1410f6815a83e75d4ef7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "fissionPerson",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "promoter",
+              "type": "address"
+            }
+          ],
+          "name": "ToBeFissionPerson",
+          "type": "event",
+          "signature": "0x95b9b14e81807a19f0d780820ad803eba32584f0671e1410f6815a83e75d4ef7"
+        },
+        "0xefb17818fcd18149842dc8ec26c8d51b1f7cd86669024d8ad385c95727e301b2": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "currentStepTokenAmount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "currentStepRaisedETH",
+              "type": "uint256"
+            }
+          ],
+          "name": "FundsInfo",
+          "type": "event",
+          "signature": "0xefb17818fcd18149842dc8ec26c8d51b1f7cd86669024d8ad385c95727e301b2"
+        },
+        "0xe11de7dbf210471e3fa9c2ce8526b79b1202a34755ab39aa0ee452e2de7dd9e3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "bpCountdown",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "remainingToken",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "personalTokenLimited",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "totalTokenAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "BuildingPerioInfo",
+          "type": "event",
+          "signature": "0xe11de7dbf210471e3fa9c2ce8526b79b1202a34755ab39aa0ee452e2de7dd9e3"
+        },
+        "0xae8973493d4c3e41a9615da7dbb45a3e85e217ab826ebf232f236520f89ce5bd": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "fpCountdown",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "remainingETH",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "rasiedETHAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "FundingPeriodInfo",
+          "type": "event",
+          "signature": "0xae8973493d4c3e41a9615da7dbb45a3e85e217ab826ebf232f236520f89ce5bd"
+        },
+        "0x9c8d21d9775b290867a96ccd228b84fc35453ac06e714f5717f74c84dd962d7e": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "fissionRewardList",
+              "type": "address[]"
+            },
+            {
+              "indexed": false,
+              "name": "fissionRewardAmount",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "FissionRewardInfo",
+          "type": "event",
+          "signature": "0x9c8d21d9775b290867a96ccd228b84fc35453ac06e714f5717f74c84dd962d7e"
+        },
+        "0x6b6aaf38bd1fe94894a8361f3d343ec41c4c18c8cde782e6c3a7d98f64a60a37": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "FOMORewardList",
+              "type": "address[]"
+            },
+            {
+              "indexed": false,
+              "name": "FOMORewards",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "FOMORewardInfo",
+          "type": "event",
+          "signature": "0x6b6aaf38bd1fe94894a8361f3d343ec41c4c18c8cde782e6c3a7d98f64a60a37"
+        },
+        "0xdb5afb48b961706eba89e5cf3ab5ae37dc9c360703069de0c2a6669f7e0f4b31": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "luckyRewardList",
+              "type": "address[]"
+            },
+            {
+              "indexed": false,
+              "name": "luckyReward",
+              "type": "uint256"
+            }
+          ],
+          "name": "LuckyRewardInfo",
+          "type": "event",
+          "signature": "0xdb5afb48b961706eba89e5cf3ab5ae37dc9c360703069de0c2a6669f7e0f4b31"
+        },
+        "0xe7e0e5e0f865e7ed55d089ae13321715f110f39374632f8891058404d5955916": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "faithRewardList",
+              "type": "address[]"
+            },
+            {
+              "indexed": false,
+              "name": "faithRewardAmount",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "FaithRewardInfo",
+          "type": "event",
+          "signature": "0xe7e0e5e0f865e7ed55d089ae13321715f110f39374632f8891058404d5955916"
+        },
+        "0x293d21fe426f090ce1ced07545832d833ba5245d1ca5dab39eedd683bcb26c71": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "addr",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "ETHAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "WithdrawAllETH",
+          "type": "event",
+          "signature": "0x293d21fe426f090ce1ced07545832d833ba5245d1ca5dab39eedd683bcb26c71"
+        },
+        "0x28982effc9f4b6c367af5f071929850b9e3a7f3cec08b9ea2d139ab3606b8169": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "tokenAmount",
+              "type": "uint256"
+            }
+          ],
+          "name": "WithdrawAllToken",
+          "type": "event",
+          "signature": "0x28982effc9f4b6c367af5f071929850b9e3a7f3cec08b9ea2d139ab3606b8169"
+        },
+        "0x04c808a514c1dafc38d056ce8d726701d153e5560559e9a2cbd4a698fc57dbc9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "FunderInfoArray",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "FunderInfo",
+          "type": "event",
+          "signature": "0x04c808a514c1dafc38d056ce8d726701d153e5560559e9a2cbd4a698fc57dbc9"
+        },
+        "0x3b87f7808c5ab95853c64302b46442fcc67c01ce3ca71e707da509a4100e6afc": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "funderAddress",
+              "type": "address[]"
+            },
+            {
+              "indexed": false,
+              "name": "funderTokenAmount",
+              "type": "uint256[]"
+            },
+            {
+              "indexed": false,
+              "name": "funderETHAmount",
+              "type": "uint256[]"
+            },
+            {
+              "indexed": false,
+              "name": "funderInvitees",
+              "type": "uint256[]"
+            },
+            {
+              "indexed": false,
+              "name": "funderEarnFromAff",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "StepFunders",
+          "type": "event",
+          "signature": "0x3b87f7808c5ab95853c64302b46442fcc67c01ce3ca71e707da509a4100e6afc"
+        },
+        "0x884a42ea07d12dfb8a666018fad8dc91f2752bdabafca21fc534fefc1305355f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "stepIndex",
+              "type": "uint256"
+            }
+          ],
+          "name": "SettlementStep",
+          "type": "event",
+          "signature": "0x884a42ea07d12dfb8a666018fad8dc91f2752bdabafca21fc534fefc1305355f"
+        },
+        "0xeb4f8ce27ee2f036ff2d0bc02908be44cba9da8349185d0b9f996732fb77f07e": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "stepIndex",
+              "type": "uint256"
+            }
+          ],
+          "name": "StartNextStep",
+          "type": "event",
+          "signature": "0xeb4f8ce27ee2f036ff2d0bc02908be44cba9da8349185d0b9f996732fb77f07e"
+        },
+        "0xa0065ef53daacd0859dd1ca5cdda1a90bd236db58dc67e1c6c9888afb8b7c934": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "stepIndex",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "raiseTarget",
+              "type": "uint256"
+            }
+          ],
+          "name": "SetRaiseTarget",
+          "type": "event",
+          "signature": "0xa0065ef53daacd0859dd1ca5cdda1a90bd236db58dc67e1c6c9888afb8b7c934"
+        },
+        "0x239ea09ed3b2c5ca6c811a840e58b3dc40f4591da5f559b32893f99e968b419c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "resonances",
+              "type": "address[]"
+            }
+          ],
+          "name": "GetResonances",
+          "type": "event",
+          "signature": "0x239ea09ed3b2c5ca6c811a840e58b3dc40f4591da5f559b32893f99e968b419c"
+        },
+        "0x33bd212310efc1b994689137ddaaea56136d0cb5b0491d1eb3b4cc3fce4428c1": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "resonancesRasiedETH",
+              "type": "uint256"
+            }
+          ],
+          "name": "FunderTotalRaised",
+          "type": "event",
+          "signature": "0x33bd212310efc1b994689137ddaaea56136d0cb5b0491d1eb3b4cc3fce4428c1"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event",
+          "signature": "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0"
+        }
+      },
+      "links": {
+        "UintUtils": "0x3032258eD0D894f0aa9E85D5a2b4FE28e38D91dD"
+      },
+      "address": "0x7574403E6F33E04B9ACC45bF22721cA610a8c254",
+      "transactionHash": "0xc35420ae6feba2179144a70f411b808fec8cfab54afc59a1c89356f1d2e90138"
+    },
     "5777": {
       "events": {
         "0x95b9b14e81807a19f0d780820ad803eba32584f0671e1410f6815a83e75d4ef7": {
@@ -55053,7 +55396,7 @@
     }
   },
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-05-30T08:19:32.450Z",
+  "updatedAt": "2019-05-30T09:15:06.124Z",
   "devdoc": {
     "methods": {
       "constructor": {
