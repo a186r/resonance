@@ -4,17 +4,17 @@
       <el-col class="col-flex"  :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="withdraw dark-card">
           <div class="withdraw-cad"></div>
-          <p>提取 CAD 代币</p>
-          <p>数量：<span class="value-span">{{myDetail[0]}}</span> CAD</p>
-          <button class="custom-button" @click="withdrawAllCAD">提取</button>
+          <p>{{ $t('my.withdrawCAD') }}</p>
+          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail[0]}}</span> CAD</p>
+          <button class="custom-button" @click="withdrawAllCAD">{{ $t('my.withdraw') }}</button>
         </div>
       </el-col>
       <el-col class="col-flex"  :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="withdraw dark-card">
           <div class="withdraw-eth"></div>
-          <p>提取 ETH</p>
-          <p>数量：<span class="value-span">{{myDetail[1]}}</span> ETH</p>
-          <button class="custom-button" @click="withdrawAllETH">提取</button>
+          <p>{{ $t('my.withdrawETH') }}</p>
+          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail[1]}}</span> ETH</p>
+          <button class="custom-button" @click="withdrawAllETH">{{ $t('my.withdraw') }}</button>
         </div>
       </el-col>
     </el-row>
@@ -22,7 +22,7 @@
       <el-col class="col-flex" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
         <div class="my-detail">
           <div class="invite-link">
-            <p>{{inviteText}}：{{link}}</p>
+            <p>{{ $t('my.myInviteLink') }}：{{link}}</p>
             <button :data-clipboard-text="link" class="copy-button"></button>
           </div>
           <div class="my-detail-list">
