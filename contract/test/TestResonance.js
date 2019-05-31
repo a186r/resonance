@@ -85,6 +85,7 @@ contract('TestResonance', async (accounts) => {
             luckyReward.address,
             faithReward.address
         );
+        await resonance.setBlockHash(0);
 
         let setAccessForResonance = await resonanceDataManage.allowAccess(resonance.address, {
             from: accounts[0]
@@ -119,7 +120,7 @@ contract('TestResonance', async (accounts) => {
     });
 
     it("6...设置当前轮次募资目标", async () => {
-        await resonance.setRaiseTarget(30);
+        await resonance.setRaiseTarget(web3.utils.toWei("3"));
 
         // console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(0));
         // console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(1));
@@ -166,19 +167,19 @@ contract('TestResonance', async (accounts) => {
         // console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
 
         // 转入Token，参与共建
-        await resonance.jointlyBuild(100, {
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
             from: accounts[0]
         });
 
-        await resonance.jointlyBuild(100, {
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
             from: accounts[1]
         });
 
-        await resonance.jointlyBuild(100, {
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
             from: accounts[2]
         });
 
-        await resonance.jointlyBuild(100, {
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
             from: accounts[3]
         });
 
@@ -188,25 +189,25 @@ contract('TestResonance', async (accounts) => {
     });
 
     it("9...募资期社区成员转入ETH", async () => {
-        await resonance.send(10, {
+        await resonance.send(web3.utils.toWei("1"), {
             from: accounts[0]
         });
 
-        await resonance.send(10, {
+        await resonance.send(web3.utils.toWei("1"), {
             from: accounts[1]
         });
 
-        await resonance.send(5, {
+        await resonance.send(web3.utils.toWei("0.5"), {
             from: accounts[2]
         });
 
-        await resonance.send(5, {
+        await resonance.send(web3.utils.toWei("0.5"), {
             from: accounts[3]
         });
     });
 
     it("10...获取投资者信息", async () => {
-        let funderInfo = await resonance.getFunderInfo({
+        let funderInfo = await resonance.getFunderInfo(0, {
             from: accounts[7]
         });
         // console.log(funderInfo);
@@ -216,14 +217,14 @@ contract('TestResonance', async (accounts) => {
         let getBuildingPerioInfoLog = await resonance.getBuildingPerioInfo({
             from: accounts[0]
         });
-        // console.log("查询组建期信息：", getBuildingPerioInfoLog);
+        console.log("查询组建期信息：", getBuildingPerioInfoLog);
     })
 
     it("12...查询募资期信息", async () => {
         let getFundingPeriodInfoLog = await resonance.getFundingPeriodInfo({
             from: accounts[0]
         });
-        // console.log("查询募资期信息：", getFundingPeriodInfoLog);
+        console.log("查询募资期信息：", getFundingPeriodInfoLog);
     })
 
     it("13...查询当前轮次信息", async () => {
@@ -294,4 +295,20 @@ contract('TestResonance', async (accounts) => {
         });
         // console.log(withdrawAllETHLog);
     })
+
+    it("19...查询区块hash", async () => {
+        let blockHash = await resonance.getBlockHash(0);
+        // console.log(blockHash);
+    })
+
+    it("20...查询轮次funders信息", async () => {
+        await resonance.getWithdrawTokenAmount(0, {
+            from: accounts[1]
+        });
+        let getFunderInfoLog = await resonance.getFunderInfo(0, {
+            from: accounts[1]
+        });
+        console.log("查询轮次funders信息:", getFunderInfoLog);
+    })
+
 })
