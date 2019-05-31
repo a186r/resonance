@@ -442,12 +442,14 @@ contract Resonance is Ownable{
         internal
     {
         resonanceDataManage.crowdsaleIsClosed(currentStep, steps[currentStep].funding.raisedETH, steps[currentStep].softCap);
+
+        // 标记当前step已经结算完成
+        steps[currentStep].settlementFinished = true;
+        // 标记当前轮次已经结束
+        steps[currentStep].stepIsClosed = true;
+
         // 共振没有结束才可以进入下一轮
         if(!resonanceDataManage.getResonanceIsClosed()){
-            // 标记当前step已经结算完成
-            steps[currentStep].settlementFinished = true;
-            // 标记当前轮次已经结束
-            steps[currentStep].stepIsClosed = true;
             // 进入下一轮
             currentStep++;
             // 下一轮开始计时
@@ -655,6 +657,7 @@ contract Resonance is Ownable{
         return(_fpCountdown, _remainingETH, _rasiedETHAmount);
     }
 
+    /// @notice 计算用户可提取Token数量
     function _calculationWithdrawTokenAmount(uint256 _stepIndex) internal view returns(uint256){
         return steps[_stepIndex].building.raisedToken.
                 mul(steps[_stepIndex].funder[msg.sender].ethAmount).
