@@ -94,11 +94,11 @@ export default new Vuex.Store({
       const self = this
       contract.methods.getCurrentStepFundsInfo().call()
         .then(result => {
-          const data = {
-            stepIndex: result[0].toNumber(),
-            currentStepTokenAmount: web3.utils.fromWei(result[1].toString()),
-            currentStepRaisedETH: web3.utils.fromWei(result[2].toString()),
-          }
+          console.log('get current step info', result)
+          const data = {}
+          data.stepIndex = result[0].toNumber(),
+          data.currentStepTokenAmount = web3.utils.fromWei(result[1].toString()),
+          data.currentStepRaisedETH = web3.utils.fromWei(result[2].toString()),
           commit('GET_CURRENT_STEP_FUNDS_INFO', data)
         })
         .catch(err => {
@@ -191,6 +191,16 @@ export default new Vuex.Store({
         commit('GET_ADDRESS_IS_BUILDER', res)
       })
     },
+    // async isBuilder({ commit }, contract) {
+    //   contract.methods.getStepFunders(0).call({
+    //     from: this.state.account,
+    //   }).then(res => {
+    //     console.log('funders: ', res)
+    //     // commit('GET_ADDRESS_IS_BUILDER', res)
+    //   }).catch(err => {
+    //     console.log('funders err', err)
+    //   })
+    // },
     async queryRewardList({commit}, contract) {
       const stepIndex = this.state.homeData.stepIndex
       console.log('stepIndex')
@@ -241,3 +251,5 @@ export default new Vuex.Store({
     }
   }
 })
+// 0x256DD44a34478AceC9A7da479DBcf0C3C599AD55
+// 0xA8BA9dEa29234Be7504fAE477d2f6B1fd1078D46
