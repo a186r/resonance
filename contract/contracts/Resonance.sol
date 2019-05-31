@@ -277,6 +277,8 @@ contract Resonance is Ownable{
 
         steps[currentStep].funder[msg.sender].tokenAmount += _tokenAmount;
 
+        steps[currentStep].building.raisedTokenAmount += _tokenAmount;
+
         // 累加msg.sender的上级邀请人总花费
         steps[currentStep].funder[steps[currentStep].funder[msg.sender].promoter].inviteesTotalAmount += _tokenAmount;
 
@@ -368,13 +370,10 @@ contract Resonance is Ownable{
             resonanceDataManage.getETHBalance(beneficiary) + steps[currentStep].funding.raisedETH.mul(60).div(100)
         );
 
-        if(resonanceDataManage.getCrowdsaleClosed()) {
-            return true;
-        }else{
-            // 进入下一轮
-            _startNextStep();
-            return false;
-        }
+        // 进入下一轮
+        _startNextStep();
+        return false;
+
     }
 
     /// @notice 结算信仰奖励
@@ -506,7 +505,7 @@ contract Resonance is Ownable{
 
     /// @notice 管理员可以提走合约内所有的ETH
     /// @dev 防止ETH被锁死在合约内
-    function witthdrawAllETHByOwner()
+    function withdrawAllETHByOwner()
         public
         payable
         onlyOwner()
@@ -597,7 +596,6 @@ contract Resonance is Ownable{
         view
         returns(uint256, uint256, uint256)
     {
-        // emit FundsInfo(steps[currentStep].building.openTokenAmount, steps[currentStep].funding.raisedETH);
         return(currentStep, steps[currentStep].building.openTokenAmount, steps[currentStep].funding.raisedETH);
     }
 
@@ -706,9 +704,19 @@ contract Resonance is Ownable{
         steps[currentStep].funder[msg.sender].isBuilder = true;
     }
 
-    /// @notice 返回下一个高度的区块hash
-    function getBlockHash() public view returns(bytes32 blockHash) {
-        return blockhash(steps[currentStep].blockNumber.add(1));
+    /// @notice 返回区块hash
+    function getBlockHash() public view returns(bytes32) {
+        return blockhash(steps[currentStep].blockNumber + 1);
+    }
+
+    /// @notice 设置当前轮次的区块高度
+    function setBlockHash() public returns(bool) {
+        if(steps[currentStep].blockNumber == 0){
+            steps[currentStep].blockNumber = block.number;
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /// @notice 查询轮次是否结束
