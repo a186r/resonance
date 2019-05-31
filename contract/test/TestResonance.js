@@ -256,7 +256,7 @@ contract('TestResonance', async (accounts) => {
         // console.log("当前轮次：", await resonance.currentStep.call());
     })
 
-    it("16...结算已完成，提取Token和ETH", async () => {
+    it("16...结算已完成，提取Token", async () => {
 
         // 提取前合约Token余额
         console.log("提取前合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
@@ -288,10 +288,10 @@ contract('TestResonance', async (accounts) => {
     //     );
     // })
 
-    it("18...提取ETH", async () => {
+    it("18...结算已完成，提取ETH", async () => {
         let withdrawAllETHLog = await resonance.withdrawAllETH({
             from: accounts[2]
         });
-        console.log(withdrawAllETHLog);
+        // console.log(withdrawAllETHLog);
     })
 })
