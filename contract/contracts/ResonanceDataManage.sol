@@ -170,12 +170,16 @@ contract ResonanceDataManage{
         if(raisedETH < softCap) {
             resonanceClosedStep = stepIndex;
             crowdsaleClosed = true;
+        }else{
+            crowdsaleClosed = false;
         }
 
         // 2.消耗完资金池的总额度，共振结束
         if(fundsPool == 0) {
             resonanceClosedStep = stepIndex;
             crowdsaleClosed = true;
+        }else{
+            crowdsaleClosed = false;
         }
 
         return crowdsaleClosed;

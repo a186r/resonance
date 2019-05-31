@@ -19,6 +19,8 @@ const tokenName = "ABCToken";
 const symbol = "ABCT";
 const decimals = web3.utils.toBN(18);
 
+var winners = new Array();
+
 contract('TestResonance', async (accounts) => {
 
     it('1...初始化ABCToken', async () => {
@@ -179,38 +181,66 @@ contract('TestResonance', async (accounts) => {
         });
     });
 
-    it("10...获取投资者信息", async () => {}
+    it("10...获取投资者信息", async () => {
         let funderInfo = await resonance.getFunderInfo({
             from: accounts[7]
         });
         // console.log(funderInfo);
     })
 
-it("11...查询组建期信息", async () => {
-    let getBuildingPerioInfoLog = await resonance.getBuildingPerioInfo({
-        from: accounts[0]
-    });
-    // console.log("查询组建期信息：", getBuildingPerioInfoLog);
-})
+    it("11...查询组建期信息", async () => {
+        let getBuildingPerioInfoLog = await resonance.getBuildingPerioInfo({
+            from: accounts[0]
+        });
+        // console.log("查询组建期信息：", getBuildingPerioInfoLog);
+    })
 
-it("12...查询募资期信息", async () => {
-    let getFundingPeriodInfoLog = await resonance.getFundingPeriodInfo({
-        from: accounts[0]
-    });
-    // console.log("查询募资期信息：", getFundingPeriodInfoLog);
-})
+    it("12...查询募资期信息", async () => {
+        let getFundingPeriodInfoLog = await resonance.getFundingPeriodInfo({
+            from: accounts[0]
+        });
+        // console.log("查询募资期信息：", getFundingPeriodInfoLog);
+    })
 
-it("13...查询当前轮次信息", async () => {
-    let getCurrentStepFundsInfoLog = await resonance.getCurrentStepFundsInfo({
-        from: accounts[0]
-    });
-    //      console.log("查询募资期信息：", getCurrentStepFundsInfoLog);
-})
+    it("13...查询当前轮次信息", async () => {
+        let getCurrentStepFundsInfoLog = await resonance.getCurrentStepFundsInfo({
+            from: accounts[0]
+        });
+        //      console.log("查询募资期信息：", getCurrentStepFundsInfoLog);
+    })
 
-it("14...查询轮次funders信息", async () => {
-    let getStepFundersLog = await resonance.getStepFunders(0, {
-        from: accounts[0]
-    });
-    console.log("查询轮次funders信息:", getStepFundersLog);
-})
+    it("14...查询轮次funders信息", async () => {
+        let getStepFundersLog = await resonance.getStepFunders(0, {
+            from: accounts[0]
+        });
+        console.log("查询轮次funders信息:", getStepFundersLog);
+    })
+
+    it("15...结算当前轮次", async () => {
+        winners[0] = accounts[0];
+        winners[1] = accounts[1];
+        winners[2] = accounts[2];
+
+        let a = await resonance.settlementStep(
+            winners,
+            winners, {
+                from: accounts[0]
+            });
+
+        // console.log("结算当前轮次：", a);
+
+        console.log("当前轮次：", await resonance.currentStep.call());
+    })
+
+    it("16...结算信仰奖励", async () => {
+        winners[0] = accounts[0];
+        winners[1] = accounts[1];
+        winners[2] = accounts[2];
+
+        let b = await resonance.settlementFaithReward(
+            winners, {
+                from: accounts[0]
+            }
+        );
+    })
 })
