@@ -287,4 +287,11 @@ contract('TestResonance', async (accounts) => {
     //         }
     //     );
     // })
+
+    it("18...提取ETH", async () => {
+        let withdrawAllETHLog = await resonance.withdrawAllETH({
+            from: accounts[2]
+        });
+        console.log(withdrawAllETHLog);
+    })
 })
