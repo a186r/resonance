@@ -9,6 +9,7 @@
           </countdown>
           <p v-else>{{ $t('offer.buildingEnd') }}</p>
           <p>{{ $t('offer.remainCAD') }}：{{offerData.remainingToken}}</p>
+          <p>{{ $t('offer.eachAddressLimit') }}：{{offerData.eachAddressLimit}}</p>
           <p>{{ $t('offer.totalRaisedCAD') }}：{{offerData.totalTokenAmount}}</p>
           <div class="deposit-area" v-if="isBuilder">
             <div class="deposit-area-input">
@@ -152,6 +153,7 @@ export default {
   async created() {
     const contract = await this.initDataContract()
     store.dispatch('queryRewardList', contract)
+    store.dispatch('getOpeningTime', contract)
   }
 }
 </script>
