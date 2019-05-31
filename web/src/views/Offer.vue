@@ -4,9 +4,10 @@
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
           <p>{{ $t('index.buildingPeriodText') }}</p>
-          <countdown :time="offerData.bpCountdown">
+          <countdown :time="offerData.bpCountdown" v-if="offerData.bpCountdown > 0">
             <template slot-scope="props">{{ $t('offer.countDown') }}：{{ props.hours }} {{ $t('offer.hour') }} : {{ props.minutes }} {{ $t('offer.minute') }} : {{ props.seconds }} {{ $t('offer.second') }}</template>
           </countdown>
+          <p v-else>{{ $t('offer.buildingEnd') }}</p>
           <p>{{ $t('offer.remainCAD') }}：{{offerData.remainingToken}}</p>
           <p>{{ $t('offer.totalRaisedCAD') }}：{{offerData.totalTokenAmount}}</p>
           <div class="deposit-area" v-if="isBuilder">
@@ -28,9 +29,10 @@
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
           <p>{{ $t('index.fundingPeriodText') }}</p>
-          <countdown :time="offerData.fpCountdown">
+          <countdown :time="offerData.fpCountdown" v-if="offerData.bpCountdown < 1">
             <template slot-scope="props">{{ $t('offer.countDown') }}：{{ props.hours }} {{ $t('offer.hour') }} : {{ props.minutes }} {{ $t('offer.minute') }} : {{ props.seconds }} {{ $t('offer.second') }}</template>
           </countdown>
+          <p v-else>{{ $t('offer.fundingNotStart') }}</p>
           <p>{{ $t('offer.remainETH') }}：{{offerData.remainingETH}}</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
@@ -117,7 +119,7 @@ export default {
     },
     depositETH () {
       console.log('deposit eth', this.depostETHAmount)
-      if (this.depostETHAmount > this.offerData.remainingETH) {
+      if (parseFloat(this.depostETHAmount) > this.offerData.remainingETH) {
         this.$alert('您投入的 ETH 超出最大值', '提示', {
           confirmButtonText: '确定',
         })
@@ -126,8 +128,7 @@ export default {
       store.dispatch('depositETH', this.depostETHAmount)
     },
     depositCAD () {
-      console.log('deposit cad', this.depostCADAmount)
-      if (this.depostCADAmount > this.offerData.remainingToken) {
+      if (parseFloat(this.depostCADAmount) > this.offerData.remainingToken) {
         this.$alert('您投入的 CAD 超出最大值', '提示', {
           confirmButtonText: '确定',
         })

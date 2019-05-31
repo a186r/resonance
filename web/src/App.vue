@@ -121,6 +121,8 @@ export default {
     const tokenContract = await this.initTokenContract()
     window.contract = contract
     window.tokenContract = tokenContract
+    // const amount = await tokenContract.methods.allowance(this.account, contract.address).call()
+    // console.log('allowance: ', amount)
     store.dispatch('getCurrentStepFundsInfo', contract)
     store.dispatch('getBuildingPeriodInfo', contract)
     store.dispatch('getFundingPeriodInfo', contract)
