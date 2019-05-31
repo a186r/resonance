@@ -70,6 +70,8 @@ contract Resonance is Ownable{
         bool isFunder; // 是否是募资者（参与募资期）
         bool tokenHasWithdrawn; // Token提币完成
         bool ETHHasWithdrawn; // ETH已经提币完成
+        uint256 withdrawTokenAmount; // 用户可提取Token数量
+        uint256 withdrawETHAmount; //用户可提取ETH数量
     }
 
     // 组建期结构体
@@ -202,7 +204,8 @@ contract Resonance is Ownable{
         require(abcToken.transferFrom(msg.sender,address(this), UintUtils.toWei(8)),"转移token到合约失败");
 
         // 销毁3个
-        abcToken.burn(UintUtils.toWei(3));
+        // abcToken.burn(UintUtils.toWei(3));
+        abcToken.transfer(address(0), UintUtils.toWei(3));
 
         // 5个给推广者
         abcToken.transfer(address(promoter), UintUtils.toWei(5));
@@ -355,9 +358,10 @@ contract Resonance is Ownable{
         returns(bool)
     {
         require(beneficiary != address(0), "基金会收款地址尚未设置");
+
         // 计算奖励金
         ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH.mul(
-            resonanceDataManage.getBuildingPercentOfParty().mul(40).div(10000));
+            resonanceDataManage.getBuildingPercentOfParty()).div(100).mul(40).div(100);
 
         totalETHFromParty += ETHFromParty[currentStep];
         // 结算裂变奖励、FOMO奖励
@@ -473,9 +477,9 @@ contract Resonance is Ownable{
 
         // 计算用户应提取Token数量
         // 应提取数量 = 共建期募集到的Token数量 * 募资期用户投入ETH数量 / 已募集到的ETH数量
-        uint256 withdrawAmount = UintUtils.toWei(
-            steps[withdrawStep].building.raisedToken).mul(steps[withdrawStep].funder[msg.sender].ethAmount).div(steps[withdrawStep].funding.raisedETH
-        );
+        uint256 withdrawAmount = steps[withdrawStep].building.raisedToken.
+            mul(steps[withdrawStep].funder[msg.sender].ethAmount).
+            div(steps[withdrawStep].funding.raisedETH);
 
         resonanceDataManage.emptyTokenBalance(msg.sender);
         steps[withdrawStep].funder[msg.sender].tokenHasWithdrawn = true;
@@ -612,10 +616,10 @@ contract Resonance is Ownable{
 
         // TODO:
         // 共建期结束，返回0
-        if((resonanceDataManage.getOpeningTime() + 30 minutes).sub(block.timestamp) <= 0){
+        if((resonanceDataManage.getOpeningTime().add(30 minutes)).sub(block.timestamp) <= 0){
             _bpCountdown = 0;
         }else{
-            _bpCountdown = (resonanceDataManage.getOpeningTime() + 30 minutes).sub(block.timestamp);
+            _bpCountdown = (resonanceDataManage.getOpeningTime().add(30 minutes)).sub(block.timestamp);
         }
         _remainingToken = steps[currentStep].building.openTokenAmount.sub(steps[currentStep].building.raisedToken);
         _personalTokenLimited = steps[currentStep].building.personalTokenLimited;
@@ -636,10 +640,10 @@ contract Resonance is Ownable{
 
         // TODO:
         // 募资期结束，返回0
-        if((resonanceDataManage.getOpeningTime() + 1 hours).sub(block.timestamp) <= 0){
+        if((resonanceDataManage.getOpeningTime().add(1 hours)).sub(block.timestamp) <= 0){
             _fpCountdown = 0;
         }else{
-            _fpCountdown = (resonanceDataManage.getOpeningTime() + 1 hours).sub(block.timestamp);
+            _fpCountdown = (resonanceDataManage.getOpeningTime().add(1 hours)).sub(block.timestamp);
         }
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
@@ -647,8 +651,23 @@ contract Resonance is Ownable{
         return(_fpCountdown, _remainingETH, _rasiedETHAmount);
     }
 
+    // 查询用户可提取Token数量(在结算完成之后调用)
+    function getWithdrawTokenAmount(uint256 _stepIndex) public returns(bool){
+        if(steps[_stepIndex].funder[msg.sender].withdrawTokenAmount == 0) {
+            steps[_stepIndex].funder[msg.sender].withdrawTokenAmount = steps[_stepIndex].building.raisedToken.
+                mul(steps[_stepIndex].funder[msg.sender].ethAmount).
+                div(steps[_stepIndex].funding.raisedETH);
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     /// @notice 获取投资者信息（个人中心界面）
-    function getFunderInfo()
+    function getFunderInfo(
+        uint256 _stepIndex
+    )
         public
         view
         returns
@@ -666,11 +685,11 @@ contract Resonance is Ownable{
     )
 
     {
-        Funder memory funder = steps[currentStep].funder[msg.sender];
+        Funder memory funder = steps[_stepIndex].funder[msg.sender];
 
         uint256[] memory funderInfo = new uint256[](10);
 
-        funderInfo[0] = resonanceDataManage.getTokenBalance(msg.sender);
+        funderInfo[0] = funder.withdrawTokenAmount;
         funderInfo[1] = resonanceDataManage.getETHBalance(msg.sender);
         funderInfo[2] = funder.invitees.length;
         funderInfo[3] = funder.earnFromAff;
@@ -705,14 +724,14 @@ contract Resonance is Ownable{
     }
 
     /// @notice 返回区块hash
-    function getBlockHash() public view returns(bytes32) {
-        return blockhash(steps[currentStep].blockNumber + 1);
+    function getBlockHash(uint256 _stepIndex) public view returns(bytes32) {
+        return blockhash(steps[_stepIndex].blockNumber+1);
     }
 
     /// @notice 设置当前轮次的区块高度
-    function setBlockHash() public returns(bool) {
-        if(steps[currentStep].blockNumber == 0){
-            steps[currentStep].blockNumber = block.number;
+    function setBlockHash(uint256 _stepIndex) public returns(bool) {
+        if(steps[_stepIndex].blockNumber == 0){
+            steps[_stepIndex].blockNumber = block.number;
             return true;
         }else{
             return false;

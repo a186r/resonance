@@ -132,20 +132,19 @@ contract ResonanceDataManage{
 
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
-        // if(block.timestamp >= openingTime && block.timestamp < openingTime + 8 hours) {
-        if(block.timestamp >= openingTime && block.timestamp <= openingTime + 30 minutes) {
+        // if(block.timestamp >= openingTime && block.timestamp < openingTime.add(8 hours)) {
+        if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(30 minutes)) {
             return true;
         }else{
             return false;
         }
-
         // return true;
     }
 
     // 是否是募资期
     function isFundingPeriod() public view returns(bool) {
-        // if(block.timestamp >= openingTime + 8 hours && block.timestamp < openingTime + 24 hours) {
-        if(block.timestamp >= openingTime + 30 minutes && block.timestamp <= openingTime + 1 hours) {
+        // if(block.timestamp >= openingTime.add(8 hours) && block.timestamp < openingTime.add(24 hours)) {
+        if(block.timestamp >= openingTime.add(30 minutes) && block.timestamp <= openingTime.add(1 hours)) {
             return true;
         }else{
             return false;
@@ -313,6 +312,7 @@ contract ResonanceDataManage{
         require(fundsPool > 0, "共建资金池已经消耗完毕");
         if(_stepIndex == 0){
             setBuildingTokenFromParty(initBuildingTokenAmount.mul(50).div(100));
+            buildingPercentOfParty = 50;
         }else{
             // 随着轮次推进，社区比例每轮次+1%，项目方比例每轮-1%
             if(buildingPercentOfParty < 66){
