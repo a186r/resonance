@@ -121,8 +121,8 @@ contract('TestResonance', async (accounts) => {
     it("6...设置当前轮次募资目标", async () => {
         await resonance.setRaiseTarget(30);
 
-        console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(0));
-        console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(1));
+        // console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(0));
+        // console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(1));
     });
 
     it("7...基金会转入Token", async () => {
@@ -149,11 +149,35 @@ contract('TestResonance', async (accounts) => {
             from: accounts[3]
         });
 
+        await abcToken.approve(resonance.address, web3.utils.toWei("200"), {
+            from: accounts[0]
+        });
+
+        await abcToken.approve(resonance.address, web3.utils.toWei("200"), {
+            from: accounts[1]
+        });
+
+        await abcToken.approve(resonance.address, web3.utils.toWei("200"), {
+            from: accounts[2]
+        });
+
         // 查看授权额度
         let allowanceAmount = await abcToken.allowance(accounts[3], resonance.address);
         // console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
 
         // 转入Token，参与共建
+        await resonance.jointlyBuild(100, {
+            from: accounts[0]
+        });
+
+        await resonance.jointlyBuild(100, {
+            from: accounts[1]
+        });
+
+        await resonance.jointlyBuild(100, {
+            from: accounts[2]
+        });
+
         await resonance.jointlyBuild(100, {
             from: accounts[3]
         });
@@ -213,7 +237,7 @@ contract('TestResonance', async (accounts) => {
         let getStepFundersLog = await resonance.getStepFunders(0, {
             from: accounts[0]
         });
-        console.log("查询轮次funders信息:", getStepFundersLog);
+        // console.log("查询轮次funders信息:", getStepFundersLog);
     })
 
     it("15...结算当前轮次", async () => {
@@ -229,18 +253,38 @@ contract('TestResonance', async (accounts) => {
 
         // console.log("结算当前轮次：", a);
 
-        console.log("当前轮次：", await resonance.currentStep.call());
+        // console.log("当前轮次：", await resonance.currentStep.call());
     })
 
-    it("16...结算信仰奖励", async () => {
-        winners[0] = accounts[0];
-        winners[1] = accounts[1];
-        winners[2] = accounts[2];
+    it("16...结算已完成，提取Token和ETH", async () => {
 
-        let b = await resonance.settlementFaithReward(
-            winners, {
-                from: accounts[0]
-            }
-        );
+        // 提取前合约Token余额
+        console.log("提取前合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
+
+        // 提取前账户Token余额
+        console.log("提取前账户Token余额", await abcToken.balanceOf(accounts[2]) / 1E18);
+
+        await resonance.withdrawAllToken({
+            from: accounts[2]
+        });
+
+        // 提取后账户Token余额
+        console.log("提取后账户Token余额", await abcToken.balanceOf(accounts[2]) / 1E18);
+
+        // 提取完成后合约Token余额
+        console.log("提取完成后合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
+
     })
+
+    // it("17...结算信仰奖励", async () => {
+    //     winners[0] = accounts[0];
+    //     winners[1] = accounts[1];
+    //     winners[2] = accounts[2];
+
+    //     let b = await resonance.settlementFaithReward(
+    //         winners, {
+    //             from: accounts[0]
+    //         }
+    //     );
+    // })
 })

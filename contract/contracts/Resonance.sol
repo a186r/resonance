@@ -335,7 +335,7 @@ contract Resonance is Ownable{
         steps[currentStep].funder[msg.sender].ethAmount += amount;
         steps[currentStep].funder[msg.sender].isFunder = true;
         steps[currentStep].funding.raisedETH += amount;
-        
+
         resonances.push(msg.sender);
         resonancesRasiedETH[msg.sender] += amount;
     }
@@ -461,17 +461,27 @@ contract Resonance is Ownable{
         payable
         returns(address, address, uint256)
     {
-        require(!steps[currentStep].funder[msg.sender].tokenHasWithdrawn, "用户在当前轮次已经提取token完成");
-        // TODO:计算用户应提token额度，计算上一轮的
-        require(currentStep == 0, "等到下一轮才能提取第一轮的token");
+        // 本轮提取上一轮的
+        uint256 withdrawStep = currentStep.sub(1);
 
-        uint256 withdrawAmount = steps[currentStep-1].building.raisedToken.mul(
-            steps[currentStep-1].funder[msg.sender].ethAmount.div(steps[currentStep-1].funding.raisedETH)
+        require(steps[withdrawStep].funder[msg.sender].isFunder, "用户没有参与上一轮次的募资期");
+
+        require(!steps[withdrawStep].funder[msg.sender].tokenHasWithdrawn, "用户在上一轮次已经提取token完成");
+
+        require(steps[withdrawStep].funder[msg.sender].ethAmount > 0, "用户在上一轮次没有参与组建期Token投币");
+
+        require(steps[withdrawStep].funding.raisedETH > 0, "上一轮次募资期募集到0个ETH");
+
+        // 计算用户应提取Token数量
+        // 应提取数量 = 共建期募集到的Token数量 * 募资期用户投入ETH数量 / 已募集到的ETH数量
+        uint256 withdrawAmount = UintUtils.toWei(
+            steps[withdrawStep].building.raisedToken).mul(steps[withdrawStep].funder[msg.sender].ethAmount).div(steps[withdrawStep].funding.raisedETH
         );
+
         resonanceDataManage.emptyTokenBalance(msg.sender);
-        steps[currentStep].funder[msg.sender].tokenHasWithdrawn = true;
-        abcToken.transferFrom(address(this), msg.sender, withdrawAmount);
-        // emit WithdrawAllToken(address(this), msg.sender, withdrawAmount);
+        steps[withdrawStep].funder[msg.sender].tokenHasWithdrawn = true;
+        abcToken.transfer(msg.sender, withdrawAmount);
+
         return(address(this), msg.sender, withdrawAmount);
     }
 
