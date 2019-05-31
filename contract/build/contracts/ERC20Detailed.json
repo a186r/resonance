@@ -242,9 +242,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.5.2;\n\nimport \"./IERC20.sol\";\n\n/**\n * @title ERC20Detailed token\n * @dev The decimals are only for visualization purposes.\n * All the operations are done using the smallest and indivisible token unit,\n * just as on Ethereum all the operations are done in wei.\n */\ncontract ERC20Detailed is IERC20 {\n    string private _name;\n    string private _symbol;\n    uint8 private _decimals;\n\n    constructor (string memory name, string memory symbol, uint8 decimals) public {\n        _name = name;\n        _symbol = symbol;\n        _decimals = decimals;\n    }\n\n    /**\n     * @return the name of the token.\n     */\n    function name() public view returns (string memory) {\n        return _name;\n    }\n\n    /**\n     * @return the symbol of the token.\n     */\n    function symbol() public view returns (string memory) {\n        return _symbol;\n    }\n\n    /**\n     * @return the number of decimals of the token.\n     */\n    function decimals() public view returns (uint8) {\n        return _decimals;\n    }\n}\n",
-  "sourcePath": "/home/aewalle/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol",
+  "sourcePath": "/root/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol",
   "ast": {
-    "absolutePath": "/home/aewalle/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol",
+    "absolutePath": "/root/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol",
     "exportedSymbols": {
       "ERC20Detailed": [
         5585
@@ -265,7 +265,7 @@
         "src": "0:23:17"
       },
       {
-        "absolutePath": "/home/aewalle/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
+        "absolutePath": "/root/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
         "file": "./IERC20.sol",
         "id": 5530,
         "nodeType": "ImportDirective",
@@ -883,7 +883,7 @@
     "src": "0:1014:17"
   },
   "legacyAST": {
-    "absolutePath": "/home/aewalle/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol",
+    "absolutePath": "/root/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol",
     "exportedSymbols": {
       "ERC20Detailed": [
         5585
@@ -904,7 +904,7 @@
         "src": "0:23:17"
       },
       {
-        "absolutePath": "/home/aewalle/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
+        "absolutePath": "/root/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
         "file": "./IERC20.sol",
         "id": 5530,
         "nodeType": "ImportDirective",
@@ -1526,8 +1526,8 @@
     "version": "0.5.2+commit.1df8f40c.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.0.9",
-  "updatedAt": "2019-05-31T06:58:13.677Z",
+  "schemaVersion": "3.0.10",
+  "updatedAt": "2019-05-31T11:18:11.736Z",
   "devdoc": {
     "details": "The decimals are only for visualization purposes. All the operations are done using the smallest and indivisible token unit, just as on Ethereum all the operations are done in wei.",
     "methods": {
