@@ -115,12 +115,23 @@ contract('TestResonance', async (accounts) => {
             });
         }
 
+        // accounts[9]成为共建者
+        await abcToken.approve(resonance.address, web3.utils.toWei("8"), {
+            from: accounts[9]
+        });
+
+        let result = await resonance.toBeFissionPerson(accounts[2], {
+            from: accounts[9]
+        });
+
+        console.log("账户9的余额是：", await abcToken.balanceOf(accounts[9]) / 1E18);
+
         // console.log("账户作为推广者，余额是：", await abcToken.balanceOf(accounts[7]) / 1E18);
 
     });
 
     it("6...设置当前轮次募资目标", async () => {
-        await resonance.setRaiseTarget(web3.utils.toWei("3"));
+        await resonance.setRaiseTarget(web3.utils.toWei("60"));
 
         // console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(0));
         // console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(1));
@@ -132,7 +143,7 @@ contract('TestResonance', async (accounts) => {
         // console.log("当前轮次组建期基金会应转入额度", getBuildingTokenAmount);
 
         // 基金会授权合约Token额度
-        await abcToken.approve(resonance.address, web3.utils.toWei("750000"), {
+        await abcToken.approve(resonance.address, web3.utils.toWei("150000000"), {
             from: accounts[0]
         });
 
@@ -189,19 +200,19 @@ contract('TestResonance', async (accounts) => {
     });
 
     it("9...募资期社区成员转入ETH", async () => {
-        await resonance.send(web3.utils.toWei("1"), {
+        await resonance.send(web3.utils.toWei("20"), {
             from: accounts[0]
         });
 
-        await resonance.send(web3.utils.toWei("1"), {
+        await resonance.send(web3.utils.toWei("20"), {
             from: accounts[1]
         });
 
-        await resonance.send(web3.utils.toWei("0.5"), {
+        await resonance.send(web3.utils.toWei("10"), {
             from: accounts[2]
         });
 
-        await resonance.send(web3.utils.toWei("0.5"), {
+        await resonance.send(web3.utils.toWei("10"), {
             from: accounts[3]
         });
     });
@@ -224,7 +235,7 @@ contract('TestResonance', async (accounts) => {
         let getFundingPeriodInfoLog = await resonance.getFundingPeriodInfo({
             from: accounts[0]
         });
-        console.log("查询募资期信息：", getFundingPeriodInfoLog);
+        // console.log("查询募资期信息：", getFundingPeriodInfoLog);
     })
 
     it("13...查询当前轮次信息", async () => {
@@ -302,13 +313,28 @@ contract('TestResonance', async (accounts) => {
     })
 
     it("20...查询轮次funders信息", async () => {
-        await resonance.getWithdrawTokenAmount(0, {
-            from: accounts[1]
-        });
+
         let getFunderInfoLog = await resonance.getFunderInfo(0, {
             from: accounts[1]
         });
         console.log("查询轮次funders信息:", getFunderInfoLog);
     })
 
+    // getBuildingTokenFromParty
+    it("21...查询基金会可转入Token额度", async() => {
+        // 结算一下，进入第三轮
+
+        // winners[0] = accounts[0];
+        // winners[1] = accounts[1];
+        // winners[2] = accounts[2];
+
+        // let a = await resonance.settlementStep(
+        //     winners,
+        //     winners, {
+        //         from: accounts[0]
+        //     });
+
+        let getBuildingTokenFromPartyLog = await resonanceDataManage.getBuildingTokenFromParty();
+        console.log(getBuildingTokenFromPartyLog);
+    })
 })

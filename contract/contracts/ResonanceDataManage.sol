@@ -157,9 +157,9 @@ contract ResonanceDataManage{
     /// @param raisedETH 募资期已经募集的ETH数量
     /// @param softCap 当前轮次软顶
     function crowdsaleIsClosed(
+        uint256 stepIndex,
         uint256 raisedETH,
-        uint256 softCap,
-        uint256 stepIndex
+        uint256 softCap
     )
         public
         platform()
@@ -319,7 +319,7 @@ contract ResonanceDataManage{
                 buildingPercentOfParty += 1;
                 buildingPercentOfCommunity -= 1;
             }
-            initBuildingTokenAmount = (initBuildingTokenAmount * 99 / 100) ** _stepIndex;
+            initBuildingTokenAmount = ((initBuildingTokenAmount.mul(99).div(100)) ** _stepIndex).mul(buildingPercentOfParty).div(100);
             setBuildingTokenFromParty(initBuildingTokenAmount);
         }
 
@@ -332,8 +332,9 @@ contract ResonanceDataManage{
     }
 
     /// @notice 当前轮次基金会应该投入的Token数量
+    // TODO:
     function getBuildingTokenFromParty() public view returns(uint256) {
-        return buildingTokenFromParty;
+        return buildingTokenFromParty / 1E18;
     }
 
 }
