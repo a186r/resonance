@@ -131,7 +131,7 @@ contract('TestResonance', async (accounts) => {
     });
 
     it("6...设置当前轮次募资目标", async () => {
-        await resonance.setRaiseTarget(web3.utils.toWei("60"));
+        await resonance.setRaiseTarget(web3.utils.toWei("6"));
 
         // console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(0));
         // console.log("当前轮次募资目标是：", await resonance.getRaiseTarget(1));
@@ -175,7 +175,7 @@ contract('TestResonance', async (accounts) => {
 
         // 查看授权额度
         let allowanceAmount = await abcToken.allowance(accounts[3], resonance.address);
-        // console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
+        console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
 
         // 转入Token，参与共建
         await resonance.jointlyBuild(web3.utils.toWei("100"), {
@@ -200,19 +200,19 @@ contract('TestResonance', async (accounts) => {
     });
 
     it("9...募资期社区成员转入ETH", async () => {
-        await resonance.send(web3.utils.toWei("20"), {
+        await resonance.send(web3.utils.toWei("2"), {
             from: accounts[0]
         });
 
-        await resonance.send(web3.utils.toWei("20"), {
+        await resonance.send(web3.utils.toWei("2"), {
             from: accounts[1]
         });
 
-        await resonance.send(web3.utils.toWei("10"), {
+        await resonance.send(web3.utils.toWei("1"), {
             from: accounts[2]
         });
 
-        await resonance.send(web3.utils.toWei("10"), {
+        await resonance.send(web3.utils.toWei("1"), {
             from: accounts[3]
         });
     });
