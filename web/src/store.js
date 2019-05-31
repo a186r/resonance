@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import Web3 from 'web3'
+import BigNumber from 'bignumber.js'
 import { formatEth, ethToWei } from './utils/ethUtils'
 
 const web3 = new Web3()
@@ -68,7 +69,7 @@ export default new Vuex.Store({
           console.log('get building info', result)
           const data = {}
           // data.bpCountdown = result[0].toNumber() * 1000
-          data.remainingToken = web3.utils.fromWei(result[1].toString())
+          data.remainingToken = BigNumber(web3.utils.fromWei(result[1].toString())).toFixed(0)
           data.eachAddressLimit = web3.utils.fromWei(result[2].toString())
           data.totalTokenAmount = web3.utils.fromWei(result[3].toString())
           commit('GET_OFFER_INFO', data)
@@ -199,9 +200,8 @@ export default new Vuex.Store({
       })
     },
     async isBuilder({ commit }, contract) {
-      contract.methods.isBuilder().call({
-        from: this.state.account,
-      }).then(res => {
+      contract.methods.isBuilder(this.state.account).call()
+      .then(res => {
         commit('GET_ADDRESS_IS_BUILDER', res)
       })
     },
