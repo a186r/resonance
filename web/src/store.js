@@ -15,18 +15,18 @@ export default new Vuex.Store({
     isMobile: false,
     myDetail: [],
     offerData: {
-      bpCountdown: 24 * 60 * 60 * 1000,
-      fpCountdown: 24 * 60 * 60 * 1000,
-      currentRound: 3,
-      remainingToken: 3000,
-      remainingETH: 23,
-      totalTokenAmount: 5000000,
-      totalETHAmount: 300,
-      eachAddressLimit: 20000
+      bpCountdown: 0,
+      fpCountdown: 0,
+      currentRound: 0,
+      remainingToken: 0,
+      remainingETH: 0,
+      totalTokenAmount: 0,
+      totalETHAmount: 0,
+      eachAddressLimit: 0
     },
     homeData: {
-      currentStepTokenAmount: 10000000,
-      currentStepRaisedETH: 100.1234,
+      currentStepTokenAmount: 0,
+      currentStepRaisedETH: 0,
       stepIndex: 0
     },
     rewardList: {
@@ -56,7 +56,8 @@ export default new Vuex.Store({
   },
   actions: {
     async getFunderInfo({ commit }, contract) {
-      contract.methods.getFunderInfo().call({}, (err, result) => {
+      const stepIndex = this.state.homeData.stepIndex
+      contract.methods.getFunderInfo(stepIndex).call({}, (err, result) => {
         console.log(err, 'get funder info', result, contract.address)
         commit('GET_FUNDER_INFO', result)
       })
@@ -66,7 +67,7 @@ export default new Vuex.Store({
         .then(result => {
           console.log('get building info', result)
           const data = {}
-          data.bpCountdown = result[0].toNumber() * 1000
+          // data.bpCountdown = result[0].toNumber() * 1000
           data.remainingToken = web3.utils.fromWei(result[1].toString())
           data.eachAddressLimit = web3.utils.fromWei(result[2].toString())
           data.totalTokenAmount = web3.utils.fromWei(result[3].toString())
@@ -81,9 +82,22 @@ export default new Vuex.Store({
         .then(result => {
           console.log('get funding info', result)
           const data = {}
-          data.fpCountdown = result[0].toNumber() * 1000
+          // data.fpCountdown = result[0].toNumber() * 1000
           data.remainingETH = web3.utils.fromWei(result[1].toString())
           data.totalETHAmount = web3.utils.fromWei(result[2].toString())
+          commit('GET_OFFER_INFO', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    async getOpeningTime({ commit }, contract) {
+      contract.methods.getOpeningTime().call()
+        .then(result => {
+          console.log('get opening time', result)
+          const data = {}
+          data.bpCountdown = (result.toNumber() * 1000) + 8 * 3600 * 1000 - new Date().getTime()
+          data.fpCountdown = data.bpCountdown + 16 * 3600 * 1000
           commit('GET_OFFER_INFO', data)
         })
         .catch(err => {
