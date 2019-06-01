@@ -78,7 +78,7 @@ export default new Vuex.Store({
   },
   mutations: {
     GET_FUNDER_AMOUNT: (state, data) => {
-      Object.assign(state.funderAmount, data)
+      Object.assign(state.myDetail.funderAmount, data)
     },
     GET_FUNDER_REWARD: (state, data) => {
       state.myDetail.rewardList = data
@@ -303,7 +303,7 @@ export default new Vuex.Store({
         if (eventName === 'currentStepRaisedToken') {
           data.totalTokenAmount = getFormat(event.returnValues.raisedTokenAmount, 0)
           data.remainingToken = getFormat(event.returnValues.totalRemainingToken, 0)
-          data.eachAddressLimit = getFormat(event.returnValues.remainingTokenForPersonal, 0)
+          // data.eachAddressLimit = getFormat(event.returnValues.remainingTokenForPersonal, 0)
           homeData.currentStepTokenAmount = getFormat(event.returnValues.raisedTokenAmount, 0)
         } else if (eventName === 'currentStepRaisedEther') {
           data.totalETHAmount = getFormat(event.returnValues.raisedETHAmount, 5)
