@@ -396,6 +396,8 @@ contract('TestResonance', async (accounts) => {
         // console.log(await FOMOReward.getFOMOWinnerInfo(0));
 
         // console.log("查询当前轮次:", await resonance.currentStep.call());
+        // 查看合约token余额
+        console.log("查看提取前合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
 
         // 提走所有token和eth
         await resonance.withdrawAllETHByOwner();
