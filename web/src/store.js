@@ -41,6 +41,7 @@ export default new Vuex.Store({
     account: '',
     isBuilder: false,
     isMobile: false,
+    isResonanceClosed: false,
     myDetail: {
       rewardList: [],
       funderAmount: {
@@ -79,6 +80,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    GET_RESONANCE_IS_CLOSED: (state, data) => {
+      console.log('------------------closed update', data)
+      state.isResonanceClosed = data
+    },
     GET_FUNDER_AMOUNT: (state, data) => {
       Object.assign(state.myDetail.funderAmount, data)
     },
@@ -124,18 +129,20 @@ export default new Vuex.Store({
         commit('GET_FUNDER_REWARD', result)
       })
       const res = await getStepIndex(contract)
-      const stepIndex = res[0].toNumber()
-      contract.methods.getFunderFundsByStep(stepIndex).call({from: this.state.account}, (err, result) => {
-        console.log(err, stepIndex, 'getFunderFundsByStep', result)
-        if (result) {
-          const data = {}
-          data.allCAD  = getFormat(result[0], 0)
-          data.allETH = getFormat(result[1], 5)
-          data.depositCAD = getFormat(result[2], 0)
-          data.depositETH = getFormat(result[3], 5)
-          commit('GET_FUNDER_AMOUNT', data)
-        }
-      })
+      if (res) {
+        const stepIndex = res[0].toNumber()
+        contract.methods.getFunderFundsByStep(stepIndex).call({from: this.state.account}, (err, result) => {
+          console.log(err, stepIndex, 'getFunderFundsByStep', result)
+          if (result) {
+            const data = {}
+            data.allCAD  = getFormat(result[0], 0)
+            data.allETH = getFormat(result[1], 5)
+            data.depositCAD = getFormat(result[2], 0)
+            data.depositETH = getFormat(result[3], 5)
+            commit('GET_FUNDER_AMOUNT', data)
+          }
+        })
+      }
     },
     async getBuildingPeriodInfo({ commit }, contract) {
       contract.methods.getBuildingPerioInfo().call()
@@ -335,14 +342,23 @@ export default new Vuex.Store({
       })
     },
     async withdrawFaithRewardAndRefund({commit}) {
+      const self = this
       window.contract.methods.withdrawFaithRewardAndRefund().send({
-        from: this.state.account,
+        from: self.state.account,
       }).then(res => {
         console.log(res)
       }).catch(err => {
         self._vm.$alert('Metamask 提交失败', '提示', {
           confirmButtonText: '确定',
         })
+      })
+    },
+    async getResonanceIsClosed({commit}, contract) {
+      contract.methods.getResonanceIsClosed().call()
+      .then(res => {
+        if (res) {
+          commit('GET_RESONANCE_IS_CLOSED', res)
+        }
       })
     },
     async getRewardList({commit}, params) {
