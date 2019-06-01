@@ -10,11 +10,16 @@
         </div>
       </el-col>
       <el-col class="col-flex"  :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-        <div class="withdraw dark-card">
+        <div class="withdraw dark-card" v-if="!isResonanceClosed">
           <div class="withdraw-eth"></div>
           <p>{{ $t('my.withdrawETH') }}</p>
           <p>{{ $t('my.canWithdrawAmount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawETH}}</span> ETH（{{ $t('my.totalAmount') }}：{{myDetail.funderAmount.allETH}} ETH）</p>
           <button class="custom-button" @click="withdrawAllETH">{{ $t('my.withdraw') }}</button>
+        </div>
+        <div class="withdraw dark-card" v-else>
+          <div class="withdraw-eth"></div>
+          <p>{{ $t('my.closed') }}</p>
+          <button class="custom-button" @click="refund">{{ $t('my.refund') }}</button>
         </div>
       </el-col>
     </el-row>
@@ -35,7 +40,7 @@
             <div class="my-detail-list-middle">
             </div>
             <div class="my-detail-list-right">
-              <p v-for="i in 4" :key="i">{{detailList[i+3].text}}：{{myDetail.rewardList[i-1]}}</p>
+              <p v-for="i in 4" :key="i">{{detailList[i+3].text}}：{{ myDetail.rewardList && myDetail.rewardList[i-1]}}</p>
             </div>
           </div>
         </div>
@@ -101,6 +106,10 @@ export default {
     withdrawAllCAD () {
       console.log('withdraw cad')
       store.dispatch('withdrawAllCAD')
+    },
+    refund () {
+      console.log('refund')
+      store.dispatch('withdrawFaithRewardAndRefund')
     }
   },
   mounted() {
