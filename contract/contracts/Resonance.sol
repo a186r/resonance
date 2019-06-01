@@ -81,7 +81,7 @@ contract Resonance is Ownable{
     mapping(address => address[]) invitees; // 邀请人
     mapping(address => uint256) earnFromAff; // 推广所得
     mapping(address => uint256) inviteesTotalAmount; // 我的邀请人打入的eth总量
-    address[] FOMOList; // FOMO列表
+    mapping(uint256 => address[]) FOMOList; // FOMO列表
 
     // 组建期结构体
     struct Building{
@@ -358,7 +358,7 @@ contract Resonance is Ownable{
         }
 
         // 全都加入FOMO列表
-        FOMOList.push(msg.sender);
+        FOMOList[currentStep].push(msg.sender);
 
         steps[currentStep].funder[msg.sender].ethAmount += amount;
         steps[currentStep].funder[msg.sender].isFunder = true;
@@ -459,10 +459,10 @@ contract Resonance is Ownable{
         );
 
         // 结算FOMO奖励
-        if(FOMOList.length > 0){
+        if(FOMOList[currentStep].length > 0){
             resonanceDataManage.settlementFOMOReward(
                 currentStep,
-                FOMOList,
+                FOMOList[currentStep],
                 ETHFromParty[currentStep].mul(125).div(1000)
             );
         }else{
