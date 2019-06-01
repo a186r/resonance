@@ -39,6 +39,7 @@ import Web3 from "web3"
 import store from './store'
 import ResonanceJson from '../../contract/build/contracts/Resonance.json'
 import TokenJson from '../../contract/build/contracts/ABCToken.json'
+import ResonanceDataManageJson from '../../contract/build/contracts/ResonanceDataManage.json'
 
 export default {
   name: 'app',
@@ -76,6 +77,15 @@ export default {
       console.log('contract address:', address)
       const contract = await new web3.eth.Contract(
         ResonanceJson.abi,
+        address
+      )
+      return contract
+    },
+    async initDataContract() {
+      const address = ResonanceDataManageJson["networks"][web3.currentProvider.connection.networkVersion].address
+      console.log('data contract address:', address)
+      const contract = await new web3.eth.Contract(
+        ResonanceDataManageJson.abi,
         address
       )
       return contract
@@ -120,6 +130,7 @@ export default {
     await this.unlockMetaMask()
     const contract = await this.initContract()
     const tokenContract = await this.initTokenContract()
+    const dataContract = await this.initDataContract()
     window.contract = contract
     window.tokenContract = tokenContract
     // const amount = await tokenContract.methods.allowance(this.account, contract.address).call()
@@ -134,6 +145,7 @@ export default {
     store.dispatch('startListenEvent', data)
     data.eventName = 'currentStepRaisedEther'
     store.dispatch('startListenEvent', data)
+    store.dispatch('getResonanceIsClosed', dataContract)
   }
 }
 </script>
