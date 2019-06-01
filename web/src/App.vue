@@ -44,7 +44,7 @@ export default {
   name: 'app',
   data () {
     return {
-      account: ethereum.selectedAddress || '登录 metamask',
+      account: ethereum && ethereum.selectedAddress || '登录钱包',
       currentLanguage: localStorage.getItem('currentLocale') && localStorage.getItem('currentLocale') == 'en' ? 'English' : '中文简体'
     }
   },
@@ -82,8 +82,12 @@ export default {
     },
     async unlockMetaMask() {
       const self = this
-
-      if (window.ethereum) {
+      if (window.web3 && window.web3.currentProvider.isTrust) {
+        window.web3 = new Web3(web3.currentProvider)
+        const account = web3.eth.accounts[0]
+        this.$alert(`trust`)
+        self.account = account
+      } else if (window.ethereum) {
         window.web3 = new Web3(ethereum)
         try {
           await ethereum.enable();
@@ -93,9 +97,7 @@ export default {
             confirmButtonText: '确定',
           })
         }
-      }
-      // Legacy dapp browsers...
-      else if (window.web3) {
+      } else if (window.web3) {
         window.web3 = new Web3(web3.currentProvider)
         const account = web3.eth.accounts[0]
         if (!account){
@@ -105,8 +107,7 @@ export default {
           return
         }
         self.account = account
-      }
-      else {
+      } else {
         self.$alert('您的浏览器还没有安装 MetaMask，请先安装该插件', '提示', {
           confirmButtonText: '确定',
         })
@@ -176,6 +177,10 @@ html {
   height: 100%;
   background-color: $bg;
   color: #fff;
+}
+
+.el-message-box {
+  width: 4rem !important;
 }
 
 .el-container {
