@@ -9,6 +9,25 @@ const web3 = new Web3()
 
 Vue.use(Vuex)
 
+function getReward(contract, methodName, stepIndex, account, index, commit) {
+  let method
+  if (methodName !== 'getFaithRewardInfo') {
+    method = contract.methods[methodName](stepIndex)
+  } else {
+    method = contract.methods[methodName]()
+  }
+  method.call({
+    from: account,
+  }).then(res => {
+    // console.log(stepIndex, index, methodName, res)
+    res.index = index
+    res[0] = web3.utils.fromWei(res[0].toString())
+    res[2] = res[1].map((item, i) => web3.utils.fromWei(res[2][i].toString()))
+    console.log(stepIndex, index, methodName, res)
+    commit('GET_REWARD_LIST', res)
+  })
+}
+
 export default new Vuex.Store({
   state: {
     account: '',
@@ -51,8 +70,9 @@ export default new Vuex.Store({
       state.isBuilder = data
     },
     GET_REWARD_LIST: (state, data) => {
-      console.log('reward ', data.index, data)
-      state.rewardList[data.index] = data
+      // console.log('reward ', data.index, data)
+      const index = data.index
+      Object.assign(state.rewardList, {index: data})
     }
   },
   actions: {
@@ -220,40 +240,32 @@ export default new Vuex.Store({
     //   })
     // },
     async queryRewardList({commit}, contract) {
-      const stepIndex = this.state.homeData.stepIndex
-      console.log('stepIndex')
-      contract.methods.getFissionRewardInfo(stepIndex).call({
-        from: this.state.account,
-      }).then(res => {
-        res.index = 0
-        res[0] = web3.utils.fromWei(res[0].toString())
-        res[2] = res[2].map(item => web3.utils.fromWei(item.toString()))
-        commit('GET_REWARD_LIST', res)
+      const stepIndex = 0 //this.state.homeData.stepIndex
+      const arr = ['getFissionRewardInfo', 'getFOMORewardIofo', 'getLuckyRewardInfo', 'getFaithRewardInfo']
+      for (let i = 0; i < 4; i++) {
+        getReward(contract, arr[i], stepIndex, this.state.account, i, commit)
+      }
+    },
+    async startListenEvent({commit}, data) {
+      const contract = data.contract
+      const eventName = data.eventName
+      contract.events[eventName]({}, (error, event) => { 
+        console.log(eventName, 'initial event: ', event)
       })
-      contract.methods.getFOMORewardIofo(stepIndex).call({
-        from: this.state.account,
-      }).then(res => {
-        res.index = 1
-        res[0] = web3.utils.fromWei(res[0].toString())
-        res[2] = res[2].map(item => web3.utils.fromWei(item.toString()))
-        commit('GET_REWARD_LIST', res)
+      .on('data', (event) => {
+        console.log(eventName, 'listen event on data:', event)
       })
-      contract.methods.getLuckyRewardInfo(stepIndex).call({
-        from: this.state.account,
-      }).then(res => {
-        res.index = 2
-        res[0] = web3.utils.fromWei(res[0].toString())
-        res[2] = res[1].map(item => web3.utils.fromWei(res[1].toString()))
-        commit('GET_REWARD_LIST', res)
+      .on('changed', (event) => {
+        console.log(eventName, 'listen event on changed:', event)
+        const data = {}
+        if (eventName === 'a') {
+
+        } else if (eventName === 'b') {
+
+        }
+        commit('GET_OFFER_INFO', data)
       })
-      contract.methods.getFaithRewardInfo().call({
-        from: this.state.account,
-      }).then(res => {
-        res.index = 3
-        res[0] = web3.utils.fromWei(res[0].toString())
-        res[2] = res[2].map(item => web3.utils.fromWei(item.toString()))
-        commit('GET_REWARD_LIST', res)
-      })
+      .on('error', console.error)
     },
     async getRewardList({commit}, params) {
       const url = 'test.com'
