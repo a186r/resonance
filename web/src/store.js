@@ -82,7 +82,13 @@ export default new Vuex.Store({
       contract.methods.getFunderInfo(stepIndex).call({from: this.state.account}, (err, result) => {
         console.log(err, 'get funder info', result)
         for (let i in result) {
-          result[i] = web3.utils.fromWei(result[i].toString())
+          if (i === 2) {
+            result[i] = result[i].toString()
+          } else if (i === 0) {
+            result[i] = BigNumber(web3.utils.fromWei(result[i].toString())).toFixed(0)
+          } else {
+            result[i] = web3.utils.fromWei(result[i].toString())
+          }
         }
         if (result) {
           commit('GET_FUNDER_INFO', result)
@@ -110,7 +116,7 @@ export default new Vuex.Store({
           console.log('get funding info', result)
           const data = {}
           // data.fpCountdown = result[0].toNumber() * 1000
-          data.remainingETH = web3.utils.fromWei(result[1].toString())
+          data.remainingETH = BigNumber(web3.utils.fromWei(result[1].toString())).toFixed(4)
           data.totalETHAmount = web3.utils.fromWei(result[2].toString())
           commit('GET_OFFER_INFO', data)
         })
@@ -252,20 +258,20 @@ export default new Vuex.Store({
       const contract = data.contract
       const eventName = data.eventName
       contract.events[eventName]({}, (error, event) => { 
-        console.log(eventName, 'initial event: ', event)
+        console.log(eventName, 'initial event: ', event, event.returnValues)
+        const data = {}
+        if (eventName === 'currentStepRaisedToken') {
+          data.totalTokenAmount = web3.utils.fromWei(event.returnValues.raisedTokenAmount.toString())
+        } else if (eventName === 'currentStepRaisedEther') {
+          data.totalETHAmount = web3.utils.fromWei(event.returnValues.raisedETHAmount.toString())
+        }
+        commit('GET_OFFER_INFO', data)
       })
       .on('data', (event) => {
         console.log(eventName, 'listen event on data:', event)
       })
       .on('changed', (event) => {
         console.log(eventName, 'listen event on changed:', event)
-        const data = {}
-        if (eventName === 'a') {
-
-        } else if (eventName === 'b') {
-
-        }
-        commit('GET_OFFER_INFO', data)
       })
       .on('error', console.error)
     },
