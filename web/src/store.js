@@ -331,6 +331,11 @@ export default new Vuex.Store({
       .on('error', console.error)
     },
     async getWithdrawAmountPriv({commit}, contract) {
+      const res = await getStepIndex(contract)
+      if (!res || res[0].toNumber() === 0) {
+        console.log('current step index is 0')
+        return
+      }
       contract.methods.getWithdrawAmountPriv().call({from: this.state.account}, (err, result) => {
         console.log(err, 'getWithdrawAmountPriv', result)
         if (result) {
