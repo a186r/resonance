@@ -58,8 +58,12 @@ export default new Vuex.Store({
   actions: {
     async getFunderInfo({ commit }, contract) {
       const stepIndex = this.state.homeData.stepIndex
-      contract.methods.getFunderInfo(stepIndex).call({}, (err, result) => {
-        console.log(err, 'get funder info', result, contract.address)
+      console.log('before get funder info ', stepIndex)
+      contract.methods.getFunderInfo(stepIndex).call({from: this.state.account}, (err, result) => {
+        console.log(err, 'get funder info', result)
+        for (let i in result) {
+          result[i] = web3.utils.fromWei(result[i].toString())
+        }
         commit('GET_FUNDER_INFO', result)
       })
     },
