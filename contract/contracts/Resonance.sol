@@ -404,12 +404,14 @@ contract Resonance is Ownable{
         require(!steps[currentStep].settlementFinished, "当前轮次已经结算完毕");
         require(!steps[currentStep].stepIsClosed, "当前轮次早已经结束");
 
+        // 结算裂变奖励
         resonanceDataManage.settlementFissionReward(
             currentStep,
             _fissionWinnerList,
             ETHFromParty[currentStep].mul(20).div(100)
         );
 
+        // 结算FOMO奖励
         if(steps[currentStep].funders.length > 0){
             resonanceDataManage.settlementFOMOReward(
                 currentStep,
@@ -690,7 +692,6 @@ contract Resonance is Ownable{
 
         Funder memory funder = steps[_stepIndex].funder[msg.sender];
 
-        // funderInfo[0] = funder.withdrawTokenAmount;
         // call 本地计算，不修改链
         funderInfo[0] = _calculationWithdrawTokenAmount(_stepIndex);
         funderInfo[1] = resonanceDataManage.getETHBalance(msg.sender);

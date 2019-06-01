@@ -218,16 +218,15 @@ contract('TestResonance', async (accounts) => {
     });
 
     it("10...获取投资者信息", async () => {
-        let funderInfo = await resonance.getFunderInfo(0, {
-            from: accounts[7]
-        });
-        // console.log(funderInfo);
+        // console.log(await resonance.getFunderInfo(0, {
+        //     from: accounts[7]
+        // }));
     })
 
     it("11...查询组建期信息", async () => {
-        console.log("查询组建期信息：", await resonance.getBuildingPerioInfo({
-            from: accounts[0]
-        }));
+        // console.log("查询组建期信息：", await resonance.getBuildingPerioInfo({
+        //     from: accounts[0]
+        // }));
     })
 
     it("12...查询募资期信息", async () => {
@@ -243,10 +242,9 @@ contract('TestResonance', async (accounts) => {
     })
 
     it("14...查询轮次funders信息", async () => {
-        let getStepFundersLog = await resonance.getStepFunders(0, {
+        console.log("查询轮次funders信息:", await resonance.getStepFunders(0, {
             from: accounts[0]
-        });
-        // console.log("查询轮次funders信息:", getStepFundersLog);
+        }));
     })
 
     it("15...结算当前轮次", async () => {
@@ -309,12 +307,11 @@ contract('TestResonance', async (accounts) => {
         // console.log(blockHash);
     })
 
-    it("20...查询轮次funders信息", async () => {
+    it("20...查询轮次funders信息(个人中心)", async () => {
 
-        let getFunderInfoLog = await resonance.getFunderInfo(0, {
-            from: accounts[1]
-        });
-        console.log("查询轮次funders信息:", getFunderInfoLog);
+        console.log("查询轮次funders信息:", await resonance.getFunderInfo(0, {
+            from: accounts[3]
+        }));
     })
 
     // getBuildingTokenFromParty
@@ -325,26 +322,30 @@ contract('TestResonance', async (accounts) => {
         winners[1] = accounts[1];
         winners[2] = accounts[2];
 
-        let a = await resonance.settlementStep(
-            winners,
-            winners, {
-                from: accounts[0]
-            });
+        // let a = await resonance.settlementStep(
+        //     winners,
+        //     winners, {
+        //         from: accounts[0]
+        //     });
 
-        let aa = await resonance.settlementStep(
-            winners,
-            winners, {
-                from: accounts[0]
-            });
+        // let aa = await resonance.settlementStep(
+        //     winners,
+        //     winners, {
+        //         from: accounts[0]
+        //     });
     
-        console.log("查询组建期信息：", await resonance.getBuildingPerioInfo({
-            from: accounts[0]
-        }));
+        // console.log("查询组建期信息：", await resonance.getBuildingPerioInfo({
+        //     from: accounts[0]
+        // }));
 
-        console.log("基金会本轮次可转入额度：",await resonanceDataManage.getBuildingTokenFromParty() / 1E18);
+        // console.log("基金会本轮次可转入额度：",await resonanceDataManage.getBuildingTokenFromParty() / 1E18);
 
-        console.log("查询当前轮次信息", await resonance.getCurrentStepFundsInfo({
-            from: accounts[0]
-        }));
+        // console.log("查询当前轮次信息", await resonance.getCurrentStepFundsInfo({
+        //     from: accounts[0]
+        // }));
+    })
+
+    it("22...查询FOMO奖励列表",async() => {
+        console.log(await FOMOReward.getFOMOWinnerInfo(0));
     })
 })

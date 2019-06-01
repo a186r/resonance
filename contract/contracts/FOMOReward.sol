@@ -73,17 +73,16 @@ contract FOMOReward {
         FOMORewards[_stepIndex] = new uint256[](fundersLen);
         FOMOWinners[_stepIndex] = new address[](fundersLen);
 
-        for(uint i = 1; i < fundersLen; i++){
-
-            if(i == 1) {
-                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(50).div(100));
-            }else if(i == 2) {
-                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(20).div(100));
+        for(uint i = 0; i < fundersLen; i++){
+            if(i == 0) {
+                FOMORewards[_stepIndex][i] = _totalFOMOReward.mul(50).div(100);
+            }else if(i == 1) {
+                FOMORewards[_stepIndex][i] = _totalFOMOReward.mul(20).div(100);
             }else{
-                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(10).div(100));
+                FOMORewards[_stepIndex][i] = _totalFOMOReward.mul(10).div(100);
             }
 
-            FOMOWinners[_stepIndex].push(_funders[fundersLen-i]);
+            FOMOWinners[_stepIndex][i] = _funders[fundersLen-1-i];
 
             FOMORewardAmount[_stepIndex][FOMOWinners[_stepIndex][i]] = FOMORewards[_stepIndex][i];
 
