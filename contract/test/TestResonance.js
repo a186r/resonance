@@ -291,6 +291,11 @@ contract('TestResonance', async (accounts) => {
 
         console.log("结算已完成，提取Token当前轮次：", await resonance.currentStep.call());
 
+        // 提取前查看可提取余额
+        console.log("提取前查看可提取余额", await resonance.getWithdrawAmountPriv({
+            from: accounts[2]
+        }));
+
         // 提取前合约Token余额
         console.log("提取前合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
 
@@ -300,6 +305,11 @@ contract('TestResonance', async (accounts) => {
         await resonance.withdrawAllToken({
             from: accounts[2]
         });
+
+        // 提取后查看可提取余额
+        console.log("提取后查看可提取余额", await resonance.getWithdrawAmountPriv({
+            from: accounts[2]
+        }));
 
         // 提取后账户Token余额
         console.log("提取后账户Token余额", await abcToken.balanceOf(accounts[2]) / 1E18);
@@ -313,6 +323,12 @@ contract('TestResonance', async (accounts) => {
         console.log(await resonance.withdrawAllETH({
             from: accounts[2]
         }));
+
+        // 提取后查看可提取余额
+        console.log("提取后查看ETH可提取余额", await resonance.getWithdrawAmountPriv({
+            from: accounts[2]
+        }));
+
     })
 
     it("19...查询区块hash", async () => {

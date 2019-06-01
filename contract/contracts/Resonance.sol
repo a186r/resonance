@@ -705,7 +705,7 @@ contract Resonance is Ownable{
     }
 
     /// @notice 获取上一轮可提取的Token和ETH数量
-    function getWithdrawAmountPriv() public view returns(uint256, uint256){
+    function getWithdrawAmountPriv() public view returns(uint256, uint256) {
         require(currentStep != 0, "下一轮再来查看第一轮的数据");
 
         uint256 _withdrawTokenAmount;
@@ -789,16 +789,9 @@ contract Resonance is Ownable{
         uint256  currentStepTotalRaisedToken = steps[_stepIndex].building.raisedToken
             .add(resonanceDataManage.getBuildingTokenFromParty(_stepIndex));
 
-        if(currentStepTotalRaisedToken == 0
-            || steps[_stepIndex].funder[msg.sender].ethAmount == 0
-            || steps[_stepIndex].funding.raisedETH == 0)
-        {
-            _withdrawTokenAmount = 0;
-        }else{
-            _withdrawTokenAmount = currentStepTotalRaisedToken.
-                mul(steps[_stepIndex].funder[msg.sender].ethAmount).
-                div(steps[_stepIndex].funding.raisedETH);
-        }
+        _withdrawTokenAmount = currentStepTotalRaisedToken.
+            mul(steps[_stepIndex].funder[msg.sender].ethAmount).
+            div(steps[_stepIndex].funding.raisedETH);
 
         return _withdrawTokenAmount;
     }
@@ -810,16 +803,9 @@ contract Resonance is Ownable{
         uint256 totalTokenAmountPrev = steps[_stepIndex].building.raisedToken
             .add(resonanceDataManage.getBuildingTokenFromParty(_stepIndex));
 
-        if(totalTokenAmountPrev == 0
-            || steps[_stepIndex].funder[msg.sender].tokenAmount == 0
-            || steps[_stepIndex].funding.raisedETH == 0)
-        {
-            _withdrawETHAmount = 0;
-        }else{
-            _withdrawETHAmount = steps[_stepIndex].funder[msg.sender].tokenAmount
-                .mul(steps[_stepIndex].funding.raisedETH)
-                .div(totalTokenAmountPrev);
-        }
+        _withdrawETHAmount = steps[_stepIndex].funder[msg.sender].tokenAmount
+            .mul(steps[_stepIndex].funding.raisedETH)
+            .div(totalTokenAmountPrev);
 
         return _withdrawETHAmount;
     }
