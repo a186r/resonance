@@ -128,6 +128,10 @@ export default {
     store.dispatch('getFundingPeriodInfo', contract)
     store.dispatch('getFunderInfo', contract)
     store.dispatch('isBuilder', contract)
+    const data = {contract: contract, eventName: 'ToBeFissionPerson'}
+    store.dispatch('startListenEvent', data)
+    data.eventName = 'FundsInfo'
+    store.dispatch('startListenEvent', data)
   }
 }
 </script>
