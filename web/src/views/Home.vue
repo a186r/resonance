@@ -10,7 +10,7 @@
           <div class="period-value">
             <div class="building-period-value"></div>
             <div class="period-value-enter">
-              <p>CAD: <span class="value-span">{{homeData.currentStepTokenAmount}}</span> CAD</p>
+              <p>BDE: <span class="value-span">{{homeData.currentStepTokenAmount}}</span> BDE</p>
               <div class="period-enter">
                 <div></div>
                 <router-link class="to-offer" to="/offer">{{ $t('index.enterBuilding') }}</router-link>

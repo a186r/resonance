@@ -5,7 +5,7 @@
         <div class="withdraw dark-card">
           <div class="withdraw-cad"></div>
           <p>{{ $t('my.withdrawCAD') }}</p>
-          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail[0]}}</span> CAD</p>
+          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail[0]}}</span> BDE</p>
           <button class="custom-button" @click="withdrawAllCAD">{{ $t('my.withdraw') }}</button>
         </div>
       </el-col>
