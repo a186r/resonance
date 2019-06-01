@@ -46,6 +46,8 @@ export default new Vuex.Store({
       funderAmount: {
         withdrawCAD: 0,
         withdrawETH: 0,
+        allCAD: 0,
+        allETH: 0,
         depositCAD: 0,
         depositETH: 0
       },
@@ -127,8 +129,8 @@ export default new Vuex.Store({
         console.log(err, stepIndex, 'getFunderFundsByStep', result)
         if (result) {
           const data = {}
-          data.withdrawCAD = getFormat(result[0], 0)
-          data.withdrawETH = getFormat(result[1], 5)
+          data.allCAD  = getFormat(result[0], 0)
+          data.allETH = getFormat(result[1], 5)
           data.depositCAD = getFormat(result[2], 0)
           data.depositETH = getFormat(result[3], 5)
           commit('GET_FUNDER_AMOUNT', data)
@@ -320,6 +322,28 @@ export default new Vuex.Store({
         console.log(eventName, 'listen event on changed:', event)
       })
       .on('error', console.error)
+    },
+    async getWithdrawAmountPriv({commit}, contract) {
+      contract.methods.getWithdrawAmountPriv().call({from: this.state.account}, (err, result) => {
+        console.log(err, 'getWithdrawAmountPriv', result)
+        if (result) {
+          const data = {}
+          data.withdrawCAD  = getFormat(result[0], 0)
+          data.withdrawETH = getFormat(result[1], 5)
+          commit('GET_FUNDER_AMOUNT', data)
+        }
+      })
+    },
+    async withdrawFaithRewardAndRefund({commit}) {
+      window.contract.methods.withdrawFaithRewardAndRefund().send({
+        from: this.state.account,
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        self._vm.$alert('Metamask 提交失败', '提示', {
+          confirmButtonText: '确定',
+        })
+      })
     },
     async getRewardList({commit}, params) {
       const url = 'test.com'
