@@ -22,7 +22,7 @@ contract ABCToken is ERC20, ERC20Detailed, ERC20Burnable {
         public
     {
         // 创建1.5亿个
-        // mint(msg.sender,150000000 * (10 ** uint256(decimals)));
+        // _mint(msg.sender,150000000 * (10 ** uint256(decimals)));
         // emit CreateTokenSuccess(msg.sender,balanceOf(msg.sender));
     }
 

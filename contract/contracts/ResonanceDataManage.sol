@@ -34,7 +34,7 @@ contract ResonanceDataManage{
     // 开始时间
     uint256 public openingTime;
     // 共振是否结束
-    bool crowdsaleClosed = false;
+    bool crowdsaleClosed;
 
     // 共振结束时的Step
     uint256 resonanceClosedStep;
@@ -133,23 +133,23 @@ contract ResonanceDataManage{
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
         // if(block.timestamp >= openingTime && block.timestamp < openingTime.add(8 hours)) {
-        // if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(30 minutes)) {
-        //     return true;
-        // }else{
-        //     return false;
-        // }
-        return true;
+        if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(30 minutes)) {
+            return true;
+        }else{
+            return false;
+        }
+        // return true;
     }
 
     // 是否是募资期
     function isFundingPeriod() public view returns(bool) {
         // if(block.timestamp >= openingTime.add(8 hours) && block.timestamp < openingTime.add(24 hours)) {
-        // if(block.timestamp >= openingTime.add(30 minutes) && block.timestamp <= openingTime.add(1 hours)) {
-        //     return true;
-        // }else{
-        //     return false;
-        // }
-        return true;
+        if(block.timestamp >= openingTime.add(30 minutes) && block.timestamp <= openingTime.add(1 hours)) {
+            return true;
+        }else{
+            return false;
+        }
+        // return true;
     }
 
     /// @notice 判断共振是否结束
@@ -168,20 +168,19 @@ contract ResonanceDataManage{
         // 1.当前轮次募资期募资额度没有达到软顶，共振结束
         if(raisedETH < softCap) {
             resonanceClosedStep = stepIndex;
-            crowdsaleClosed = true;
+            setCrowdsaleClosed(true);
         }else{
-            crowdsaleClosed = false;
+            setCrowdsaleClosed(false);
+            // 2.消耗完资金池的总额度，共振结束
+            if(fundsPool == 0) {
+                resonanceClosedStep = stepIndex;
+                setCrowdsaleClosed(true);
+            }else{
+                setCrowdsaleClosed(false);
+            }
         }
 
-        // 2.消耗完资金池的总额度，共振结束
-        if(fundsPool == 0) {
-            resonanceClosedStep = stepIndex;
-            crowdsaleClosed = true;
-        }else{
-            crowdsaleClosed = false;
-        }
-
-        return crowdsaleClosed;
+        return getResonanceIsClosed();
     }
 
     /// @notice 查询共振结束时的轮次Index
@@ -311,7 +310,8 @@ contract ResonanceDataManage{
     function updateBuildingPercent(uint256 _stepIndex) public platform() returns (bool) {
         require(fundsPool > 0, "共建资金池已经消耗完毕");
         if(_stepIndex == 0){
-            setBuildingTokenFromParty(initBuildingTokenAmount.mul(50).div(100));
+            // setBuildingTokenFromParty(initBuildingTokenAmount.mul(50).div(100));
+            buildingTokenFromParty = initBuildingTokenAmount.mul(50).div(100);
             buildingPercentOfParty = 50;
             buildingPercentOfCommunity = 50;
         }else{
