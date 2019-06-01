@@ -160,6 +160,7 @@ export default {
     const contract = await this.initDataContract()
     store.dispatch('queryRewardList', contract)
     store.dispatch('getOpeningTime', contract)
+    store.dispatch('getResonanceIsClosed', contract)
   }
 }
 </script>
@@ -192,6 +193,7 @@ export default {
   .reward-list {
     .reward-area {
       padding: 0.1rem 0.1rem;
+      height: 1.75rem;
       margin-bottom: 0.3rem;
       font-size: .14rem;
       background-color: $dark-main;
@@ -258,7 +260,7 @@ export default {
             text-align: center;
           }
           .address {
-            max-width: 60%;
+            max-width: 50%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
