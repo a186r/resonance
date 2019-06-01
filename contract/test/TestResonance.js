@@ -126,7 +126,7 @@ contract('TestResonance', async (accounts) => {
 
         console.log("账户9的余额是：", await abcToken.balanceOf(accounts[9]) / 1E18);
 
-        // console.log("账户作为推广者，余额是：", await abcToken.balanceOf(accounts[7]) / 1E18);
+        console.log("账户作为推广者，余额是：", await abcToken.balanceOf(accounts[7]) / 1E18);
 
     });
 
@@ -225,24 +225,21 @@ contract('TestResonance', async (accounts) => {
     })
 
     it("11...查询组建期信息", async () => {
-        let getBuildingPerioInfoLog = await resonance.getBuildingPerioInfo({
+        console.log("查询组建期信息：", await resonance.getBuildingPerioInfo({
             from: accounts[0]
-        });
-        console.log("查询组建期信息：", getBuildingPerioInfoLog);
+        }));
     })
 
     it("12...查询募资期信息", async () => {
-        let getFundingPeriodInfoLog = await resonance.getFundingPeriodInfo({
-            from: accounts[0]
-        });
-        // console.log("查询募资期信息：", getFundingPeriodInfoLog);
+        // console.log("查询募资期信息：", await resonance.getFundingPeriodInfo({
+        //     from: accounts[0]
+        // }));
     })
 
     it("13...查询当前轮次信息", async () => {
-        let getCurrentStepFundsInfoLog = await resonance.getCurrentStepFundsInfo({
-            from: accounts[0]
-        });
-        //      console.log("查询募资期信息：", getCurrentStepFundsInfoLog);
+        // console.log("查询当前轮次信息", await resonance.getCurrentStepFundsInfo({
+        //     from: accounts[0]
+        // }));
     })
 
     it("14...查询轮次funders信息", async () => {
@@ -324,17 +321,30 @@ contract('TestResonance', async (accounts) => {
     it("21...查询基金会可转入Token额度", async() => {
         // 结算一下，进入第三轮
 
-        // winners[0] = accounts[0];
-        // winners[1] = accounts[1];
-        // winners[2] = accounts[2];
+        winners[0] = accounts[0];
+        winners[1] = accounts[1];
+        winners[2] = accounts[2];
 
-        // let a = await resonance.settlementStep(
-        //     winners,
-        //     winners, {
-        //         from: accounts[0]
-        //     });
+        let a = await resonance.settlementStep(
+            winners,
+            winners, {
+                from: accounts[0]
+            });
 
-        let getBuildingTokenFromPartyLog = await resonanceDataManage.getBuildingTokenFromParty();
-        console.log(getBuildingTokenFromPartyLog);
+        let aa = await resonance.settlementStep(
+            winners,
+            winners, {
+                from: accounts[0]
+            });
+    
+        console.log("查询组建期信息：", await resonance.getBuildingPerioInfo({
+            from: accounts[0]
+        }));
+
+        console.log("基金会本轮次可转入额度：",await resonanceDataManage.getBuildingTokenFromParty() / 1E18);
+
+        console.log("查询当前轮次信息", await resonance.getCurrentStepFundsInfo({
+            from: accounts[0]
+        }));
     })
 })

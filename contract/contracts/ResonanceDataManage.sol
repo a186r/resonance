@@ -133,23 +133,23 @@ contract ResonanceDataManage{
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
         // if(block.timestamp >= openingTime && block.timestamp < openingTime.add(8 hours)) {
-        if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(30 minutes)) {
-            return true;
-        }else{
-            return false;
-        }
-        // return true;
+        // if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(30 minutes)) {
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+        return true;
     }
 
     // 是否是募资期
     function isFundingPeriod() public view returns(bool) {
         // if(block.timestamp >= openingTime.add(8 hours) && block.timestamp < openingTime.add(24 hours)) {
-        if(block.timestamp >= openingTime.add(30 minutes) && block.timestamp <= openingTime.add(1 hours)) {
-            return true;
-        }else{
-            return false;
-        }
-        // return true;
+        // if(block.timestamp >= openingTime.add(30 minutes) && block.timestamp <= openingTime.add(1 hours)) {
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+        return true;
     }
 
     /// @notice 判断共振是否结束
@@ -313,14 +313,18 @@ contract ResonanceDataManage{
         if(_stepIndex == 0){
             setBuildingTokenFromParty(initBuildingTokenAmount.mul(50).div(100));
             buildingPercentOfParty = 50;
+            buildingPercentOfCommunity = 50;
         }else{
             // 随着轮次推进，社区比例每轮次+1%，项目方比例每轮-1%
             if(buildingPercentOfParty < 66){
                 buildingPercentOfParty += 1;
                 buildingPercentOfCommunity -= 1;
             }
-            initBuildingTokenAmount = ((initBuildingTokenAmount.mul(99).div(100)) ** _stepIndex).mul(buildingPercentOfParty).div(100);
-            setBuildingTokenFromParty(initBuildingTokenAmount);
+            // 计算当前轮次一共开放的Token数量
+            // 每一轮是前一轮总数的99%，也就是（每一轮开放数量 = 前一轮的开放数量 - 前一轮开放数量 * 1%）
+            initBuildingTokenAmount = initBuildingTokenAmount.sub(initBuildingTokenAmount.mul(1).div(100));
+            // 计算当前轮次基金会可投入的数量
+            setBuildingTokenFromParty(initBuildingTokenAmount.mul(buildingPercentOfParty).div(100));
         }
 
         return true;
@@ -334,7 +338,7 @@ contract ResonanceDataManage{
     /// @notice 当前轮次基金会应该投入的Token数量
     // TODO:
     function getBuildingTokenFromParty() public view returns(uint256) {
-        return buildingTokenFromParty / 1E18;
+        return buildingTokenFromParty;
     }
 
 }
