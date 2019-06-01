@@ -29,7 +29,7 @@
         <router-view></router-view>
         <!-- <HelloI18n /> -->
       </el-main>
-      <el-footer>Footer</el-footer>
+      <el-footer>Copyright © 2018-2019 bdex | All rights reserved</el-footer>
     </el-container>
   </div>
 </template>
@@ -215,5 +215,8 @@ html {
     }
   }
 }
-
+.el-footer {
+  color: #fff;
+  line-height: 60px;
+}
 </style>
