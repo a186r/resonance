@@ -10,6 +10,7 @@ const web3 = new Web3()
 Vue.use(Vuex)
 
 function getFormat(data, decimal) {
+  if (!data) { return 0 }
   return BigNumber(web3.utils.fromWei(data.toString())).toFixed(decimal)
 }
 
@@ -361,6 +362,7 @@ export default new Vuex.Store({
     async getResonanceIsClosed({commit}, contract) {
       contract.methods.getResonanceIsClosed().call()
       .then(res => {
+        console.log('getResonanceIsClosed', res)
         if (res) {
           commit('GET_RESONANCE_IS_CLOSED', res)
         }
