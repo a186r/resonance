@@ -41,7 +41,19 @@ export default new Vuex.Store({
     account: '',
     isBuilder: false,
     isMobile: false,
-    myDetail: [],
+    myDetail: {
+      rewardList: [],
+      funderAmount: {
+        withdrawCAD: 0,
+        withdrawETH: 0,
+        depositCAD: 0,
+        depositETH: 0
+      },
+      funderInvite: {
+        count: 0,
+        reward: 0
+      }
+    },
     offerData: {
       bpCountdown: 0,
       fpCountdown: 0,
@@ -65,8 +77,14 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    GET_FUNDER_INFO: (state, data) => {
-      state.myDetail = data
+    GET_FUNDER_AMOUNT: (state, data) => {
+      Object.assign(state.funderAmount, data)
+    },
+    GET_FUNDER_REWARD: (state, data) => {
+      state.myDetail.rewardList = data
+    },
+    GET_FUNDER_INVITE: (state, data) => {
+      Object.assign(state.myDetail.funderInvite, data)
     },
     GET_OFFER_INFO: (state, data) => {
       Object.assign(state.offerData, data)
@@ -87,26 +105,33 @@ export default new Vuex.Store({
   },
   actions: {
     async getFunderInfo({ commit }, contract) {
-      const data = await getStepIndex(contract)
-      const stepIndex = data[0].toNumber()
-      console.log('before get funder info ', stepIndex)
-      contract.methods.getFunderInfo(stepIndex).call({from: this.state.account}, (err, result) => {
-        console.log(err, 'get funder info', result)
-        if (!result) {
-          return
-        } else {
-          for (let i in result) {
-            if (i === '2') {
-              result[i] = result[i].toString()
-            } else if (i === '0' || i === '3' || i === '4') {
-              result[i] = BigNumber(web3.utils.fromWei(result[i].toString())).toFixed(0)
-            } else {
-              if (result[i].toString() !== '0') {
-                result[i] = BigNumber(web3.utils.fromWei(result[i].toString())).toFixed(5)
-              }
-            }
-          }
-          commit('GET_FUNDER_INFO', result)
+      contract.methods.getFunderAffInfo().call({from: this.state.account}, (err, result) => {
+        console.log('getFunderAffInfo', result)
+        if (result) {
+          const data = {}
+          data.count = result[0].toString()
+          data.reward = getFormat(result[1], 0)
+          commit('GET_FUNDER_INVITE', data)
+        }
+      })
+      contract.methods.getFunderRewardInfo().call({from: this.state.account}, (err, result) => {
+        console.log('getFunderRewardInfo', result)
+        for (let i in result) {
+          result[i] = getFormat(result[i], 5)
+        }
+        commit('GET_FUNDER_REWARD', result)
+      })
+      const res = await getStepIndex(contract)
+      const stepIndex = res[0].toNumber()
+      contract.methods.getFunderFundsByStep(stepIndex).call({from: this.state.account}, (err, result) => {
+        console.log(err, stepIndex, 'getFunderFundsByStep', result)
+        if (result) {
+          const data = {}
+          data.withdrawCAD = getFormat(result[0], 0)
+          data.withdrawETH = getFormat(result[1], 5)
+          data.depositCAD = getFormat(result[2], 0)
+          data.depositETH = getFormat(result[3], 5)
+          commit('GET_FUNDER_AMOUNT', data)
         }
       })
     },
@@ -274,12 +299,19 @@ export default new Vuex.Store({
       contract.events[eventName]({}, (error, event) => { 
         console.log(eventName, 'initial event: ', event, event.returnValues)
         const data = {}
+        const homeData = {}
         if (eventName === 'currentStepRaisedToken') {
-          data.totalTokenAmount = web3.utils.fromWei(event.returnValues.raisedTokenAmount.toString())
+          data.totalTokenAmount = getFormat(event.returnValues.raisedTokenAmount, 0)
+          data.remainingToken = getFormat(event.returnValues.totalRemainingToken, 0)
+          data.eachAddressLimit = getFormat(event.returnValues.remainingTokenForPersonal, 0)
+          homeData.currentStepTokenAmount = getFormat(event.returnValues.raisedTokenAmount, 0)
         } else if (eventName === 'currentStepRaisedEther') {
-          data.totalETHAmount = web3.utils.fromWei(event.returnValues.raisedETHAmount.toString())
+          data.totalETHAmount = getFormat(event.returnValues.raisedETHAmount, 5)
+          data.remainingETH = getFormat(event.returnValues.totalRemainingEther, 5)
+          homeData.currentStepRaisedETH = getFormat(event.returnValues.raisedETHAmount, 5)
         }
         commit('GET_OFFER_INFO', data)
+        commit('GET_CURRENT_STEP_FUNDS_INFO', homeData)
       })
       .on('data', (event) => {
         console.log(eventName, 'listen event on data:', event)

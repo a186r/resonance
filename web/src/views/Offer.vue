@@ -126,6 +126,12 @@ export default {
         })
         return
       }
+      if (parseFloat(this.depostETHAmount) < 0.1) {
+        this.$alert('请投入大于 0.1 个 ETH ', '提示', {
+          confirmButtonText: '确定',
+        })
+        return
+      }
       store.dispatch('depositETH', this.depostETHAmount)
     },
     depositCAD () {
