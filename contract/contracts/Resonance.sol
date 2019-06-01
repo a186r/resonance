@@ -559,7 +559,7 @@ contract Resonance is Ownable{
         // 如果是基金会地址，不用计算，直接提走60%
         if(msg.sender == beneficiary){
             withdrawAmount = resonanceDataManage.withdrawETHAmount(withdrawStep, msg.sender);
-        }else{
+        }else{// 如果是社区地址，需要计算共建期token换得的eth数量
             withdrawAmount = _calculationWithdrawETHAmount(withdrawStep);
         }
 
@@ -781,7 +781,7 @@ contract Resonance is Ownable{
         return(_fpCountdown, _remainingETH, _rasiedETHAmount);
     }
 
-    /// @notice 计算用户可提取Token数量
+    /// @notice 计算用户可提取Token数量(通过赚取的)
     function _calculationWithdrawTokenAmount(uint256 _stepIndex) internal view returns(uint256){
 
         uint256 _withdrawTokenAmount;
@@ -796,18 +796,18 @@ contract Resonance is Ownable{
         return _withdrawTokenAmount;
     }
 
-    /// @notice 计算用户可提取的ETH数量
+    /// @notice 计算用户可提取的ETH数量(通过赚取的)
     function _calculationWithdrawETHAmount(uint256 _stepIndex) internal view returns(uint256){
         uint256 _withdrawETHAmount;
 
-        uint256 totalTokenAmountPrev = steps[_stepIndex].building.raisedToken
+        uint256 totalTokenAmount = steps[_stepIndex].building.raisedToken
             .add(resonanceDataManage.getBuildingTokenFromParty(_stepIndex));
 
         _withdrawETHAmount = steps[_stepIndex].funder[msg.sender].tokenAmount
             .mul(steps[_stepIndex].funding.raisedETH)
-            .div(totalTokenAmountPrev);
+            .div(totalTokenAmount);
 
-        return _withdrawETHAmount;
+        return _withdrawETHAmount.add(resonanceDataManage.withdrawETHAmount(_stepIndex, msg.sender));
     }
 
     /// @notice 获取用户获奖信息

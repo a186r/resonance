@@ -429,6 +429,6 @@ contract('TestResonance', async (accounts) => {
 
         // 社区成员accounts[3]的余额是
         // console.log("社区成员的余额是", await abcToken.balanceOf(accounts[3]) / 1E18);
-        
+
     });
 })
