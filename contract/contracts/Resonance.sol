@@ -140,6 +140,8 @@ contract Resonance is Ownable{
 
     bool public firstParamInitialized;
 
+    mapping (address => bool) refundIsFinished; // 用户refund是否结束
+
     // 设定相关属性
     /// @notice 构造函数
     /// @param _abcToken 用于共建的Token
@@ -202,6 +204,7 @@ contract Resonance is Ownable{
     {
         require(resonanceDataManage.isBuildingPeriod(), "不在共建期内");
         require(!resonanceDataManage.getCrowdsaleClosed(), "共振已经结束");
+        require(!isBuilder[msg.sender], "裂变者不能再成为裂变者");
 
         if(initialFissionPerson != promoter){
             require(isBuilder[promoter],"推广者自己必须是Builder");
@@ -271,7 +274,7 @@ contract Resonance is Ownable{
         // 转账数量不能超过社区可转账总额
         require(
             steps[currentStep].building.raisedToken.add(_tokenAmount) <=
-            steps[currentStep].building.openTokenAmount.sub(resonanceDataManage.getBuildingTokenFromParty()),
+            steps[currentStep].building.openTokenAmount.sub(resonanceDataManage.getBuildingTokenFromParty(currentStep)),
             "转账数量不能超过社区可转账总额"
         );
 
@@ -315,12 +318,12 @@ contract Resonance is Ownable{
         require(!tokenTransfered[currentStep], "当前轮次基金会已经转入过Token了");
 
         // 检查剩余的授权额度是否足够
-        require(abcToken.allowance(msg.sender, address(this)) >= resonanceDataManage.getBuildingTokenFromParty(),
+        require(abcToken.allowance(msg.sender, address(this)) >= resonanceDataManage.getBuildingTokenFromParty(currentStep),
             "授权额度不足"
         );
 
         // 转入合约
-        require(abcToken.transferFrom(msg.sender, address(this), resonanceDataManage.getBuildingTokenFromParty()),
+        require(abcToken.transferFrom(msg.sender, address(this), resonanceDataManage.getBuildingTokenFromParty(currentStep)),
             "转移token到合约失败"
         );
 
@@ -340,12 +343,16 @@ contract Resonance is Ownable{
 
         uint amount = msg.value;
 
+        // 投入ETH>0.1 ether
+        require(amount >= 0.1 ether, "投入的ETH数量应该大于0.1 ether");
+
         // 转入ETH不能超出当前轮次募资目标
         require(
             msg.value.add(steps[currentStep].funding.raisedETH) <= steps[currentStep].funding.raiseTarget,
             "当前轮次已募集到足够的ETH"
         );
 
+        // funder列表去重
         if(!steps[currentStep].funder[msg.sender].isFunder){
             steps[currentStep].funders.push(msg.sender);
         }
@@ -384,10 +391,10 @@ contract Resonance is Ownable{
     {
         require(beneficiary != address(0), "基金会收款地址尚未设置");
 
-        uint256 totalTokenAmount = steps[currentStep].building.raisedToken.add(resonanceDataManage.getBuildingTokenFromParty());
+        uint256 totalTokenAmount = steps[currentStep].building.raisedToken.add(resonanceDataManage.getBuildingTokenFromParty(currentStep));
 
         ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH
-            .mul(resonanceDataManage.getBuildingTokenFromParty())
+            .mul(resonanceDataManage.getBuildingTokenFromParty(currentStep))
             .mul(40)
             .div(totalTokenAmount)
             .div(100);
@@ -398,10 +405,12 @@ contract Resonance is Ownable{
         _settlementReward(_fissionWinnerList);
         // 结算幸运奖励
         _settlementLuckyReward(_LuckyWinnerList);
-        // 结算收款人余额
+        // 结算基金会收款人余额
         resonanceDataManage.setETHBalance(
+            currentStep,
             beneficiary,
-            resonanceDataManage.getETHBalance(beneficiary) + steps[currentStep].funding.raisedETH.mul(60).div(100)
+            steps[currentStep].funding.raisedETH.mul(60).div(100) // 基金会也是每一轮提取一次
+            // resonanceDataManage.getETHBalance(currentStep, beneficiary) + steps[currentStep].funding.raisedETH.mul(60).div(100)
         );
 
         // 进入下一轮
@@ -500,12 +509,14 @@ contract Resonance is Ownable{
         payable
         returns(address, address, uint256)
     {
+        require(currentStep != 0, "请等待下一轮次再来提取第一轮的token");
+
         // 本轮提取上一轮的
         uint256 withdrawStep = currentStep.sub(1);
 
         require(steps[withdrawStep].funder[msg.sender].isFunder, "用户没有参与上一轮次的募资期");
 
-        require(!steps[withdrawStep].funder[msg.sender].tokenHasWithdrawn, "用户在上一轮次已经提取token完成");
+        require(!steps[withdrawStep].funder[msg.sender].tokenHasWithdrawn, "用户已经提取token完成");
 
         require(steps[withdrawStep].funder[msg.sender].ethAmount > 0, "用户在上一轮次没有参与组建期Token投币");
 
@@ -513,11 +524,14 @@ contract Resonance is Ownable{
 
         // 计算用户应提取Token数量
         // 应提取数量 = 共建期募集到的Token数量 * 募资期用户投入ETH数量 / 已募集到的ETH数量
-        uint256 withdrawAmount = steps[withdrawStep].building.raisedToken.
+        uint256 totalTokenAmountPriv = steps[withdrawStep].building.raisedToken
+            .add(resonanceDataManage.getBuildingTokenFromParty(withdrawStep));
+
+        uint256 withdrawAmount = totalTokenAmountPriv.
             mul(steps[withdrawStep].funder[msg.sender].ethAmount).
             div(steps[withdrawStep].funding.raisedETH);
 
-        resonanceDataManage.emptyTokenBalance(msg.sender);
+        resonanceDataManage.emptyTokenBalance(withdrawStep, msg.sender);
         steps[withdrawStep].funder[msg.sender].tokenHasWithdrawn = true;
         abcToken.transfer(msg.sender, withdrawAmount);
 
@@ -530,17 +544,75 @@ contract Resonance is Ownable{
         payable
         returns(address, uint256)
     {
+        require(currentStep != 0, "请等待下一轮次再来提取第一轮的ether");
+
+        // 本轮提取上一轮的
+        uint256 withdrawStep = currentStep.sub(1);
+
         address payable dest = address(uint160(msg.sender));
 
-        // require(!steps[currentStep].funder[msg.sender].ETHHasWithdrawn, "用户在当前轮次已经提取ETH完成");
-        uint256 withdrawAmount = resonanceDataManage.withdrawETHAmount(msg.sender);
-        resonanceDataManage.emptyETHBalance(msg.sender);
-        steps[currentStep].funder[msg.sender].ETHHasWithdrawn = true;
+        require(!steps[withdrawStep].funder[msg.sender].ETHHasWithdrawn, "用户在当前轮次已经提取ETH完成");
+
+        uint256 totalTokenAmountPrev = steps[withdrawStep].building.raisedToken
+            .add(resonanceDataManage.getBuildingTokenFromParty(withdrawStep));
+
+        uint256 totalEthAmount;
+        uint256 withdrawAmount;
+
+        // 如果是基金会地址，不用计算，直接提走60%
+        if(msg.sender == beneficiary){
+            withdrawAmount = resonanceDataManage.withdrawETHAmount(withdrawStep, msg.sender);
+        }else{
+            totalEthAmount =
+                steps[withdrawStep].funder[msg.sender].tokenAmount
+                .mul(steps[withdrawStep].funding.raisedETH)
+                .div(totalTokenAmountPrev);
+
+            withdrawAmount = totalEthAmount.add(resonanceDataManage.withdrawETHAmount(withdrawStep, msg.sender));
+        }
+
+        resonanceDataManage.emptyETHBalance(withdrawStep, msg.sender);
+
+        steps[withdrawStep].funder[msg.sender].ETHHasWithdrawn = true;
 
         dest.transfer(withdrawAmount);
 
-        // emit WithdrawAllETH(msg.sender, withdrawAmount);
         return(msg.sender, withdrawAmount);
+    }
+
+
+    /// @notice 提取信仰奖励和最后一轮次的退款
+    function withdrawFaithRewardAndRefund() public payable returns(bool){
+        // 共振结束后才可以提取
+        require(resonanceDataManage.getCrowdsaleClosed(), "共振还未结束，不能提取");
+
+        require(!refundIsFinished[msg.sender], "退款已经提取完成了");
+        address payable dest = address(uint160(msg.sender));
+
+        uint256 resonanceClosedStep = resonanceDataManage.getResonanceClosedStep();
+        uint256 withdrawTokenAmount;
+
+        // 用户可提取的ETH数量
+        uint256 withdrawETHAmount = steps[resonanceClosedStep].funder[msg.sender].ethAmount
+            .add(resonanceDataManage.getFaithRewardBalance(msg.sender));
+
+        // 用户可提取的Token数量
+        if(msg.sender == beneficiary){
+            withdrawTokenAmount = resonanceDataManage.getBuildingTokenFromParty(resonanceClosedStep);
+        }else{
+            withdrawTokenAmount = steps[resonanceClosedStep].funder[msg.sender].tokenAmount;
+        }
+
+        // 置空
+        steps[resonanceClosedStep].funder[msg.sender].ethAmount = 0;
+        resonanceDataManage.setFaithRewardBalance(msg.sender, 0);
+
+        // 提取
+        abcToken.transfer(msg.sender, withdrawTokenAmount);
+        dest.transfer(withdrawETHAmount);
+
+        refundIsFinished[msg.sender] = true;
+        return refundIsFinished[msg.sender];
     }
 
     /// @notice 管理员可以提走合约内所有的ETH
@@ -551,6 +623,7 @@ contract Resonance is Ownable{
         onlyOwner()
     {
         beneficiary.transfer(address(this).balance);
+        abcToken.transfer(msg.sender, abcToken.balanceOf(address(this)));
     }
 
     /// @notice 查询是否是募资者，参与募资期
@@ -639,6 +712,14 @@ contract Resonance is Ownable{
         return(currentStep, steps[currentStep].building.openTokenAmount, steps[currentStep].funding.raisedETH);
     }
 
+    /// @notice 获取上一轮可提取的Token和ETH数量
+    function getWithdrawAmountPriv() public view returns(uint256, uint256){
+        return(
+            _calculationWithdrawTokenAmount(currentStep.sub(1)),
+            resonanceDataManage.getETHBalance(currentStep.sub(1), msg.sender)
+        );
+    }
+
     /// @notice 查询组建期信息
     function getBuildingPerioInfo()
         public
@@ -652,14 +733,14 @@ contract Resonance is Ownable{
 
         // TODO:
         // 共建期结束，返回0
-        if((resonanceDataManage.getOpeningTime().add(30 minutes)).sub(block.timestamp) <= 0){
+        if(resonanceDataManage.getOpeningTime().add(30 minutes) <= block.timestamp){
             _bpCountdown = 0;
         }else{
-            _bpCountdown = (resonanceDataManage.getOpeningTime().add(30 minutes)).sub(block.timestamp);
+            _bpCountdown = (resonanceDataManage.getOpeningTime().add(15 minutes)).sub(block.timestamp);
         }
         _remainingToken = steps[currentStep].building.openTokenAmount.
             sub(steps[currentStep].building.raisedToken).
-            sub(resonanceDataManage.getBuildingTokenFromParty());
+            sub(resonanceDataManage.getBuildingTokenFromParty(currentStep));
 
         _personalTokenLimited = steps[currentStep].building.personalTokenLimited;
         _totalTokenAmount = steps[currentStep].building.raisedTokenAmount;
@@ -679,10 +760,10 @@ contract Resonance is Ownable{
 
         // TODO:
         // 募资期结束，返回0
-        if((resonanceDataManage.getOpeningTime().add(1 hours)).sub(block.timestamp) <= 0){
+        if(resonanceDataManage.getOpeningTime().add(45 minutes) <= block.timestamp){
             _fpCountdown = 0;
         }else{
-            _fpCountdown = (resonanceDataManage.getOpeningTime().add(1 hours)).sub(block.timestamp);
+            _fpCountdown = (resonanceDataManage.getOpeningTime().add(45 minutes)).sub(block.timestamp);
         }
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
@@ -692,7 +773,9 @@ contract Resonance is Ownable{
 
     /// @notice 计算用户可提取Token数量
     function _calculationWithdrawTokenAmount(uint256 _stepIndex) internal view returns(uint256){
-        return steps[_stepIndex].building.raisedToken.
+        uint256  currentStepTotalRaisedToken = steps[_stepIndex].building.raisedToken
+        .add(resonanceDataManage.getBuildingTokenFromParty(_stepIndex));
+        return  currentStepTotalRaisedToken.
                 mul(steps[_stepIndex].funder[msg.sender].ethAmount).
                 div(steps[_stepIndex].funding.raisedETH);
     }
@@ -721,7 +804,7 @@ contract Resonance is Ownable{
 
         return(
             _calculationWithdrawTokenAmount(_stepIndex), // 可提取Token数量
-            resonanceDataManage.getETHBalance(msg.sender), // 可提取ETH数量
+            resonanceDataManage.getETHBalance(_stepIndex, msg.sender), // 可提取ETH数量
             funder.tokenAmount, // 组建期共投资金额
             funder.ethAmount // 募集期共投资ETH数量
         );
@@ -755,36 +838,4 @@ contract Resonance is Ownable{
     function currentStepIsClosed(uint256 _stepIndex) public view returns(bool) {
         return steps[_stepIndex].stepIsClosed;
     }
-
-    bool refundIsFinished;
-
-    /// @notice 发起退款
-    /// @dev 共振结束那一轮转入的token和ETH全部退回
-    function refund() public onlyOwner() returns(bool){
-
-        // 是否已完成退款
-        require(!refundIsFinished, "退款已经完成了");
-
-        // 为投资者设置可提取额度
-        uint256 resonanceClosedStep = resonanceDataManage.getResonanceClosedStep();
-        address[] memory funders = steps[resonanceClosedStep].funders;
-
-        // 设置可以退款的ETH数量和Token数量
-        for(uint i = 0; i < funders.length; i++){
-            resonanceDataManage.setETHBalance(
-                funders[i],
-                resonanceDataManage.getETHBalance(funders[i]) + steps[resonanceClosedStep].funder[funders[i]].ethAmount
-            );
-
-            resonanceDataManage.setTokenBalance(
-                funders[i],
-                resonanceDataManage.getTokenBalance(funders[i]) + steps[resonanceClosedStep].funder[funders[i]].tokenAmount
-            );
-        }
-
-        refundIsFinished = true;
-
-        return refundIsFinished;
-    }
-
 }

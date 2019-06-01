@@ -284,10 +284,12 @@ contract('TestResonance', async (accounts) => {
 
         // console.log("结算当前轮次奖励总金额：", a);
 
-        // console.log("当前轮次：", await resonance.currentStep.call());
+        console.log("当前轮次：", await resonance.currentStep.call());
     })
 
     it("16...结算已完成，提取Token", async () => {
+
+        console.log("结算已完成，提取Token当前轮次：", await resonance.currentStep.call());
 
         // 提取前合约Token余额
         console.log("提取前合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
@@ -391,9 +393,16 @@ contract('TestResonance', async (accounts) => {
     })
 
     it("22...查询FOMO奖励列表",async() => {
-        console.log(await FOMOReward.getFOMOWinnerInfo(0));
+        // console.log(await FOMOReward.getFOMOWinnerInfo(0));
 
         // console.log("查询当前轮次:", await resonance.currentStep.call());
+
+        // 提走所有token和eth
+        await resonance.withdrawAllETHByOwner();
+
+        // 查看合约token余额
+        console.log("查看提取前合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
+
     })
 
 })
