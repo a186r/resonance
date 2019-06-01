@@ -38,7 +38,7 @@ contract FissionReward {
 
     // 轮次=>奖励金
     mapping(uint256 => uint256) totalFissionReward;
- 
+
     /// @notice 获取裂变奖励信息
     function getFissionInfo(uint256 _stepIndex)
         public
@@ -123,9 +123,9 @@ contract FissionReward {
 
             // 保存总奖励金额
             fissionFunderTotalBalance[fissionWinners[_stepIndex][i]] += fissionRewardAmount[_stepIndex][fissionWinners[_stepIndex][i]];
-        }
 
-        totalFissionReward[_stepIndex] = _totalFissionReward;
+            totalFissionReward[_stepIndex] += fissionRewards[_stepIndex][i];
+        }
 
         currentStepHasFinished[_stepIndex] = true;
     }

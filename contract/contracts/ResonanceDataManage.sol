@@ -138,12 +138,12 @@ contract ResonanceDataManage{
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
         // if(block.timestamp >= openingTime && block.timestamp < openingTime.add(8 hours)) {
-        // if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(15 minutes)) {
-        //     return true;
-        // }else{
-        //     return false;
-        // }
-        return true;
+        if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(15 minutes)) {
+            return true;
+        }else{
+            return false;
+        }
+        // return true;
     }
 
     // 是否是募资期
@@ -171,7 +171,7 @@ contract ResonanceDataManage{
         returns(bool)
     {
         // 1.当前轮次募资期募资额度没有达到软顶，共振结束
-        if(raisedETH < softCap) {
+        if(raisedETH <= softCap) {
             resonanceClosedStep = stepIndex;
             setCrowdsaleClosed(true);
         }else{

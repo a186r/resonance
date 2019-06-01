@@ -79,13 +79,13 @@ contract LuckyReward{
 
                 // 累加奖金余额
                 luckyFunderTotalBalance[luckyWinners[_stepIndex][i]] += luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]];
-            }
 
+                totalLyckyReward[_stepIndex] += luckyRewards[_stepIndex];
+            }
             currentStepHasFinished[_stepIndex] = true;
-            totalLyckyReward[_stepIndex] = _totalLyckyReward;
         }else{ // 如果没有人中奖，设置一下状态就行了，不用再循环结算了
             currentStepHasFinished[_stepIndex] = true;
-            totalLyckyReward[_stepIndex] = _totalLyckyReward;
+            totalLyckyReward[_stepIndex] = 0;
             return;
         }
     }

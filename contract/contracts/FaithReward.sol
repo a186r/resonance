@@ -60,11 +60,12 @@ contract FaithReward{
                 faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(5).div(100);
             }
             faithAmounts.push(faithRewardAmount[_faithWinners[i]]);
+
+            totalFaithReward += faithRewardAmount[_faithWinners[i]];
         }
 
         // 信仰奖励已经分配完成
         faithRewardFinished = true;
-        totalFaithReward = _totalFaithReward;
         return faithRewardFinished;
     }
 

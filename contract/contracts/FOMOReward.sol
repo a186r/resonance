@@ -88,10 +88,12 @@ contract FOMOReward {
 
             // 保存FOMO中用户总奖励
             FOMOFunderTotalBalance[FOMOWinners[_stepIndex][i]] += FOMORewardAmount[_stepIndex][FOMOWinners[_stepIndex][i]];
+
+            totalFOMOReward[_stepIndex] += FOMORewards[_stepIndex][i];
         }
 
         currentStepHasFinished[_stepIndex] = true;
-        totalFOMOReward[_stepIndex] = _totalFOMOReward;
+        // totalFOMOReward[_stepIndex] = _totalFOMOReward;
         return FOMOWinners[_stepIndex];
     }
 
