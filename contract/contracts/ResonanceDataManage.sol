@@ -138,23 +138,23 @@ contract ResonanceDataManage{
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
         // if(block.timestamp >= openingTime && block.timestamp < openingTime.add(8 hours)) {
-        if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(15 minutes)) {
-            return true;
-        }else{
-            return false;
-        }
-        // return true;
+        // if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(15 minutes)) {
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+        return true;
     }
 
     // 是否是募资期
     function isFundingPeriod() public view returns(bool) {
         // if(block.timestamp >= openingTime.add(8 hours) && block.timestamp < openingTime.add(24 hours)) {
-        if(block.timestamp >= openingTime.add(15 minutes) && block.timestamp <= openingTime.add(45 minutes)) {
-            return true;
-        }else{
-            return false;
-        }
-        // return true;
+        // if(block.timestamp >= openingTime.add(15 minutes) && block.timestamp <= openingTime.add(45 minutes)) {
+        //     return true;
+        // }else{
+        //     return false;
+        // }
+        return true;
     }
 
     /// @notice 判断共振是否结束
@@ -194,7 +194,6 @@ contract ResonanceDataManage{
     }
 
     /// @notice 查询共振是否结束
-    /// @dev view修饰符返回crowdsaleClosed
     function getResonanceIsClosed() public view returns(bool) {
         return crowdsaleClosed;
     }

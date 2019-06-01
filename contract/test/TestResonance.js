@@ -157,19 +157,19 @@ contract('TestResonance', async (accounts) => {
 
     it("8...组建期社区成员转入Token", async () => {
         // 社区成员accounts[3]授予合约额度
-        await abcToken.approve(resonance.address, web3.utils.toWei("1000"), {
+        await abcToken.approve(resonance.address, web3.utils.toWei("300"), {
             from: accounts[3]
         });
 
-        await abcToken.approve(resonance.address, web3.utils.toWei("1000"), {
+        await abcToken.approve(resonance.address, web3.utils.toWei("300"), {
             from: accounts[0]
         });
 
-        await abcToken.approve(resonance.address, web3.utils.toWei("1000"), {
+        await abcToken.approve(resonance.address, web3.utils.toWei("300"), {
             from: accounts[1]
         });
 
-        await abcToken.approve(resonance.address, web3.utils.toWei("1000"), {
+        await abcToken.approve(resonance.address, web3.utils.toWei("300"), {
             from: accounts[2]
         });
 
@@ -178,19 +178,19 @@ contract('TestResonance', async (accounts) => {
         // console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
 
         // 转入Token，参与共建
-        await resonance.jointlyBuild(web3.utils.toWei("900"), {
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
             from: accounts[0]
         });
 
-        await resonance.jointlyBuild(web3.utils.toWei("900"), {
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
             from: accounts[1]
         });
 
-        await resonance.jointlyBuild(web3.utils.toWei("900"), {
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
             from: accounts[2]
         });
 
-        await resonance.jointlyBuild(web3.utils.toWei("900"), {
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
             from: accounts[3]
         });
 
@@ -403,6 +403,78 @@ contract('TestResonance', async (accounts) => {
 
     })
 
+    it("23...第二轮参与共建", async () => {
+        // 社区成员accounts[3]授予合约额度
+        // await abcToken.approve(resonance.address, web3.utils.toWei("100"), {
+        //     from: accounts[2]
+        // });
 
+        // await abcToken.approve(resonance.address, web3.utils.toWei("100"), {
+        //     from: accounts[3]
+        // });
+
+
+        // 查看授权额度
+        // let allowanceAmount = await abcToken.allowance(accounts[3], resonance.address);
+        // console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
+
+        // 转入Token，参与共建
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
+            from: accounts[2]
+        });
+
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
+            from: accounts[3]
+        });
+
+        // 社区成员accounts[3]的余额是
+        // console.log("社区成员的余额是", await abcToken.balanceOf(accounts[3]) / 1E18);
+        console.log("查询当前轮次:", await resonance.currentStep.call());
+        
+        winners[0] = accounts[0];
+        winners[1] = accounts[1];
+        winners[2] = accounts[2];
+        winners[3] = accounts[3];
+        winners[4] = accounts[4];
+        winners[5] = accounts[5];
+        winners[6] = accounts[6];
+
+        let a = await resonance.settlementStep(
+            winners,
+            winners, {
+                from: accounts[0]
+            });
+        
+    });
+
+    it("23...第3轮参与共建", async () => {
+        // 社区成员accounts[3]授予合约额度
+        // await abcToken.approve(resonance.address, web3.utils.toWei("100"), {
+        //     from: accounts[2]
+        // });
+
+        // await abcToken.approve(resonance.address, web3.utils.toWei("100"), {
+        //     from: accounts[3]
+        // });
+
+
+        // 查看授权额度
+        // let allowanceAmount = await abcToken.allowance(accounts[3], resonance.address);
+        // console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
+
+        // 转入Token，参与共建
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
+            from: accounts[2]
+        });
+
+        await resonance.jointlyBuild(web3.utils.toWei("100"), {
+            from: accounts[3]
+        });
+
+        // 社区成员accounts[3]的余额是
+        // console.log("社区成员的余额是", await abcToken.balanceOf(accounts[3]) / 1E18);
+        console.log("查询当前轮次:", await resonance.currentStep.call());
+
+    });
 
 })
