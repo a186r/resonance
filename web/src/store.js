@@ -84,7 +84,9 @@ export default new Vuex.Store({
         for (let i in result) {
           result[i] = web3.utils.fromWei(result[i].toString())
         }
-        commit('GET_FUNDER_INFO', result)
+        if (result) {
+          commit('GET_FUNDER_INFO', result)
+        }
       })
     },
     async getBuildingPeriodInfo({ commit }, contract) {
