@@ -9,6 +9,14 @@ const web3 = new Web3()
 
 Vue.use(Vuex)
 
+function getFormat(data, decimal) {
+  return BigNumber(web3.utils.fromWei(data.toString())).toFixed(decimal)
+}
+
+async function getStepIndex(contract) {
+  return contract.methods.getCurrentStepFundsInfo().call()
+}
+
 function getReward(contract, methodName, stepIndex, account, index, commit) {
   let method
   if (methodName !== 'getFaithRewardInfo') {
@@ -21,8 +29,8 @@ function getReward(contract, methodName, stepIndex, account, index, commit) {
   }).then(res => {
     // console.log(stepIndex, index, methodName, res)
     res.index = index
-    res[0] = web3.utils.fromWei(res[0].toString())
-    res[2] = res[1].map((item, i) => web3.utils.fromWei(res[2][i].toString()))
+    res[0] = getFormat(res[0], 5)
+    res[2] = res[1].map((item, i) => getFormat(res[2][i], 5))
     console.log(stepIndex, index, methodName, res)
     commit('GET_REWARD_LIST', res)
   })
@@ -50,10 +58,10 @@ export default new Vuex.Store({
       stepIndex: 0
     },
     rewardList: {
-      0: [],
-      1: [],
-      2: [],
-      3: []
+      0: {},
+      1: {},
+      2: {},
+      3: {}
     }
   },
   mutations: {
@@ -72,19 +80,32 @@ export default new Vuex.Store({
     GET_REWARD_LIST: (state, data) => {
       // console.log('reward ', data.index, data)
       const index = data.index
-      Object.assign(state.rewardList, {index: data})
+      const payload = {}
+      payload[index] = data
+      Object.assign(state.rewardList, payload)
     }
   },
   actions: {
     async getFunderInfo({ commit }, contract) {
-      const stepIndex = this.state.homeData.stepIndex
+      const data = await getStepIndex(contract)
+      const stepIndex = data[0].toNumber()
       console.log('before get funder info ', stepIndex)
       contract.methods.getFunderInfo(stepIndex).call({from: this.state.account}, (err, result) => {
         console.log(err, 'get funder info', result)
-        for (let i in result) {
-          result[i] = web3.utils.fromWei(result[i].toString())
-        }
-        if (result) {
+        if (!result) {
+          return
+        } else {
+          for (let i in result) {
+            if (i === '2') {
+              result[i] = result[i].toString()
+            } else if (i === '0' || i === '3' || i === '4') {
+              result[i] = BigNumber(web3.utils.fromWei(result[i].toString())).toFixed(0)
+            } else {
+              if (result[i].toString() !== '0') {
+                result[i] = BigNumber(web3.utils.fromWei(result[i].toString())).toFixed(5)
+              }
+            }
+          }
           commit('GET_FUNDER_INFO', result)
         }
       })
@@ -96,7 +117,7 @@ export default new Vuex.Store({
           const data = {}
           // data.bpCountdown = result[0].toNumber() * 1000
           data.remainingToken = BigNumber(web3.utils.fromWei(result[1].toString())).toFixed(0)
-          data.eachAddressLimit = web3.utils.fromWei(result[2].toString())
+          data.eachAddressLimit = getFormat(result[2], 0)
           data.totalTokenAmount = web3.utils.fromWei(result[3].toString())
           commit('GET_OFFER_INFO', data)
         })
@@ -110,7 +131,7 @@ export default new Vuex.Store({
           console.log('get funding info', result)
           const data = {}
           // data.fpCountdown = result[0].toNumber() * 1000
-          data.remainingETH = web3.utils.fromWei(result[1].toString())
+          data.remainingETH = BigNumber(web3.utils.fromWei(result[1].toString())).toFixed(4)
           data.totalETHAmount = web3.utils.fromWei(result[2].toString())
           commit('GET_OFFER_INFO', data)
         })
@@ -231,41 +252,40 @@ export default new Vuex.Store({
         commit('GET_ADDRESS_IS_BUILDER', res)
       })
     },
-    // async isBuilder({ commit }, contract) {
-    //   contract.methods.getStepFunders(0).call({
-    //     from: this.state.account,
-    //   }).then(res => {
-    //     console.log('funders: ', res)
-    //     // commit('GET_ADDRESS_IS_BUILDER', res)
-    //   }).catch(err => {
-    //     console.log('funders err', err)
-    //   })
-    // },
     async queryRewardList({commit}, contract) {
-      const stepIndex = 0 //this.state.homeData.stepIndex
-      const arr = ['getFissionRewardInfo', 'getFOMORewardIofo', 'getLuckyRewardInfo', 'getFaithRewardInfo']
-      for (let i = 0; i < 4; i++) {
-        getReward(contract, arr[i], stepIndex, this.state.account, i, commit)
+      if (window.contract) {
+        const data = await getStepIndex(window.contract)
+        const stepIndex = data[0].toNumber()
+        const arr = ['getFissionRewardInfo', 'getFOMORewardIofo', 'getLuckyRewardInfo', 'getFaithRewardInfo']
+        for (let i = 0; i < 4; i++) {
+          getReward(contract, arr[i], 0, this.state.account, i, commit)
+        }
+      } else {
+        const self = this
+        setTimeout(() => {
+          console.log('query reward list second time')
+          self.dispatch('queryRewardList', contract)
+        }, 1000)
       }
     },
     async startListenEvent({commit}, data) {
       const contract = data.contract
       const eventName = data.eventName
       contract.events[eventName]({}, (error, event) => { 
-        console.log(eventName, 'initial event: ', event)
+        console.log(eventName, 'initial event: ', event, event.returnValues)
+        const data = {}
+        if (eventName === 'currentStepRaisedToken') {
+          data.totalTokenAmount = web3.utils.fromWei(event.returnValues.raisedTokenAmount.toString())
+        } else if (eventName === 'currentStepRaisedEther') {
+          data.totalETHAmount = web3.utils.fromWei(event.returnValues.raisedETHAmount.toString())
+        }
+        commit('GET_OFFER_INFO', data)
       })
       .on('data', (event) => {
         console.log(eventName, 'listen event on data:', event)
       })
       .on('changed', (event) => {
         console.log(eventName, 'listen event on changed:', event)
-        const data = {}
-        if (eventName === 'a') {
-
-        } else if (eventName === 'b') {
-
-        }
-        commit('GET_OFFER_INFO', data)
       })
       .on('error', console.error)
     },

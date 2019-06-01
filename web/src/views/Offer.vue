@@ -52,12 +52,12 @@
             <p>{{item.text}}</p>
           </div>
           <p>{{ $t('offer.currentTotalReward') }} <span class="value-span">{{rewardListData[i] && rewardListData[i][0]}}</span> ETH</p>
-          <div class="reward-detail" v-if="rewardListData[i] && rewardListData[i].length">
-            <div class="reward-detal-item" v-for="j in rewardListData[i].length > 5 ? 5 : rewardListData[i].length" :key="j">
+          <div class="reward-detail" v-if="rewardListData[i] && rewardListData[i][1] && rewardListData[i][1].length">
+            <div class="reward-detal-item" v-for="j in rewardListData[i][1].length > 5 ? 5 : rewardListData[i][1].length" :key="j">
               <span class="rank">{{j > 3 ? j : ''}}  </span>
-              <span class="address">{{rewardListData[i][1][j]}}</span>
+              <span class="address">{{rewardListData[i][1][j-1]}}</span>
               <span>：</span>
-              <span>{{rewardListData[i][2][j]}} ETH</span>
+              <span>{{rewardListData[i][2][j-1]}} ETH</span>
             </div>
           </div>
           <div v-else>

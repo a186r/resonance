@@ -128,9 +128,9 @@ export default {
     store.dispatch('getFundingPeriodInfo', contract)
     store.dispatch('getFunderInfo', contract)
     store.dispatch('isBuilder', contract)
-    const data = {contract: contract, eventName: 'ToBeFissionPerson'}
+    const data = {contract: contract, eventName: 'currentStepRaisedToken'}
     store.dispatch('startListenEvent', data)
-    data.eventName = 'FundsInfo'
+    data.eventName = 'currentStepRaisedEther'
     store.dispatch('startListenEvent', data)
   }
 }
