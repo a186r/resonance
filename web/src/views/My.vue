@@ -57,7 +57,7 @@ export default {
           text: '我的邀请人数',
           value: 23
         },{
-          text: '邀请所的金额',
+          text: '邀请所得金额',
           value: 23
         },{
           text: '组建投资金额',
