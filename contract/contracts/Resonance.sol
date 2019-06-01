@@ -49,8 +49,8 @@ contract Resonance is Ownable{
     event FunderTotalRaised(uint256 resonancesRasiedETH);
 
     // 当前轮次总共已投入的ETH和Token数量
-    event currentStepRaisedEther(uint256 raisedETHAmount, uint256 nowRaisedEther);
-    event currentStepRaisedToken(uint256 raisedTokenAmount, uint256 nowRemainingToken);
+    event currentStepRaisedEther(uint256 raisedETHAmount, uint256 nowRaisedEther, uint256 totalRemainingEther);
+    event currentStepRaisedToken(uint256 raisedTokenAmount, uint256 remainingTokenForPersonal, uint256 totalRemainingToken);
 
     // 变量
     // ERC20
@@ -292,7 +292,7 @@ contract Resonance is Ownable{
         steps[currentStep].funder[steps[currentStep].funder[msg.sender].promoter].inviteesTotalAmount += _tokenAmount;
 
         // 从资金池总额度中减去用户转入的Token数量
-        resonanceDataManage.setFundsPool(resonanceDataManage.getFundsPool() - _tokenAmount);
+        resonanceDataManage.setFundsPool(resonanceDataManage.getFundsPool().sub(_tokenAmount));
 
         // 累加用户参与共建的总额度
         resonancesRasiedToken[msg.sender] += _tokenAmount;
@@ -302,7 +302,8 @@ contract Resonance is Ownable{
 
         emit currentStepRaisedToken(
             steps[currentStep].building.raisedToken,
-            steps[currentStep].building.personalTokenLimited.sub(resonancesRasiedToken[msg.sender])
+            steps[currentStep].building.personalTokenLimited.sub(resonancesRasiedToken[msg.sender]),
+            steps[currentStep].building.openTokenAmount.sub(steps[currentStep].building.raisedToken)
         );
     }
 
@@ -353,7 +354,11 @@ contract Resonance is Ownable{
         resonances.push(msg.sender);
         resonancesRasiedETH[msg.sender] += amount;
 
-        emit currentStepRaisedEther(steps[currentStep].funding.raisedETH, amount);
+        emit currentStepRaisedEther(
+            steps[currentStep].funding.raisedETH,
+            amount,
+            steps[currentStep].hardCap.sub(steps[currentStep].funding.raisedETH)
+        );
     }
 
     /// @notice 轮次结算
