@@ -30,7 +30,7 @@
               <p>{{detailList[0].text}}：{{myDetail.funderInvite.count}}</p>
               <p>{{detailList[1].text}}：{{myDetail.funderInvite.reward}}</p>
               <p>{{detailList[2].text}}：{{myDetail.funderAmount.depositCAD}}</p>
-              <p>{{detailList[3].text}}：{{myDetail.funderAmount.depositCAD}}</p>
+              <p>{{detailList[3].text}}：{{myDetail.funderAmount.depositETH}}</p>
             </div>
             <div class="my-detail-list-middle">
             </div>
@@ -87,6 +87,7 @@ export default {
   computed: {
     ...mapState({
       myDetail: state => state.myDetail,
+      isResonanceClosed: state => state.isResonanceClosed,
       link: () => {
         return document.baseURI + '?uid=' + store.state.account
       }
