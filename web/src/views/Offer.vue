@@ -3,7 +3,7 @@
     <el-row :gutter="40">
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
-          <p>{{ $t('index.buildingPeriodText') }}</p>
+          <p>{{ $t('index.buildingPeriodText') }}（第 {{stepIndex + 1}} 轮）</p>
           <countdown :time="offerData.bpCountdown" v-if="offerData.bpCountdown > 0">
             <template slot-scope="props">{{ $t('offer.countDown') }}：{{ props.hours }} {{ $t('offer.hour') }} : {{ props.minutes }} {{ $t('offer.minute') }} : {{ props.seconds }} {{ $t('offer.second') }}</template>
           </countdown>
@@ -29,7 +29,7 @@
       </el-col>
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
-          <p>{{ $t('index.fundingPeriodText') }}</p>
+          <p>{{ $t('index.fundingPeriodText') }}（第 {{stepIndex + 1}} 轮）</p>
           <countdown :time="offerData.fpCountdown" v-if="offerData.bpCountdown < 1">
             <template slot-scope="props">{{ $t('offer.countDown') }}：{{ props.hours }} {{ $t('offer.hour') }} : {{ props.minutes }} {{ $t('offer.minute') }} : {{ props.seconds }} {{ $t('offer.second') }}</template>
           </countdown>
@@ -107,6 +107,7 @@ export default {
   computed: {
     ...mapState({
       offerData: state => state.offerData,
+      stepIndex: state => state.homeData.stepIndex,
       isBuilder: state => state.isBuilder,
       rewardListData: state => state.rewardList
     })
@@ -160,7 +161,6 @@ export default {
     const contract = await this.initDataContract()
     store.dispatch('queryRewardList', contract)
     store.dispatch('getOpeningTime', contract)
-    store.dispatch('getResonanceIsClosed', contract)
   }
 }
 </script>
