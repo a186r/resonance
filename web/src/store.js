@@ -356,7 +356,6 @@ export default new Vuex.Store({
     async getResonanceIsClosed({commit}, contract) {
       contract.methods.getResonanceIsClosed().call()
       .then(res => {
-        res = true
         if (res) {
           commit('GET_RESONANCE_IS_CLOSED', res)
         }
