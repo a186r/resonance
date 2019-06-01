@@ -554,10 +554,6 @@ contract Resonance is Ownable{
 
         require(!steps[withdrawStep].funder[msg.sender].ETHHasWithdrawn, "用户在当前轮次已经提取ETH完成");
 
-        // uint256 totalTokenAmountPrev = steps[withdrawStep].building.raisedToken
-        //     .add(resonanceDataManage.getBuildingTokenFromParty(withdrawStep));
-
-        // uint256 totalEthAmount;
         uint256 withdrawAmount;
 
         // 如果是基金会地址，不用计算，直接提走60%
@@ -711,9 +707,26 @@ contract Resonance is Ownable{
     /// @notice 获取上一轮可提取的Token和ETH数量
     function getWithdrawAmountPriv() public view returns(uint256, uint256){
         require(currentStep != 0, "下一轮再来查看第一轮的数据");
+
+        uint256 _withdrawTokenAmount;
+        uint256 _withdrawETHAmount;
+        uint256 withdrawStep = currentStep.sub(1);
+
+        if(steps[withdrawStep].funder[msg.sender].tokenHasWithdrawn){
+            _withdrawTokenAmount = 0;
+        }else{
+            _withdrawTokenAmount = _calculationWithdrawTokenAmount(withdrawStep);
+        }
+
+        if(steps[withdrawStep].funder[msg.sender].ETHHasWithdrawn){
+            _withdrawETHAmount = 0;
+        }else{
+            _withdrawETHAmount = _calculationWithdrawETHAmount(withdrawStep);
+        }
+
         return(
-            _calculationWithdrawTokenAmount(currentStep.sub(1)),
-            _calculationWithdrawETHAmount(currentStep.sub(1))
+            _withdrawTokenAmount,
+            _withdrawETHAmount
         );
     }
 
@@ -770,24 +783,45 @@ contract Resonance is Ownable{
 
     /// @notice 计算用户可提取Token数量
     function _calculationWithdrawTokenAmount(uint256 _stepIndex) internal view returns(uint256){
+
+        uint256 _withdrawTokenAmount;
+
         uint256  currentStepTotalRaisedToken = steps[_stepIndex].building.raisedToken
             .add(resonanceDataManage.getBuildingTokenFromParty(_stepIndex));
-        return  currentStepTotalRaisedToken.
-            mul(steps[_stepIndex].funder[msg.sender].ethAmount).
-            div(steps[_stepIndex].funding.raisedETH);
+
+        if(currentStepTotalRaisedToken == 0
+            || steps[_stepIndex].funder[msg.sender].ethAmount == 0
+            || steps[_stepIndex].funding.raisedETH == 0)
+        {
+            _withdrawTokenAmount = 0;
+        }else{
+            _withdrawTokenAmount = currentStepTotalRaisedToken.
+                mul(steps[_stepIndex].funder[msg.sender].ethAmount).
+                div(steps[_stepIndex].funding.raisedETH);
+        }
+
+        return _withdrawTokenAmount;
     }
 
     /// @notice 计算用户可提取的ETH数量
     function _calculationWithdrawETHAmount(uint256 _stepIndex) internal view returns(uint256){
+        uint256 _withdrawETHAmount;
+
         uint256 totalTokenAmountPrev = steps[_stepIndex].building.raisedToken
             .add(resonanceDataManage.getBuildingTokenFromParty(_stepIndex));
 
-        uint256 _totalEthAmount = steps[_stepIndex].funder[msg.sender].tokenAmount
-            .mul(steps[_stepIndex].funding.raisedETH)
-            .div(totalTokenAmountPrev);
+        if(totalTokenAmountPrev == 0
+            || steps[_stepIndex].funder[msg.sender].tokenAmount == 0
+            || steps[_stepIndex].funding.raisedETH == 0)
+        {
+            _withdrawETHAmount = 0;
+        }else{
+            _withdrawETHAmount = steps[_stepIndex].funder[msg.sender].tokenAmount
+                .mul(steps[_stepIndex].funding.raisedETH)
+                .div(totalTokenAmountPrev);
+        }
 
-        return _totalEthAmount
-            .add(resonanceDataManage.withdrawETHAmount(_stepIndex, msg.sender));
+        return _withdrawETHAmount;
     }
 
     /// @notice 获取用户获奖信息
@@ -810,11 +844,15 @@ contract Resonance is Ownable{
 
     /// @notice 按照stepIndex获取用户资产信息
     function getFunderFundsByStep(uint256 _stepIndex) public view returns(uint256, uint256, uint256, uint256){
-        Funder memory funder = steps[_stepIndex].funder[msg.sender];
+        Funder memory funder;
+
+        require(_stepIndex <= currentStep, "stepIndex不存在");
+
+        funder = steps[_stepIndex].funder[msg.sender];
 
         return(
             _calculationWithdrawTokenAmount(_stepIndex), // 可提取Token数量
-            _calculationWithdrawETHAmount(_stepIndex), // 可提取ETH数量
+            _calculationWithdrawETHAmount(_stepIndex), //可提取ETH数量
             funder.tokenAmount, // 组建期共投资金额
             funder.ethAmount // 募集期共投资ETH数量
         );
