@@ -46,6 +46,8 @@ export default new Vuex.Store({
       funderAmount: {
         withdrawCAD: 0,
         withdrawETH: 0,
+        allCAD: 0,
+        allETH: 0,
         depositCAD: 0,
         depositETH: 0
       },
@@ -78,7 +80,7 @@ export default new Vuex.Store({
   },
   mutations: {
     GET_FUNDER_AMOUNT: (state, data) => {
-      Object.assign(state.funderAmount, data)
+      Object.assign(state.myDetail.funderAmount, data)
     },
     GET_FUNDER_REWARD: (state, data) => {
       state.myDetail.rewardList = data
@@ -127,8 +129,8 @@ export default new Vuex.Store({
         console.log(err, stepIndex, 'getFunderFundsByStep', result)
         if (result) {
           const data = {}
-          data.withdrawCAD = getFormat(result[0], 0)
-          data.withdrawETH = getFormat(result[1], 5)
+          data.allCAD  = getFormat(result[0], 0)
+          data.allETH = getFormat(result[1], 5)
           data.depositCAD = getFormat(result[2], 0)
           data.depositETH = getFormat(result[3], 5)
           commit('GET_FUNDER_AMOUNT', data)
@@ -303,7 +305,7 @@ export default new Vuex.Store({
         if (eventName === 'currentStepRaisedToken') {
           data.totalTokenAmount = getFormat(event.returnValues.raisedTokenAmount, 0)
           data.remainingToken = getFormat(event.returnValues.totalRemainingToken, 0)
-          data.eachAddressLimit = getFormat(event.returnValues.remainingTokenForPersonal, 0)
+          // data.eachAddressLimit = getFormat(event.returnValues.remainingTokenForPersonal, 0)
           homeData.currentStepTokenAmount = getFormat(event.returnValues.raisedTokenAmount, 0)
         } else if (eventName === 'currentStepRaisedEther') {
           data.totalETHAmount = getFormat(event.returnValues.raisedETHAmount, 5)
@@ -320,6 +322,28 @@ export default new Vuex.Store({
         console.log(eventName, 'listen event on changed:', event)
       })
       .on('error', console.error)
+    },
+    async getWithdrawAmountPriv({commit}, contract) {
+      contract.methods.getWithdrawAmountPriv().call({from: this.state.account}, (err, result) => {
+        console.log(err, 'getWithdrawAmountPriv', result)
+        if (result) {
+          const data = {}
+          data.withdrawCAD  = getFormat(result[0], 0)
+          data.withdrawETH = getFormat(result[1], 5)
+          commit('GET_FUNDER_AMOUNT', data)
+        }
+      })
+    },
+    async withdrawFaithRewardAndRefund({commit}) {
+      window.contract.methods.withdrawFaithRewardAndRefund().send({
+        from: this.state.account,
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        self._vm.$alert('Metamask 提交失败', '提示', {
+          confirmButtonText: '确定',
+        })
+      })
     },
     async getRewardList({commit}, params) {
       const url = 'test.com'

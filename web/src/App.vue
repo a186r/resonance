@@ -128,6 +128,7 @@ export default {
     store.dispatch('getBuildingPeriodInfo', contract)
     store.dispatch('getFundingPeriodInfo', contract)
     store.dispatch('getFunderInfo', contract)
+    store.dispatch('getWithdrawAmountPriv', contract)
     store.dispatch('isBuilder', contract)
     const data = {contract: contract, eventName: 'currentStepRaisedToken'}
     store.dispatch('startListenEvent', data)

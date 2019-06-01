@@ -5,7 +5,7 @@
         <div class="withdraw dark-card">
           <div class="withdraw-cad"></div>
           <p>{{ $t('my.withdrawCAD') }}</p>
-          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawETH}}</span> BDE</p>
+          <p>{{ $t('my.canWithdrawAmount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawCAD}}</span> BDE（{{ $t('my.totalAmount') }}：{{myDetail.funderAmount.allCAD}} BDE）</p>
           <button class="custom-button" @click="withdrawAllCAD">{{ $t('my.withdraw') }}</button>
         </div>
       </el-col>
@@ -13,7 +13,7 @@
         <div class="withdraw dark-card">
           <div class="withdraw-eth"></div>
           <p>{{ $t('my.withdrawETH') }}</p>
-          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawETH}}</span> ETH</p>
+          <p>{{ $t('my.canWithdrawAmount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawETH}}</span> ETH（{{ $t('my.totalAmount') }}：{{myDetail.funderAmount.allETH}} ETH）</p>
           <button class="custom-button" @click="withdrawAllETH">{{ $t('my.withdraw') }}</button>
         </div>
       </el-col>
