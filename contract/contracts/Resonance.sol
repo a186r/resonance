@@ -48,6 +48,10 @@ contract Resonance is Ownable{
 
     event FunderTotalRaised(uint256 resonancesRasiedETH);
 
+    // 当前轮次总共已投入的ETH和Token数量
+    event currentStepRaisedEther(uint256 raisedETHAmount, uint256 nowRaisedEther);
+    event currentStepRaisedToken(uint256 raisedTokenAmount, uint256 nowRemainingToken);
+
     // 变量
     // ERC20
     ABCToken public abcToken;
@@ -124,6 +128,8 @@ contract Resonance is Ownable{
 
     uint256 public totalETHFromParty; // 基金会募资总额
 
+    uint256 public faithRewardTotalAmount; // 信仰奖励总奖金
+
     mapping(uint256 => uint256) tokenFromParty; //基金会转入的token
 
     mapping(uint256 => bool) public tokenTransfered; // 当前轮次基金会已经转入Token
@@ -199,13 +205,12 @@ contract Resonance is Ownable{
 
         require(promoter != address(0), "推广者不能是空地址");
 
-        // 检查授权额度
+        // // 检查授权额度
         require(abcToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(8),"授权额度不足");
 
         require(abcToken.transferFrom(msg.sender,address(this), UintUtils.toWei(8)),"转移token到合约失败");
 
         // 销毁3个
-        // abcToken.burn(UintUtils.toWei(3));
         abcToken.transfer(address(0), UintUtils.toWei(3));
 
         // 5个给推广者
@@ -277,7 +282,7 @@ contract Resonance is Ownable{
         require(abcToken.allowance(msg.sender, address(this)) >= _tokenAmount,"授权额度不足");
 
         // 转入合约
-        require(abcToken.transferFrom(msg.sender,address(this), _tokenAmount),"转移token到合约失败");
+        require(abcToken.transferFrom(msg.sender, address(this), _tokenAmount),"转移token到合约失败");
 
         steps[currentStep].funder[msg.sender].tokenAmount += _tokenAmount;
 
@@ -294,11 +299,17 @@ contract Resonance is Ownable{
 
         // 累加token数量
         steps[currentStep].building.raisedToken += _tokenAmount;
+
+        emit currentStepRaisedToken(
+            steps[currentStep].building.raisedToken,
+            steps[currentStep].building.personalTokenLimited.sub(resonancesRasiedToken[msg.sender])
+        );
     }
 
     /// @notice 共建期基金会调用此方法转入Token
     function transferToken() public payable onlyOwner() returns(bool){
         require(!tokenTransfered[currentStep], "当前轮次基金会已经转入过Token了");
+
         // 检查剩余的授权额度是否足够
         require(abcToken.allowance(msg.sender, address(this)) >= resonanceDataManage.getBuildingTokenFromParty(),
             "授权额度不足"
@@ -341,6 +352,8 @@ contract Resonance is Ownable{
 
         resonances.push(msg.sender);
         resonancesRasiedETH[msg.sender] += amount;
+
+        emit currentStepRaisedEther(steps[currentStep].funding.raisedETH, amount);
     }
 
     /// @notice 轮次结算
@@ -357,11 +370,16 @@ contract Resonance is Ownable{
     {
         require(beneficiary != address(0), "基金会收款地址尚未设置");
 
-        // 计算奖励金
-        ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH.mul(
-            resonanceDataManage.getBuildingPercentOfParty()).div(100).mul(40).div(100);
+        uint256 totalTokenAmount = steps[currentStep].building.raisedToken.add(resonanceDataManage.getBuildingTokenFromParty());
 
-        totalETHFromParty += ETHFromParty[currentStep];
+        ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH
+            .mul(resonanceDataManage.getBuildingTokenFromParty())
+            .mul(40)
+            .div(totalTokenAmount)
+            .div(100);
+
+        // 奖励金总额的12.5%每一轮叠加，算作信仰奖励的奖励金
+        faithRewardTotalAmount += ETHFromParty[currentStep].mul(125).div(1000);
         // 结算裂变奖励、FOMO奖励
         _settlementReward(_fissionWinnerList);
         // 结算幸运奖励
@@ -390,11 +408,11 @@ contract Resonance is Ownable{
         require(resonanceDataManage.getCrowdsaleClosed(), "共振还未结束");
         return resonanceDataManage.dmSettlementFaithReward(
             _FaithWinnerList,
-            totalETHFromParty.mul(5).div(100)
+            faithRewardTotalAmount.mul(125).div(1000)
         );
     }
 
-    /// @notice 结算裂变奖励、幸运奖励、FOMO奖励
+    /// @notice 结算裂变奖励、FOMO奖励
     /// @dev 每一轮次结束之后调用此方法分配奖励,幸运奖励拆开结算
     function _settlementReward(
         address[] memory _fissionWinnerList
@@ -408,7 +426,7 @@ contract Resonance is Ownable{
         resonanceDataManage.settlementFissionReward(
             currentStep,
             _fissionWinnerList,
-            ETHFromParty[currentStep].mul(20).div(100)
+            ETHFromParty[currentStep].mul(50).div(100)
         );
 
         // 结算FOMO奖励
@@ -416,7 +434,7 @@ contract Resonance is Ownable{
             resonanceDataManage.settlementFOMOReward(
                 currentStep,
                 steps[currentStep].funders,
-                ETHFromParty[currentStep].mul(5).div(100)
+                ETHFromParty[currentStep].mul(125).div(1000)
             );
         }else{
             return;
@@ -432,7 +450,7 @@ contract Resonance is Ownable{
         resonanceDataManage.settlementLuckyReward(
             currentStep,
             _LuckyWinnerList,
-            ETHFromParty[currentStep].mul(10).div(100)
+            ETHFromParty[currentStep].mul(25).div(100)
         );
     }
 
@@ -440,15 +458,13 @@ contract Resonance is Ownable{
     function _startNextStep()
         internal
     {
-        resonanceDataManage.crowdsaleIsClosed(currentStep, steps[currentStep].funding.raisedETH, steps[currentStep].softCap);
-
         // 标记当前step已经结算完成
         steps[currentStep].settlementFinished = true;
         // 标记当前轮次已经结束
         steps[currentStep].stepIsClosed = true;
 
         // 共振没有结束才可以进入下一轮
-        if(!resonanceDataManage.getResonanceIsClosed()){
+        if(!resonanceDataManage.crowdsaleIsClosed(currentStep, steps[currentStep].funding.raisedETH, steps[currentStep].softCap)) {
             // 进入下一轮
             currentStep++;
             // 下一轮开始计时
@@ -502,7 +518,7 @@ contract Resonance is Ownable{
     {
         address payable dest = address(uint160(msg.sender));
 
-        require(!steps[currentStep].funder[msg.sender].ETHHasWithdrawn, "用户在当前轮次已经提取ETH完成");
+        // require(!steps[currentStep].funder[msg.sender].ETHHasWithdrawn, "用户在当前轮次已经提取ETH完成");
         uint256 withdrawAmount = resonanceDataManage.withdrawETHAmount(msg.sender);
         resonanceDataManage.emptyETHBalance(msg.sender);
         steps[currentStep].funder[msg.sender].ETHHasWithdrawn = true;
@@ -680,10 +696,10 @@ contract Resonance is Ownable{
         uint256,
         uint256,
         uint256,
-        bytes memory,
-        bytes memory,
-        bytes memory,
-        bytes memory
+        uint256,
+        uint256,
+        uint256,
+        uint256
     )
 
     {
@@ -711,10 +727,10 @@ contract Resonance is Ownable{
             funderInfo[3],
             funderInfo[4],
             funderInfo[5],
-            UintUtils.toBytes(funderInfo[6]),
-            UintUtils.toBytes(funderInfo[7]),
-            UintUtils.toBytes(funderInfo[8]),
-            UintUtils.toBytes(funderInfo[9])
+            funderInfo[6],
+            funderInfo[7],
+            funderInfo[8],
+            funderInfo[9]
         );
     }
 
