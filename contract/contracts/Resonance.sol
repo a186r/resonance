@@ -757,10 +757,10 @@ contract Resonance is Ownable{
 
         // TODO:
         // 募资期结束，返回0
-        if(resonanceDataManage.getOpeningTime().add(45 minutes) <= block.timestamp){
+        if(resonanceDataManage.getOpeningTime().add(30 minutes) <= block.timestamp){
             _fpCountdown = 0;
         }else{
-            _fpCountdown = (resonanceDataManage.getOpeningTime().add(45 minutes)).sub(block.timestamp);
+            _fpCountdown = (resonanceDataManage.getOpeningTime().add(30 minutes)).sub(block.timestamp);
         }
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
