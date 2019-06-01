@@ -326,9 +326,9 @@ contract('TestResonance', async (accounts) => {
     // })
 
     it("18...结算已完成，提取ETH", async () => {
-        // console.log(await resonance.withdrawAllETH({
-        //     from: accounts[2]
-        // }));
+        console.log(await resonance.withdrawAllETH({
+            from: accounts[2]
+        }));
     })
 
     it("19...查询区块hash", async () => {
@@ -337,10 +337,6 @@ contract('TestResonance', async (accounts) => {
     })
 
     it("20...查询轮次funders信息(个人中心)", async () => {
-
-        // console.log("查询轮次funders信息:", await resonance.getFunderInfo(1, {
-        //     from: accounts[2]
-        // }));
 
         console.log("查询个人信息1：", await resonance.getFunderRewardInfo({from:accounts[2]}));
         console.log("查询个人信息AFF：", await resonance.getFunderAffInfo({from:accounts[2]}));
@@ -387,9 +383,9 @@ contract('TestResonance', async (accounts) => {
 
         // console.log("基金会本轮次可转入额度：",await resonanceDataManage.getBuildingTokenFromParty() / 1E18);
 
-        console.log("查询当前轮次信息", await resonance.getCurrentStepFundsInfo({
-            from: accounts[0]
-        }));
+        // console.log("查询当前轮次信息", await resonance.getCurrentStepFundsInfo({
+        //     from: accounts[0]
+        // }));
     })
 
     it("22...查询FOMO奖励列表",async() => {
@@ -397,14 +393,16 @@ contract('TestResonance', async (accounts) => {
 
         // console.log("查询当前轮次:", await resonance.currentStep.call());
         // 查看合约token余额
-        console.log("查看提取前合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
+        // console.log("查看提取前合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
 
         // 提走所有token和eth
-        await resonance.withdrawAllETHByOwner();
+        // await resonance.withdrawAllETHByOwner();
 
         // 查看合约token余额
-        console.log("查看提取前合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
+        // console.log("查看提取前合约Token余额", await abcToken.balanceOf(resonance.address) / 1E18);
 
     })
+
+
 
 })

@@ -391,6 +391,11 @@ contract Resonance is Ownable{
     {
         require(beneficiary != address(0), "基金会收款地址尚未设置");
 
+        require(
+            !resonanceDataManage.crowdsaleIsClosed(currentStep, steps[currentStep].funding.raisedETH, steps[currentStep].softCap),
+            "共振已结束，不能结算"
+        );
+
         uint256 totalTokenAmount = steps[currentStep].building.raisedToken.add(resonanceDataManage.getBuildingTokenFromParty(currentStep));
 
         ETHFromParty[currentStep] = steps[currentStep].funding.raisedETH
@@ -714,6 +719,7 @@ contract Resonance is Ownable{
 
     /// @notice 获取上一轮可提取的Token和ETH数量
     function getWithdrawAmountPriv() public view returns(uint256, uint256){
+        require(currentStep != 0, "下一轮再来查看第一轮的数据");
         return(
             _calculationWithdrawTokenAmount(currentStep.sub(1)),
             resonanceDataManage.getETHBalance(currentStep.sub(1), msg.sender)
