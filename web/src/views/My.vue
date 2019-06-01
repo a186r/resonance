@@ -5,7 +5,7 @@
         <div class="withdraw dark-card">
           <div class="withdraw-cad"></div>
           <p>{{ $t('my.withdrawCAD') }}</p>
-          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail[0]}}</span> BDE</p>
+          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawETH}}</span> BDE</p>
           <button class="custom-button" @click="withdrawAllCAD">{{ $t('my.withdraw') }}</button>
         </div>
       </el-col>
@@ -13,7 +13,7 @@
         <div class="withdraw dark-card">
           <div class="withdraw-eth"></div>
           <p>{{ $t('my.withdrawETH') }}</p>
-          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail[1]}}</span> ETH</p>
+          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawETH}}</span> ETH</p>
           <button class="custom-button" @click="withdrawAllETH">{{ $t('my.withdraw') }}</button>
         </div>
       </el-col>
@@ -27,12 +27,15 @@
           </div>
           <div class="my-detail-list">
             <div class="my-detail-list-left">
-              <p v-for="i in 4" :key="i">{{detailList[i-1].text}}：{{myDetail[i+1]}}</p>
+              <p>{{detailList[0].text}}：{{myDetail.funderInvite.count}}</p>
+              <p>{{detailList[1].text}}：{{myDetail.funderInvite.reward}}</p>
+              <p>{{detailList[2].text}}：{{myDetail.funderAmount.depositCAD}}</p>
+              <p>{{detailList[3].text}}：{{myDetail.funderAmount.depositCAD}}</p>
             </div>
             <div class="my-detail-list-middle">
             </div>
             <div class="my-detail-list-right">
-              <p v-for="i in 4" :key="i">{{detailList[i+3].text}}：{{myDetail[i+5]}}</p>
+              <p v-for="i in 4" :key="i">{{detailList[i+3].text}}：{{myDetail.rewardList[i-1]}}</p>
             </div>
           </div>
         </div>
