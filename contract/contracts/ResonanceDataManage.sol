@@ -133,23 +133,23 @@ contract ResonanceDataManage{
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
         // if(block.timestamp >= openingTime && block.timestamp < openingTime.add(8 hours)) {
-        // if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(30 minutes)) {
-        //     return true;
-        // }else{
-        //     return false;
-        // }
-        return true;
+        if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(30 minutes)) {
+            return true;
+        }else{
+            return false;
+        }
+        // return true;
     }
 
     // 是否是募资期
     function isFundingPeriod() public view returns(bool) {
         // if(block.timestamp >= openingTime.add(8 hours) && block.timestamp < openingTime.add(24 hours)) {
-        // if(block.timestamp >= openingTime.add(30 minutes) && block.timestamp <= openingTime.add(1 hours)) {
-        //     return true;
-        // }else{
-        //     return false;
-        // }
-        return true;
+        if(block.timestamp >= openingTime.add(30 minutes) && block.timestamp <= openingTime.add(1 hours)) {
+            return true;
+        }else{
+            return false;
+        }
+        // return true;
     }
 
     /// @notice 判断共振是否结束

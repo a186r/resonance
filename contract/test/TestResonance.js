@@ -215,17 +215,21 @@ contract('TestResonance', async (accounts) => {
         await resonance.send(web3.utils.toWei("1"), {
             from: accounts[3]
         });
+
         await resonance.send(web3.utils.toWei("1"), {
-            from: accounts[4]
+            from: accounts[2]
         });
+
         await resonance.send(web3.utils.toWei("1"), {
-            from: accounts[5]
+            from: accounts[2]
         });
+
         await resonance.send(web3.utils.toWei("1"), {
-            from: accounts[6]
+            from: accounts[2]
         });
+
         await resonance.send(web3.utils.toWei("1"), {
-            from: accounts[7]
+            from: accounts[2]
         });
     });
 
@@ -260,6 +264,9 @@ contract('TestResonance', async (accounts) => {
     })
 
     it("15...结算当前轮次", async () => {
+
+        console.log("结算前查询当前轮次:", await resonance.currentStep.call());
+
         winners[0] = accounts[0];
         winners[1] = accounts[1];
         winners[2] = accounts[2];
@@ -275,7 +282,7 @@ contract('TestResonance', async (accounts) => {
                 from: accounts[0]
             });
 
-        console.log("结算当前轮次奖励总金额：", a);
+        // console.log("结算当前轮次奖励总金额：", a);
 
         // console.log("当前轮次：", await resonance.currentStep.call());
     })
@@ -329,9 +336,14 @@ contract('TestResonance', async (accounts) => {
 
     it("20...查询轮次funders信息(个人中心)", async () => {
 
-        console.log("查询轮次funders信息:", await resonance.getFunderInfo(0, {
-            from: accounts[2]
-        }));
+        // console.log("查询轮次funders信息:", await resonance.getFunderInfo(1, {
+        //     from: accounts[2]
+        // }));
+
+        console.log("查询个人信息1：", await resonance.getFunderRewardInfo({from:accounts[2]}));
+        console.log("查询个人信息AFF：", await resonance.getFunderAffInfo({from:accounts[2]}));
+        console.log("查询个人信息AFF：", await resonance.getFunderFundsByStep(0, {from:accounts[2]}));
+
     })
 
     // getBuildingTokenFromParty
@@ -359,7 +371,7 @@ contract('TestResonance', async (accounts) => {
         //     });
 
         // 查询共振是否结束
-        // console.log("共振是否结束：", await resonanceDataManage.getResonanceIsClosed());
+        console.log("共振是否结束：", await resonanceDataManage.getResonanceIsClosed());
 
         // let aa = await resonance.settlementStep(
         //     winners,
@@ -379,6 +391,9 @@ contract('TestResonance', async (accounts) => {
     })
 
     it("22...查询FOMO奖励列表",async() => {
-        // console.log(await FOMOReward.getFOMOWinnerInfo(0));
+        console.log(await FOMOReward.getFOMOWinnerInfo(0));
+
+        // console.log("查询当前轮次:", await resonance.currentStep.call());
     })
+
 })

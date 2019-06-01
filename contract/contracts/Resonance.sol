@@ -49,7 +49,9 @@ contract Resonance is Ownable{
     event FunderTotalRaised(uint256 resonancesRasiedETH);
 
     // 当前轮次总共已投入的ETH和Token数量
+    // 已募集到的ETH数量、现在投入的ETH数量、共剩余ETH数量
     event currentStepRaisedEther(uint256 raisedETHAmount, uint256 nowRaisedEther, uint256 totalRemainingEther);
+    // 已共建的Token数量、个人剩余可投入Token额度、共剩余Token额度
     event currentStepRaisedToken(uint256 raisedTokenAmount, uint256 remainingTokenForPersonal, uint256 totalRemainingToken);
 
     // 变量
@@ -66,9 +68,6 @@ contract Resonance is Ownable{
         address funderAddr; // 地址
         uint256 tokenAmount; // 组建期已打入的token数量
         uint256 ethAmount; // 募资期已打入的eth数量
-        address[] invitees; // 我的邀请人
-        uint256 inviteesTotalAmount; // 我的邀请人打入的Token总量
-        uint256 earnFromAff; // 邀请所得金额
         address promoter; // 推广人
         bool isFunder; // 是否是募资者（参与募资期）
         bool tokenHasWithdrawn; // Token提币完成
@@ -78,6 +77,11 @@ contract Resonance is Ownable{
     }
 
     mapping(address => bool) public isBuilder; //是否是共建者
+
+    mapping(address => address[]) invitees; // 邀请人
+    mapping(address => uint256) earnFromAff; // 推广所得
+    mapping(address => uint256) inviteesTotalAmount; // 我的邀请人打入的eth总量
+    address[] FOMOList; // FOMO列表
 
     // 组建期结构体
     struct Building{
@@ -216,12 +220,14 @@ contract Resonance is Ownable{
         // 5个给推广者
         abcToken.transfer(address(promoter), UintUtils.toWei(5));
 
-        steps[currentStep].funder[promoter].earnFromAff += UintUtils.toWei(5);
+        earnFromAff[promoter] += UintUtils.toWei(5);
+        // steps[currentStep].funder[promoter].earnFromAff += UintUtils.toWei(5);
 
         // 成为共建者
         _addBuilder(promoter);
 
-        steps[currentStep].funder[promoter].invitees.push(msg.sender);
+        invitees[promoter].push(msg.sender);
+        // steps[currentStep].funder[promoter].invitees.push(msg.sender);
 
         fissionRewardInstance.addAffman(currentStep, promoter, initialFissionPerson);
 
@@ -288,9 +294,6 @@ contract Resonance is Ownable{
 
         steps[currentStep].building.raisedTokenAmount += _tokenAmount;
 
-        // 累加msg.sender的上级邀请人总花费
-        steps[currentStep].funder[steps[currentStep].funder[msg.sender].promoter].inviteesTotalAmount += _tokenAmount;
-
         // 从资金池总额度中减去用户转入的Token数量
         resonanceDataManage.setFundsPool(resonanceDataManage.getFundsPool().sub(_tokenAmount));
 
@@ -347,9 +350,15 @@ contract Resonance is Ownable{
             steps[currentStep].funders.push(msg.sender);
         }
 
+        // 全都加入FOMO列表
+        FOMOList.push(msg.sender);
+
         steps[currentStep].funder[msg.sender].ethAmount += amount;
         steps[currentStep].funder[msg.sender].isFunder = true;
         steps[currentStep].funding.raisedETH += amount;
+
+        // 累加msg.sender的上级邀请人总花费
+        inviteesTotalAmount[steps[currentStep].funder[msg.sender].promoter] += amount;
 
         resonances.push(msg.sender);
         resonancesRasiedETH[msg.sender] += amount;
@@ -413,7 +422,7 @@ contract Resonance is Ownable{
         require(resonanceDataManage.getCrowdsaleClosed(), "共振还未结束");
         return resonanceDataManage.dmSettlementFaithReward(
             _FaithWinnerList,
-            faithRewardTotalAmount.mul(125).div(1000)
+            faithRewardTotalAmount
         );
     }
 
@@ -435,10 +444,10 @@ contract Resonance is Ownable{
         );
 
         // 结算FOMO奖励
-        if(steps[currentStep].funders.length > 0){
+        if(FOMOList.length > 0){
             resonanceDataManage.settlementFOMOReward(
                 currentStep,
-                steps[currentStep].funders,
+                FOMOList,
                 ETHFromParty[currentStep].mul(125).div(1000)
             );
         }else{
@@ -556,7 +565,8 @@ contract Resonance is Ownable{
 
     /// @notice 查询funder的邀请人集合
     function getInvitees(address _funder) public view returns(address[] memory) {
-        return steps[currentStep].funder[_funder].invitees;
+        return invitees[_funder];
+        // return steps[currentStep].funder[_funder].invitees;
     }
 
     /// @notice 查询所有参与共振的用户的地址集合
@@ -597,27 +607,27 @@ contract Resonance is Ownable{
         uint256[] memory funderTokenAmount;
         uint256[] memory funderETHAmount;
         uint256[] memory funderInvitees;
-        uint256[] memory earnFromAff;
-        uint256[] memory inviteesTotalAmount;
+        uint256[] memory _earnFromAff;
+        uint256[] memory _inviteesTotalAmount;
 
         funderAddress = new address[](steps[_stepIndex].funders.length);
         funderTokenAmount = new uint256[](funderAddress.length);
         funderETHAmount = new uint256[](funderAddress.length);
         funderInvitees = new uint256[](funderAddress.length);
-        earnFromAff = new uint256[](funderAddress.length);
-        inviteesTotalAmount = new uint256[](funderAddress.length);
+        _earnFromAff = new uint256[](funderAddress.length);
+        _inviteesTotalAmount = new uint256[](funderAddress.length);
 
         funderAddress = steps[_stepIndex].funders;
 
         for(uint i = 0 ; i < funderAddress.length; i++){
             funderTokenAmount[i] = steps[_stepIndex].funder[funderAddress[i]].tokenAmount;
             funderETHAmount[i] = steps[_stepIndex].funder[funderAddress[i]].ethAmount;
-            funderInvitees[i] = steps[_stepIndex].funder[funderAddress[i]].invitees.length;
-            earnFromAff[i] = steps[currentStep].funder[funderAddress[i]].earnFromAff;
-            inviteesTotalAmount[i] = steps[currentStep].funder[funderAddress[i]].inviteesTotalAmount;
+            funderInvitees[i] = invitees[funderAddress[i]].length;
+            _earnFromAff[i] = earnFromAff[funderAddress[i]];
+            _inviteesTotalAmount[i] = inviteesTotalAmount[funderAddress[i]];
         }
 
-        return (funderAddress, funderTokenAmount, funderETHAmount, funderInvitees, earnFromAff, inviteesTotalAmount);
+        return (funderAddress, funderTokenAmount, funderETHAmount, funderInvitees, _earnFromAff, _inviteesTotalAmount);
     }
 
     /// @notice 查询当前轮次组建期开放多少token，募资期已经募得的ETH
@@ -687,55 +697,33 @@ contract Resonance is Ownable{
                 div(steps[_stepIndex].funding.raisedETH);
     }
 
-    /// @notice 获取投资者信息（个人中心界面）
-    function getFunderInfo(
-        uint256 _stepIndex
-    )
-        public
-        view
-        returns
-    (
-        uint256,
-        uint256,
-        uint256,
-        uint256,
-        uint256,
-        uint256,
-        uint256,
-        uint256,
-        uint256,
-        uint256
-    )
+    /// @notice 获取用户获奖信息
+    function getFunderRewardInfo() public view returns(uint256, uint256, uint256, uint256) {
+        return(
+            luckyRewardInstance.luckyFunderTotalBalance(msg.sender),
+            fissionRewardInstance.fissionFunderTotalBalance(msg.sender),
+            FOMORewardInstance.FOMOFunderTotalBalance(msg.sender),
+            faithRewardInstance.faithRewardAmount(msg.sender)
+        );
+    }
 
-    {
+    /// @notice 获取用户推广信息信息
+    function getFunderAffInfo() public view returns(uint256, uint256) {
+        return(
+            invitees[msg.sender].length, // 我的邀请人数
+            earnFromAff[msg.sender] // 推广所得
+        );
+    }
 
-        uint256[] memory funderInfo = new uint256[](10);
-
+    /// @notice 按照stepIndex获取用户资产信息
+    function getFunderFundsByStep(uint256 _stepIndex) public view returns(uint256, uint256, uint256, uint256){
         Funder memory funder = steps[_stepIndex].funder[msg.sender];
 
-        // call 本地计算，不修改链
-        funderInfo[0] = _calculationWithdrawTokenAmount(_stepIndex);
-        funderInfo[1] = resonanceDataManage.getETHBalance(msg.sender);
-        funderInfo[2] = funder.invitees.length;
-        funderInfo[3] = funder.earnFromAff;
-        funderInfo[4] = funder.tokenAmount;
-        funderInfo[5] = funder.ethAmount;
-        funderInfo[6] = luckyRewardInstance.luckyFunderTotalBalance(msg.sender);
-        funderInfo[7] = fissionRewardInstance.fissionFunderTotalBalance(msg.sender);
-        funderInfo[8] = FOMORewardInstance.FOMOFunderTotalBalance(msg.sender);
-        funderInfo[9] = faithRewardInstance.faithRewardAmount(msg.sender);
-
         return(
-            funderInfo[0],
-            funderInfo[1],
-            funderInfo[2],
-            funderInfo[3],
-            funderInfo[4],
-            funderInfo[5],
-            funderInfo[6],
-            funderInfo[7],
-            funderInfo[8],
-            funderInfo[9]
+            _calculationWithdrawTokenAmount(_stepIndex), // 可提取Token数量
+            resonanceDataManage.getETHBalance(msg.sender), // 可提取ETH数量
+            funder.tokenAmount, // 组建期共投资金额
+            funder.ethAmount // 募集期共投资ETH数量
         );
     }
 
