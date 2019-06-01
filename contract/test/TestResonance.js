@@ -280,7 +280,7 @@ contract('TestResonance', async (accounts) => {
             winners,
             winners, {
                 from: accounts[0]
-            });
+        });
 
         // console.log("结算当前轮次奖励总金额：", a);
 
