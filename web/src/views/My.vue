@@ -94,7 +94,7 @@ export default {
       myDetail: state => state.myDetail,
       isResonanceClosed: state => state.isResonanceClosed,
       link: () => {
-        return document.baseURI + '?uid=' + store.state.account
+        return document.location.origin + '/#/offer' + '?uid=' + store.state.account
       }
     })
   },
