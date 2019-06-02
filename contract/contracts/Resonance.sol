@@ -885,21 +885,20 @@ contract Resonance is Ownable{
         return steps[_stepIndex].stepIsClosed;
     }
 
-    function getFunderFundsByStep(uint256 _stepIndex) public view returns(uint256[] memory){
-        require(_stepIndex <= currentStep, "stepIndex不存在");
-        uint256[] memory result = new uint256[](4);
+    // function getFunderFundsByStep(uint256 _stepIndex) public view returns(uint256[] memory){
+    //     require(_stepIndex <= currentStep, "stepIndex不存在");
+    //     uint256[] memory result = new uint256[](4);
 
-        result[0] = _calculationWithdrawTokenAmount(_stepIndex);
-        result[1] = _calculationWithdrawETHAmount(_stepIndex);
+    //     result[0] = _calculationWithdrawTokenAmount(_stepIndex);
+    //     result[1] = _calculationWithdrawETHAmount(_stepIndex);
 
-        if(steps[_stepIndex].funder[msg.sender]){
-            result[2] = steps[_stepIndex].funder[msg.sender].tokenAmount;
-            result[3] = steps[_stepIndex].funder[msg.sender].ethAmount;
-        } else {
-            result[2] = 0;
-            result[3] = 0;
-        }
-
-        return(result);
-    }
+    //     if(steps[_stepIndex].funder[msg.sender].isFunder) {
+    //         result[2] = steps[_stepIndex].funder[msg.sender].tokenAmount;
+    //         result[3] = steps[_stepIndex].funder[msg.sender].ethAmount;
+    //     } else {
+    //         result[2] = 0;
+    //         result[3] = 0;
+    //     }
+    //     return(result);
+    // }
 }
