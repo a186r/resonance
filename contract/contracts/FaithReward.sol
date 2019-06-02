@@ -47,7 +47,15 @@ contract FaithReward{
     {
         require(!faithRewardFinished, "当前轮次的信仰奖励已经计算完成");
 
-        faithAmounts = new uint256[](_faithWinners.length);
+        uint256 winners;
+
+        winners = _faithWinners.length;
+
+        faithAmounts = new uint256[](winners);
+
+        faithWinners = new address[](winners);
+
+        faithWinners = _faithWinners;
 
         for(uint i = 0 ; i < _faithWinners.length; i++){
             if(i == 0){ // 第1名获得3%的奖励
@@ -59,6 +67,7 @@ contract FaithReward{
             }else{ // 第7、8、9、10各获得0.5%奖励
                 faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(5).div(100);
             }
+
             faithAmounts.push(faithRewardAmount[_faithWinners[i]]);
 
             totalFaithReward += faithRewardAmount[_faithWinners[i]];

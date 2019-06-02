@@ -146,43 +146,75 @@ contract('TestResonance', async (accounts) => {
     });
 
     it("9...募资期社区成员转入ETH", async () => {
-        await resonance.send(web3.utils.toWei("3"), {
-            from: accounts[0]
-        });
+        // await resonance.send(web3.utils.toWei("3"), {
+        //     from: accounts[0]
+        // });
 
-        await resonance.send(web3.utils.toWei("3"), {
-            from: accounts[4]
-        });
+        // await resonance.send(web3.utils.toWei("3"), {
+        //     from: accounts[4]
+        // });
 
-        await resonance.send(web3.utils.toWei("3"), {
-            from: accounts[1]
-        });
+        // await resonance.send(web3.utils.toWei("3"), {
+        //     from: accounts[1]
+        // });
 
-        await resonance.send(web3.utils.toWei("1"), {
-            from: accounts[2]
-        });
+        // await resonance.send(web3.utils.toWei("1"), {
+        //     from: accounts[2]
+        // });
 
-        await resonance.send(web3.utils.toWei("1"), {
-            from: accounts[3]
-        });
+        // await resonance.send(web3.utils.toWei("1"), {
+        //     from: accounts[3]
+        // });
 
-        await resonance.send(web3.utils.toWei("1"), {
+        await resonance.send(web3.utils.toWei("12"), {
             from: accounts[2]
         });
     });
 
     it("10...结算当前轮次", async () => {
-        winners[0] = accounts[0];
-        winners[1] = accounts[1];
+        // winners[0] = accounts[0];
+        // winners[1] = accounts[1];
         winners[2] = accounts[2];
-        winners[3] = accounts[3];
-        winners[4] = accounts[4];
+        // winners[3] = accounts[3];
+        // winners[4] = accounts[4];
 
         await resonance.settlementStep(
             winners,
             winners, {
                 from: accounts[0]
         });
+
+
+        await resonance.setRaiseTarget(web3.utils.toWei("12"));
+
+        await abcToken.approve(resonance.address, web3.utils.toWei("2000"), {
+            from: accounts[2]
+        });
+
+        // 转入Token，参与共建
+        await resonance.jointlyBuild(web3.utils.toWei("500"), {
+            from: accounts[0]
+        });
+
+        await resonance.send(web3.utils.toWei("12"), {
+            from: accounts[2]
+        });
+
+        winners[2] = accounts[2];
+        // winners[3] = accounts[3];
+        // winners[4] = accounts[4];
+        winners[3] = accounts[3];
+        winners[4] = accounts[4];
+
+
+        await resonance.settlementStep(
+            winners,
+            winners, {
+                from: accounts[0]
+        });
+
+        await resonance.settlementFaithReward(winners);
+
     })
 
     it("11...getFunderRewardInfo",async() => {
@@ -190,25 +222,29 @@ contract('TestResonance', async (accounts) => {
             from:accounts[2]
         });
 
-        console.log("用户FOMO所得：", await FOMOReward.getFOMORewardAmount({from:accounts[2]}));
-        console.log("用户裂变所得：", await fissionReward.getFissionRewardAmount({from:accounts[2]}));
+        // console.log("用户FOMO所得：", await FOMOReward.getFOMORewardAmount({from:accounts[2]}));
+        // console.log("用户裂变所得：", await fissionReward.getFissionRewardAmount({from:accounts[2]}));
 
-        console.log("用户奖金所得：", getFunderRewardInfoLog);
+        // console.log("用户奖金所得：", getFunderRewardInfoLog);
+
 
         console.log("幸运奖励信息：",await luckyReward.getLuckyInfo(0));
 
-        console.log("裂变奖励所得：",await fissionReward.getFissionInfo(0));
+        console.log("裂变奖励信息：",await fissionReward.getFissionInfo(0));
 
         console.log("FOMO奖励所得：",await FOMOReward.getFOMOWinnerInfo(0));
-        console.log("FOMO奖励所得：",await FOMOReward.getTotalRewardAmount(0));
+
+        console.log("信仰奖励所得：",await faithReward.getFaithWinnerInfo(1, {from:accounts[7]}));
+
+        // console.log("FOMO奖励所得：",await FOMOReward.getTotalRewardAmount(0));
 
     })
 
     it("12...getFunderFundsByStep", async() => {
-        let getFunderFundsByStepLog = await resonance.getFunderFundsByStep(0,{
-            from:accounts[2]
-        });
-        console.log("用户可提取资金：",getFunderFundsByStepLog);
+        // let getFunderFundsByStepLog = await resonance.getFunderFundsByStep(0,{
+        //     from:accounts[2]
+        // });
+        // console.log("用户可提取资金：",getFunderFundsByStepLog);
 
         // 可提取Token数量：125333
         // 可提取ETH数量：0.5
