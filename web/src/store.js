@@ -32,7 +32,11 @@ function getReward(contract, methodName, stepIndex, account, index, commit) {
     // console.log(stepIndex, index, methodName, res)
     res.index = index
     res[0] = getFormat(res[0], 5)
-    res[2] = res[1].map((item, i) => getFormat(res[2][i], 5))
+    if (index === 2) {
+      res[2] = res[1].map((item, i) => getFormat(res[2], 5))
+    } else {
+      res[2] = res[1].map((item, i) => getFormat(res[2][i], 5))
+    }
     console.log(stepIndex, index, methodName, res)
     commit('GET_REWARD_LIST', res)
   })
