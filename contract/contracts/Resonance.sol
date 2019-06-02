@@ -280,7 +280,8 @@ contract Resonance is Ownable{
 
         // 转入额度不能超过个人限额
         require(
-            steps[currentStep].funder[msg.sender].tokenAmount.add(_tokenAmount) <= steps[currentStep].building.personalTokenLimited,
+             steps[currentStep].funder[msg.sender].tokenAmount.add(_tokenAmount) <=
+             steps[currentStep].building.personalTokenLimited,
             "共建额度已超过限额，不能继续转入"
         );
 
@@ -305,7 +306,7 @@ contract Resonance is Ownable{
 
         emit currentStepRaisedToken(
             steps[currentStep].building.raisedToken,
-            steps[currentStep].building.personalTokenLimited.sub(resonancesRasiedToken[msg.sender]),
+            steps[currentStep].building.personalTokenLimited.sub(steps[currentStep].funder[msg.sender].tokenAmount),
             steps[currentStep].building.openTokenAmount.sub(steps[currentStep].building.raisedToken)
         );
     }

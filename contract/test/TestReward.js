@@ -172,11 +172,7 @@ contract('TestResonance', async (accounts) => {
     });
 
     it("10...结算当前轮次", async () => {
-        // winners[0] = accounts[0];
-        // winners[1] = accounts[1];
         winners[2] = accounts[2];
-        // winners[3] = accounts[3];
-        // winners[4] = accounts[4];
 
         await resonance.settlementStep(
             winners,
@@ -201,19 +197,17 @@ contract('TestResonance', async (accounts) => {
         });
 
         winners[2] = accounts[2];
-        // winners[3] = accounts[3];
-        // winners[4] = accounts[4];
         winners[3] = accounts[3];
         winners[4] = accounts[4];
 
 
-        await resonance.settlementStep(
-            winners,
-            winners, {
-                from: accounts[0]
-        });
+        // await resonance.settlementStep(
+        //     winners,
+        //     winners, {
+        //         from: accounts[0]
+        // });
 
-        await resonance.settlementFaithReward(winners);
+        // await resonance.settlementFaithReward(winners);
 
     })
 
@@ -225,16 +219,16 @@ contract('TestResonance', async (accounts) => {
         // console.log("用户FOMO所得：", await FOMOReward.getFOMORewardAmount({from:accounts[2]}));
         // console.log("用户裂变所得：", await fissionReward.getFissionRewardAmount({from:accounts[2]}));
 
-        // console.log("用户奖金所得：", getFunderRewardInfoLog);
+        console.log("用户奖金所得：", getFunderRewardInfoLog);
 
 
         console.log("幸运奖励信息：",await luckyReward.getLuckyInfo(0));
 
-        console.log("裂变奖励信息：",await fissionReward.getFissionInfo(0));
+        // console.log("裂变奖励信息：",await fissionReward.getFissionInfo(0));
 
-        console.log("FOMO奖励所得：",await FOMOReward.getFOMOWinnerInfo(0));
+        // console.log("FOMO奖励所得：",await FOMOReward.getFOMOWinnerInfo(0));
 
-        console.log("信仰奖励所得：",await faithReward.getFaithWinnerInfo(1, {from:accounts[7]}));
+        console.log("幸运奖励所得：",await luckyReward.getluckyRewardAmount(0, {from:accounts[2]}));
 
         // console.log("FOMO奖励所得：",await FOMOReward.getTotalRewardAmount(0));
 

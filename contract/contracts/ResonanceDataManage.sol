@@ -336,7 +336,6 @@ contract ResonanceDataManage{
     function updateBuildingPercent(uint256 _stepIndex) public platform() returns (bool) {
         require(fundsPool > 0, "共建资金池已经消耗完毕");
         if(_stepIndex == 0){
-            // setBuildingTokenFromParty(initBuildingTokenAmount.mul(50).div(100));
             buildingTokenFromParty[_stepIndex] = initBuildingTokenAmount.mul(50).div(100);
             buildingPercentOfParty = 50;
             buildingPercentOfCommunity = 50;

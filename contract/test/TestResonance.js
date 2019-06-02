@@ -42,9 +42,9 @@ contract('TestResonance', async (accounts) => {
         });
         // console.log("地址余额", await abcToken.balanceOf(accounts[1]) / 1E18);
 
-        // 把token分配给各账户，各1000个
+        // 把token分配给各账户，各20000个
         for (var i = 0; i <= 9; i++) {
-            await abcToken.transfer(accounts[i], web3.utils.toWei("1000"), {
+            await abcToken.transfer(accounts[i], web3.utils.toWei("20000"), {
                 from: accounts[0]
             });
 
@@ -157,19 +157,19 @@ contract('TestResonance', async (accounts) => {
 
     it("8...组建期社区成员转入Token", async () => {
         // 社区成员accounts[3]授予合约额度
-        await abcToken.approve(resonance.address, web3.utils.toWei("300"), {
+        await abcToken.approve(resonance.address, web3.utils.toWei("20000"), {
             from: accounts[3]
         });
 
-        await abcToken.approve(resonance.address, web3.utils.toWei("300"), {
+        await abcToken.approve(resonance.address, web3.utils.toWei("20000"), {
             from: accounts[0]
         });
 
-        await abcToken.approve(resonance.address, web3.utils.toWei("300"), {
+        await abcToken.approve(resonance.address, web3.utils.toWei("20000"), {
             from: accounts[1]
         });
 
-        await abcToken.approve(resonance.address, web3.utils.toWei("300"), {
+        await abcToken.approve(resonance.address, web3.utils.toWei("20000"), {
             from: accounts[2]
         });
 
@@ -178,24 +178,21 @@ contract('TestResonance', async (accounts) => {
         // console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
 
         // 转入Token，参与共建
-        await resonance.jointlyBuild(web3.utils.toWei("100"), {
+        await resonance.jointlyBuild(web3.utils.toWei("10000"), {
             from: accounts[0]
         });
 
-        await resonance.jointlyBuild(web3.utils.toWei("100"), {
+        await resonance.jointlyBuild(web3.utils.toWei("10000"), {
             from: accounts[1]
         });
 
-        await resonance.jointlyBuild(web3.utils.toWei("100"), {
+        await resonance.jointlyBuild(web3.utils.toWei("10000"), {
             from: accounts[2]
         });
 
-        await resonance.jointlyBuild(web3.utils.toWei("100"), {
+        await resonance.jointlyBuild(web3.utils.toWei("10000"), {
             from: accounts[3]
         });
-
-        // 社区成员accounts[3]的余额是
-        // console.log("社区成员的余额是", await abcToken.balanceOf(accounts[3]) / 1E18);
 
     });
 
@@ -338,9 +335,9 @@ contract('TestResonance', async (accounts) => {
 
     it("20...查询轮次funders信息(个人中心)", async () => {
 
-        console.log("查询个人信息1：", await resonance.getFunderRewardInfo({from:accounts[8]}));
-        console.log("查询个人信息AFF：", await resonance.getFunderAffInfo({from:accounts[9]}));
-        console.log("查询个人信息Funds：", await resonance.getFunderFundsByStep(0, {from:accounts[3]}));
+        console.log("查询个人信息1：", await resonance.getFunderRewardInfo({from:accounts[2]}));
+        // console.log("查询个人信息AFF：", await resonance.getFunderAffInfo({from:accounts[9]}));
+        // console.log("查询个人信息Funds：", await resonance.getFunderFundsByStep(0, {from:accounts[3]}));
 
     })
 
@@ -369,7 +366,7 @@ contract('TestResonance', async (accounts) => {
         //     });
 
         // 查询共振是否结束
-        console.log("共振是否结束：", await resonanceDataManage.getResonanceIsClosed());
+        // console.log("共振是否结束：", await resonanceDataManage.getResonanceIsClosed());
 
         // let aa = await resonance.settlementStep(
         //     winners,
@@ -418,17 +415,20 @@ contract('TestResonance', async (accounts) => {
         // let allowanceAmount = await abcToken.allowance(accounts[3], resonance.address);
         // console.log("合约获得的授权额度是", allowanceAmount.toString() / 1E18);
 
+        // 获取当前轮次社区开放额度
+        console.log("当前轮次社区开放额度", await resonanceDataManage.getBuildingTokenAmount() / 1E18);
+        
         // 转入Token，参与共建
-        await resonance.jointlyBuild(web3.utils.toWei("100"), {
+        await resonance.jointlyBuild(web3.utils.toWei("8000"), {
             from: accounts[2]
         });
 
-        await resonance.jointlyBuild(web3.utils.toWei("100"), {
+        await resonance.jointlyBuild(web3.utils.toWei("8000"), {
             from: accounts[3]
         });
 
         // 社区成员accounts[3]的余额是
-        // console.log("社区成员的余额是", await abcToken.balanceOf(accounts[3]) / 1E18);
+        console.log("社区成员的余额是", await abcToken.balanceOf(accounts[3]) / 1E18);
 
     });
 })
