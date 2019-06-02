@@ -59,6 +59,10 @@ contract ResonanceDataManage{
     // step => address => 可提取token
     mapping(uint256 => mapping(address => uint256)) private tokenBalance;
 
+    mapping(uint256 => mapping(address => uint256)) FissionBalance;
+    mapping(uint256 => mapping(address => uint256)) FOMOBalance;
+    mapping(uint256 => mapping(address => uint256)) LuckyBalance;
+
     // 用户信仰奖励余额
     mapping(address => uint256) private faithRewardBalance;
 
@@ -206,7 +210,7 @@ contract ResonanceDataManage{
         fissionRewardInstance.dealFissionInfo(_stepIndex, _fissionWinnerList, totalFissionReward);
         // 在这里累加用户可提取余额
         for(uint i = 0; i < _fissionWinnerList.length; i++){
-            ETHBalance[_stepIndex][_fissionWinnerList[i]] = fissionRewardInstance.fissionRewardAmount(_stepIndex,_fissionWinnerList[i]);
+            FissionBalance[_stepIndex][_fissionWinnerList[i]] = fissionRewardInstance.fissionRewardAmount(_stepIndex,_fissionWinnerList[i]);
         }
     }
 
@@ -218,7 +222,7 @@ contract ResonanceDataManage{
         address[] memory FOMOWinnerList = FOMORewardInstance.dealFOMOWinner(_stepIndex, _funders, totalFOMOReward);
 
         for(uint i = 0; i < FOMOWinnerList.length; i++){
-            ETHBalance[_stepIndex][FOMOWinnerList[i]] = FOMORewardInstance.FOMORewardAmount(_stepIndex, FOMOWinnerList[i]);
+            FOMOBalance[_stepIndex][FOMOWinnerList[i]] = FOMORewardInstance.FOMORewardAmount(_stepIndex, FOMOWinnerList[i]);
         }
     }
 
@@ -229,7 +233,7 @@ contract ResonanceDataManage{
     {
         luckyRewardInstance.dealLuckyInfo(_stepIndex, _LuckyWinnerList, totalLuckyReward);
         for(uint i = 0; i < _LuckyWinnerList.length; i++){
-            ETHBalance[_stepIndex][_LuckyWinnerList[i]] += luckyRewardInstance.luckyRewardAmount(_stepIndex, _LuckyWinnerList[i]);
+            LuckyBalance[_stepIndex][_LuckyWinnerList[i]] = luckyRewardInstance.luckyRewardAmount(_stepIndex, _LuckyWinnerList[i]);
         }
     }
 
@@ -263,7 +267,10 @@ contract ResonanceDataManage{
 
     /// @notice 返回可提取的ETH数量
     function withdrawETHAmount(uint256 _stepIndex, address _addr) public view returns (uint256) {
-        return ETHBalance[_stepIndex][_addr];
+        return ETHBalance[_stepIndex][_addr]
+            .add(FissionBalance[_stepIndex][_addr])
+            .add(FOMOBalance[_stepIndex][_addr])
+            .add(LuckyBalance[_stepIndex][_addr]);
     }
 
     function emptyTokenBalance(uint256 _stepIndex, address _addr) public platform() {
@@ -272,6 +279,9 @@ contract ResonanceDataManage{
 
     function emptyETHBalance(uint256 _stepIndex, address _addr) public platform() {
         ETHBalance[_stepIndex][_addr] = 0;
+        FissionBalance[_stepIndex][_addr] = 0;
+        FOMOBalance[_stepIndex][_addr] = 0;
+        LuckyBalance[_stepIndex][_addr] = 0;
     }
 
     /// @notice 查询当前轮次的裂变奖励获奖详情
@@ -326,7 +336,6 @@ contract ResonanceDataManage{
     function updateBuildingPercent(uint256 _stepIndex) public platform() returns (bool) {
         require(fundsPool > 0, "共建资金池已经消耗完毕");
         if(_stepIndex == 0){
-            // setBuildingTokenFromParty(initBuildingTokenAmount.mul(50).div(100));
             buildingTokenFromParty[_stepIndex] = initBuildingTokenAmount.mul(50).div(100);
             buildingPercentOfParty = 50;
             buildingPercentOfCommunity = 50;

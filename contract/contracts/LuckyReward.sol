@@ -77,9 +77,8 @@ contract LuckyReward{
             for(uint i = 0; i < luckyWinners[_stepIndex].length; i++){
                 luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]] = luckyRewards[_stepIndex];
 
-                // 累加奖金余额
-                luckyFunderTotalBalance[luckyWinners[_stepIndex][i]] += luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]];
-
+                // 幸运奖励奖金
+                luckyFunderTotalBalance[luckyWinners[_stepIndex][i]] = luckyRewards[_stepIndex];
             }
             totalLyckyReward[_stepIndex] = luckyRewards[_stepIndex].mul(luckyWinners[_stepIndex].length);
             currentStepHasFinished[_stepIndex] = true;
