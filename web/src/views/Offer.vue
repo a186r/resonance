@@ -193,7 +193,7 @@ export default {
   .reward-list {
     .reward-area {
       padding: 0.1rem 0.1rem;
-      height: 1.75rem;
+      height: 1.6rem;
       margin-bottom: 0.3rem;
       font-size: .14rem;
       background-color: $dark-main;
@@ -225,7 +225,7 @@ export default {
       }
       .reward-detail {
         font-size: 0.12rem;
-        margin-top: 0.2rem;
+        margin-top: 0.1rem;
         :nth-child(1) {
           .rank {
             background-image: url('~@/assets/image/1.png');
@@ -253,6 +253,7 @@ export default {
         .reward-detal-item {
           display: flex;
           justify-content: center;
+          height: .21rem;
           .rank {
             color: $theme;
             width: .2rem;
