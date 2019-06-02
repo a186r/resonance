@@ -13,10 +13,10 @@
           <p>{{ $t('offer.totalRaisedCAD') }}：{{offerData.totalTokenAmount}}</p>
           <div class="deposit-area" v-if="isBuilder">
             <div class="deposit-area-input">
-              <input class="custom-input" v-model="depostCADAmount" :placeholder="'CAD ' + $t('offer.depositAmount')" />
+              <input class="custom-input" :disabled="!isBuilding" v-model="depostCADAmount" :placeholder="'CAD ' + $t('offer.depositAmount')" />
             </div>
             <button class="custom-button" :disabled="!isBuilding" @click="approve">{{ $t('offer.approveContract') }}</button>
-            <button class="custom-button" @click="depositCAD">{{ $t('offer.depositCAD') }}</button>
+            <button class="custom-button" :disabled="!isBuilding" @click="depositCAD">{{ $t('offer.depositCAD') }}</button>
           </div>
           <div class="deposit-area" v-else>
             <div class="deposit-area-input">
@@ -37,9 +37,9 @@
           <p>{{ $t('offer.remainETH') }}：{{offerData.remainingETH}}</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
-              <input class="custom-input" v-model="depostETHAmount" :placeholder="'ETH ' + $t('offer.depositAmount')" />
+              <input class="custom-input" :disabled="isBuilding" v-model="depostETHAmount" :placeholder="'ETH ' + $t('offer.depositAmount')" />
             </div>
-            <button class="custom-button" @click="depositETH">{{ $t('offer.depositETH') }}</button>
+            <button class="custom-button" :disabled="isBuilding" @click="depositETH">{{ $t('offer.depositETH') }}</button>
           </div>
         </div>
       </el-col>
@@ -78,7 +78,6 @@ export default {
   data () {
     return {
       approveAmount: 0,
-      isBuilding: true,
       buildingText: '组建期',
       depostCADAmount: '',
       depostETHAmount: '',
@@ -109,7 +108,8 @@ export default {
       offerData: state => state.offerData,
       stepIndex: state => state.homeData.stepIndex,
       isBuilder: state => state.isBuilder,
-      rewardListData: state => state.rewardList
+      rewardListData: state => state.rewardList,
+      isBuilding: state => state.offerData.bpCountdown > 0
     })
   },
   methods: {
