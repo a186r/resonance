@@ -91,6 +91,7 @@ export default {
       return contract
     },
     async unlockMetaMask() {
+      console.log('start login wallet...')
       const self = this
       if (window.web3 && window.web3.currentProvider.isTrust) {
         window.web3 = new Web3(web3.currentProvider)
