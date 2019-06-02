@@ -136,7 +136,13 @@ export default {
       store.dispatch('depositETH', this.depostETHAmount)
     },
     depositCAD () {
-      if (parseFloat(this.depostCADAmount) > this.offerData.eachAddressLimit || this.offerData.remainingToken) {
+      if (!this.depostCADAmount) {
+        this.$alert('请输入具体数量', '提示', {
+          confirmButtonText: '确定',
+        })
+        return
+      }
+      if (parseFloat(this.depostCADAmount) > parseFloat(this.offerData.eachAddressLimit) || parseFloat(this.depostCADAmount) > parseFloat(this.offerData.remainingToken)) {
         this.$alert('您投入的 CAD 超出最大值', '提示', {
           confirmButtonText: '确定',
         })
