@@ -121,7 +121,13 @@ export default {
     },
     depositETH () {
       console.log('deposit eth', this.depostETHAmount)
-      if (parseFloat(this.depostETHAmount) > this.offerData.remainingETH) {
+      if (!this.depostETHAmount) {
+        this.$alert('请输入具体数量', '提示', {
+          confirmButtonText: '确定',
+        })
+        return
+      }
+      if (parseFloat(this.depostETHAmount) > parseFloat(this.offerData.remainingETH)) {
         this.$alert('您投入的 ETH 超出最大值', '提示', {
           confirmButtonText: '确定',
         })
