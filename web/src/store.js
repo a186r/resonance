@@ -11,6 +11,7 @@ Vue.use(Vuex)
 
 function getFormat(data, decimal) {
   if (!data) { return 0 }
+  if (data.toString() === '0') { return 0 }
   return BigNumber(web3.utils.fromWei(data.toString())).toFixed(decimal)
 }
 
@@ -151,9 +152,9 @@ export default new Vuex.Store({
           console.log('get building info', result)
           const data = {}
           // data.bpCountdown = result[0].toNumber() * 1000
-          data.remainingToken = BigNumber(web3.utils.fromWei(result[1].toString())).toFixed(0)
+          data.remainingToken = getFormat(result[1], 0)
           data.eachAddressLimit = getFormat(result[2], 0)
-          data.totalTokenAmount = web3.utils.fromWei(result[3].toString())
+          data.totalTokenAmount = getFormat(result[3], 0)
           commit('GET_OFFER_INFO', data)
         })
         .catch(err => {
@@ -166,8 +167,8 @@ export default new Vuex.Store({
           console.log('get funding info', result)
           const data = {}
           // data.fpCountdown = result[0].toNumber() * 1000
-          data.remainingETH = BigNumber(web3.utils.fromWei(result[1].toString())).toFixed(4)
-          data.totalETHAmount = web3.utils.fromWei(result[2].toString())
+          data.remainingETH = getFormat(result[1], 5)
+          data.totalETHAmount = getFormat(result[2], 5)
           commit('GET_OFFER_INFO', data)
         })
         .catch(err => {
@@ -194,8 +195,8 @@ export default new Vuex.Store({
           console.log('get current step info', result)
           const data = {}
           data.stepIndex = result[0].toNumber(),
-          data.currentStepTokenAmount = web3.utils.fromWei(result[1].toString()),
-          data.currentStepRaisedETH = web3.utils.fromWei(result[2].toString()),
+          data.currentStepTokenAmount = getFormat(result[1], 0),
+          data.currentStepRaisedETH = getFormat(result[2], 5),
           commit('GET_CURRENT_STEP_FUNDS_INFO', data)
         })
         .catch(err => {
