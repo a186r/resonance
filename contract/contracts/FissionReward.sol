@@ -45,7 +45,6 @@ contract FissionReward {
         view
         returns(uint256, address[] memory, uint256[] memory)
     {
-        // emit FissionInfo(_stepIndex, fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
         return(totalFissionReward[_stepIndex], fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
     }
 
@@ -107,22 +106,22 @@ contract FissionReward {
 
         for(uint8 i = 0; i < winners; i++) {
             if (i == 0) { //第1名奖励10%
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(10).div(100));
+                fissionRewards[_stepIndex][i] = _totalFissionReward.mul(10).div(100);
             } else if (i >= 1 && i <= 2) { // 第2、3名奖励
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(75).div(1000));
+                fissionRewards[_stepIndex][i] = _totalFissionReward.mul(75).div(1000);
             } else if (i >= 3 && i <= 5) {
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(5).div(100));
+                fissionRewards[_stepIndex][i] = _totalFissionReward.mul(5).div(100);
             } else if (i >= 6 && i <= 9) {
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(25).div(1000));
+                fissionRewards[_stepIndex][i] = _totalFissionReward.mul(25).div(1000);
             } else {
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(50).div(100).div(40));
+                fissionRewards[_stepIndex][i] = _totalFissionReward.mul(50).div(100).div(40);
             }
 
             // 设置余额
-            fissionRewardAmount[_stepIndex][fissionWinners[_stepIndex][i]] = fissionRewards[_stepIndex][i];
+            fissionRewardAmount[_stepIndex][fissionWinners[_stepIndex][i]] += fissionRewards[_stepIndex][i];
 
             // 保存总奖励金额
-            fissionFunderTotalBalance[fissionWinners[_stepIndex][i]] += fissionRewardAmount[_stepIndex][fissionWinners[_stepIndex][i]];
+            fissionFunderTotalBalance[fissionWinners[_stepIndex][i]] = fissionRewardAmount[_stepIndex][fissionWinners[_stepIndex][i]];
 
             totalFissionReward[_stepIndex] += fissionRewards[_stepIndex][i];
         }

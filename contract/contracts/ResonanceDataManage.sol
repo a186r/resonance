@@ -204,12 +204,13 @@ contract ResonanceDataManage{
         platform()
     {
         fissionRewardInstance.dealFissionInfo(_stepIndex, _fissionWinnerList, totalFissionReward);
-        // 在这里累加用户总余额
+        // 在这里累加用户可提取余额
         for(uint i = 0; i < _fissionWinnerList.length; i++){
             ETHBalance[_stepIndex][_fissionWinnerList[i]] += fissionRewardInstance.fissionRewardAmount(_stepIndex,_fissionWinnerList[i]);
         }
     }
 
+    /// @notice 分配FOMO奖励奖金
     function settlementFOMOReward(uint256 _stepIndex, address[] memory _funders, uint256 totalFOMOReward)
         public
         platform()
@@ -217,17 +218,18 @@ contract ResonanceDataManage{
         address[] memory FOMOWinnerList = FOMORewardInstance.dealFOMOWinner(_stepIndex, _funders, totalFOMOReward);
 
         for(uint i = 0; i < FOMOWinnerList.length; i++){
-            ETHBalance[_stepIndex][FOMOWinnerList[i]] += FOMORewardInstance.FOMORewardAmount(_stepIndex,FOMOWinnerList[i]);
+            ETHBalance[_stepIndex][FOMOWinnerList[i]] += FOMORewardInstance.FOMORewardAmount(_stepIndex, FOMOWinnerList[i]);
         }
     }
 
+    /// @notice 分配幸运奖励奖金
     function settlementLuckyReward(uint256 _stepIndex, address[] memory _LuckyWinnerList, uint256 totalLuckyReward)
         public
         platform()
     {
         luckyRewardInstance.dealLuckyInfo(_stepIndex, _LuckyWinnerList, totalLuckyReward);
         for(uint i = 0; i < _LuckyWinnerList.length; i++){
-            ETHBalance[_stepIndex][_LuckyWinnerList[i]] += luckyRewardInstance.luckyRewardAmount(_stepIndex,_LuckyWinnerList[i]);
+            ETHBalance[_stepIndex][_LuckyWinnerList[i]] += luckyRewardInstance.luckyRewardAmount(_stepIndex, _LuckyWinnerList[i]);
         }
     }
 

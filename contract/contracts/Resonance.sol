@@ -563,6 +563,7 @@ contract Resonance is Ownable{
             withdrawAmount = _calculationWithdrawETHAmount(withdrawStep);
         }
 
+        // 将上一轮奖励所得清空
         resonanceDataManage.emptyETHBalance(withdrawStep, msg.sender);
 
         steps[withdrawStep].funder[msg.sender].ETHHasWithdrawn = true;
@@ -808,6 +809,7 @@ contract Resonance is Ownable{
             .div(totalTokenAmount);
 
         return _withdrawETHAmount.add(resonanceDataManage.withdrawETHAmount(_stepIndex, msg.sender));
+        // return _withdrawETHAmount;
     }
 
     /// @notice 获取用户获奖信息
@@ -829,19 +831,21 @@ contract Resonance is Ownable{
     }
 
     /// @notice 按照stepIndex获取用户资产信息
-    function getFunderFundsByStep(uint256 _stepIndex) public view returns(uint256, uint256, uint256, uint256){
+    function getFunderFundsByStep(uint256 _stepIndex) public view returns(uint256[] memory){
         Funder memory funder;
 
         require(_stepIndex <= currentStep, "stepIndex不存在");
 
         funder = steps[_stepIndex].funder[msg.sender];
 
-        return(
-            _calculationWithdrawTokenAmount(_stepIndex), // 可提取Token数量
-            _calculationWithdrawETHAmount(_stepIndex), //可提取ETH数量
-            funder.tokenAmount, // 组建期共投资金额
-            funder.ethAmount // 募集期共投资ETH数量
-        );
+        uint256[] memory result = new uint256[](4);
+
+        result[0] = _calculationWithdrawTokenAmount(_stepIndex);
+        result[1] = _calculationWithdrawETHAmount(_stepIndex);
+        result[2] = funder.tokenAmount;
+        result[3] = funder.ethAmount;
+
+        return(result);
     }
 
     /// @notice 添加共建者

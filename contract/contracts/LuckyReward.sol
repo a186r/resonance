@@ -21,7 +21,7 @@ contract LuckyReward{
     mapping(uint256 => address[]) luckyWinners;
 
     // 人均奖金
-    mapping(uint256 => uint256) luckyRewards;
+    mapping(uint256 => uint256) public luckyRewards;
 
     // step => 获奖地址 => 奖金
     mapping(uint256 => mapping(address => uint256)) public luckyRewardAmount;
@@ -31,6 +31,7 @@ contract LuckyReward{
     // 幸运奖励分配结束
     mapping(uint256 => bool) currentStepHasFinished;
 
+    // 轮次=>奖励金
     mapping(uint256 => uint256) totalLyckyReward;
 
     constructor() public {
@@ -43,7 +44,6 @@ contract LuckyReward{
         view
         returns(uint256, address[] memory, uint256)
     {
-        // emit LuckyInfo(luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
         return(totalLyckyReward[_stepIndex], luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
     }
 
@@ -80,8 +80,8 @@ contract LuckyReward{
                 // 累加奖金余额
                 luckyFunderTotalBalance[luckyWinners[_stepIndex][i]] += luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]];
 
-                totalLyckyReward[_stepIndex] += luckyRewards[_stepIndex];
             }
+            totalLyckyReward[_stepIndex] = luckyRewards[_stepIndex].mul(luckyWinners[_stepIndex].length);
             currentStepHasFinished[_stepIndex] = true;
         }else{ // 如果没有人中奖，设置一下状态就行了，不用再循环结算了
             currentStepHasFinished[_stepIndex] = true;
