@@ -153,17 +153,6 @@ export default new Vuex.Store({
             }
           })
         }
-        contract.methods.getFunderFundsByStep(stepIndex).call({from: this.state.account}, (err, result) => {
-          console.log(err, stepIndex, 'getFunderFundsByStep', result)
-          if (result) {
-            const data = {}
-            data.allCAD  = getFormat(result[0], 0)
-            data.allETH = getFormat(result[1], 5)
-            data.depositCAD = getFormat(result[2], 0)
-            data.depositETH = getFormat(result[3], 5)
-            commit('GET_FUNDER_AMOUNT', data)
-          }
-        })
       }
     },
     async getBuildingPeriodInfo({ commit }, contract) {
