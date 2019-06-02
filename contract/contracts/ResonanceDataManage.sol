@@ -206,7 +206,7 @@ contract ResonanceDataManage{
         fissionRewardInstance.dealFissionInfo(_stepIndex, _fissionWinnerList, totalFissionReward);
         // 在这里累加用户可提取余额
         for(uint i = 0; i < _fissionWinnerList.length; i++){
-            ETHBalance[_stepIndex][_fissionWinnerList[i]] += fissionRewardInstance.fissionRewardAmount(_stepIndex,_fissionWinnerList[i]);
+            ETHBalance[_stepIndex][_fissionWinnerList[i]] = fissionRewardInstance.fissionRewardAmount(_stepIndex,_fissionWinnerList[i]);
         }
     }
 
@@ -218,7 +218,7 @@ contract ResonanceDataManage{
         address[] memory FOMOWinnerList = FOMORewardInstance.dealFOMOWinner(_stepIndex, _funders, totalFOMOReward);
 
         for(uint i = 0; i < FOMOWinnerList.length; i++){
-            ETHBalance[_stepIndex][FOMOWinnerList[i]] += FOMORewardInstance.FOMORewardAmount(_stepIndex, FOMOWinnerList[i]);
+            ETHBalance[_stepIndex][FOMOWinnerList[i]] = FOMORewardInstance.FOMORewardAmount(_stepIndex, FOMOWinnerList[i]);
         }
     }
 
