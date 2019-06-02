@@ -228,17 +228,17 @@ contract('TestResonance', async (accounts) => {
 
         // console.log("FOMO奖励所得：",await FOMOReward.getFOMOWinnerInfo(0));
 
-        console.log("幸运奖励所得：",await luckyReward.getluckyRewardAmount(0, {from:accounts[2]}));
+        // console.log("幸运奖励所得：",await luckyReward.getluckyRewardAmount(0, {from:accounts[2]}));
 
         // console.log("FOMO奖励所得：",await FOMOReward.getTotalRewardAmount(0));
 
     })
 
     it("12...getFunderFundsByStep", async() => {
-        // let getFunderFundsByStepLog = await resonance.getFunderFundsByStep(0,{
-        //     from:accounts[2]
-        // });
-        // console.log("用户可提取资金：",getFunderFundsByStepLog);
+        let getFunderFundsByStepLog = await resonance.getFunderFundsByStep(1,{
+            from:accounts[9]
+        });
+        console.log("用户可提取资金：",getFunderFundsByStepLog);
 
         // 可提取Token数量：125333
         // 可提取ETH数量：0.5

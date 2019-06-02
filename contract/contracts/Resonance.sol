@@ -810,7 +810,6 @@ contract Resonance is Ownable{
             .div(totalTokenAmount);
 
         return _withdrawETHAmount.add(resonanceDataManage.withdrawETHAmount(_stepIndex, msg.sender));
-        // return _withdrawETHAmount;
     }
 
     /// @notice 获取用户获奖信息
@@ -835,16 +834,19 @@ contract Resonance is Ownable{
     function getFunderFundsByStep(uint256 _stepIndex) public view returns(uint256[] memory){
         Funder memory funder;
 
-        require(_stepIndex <= currentStep, "stepIndex不存在");
-
-        funder = steps[_stepIndex].funder[msg.sender];
-
         uint256[] memory result = new uint256[](4);
 
-        result[0] = _calculationWithdrawTokenAmount(_stepIndex);
-        result[1] = _calculationWithdrawETHAmount(_stepIndex);
-        result[2] = funder.tokenAmount;
-        result[3] = funder.ethAmount;
+        require(_stepIndex <= currentStep, "stepIndex不存在");
+
+        if(steps[_stepIndex].funder[msg.sender].isFunder){
+
+            funder = steps[_stepIndex].funder[msg.sender];
+
+            result[0] = _calculationWithdrawTokenAmount(_stepIndex);
+            result[1] = _calculationWithdrawETHAmount(_stepIndex);
+            result[2] = funder.tokenAmount;
+            result[3] = funder.ethAmount;
+        }
 
         return(result);
     }
