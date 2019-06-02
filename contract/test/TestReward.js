@@ -235,8 +235,8 @@ contract('TestResonance', async (accounts) => {
     })
 
     it("12...getFunderFundsByStep", async() => {
-        let getFunderFundsByStepLog = await resonance.getFunderFundsByStep(1,{
-            from:accounts[9]
+        let getFunderFundsByStepLog = await resonance.getFunderFundsByStep(2, {
+            from:accounts[2]
         });
         console.log("用户可提取资金：",getFunderFundsByStepLog);
 

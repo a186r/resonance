@@ -830,25 +830,30 @@ contract Resonance is Ownable{
         );
     }
 
-    /// @notice 按照stepIndex获取用户资产信息
-    function getFunderFundsByStep(uint256 _stepIndex) public view returns(uint256[] memory){
-        Funder memory funder;
+    // 获取用户可提取Token数量
+    function getFunderWithdrawTokenAmount(uint256 _stepIndex) public view returns(uint256) {
+        require(_stepIndex <= currentStep, "stepIndex不存在");
+        return _calculationWithdrawTokenAmount(_stepIndex);
+    }
 
-        uint256[] memory result = new uint256[](4);
+    // 获取用户可提取ETH数量
+    function getFunderWithdrawETHAmount(uint256 _stepIndex) public view returns(uint256) {
+        require(_stepIndex <= currentStep, "stepIndex不存在");
+        return _calculationWithdrawETHAmount(_stepIndex);
+    }
 
+    // 获取用户组建期已打入token数量
+    function getFunderTokenAmount(uint256 _stepIndex) public view returns(uint256) {
         require(_stepIndex <= currentStep, "stepIndex不存在");
 
-        if(steps[_stepIndex].funder[msg.sender].isFunder){
+        return steps[_stepIndex].funder[msg.sender].tokenAmount;
+    }
 
-            funder = steps[_stepIndex].funder[msg.sender];
+    // 获取用户募资期已打入eth数量
+    function getFunderETHAmount(uint256 _stepIndex) public view returns(uint256) {
+        require(_stepIndex <= currentStep, "stepIndex不存在");
 
-            result[0] = _calculationWithdrawTokenAmount(_stepIndex);
-            result[1] = _calculationWithdrawETHAmount(_stepIndex);
-            result[2] = funder.tokenAmount;
-            result[3] = funder.ethAmount;
-        }
-
-        return(result);
+        return steps[_stepIndex].funder[msg.sender].ethAmount;
     }
 
     /// @notice 添加共建者
