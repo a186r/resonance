@@ -298,7 +298,7 @@ export default new Vuex.Store({
         const stepIndex = data[0].toNumber()
         const arr = ['getFissionRewardInfo', 'getFOMORewardIofo', 'getLuckyRewardInfo', 'getFaithRewardInfo']
         for (let i = 0; i < 4; i++) {
-          getReward(contract, arr[i], stepIndex, this.state.account, i, commit)
+          getReward(contract, arr[i], Math.abs(stepIndex - 1), this.state.account, i, commit)
         }
       } else {
         const self = this
