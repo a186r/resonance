@@ -136,7 +136,23 @@ export default new Vuex.Store({
       })
       const res = await getStepIndex(contract)
       if (res) {
+        const arr = ['getFunderWithdrawTokenAmount', 'getFunderWithdrawETHAmount', 'getFunderTokenAmount', 'getFunderETHAmount']
+        const properties = ['allCAD', 'allETH', 'depositCAD', 'depositETH']
         const stepIndex = res[0].toNumber()
+        for (let i = 0; i < 4; i++) {
+          contract.methods[arr[i]](stepIndex).call({from: this.state.account}, (err, result) => {
+            console.log(err, stepIndex, arr[i], result)
+            if (result) {
+              const data = {}
+              let decimal = 5
+              if (i === 0 || i === 2) {
+                decimal = 0
+              }
+              data[properties[i]] = getFormat(result, decimal)
+              commit('GET_FUNDER_AMOUNT', data)
+            }
+          })
+        }
         contract.methods.getFunderFundsByStep(stepIndex).call({from: this.state.account}, (err, result) => {
           console.log(err, stepIndex, 'getFunderFundsByStep', result)
           if (result) {
