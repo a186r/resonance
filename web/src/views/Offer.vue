@@ -136,7 +136,7 @@ export default {
       store.dispatch('depositETH', this.depostETHAmount)
     },
     depositCAD () {
-      if (parseFloat(this.depostCADAmount) > this.offerData.remainingToken) {
+      if (parseFloat(this.depostCADAmount) > this.offerData.eachAddressLimit || this.offerData.remainingToken) {
         this.$alert('您投入的 CAD 超出最大值', '提示', {
           confirmButtonText: '确定',
         })
@@ -161,6 +161,14 @@ export default {
     const contract = await this.initDataContract()
     store.dispatch('queryRewardList', contract)
     store.dispatch('getOpeningTime', contract)
+  },
+  mounted() {
+    const url = document.baseURI
+    const params = url.split('?')[1]
+    if (params) {
+      const address = params.split('=')[1]
+      this.address = address
+    }
   }
 }
 </script>
