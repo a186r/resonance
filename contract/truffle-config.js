@@ -23,7 +23,7 @@ var HDWalletProvider = require('truffle-hdwallet-provider');
 // // const fs = require('fs');
 var mnemonic = "organ increase urban chief adjust grow ladder motion feature diagram write much";
 
-var private = "33779B12DB7A04FD5690E22C70B37C43BCF9CCE004F74835FC4EA200C95EA923";
+var private = "c37b74594bb094e66e41a1b59d7558a8a7f4f5b937643c3eab35dc55fb636945";
 
 module.exports = {
   /**
