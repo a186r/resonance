@@ -23,7 +23,7 @@ var HDWalletProvider = require('truffle-hdwallet-provider');
 // // const fs = require('fs');
 var mnemonic = "organ increase urban chief adjust grow ladder motion feature diagram write much";
 
-var private = "0x33779B12DB7A04FD5690E22C70B37C43BCF9CCE004F74835FC4EA200C95EA923";
+var private = "33779B12DB7A04FD5690E22C70B37C43BCF9CCE004F74835FC4EA200C95EA923";
 
 module.exports = {
   /**
@@ -59,21 +59,20 @@ module.exports = {
       private: "33779B12DB7A04FD5690E22C70B37C43BCF9CCE004F74835FC4EA200C95EA923"
     },
 
-    // Another network with more advanced options...
-    // advanced: {
-    // port: 8777,             // Custom port
-    // network_id: 1342,       // Custom network
-    // gas: 8500000,           // Gas sent with each transaction (default: ~6700000)
-    // gasPrice: 20000000000,  // 20 gwei (in wei) (default: 100 gwei)
-    // from: <address>,        // Account to send txs from (default: accounts[0])
-    // websockets: true        // Enable EventEmitter interface for web3 (default: false)
-    // },
 
-    // Useful for deploying to a public network.
-    // NB: It's important to wrap the provider as a function.
     ropsten: {
-      provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4`),
+      provider: () => new HDWalletProvider(private, `https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4`),
       network_id: 3, // Ropsten's id
+      gas: 8000000, // Ropsten has a lower block limit than mainnet
+      gasPrice: 100000000000,
+      confirmations: 0, // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true // Skip dry run before migrations? (default: false for public nets )
+    },
+
+    mainnet: {
+      provider: () => new HDWalletProvider(private, `https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4`),
+      network_id: 1, // Ropsten's id
       gas: 8000000, // Ropsten has a lower block limit than mainnet
       gasPrice: 100000000000,
       confirmations: 0, // # of confs to wait between deployments. (default: 0)
@@ -97,7 +96,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.5.2", // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.4.24", // Fetch exact version from solc-bin (default: truffle's version)
       docker: false, // Use "0.5.1" you've installed locally with docker (default: false)
       settings: { // See the solidity docs for advice about optimization and evmVersion
         optimizer: {

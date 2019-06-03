@@ -9,11 +9,11 @@ const decimals = web3.utils.toBN(18);
 contract('TestResonance', async (accounts) => {
     it('0...初始化ABCToken', async () => {
         abcToken = await ABCToken.new("ABCToken", "ABCT", decimals, {
-            from: "0x31b17D03A5F41Cc52067165353Aa901951a38ba0"
+            from: accounts[0]
         });
 
         let mint0 = await abcToken.mintToken({
-            from: "0x31b17D03A5F41Cc52067165353Aa901951a38ba0"
+            from: accounts[0]
         });
 
         // let mint1 = await abcToken.mintToken({

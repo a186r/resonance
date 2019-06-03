@@ -9,6 +9,8 @@ import "./FOMOReward.sol";
 import "./LuckyReward.sol";
 import "./FaithReward.sol";
 import "./ResonanceDataManage.sol";
+import "./Authority.sol";
+import "./BDEToken.sol";
 
 // TODO:所有奖励以及token转出都让用户自己提取，不要批量转账(失败和出漏洞的风险太高)
 contract Resonance is Ownable{
@@ -56,12 +58,16 @@ contract Resonance is Ownable{
 
     // 变量
     // ERC20
-    ABCToken public abcToken;
+    // ABCToken public BDEToken; // ABCToken用于测试
+    HumanStandardToken BDEToken; // TODO:与主网BDEToken一致，可以在Ropsten上测试
+
+    Authority authority;
 
     ResonanceDataManage resonanceDataManage;
 
     // 收款方（每轮募集的60%转移到这个地址）
-    address payable public beneficiary;
+    // address payable public beneficiary; // 0.5.2
+    address public beneficiary; // 0.4.24
 
     // 投资者结构体
     struct Funder{
@@ -144,10 +150,12 @@ contract Resonance is Ownable{
 
     // 设定相关属性
     /// @notice 构造函数
-    /// @param _abcToken 用于共建的Token
+    /// _BDEToken 用于共建的Token
     constructor(
         address _resonanceDataManageAddress,
-        ABCToken _abcToken,
+        Authority _authority,
+        // ABCToken _abcToken, // ABCToken 用于测试
+        HumanStandardToken _BDEToken, // TODO:与主网已发布的BDEToken一致
         address _fassionRewardAddress,
         address _FOMORewardAddress,
         address _luckyRewardAddress,
@@ -162,7 +170,9 @@ contract Resonance is Ownable{
         luckyRewardInstance = LuckyReward(_luckyRewardAddress);
         faithRewardInstance = FaithReward(_faithRewardAddress);
         currentStep = 0;
-        abcToken = _abcToken; // abc Token
+        // BDEToken = _abcToken; // abc Token
+        BDEToken = _BDEToken; // TODO:BDEToken
+        authority = _authority;
     }
 
 
@@ -170,7 +180,8 @@ contract Resonance is Ownable{
     /// @dev 管理员调用这个设置对ResonanceDataManage的访问权限，并初始化第一轮的部分参数
     function initParamForFirstStep(
         address _newOwner,
-        address payable _beneficiary,
+        // address payable _beneficiary, // 0.5.2
+        address _beneficiary, // 0.4.24
         address _initialFissionPerson
     )
         public
@@ -213,15 +224,15 @@ contract Resonance is Ownable{
         require(promoter != address(0), "推广者不能是空地址");
 
         // // 检查授权额度
-        require(abcToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(8),"授权额度不足");
+        require(BDEToken.allowance(msg.sender, address(this)) >= UintUtils.toWei(8),"授权额度不足");
 
-        require(abcToken.transferFrom(msg.sender,address(this), UintUtils.toWei(8)),"转移token到合约失败");
+        require(BDEToken.transferFrom(msg.sender,address(this), UintUtils.toWei(8)),"转移token到合约失败");
 
         // 销毁3个
-        abcToken.transfer(address(0), UintUtils.toWei(3));
+        BDEToken.transfer(address(0), UintUtils.toWei(3));
 
         // 5个给推广者
-        abcToken.transfer(address(promoter), UintUtils.toWei(5));
+        BDEToken.transfer(address(promoter), UintUtils.toWei(5));
 
         earnFromAff[promoter] += UintUtils.toWei(5);
         // steps[currentStep].funder[promoter].earnFromAff += UintUtils.toWei(5);
@@ -286,10 +297,10 @@ contract Resonance is Ownable{
         );
 
         // 检查授权额度
-        require(abcToken.allowance(msg.sender, address(this)) >= _tokenAmount,"授权额度不足");
+        require(BDEToken.allowance(msg.sender, address(this)) >= _tokenAmount,"授权额度不足");
 
         // 转入合约
-        require(abcToken.transferFrom(msg.sender, address(this), _tokenAmount),"转移token到合约失败");
+        require(BDEToken.transferFrom(msg.sender, address(this), _tokenAmount),"转移token到合约失败");
 
         steps[currentStep].funder[msg.sender].tokenAmount += _tokenAmount;
 
@@ -316,12 +327,12 @@ contract Resonance is Ownable{
         require(!tokenTransfered[currentStep], "当前轮次基金会已经转入过Token了");
 
         // 检查剩余的授权额度是否足够
-        require(abcToken.allowance(msg.sender, address(this)) >= resonanceDataManage.getBuildingTokenFromParty(currentStep),
+        require(BDEToken.allowance(msg.sender, address(this)) >= resonanceDataManage.getBuildingTokenFromParty(currentStep),
             "授权额度不足"
         );
 
         // 转入合约
-        require(abcToken.transferFrom(msg.sender, address(this), resonanceDataManage.getBuildingTokenFromParty(currentStep)),
+        require(BDEToken.transferFrom(msg.sender, address(this), resonanceDataManage.getBuildingTokenFromParty(currentStep)),
             "转移token到合约失败"
         );
 
@@ -535,7 +546,7 @@ contract Resonance is Ownable{
 
         resonanceDataManage.emptyTokenBalance(withdrawStep, msg.sender);
         steps[withdrawStep].funder[msg.sender].tokenHasWithdrawn = true;
-        abcToken.transfer(msg.sender, withdrawAmount);
+        BDEToken.transfer(msg.sender, withdrawAmount);
 
         return(address(this), msg.sender, withdrawAmount);
     }
@@ -551,7 +562,8 @@ contract Resonance is Ownable{
         // 本轮提取上一轮的
         uint256 withdrawStep = currentStep.sub(1);
 
-        address payable dest = address(uint160(msg.sender));
+        // address payable dest = address(uint160(msg.sender)); // 0.5.2
+        address dest = address(uint160(msg.sender)); // 0.4.24
 
         require(!steps[withdrawStep].funder[msg.sender].ETHHasWithdrawn, "用户在当前轮次已经提取ETH完成");
 
@@ -581,7 +593,8 @@ contract Resonance is Ownable{
         require(resonanceDataManage.getCrowdsaleClosed(), "共振还未结束，不能提取");
 
         require(!refundIsFinished[msg.sender], "退款已经提取完成了");
-        address payable dest = address(uint160(msg.sender));
+        // address payable dest = address(uint160(msg.sender)); // 0.5.2
+        address dest = address(uint160(msg.sender)); // 0.4.24
 
         uint256 resonanceClosedStep = resonanceDataManage.getResonanceClosedStep();
         uint256 withdrawTokenAmount;
@@ -602,7 +615,7 @@ contract Resonance is Ownable{
         resonanceDataManage.setFaithRewardBalance(msg.sender, 0);
 
         // 提取
-        abcToken.transfer(msg.sender, withdrawTokenAmount);
+        BDEToken.transfer(msg.sender, withdrawTokenAmount);
         dest.transfer(withdrawETHAmount);
 
         refundIsFinished[msg.sender] = true;
@@ -617,7 +630,7 @@ contract Resonance is Ownable{
         onlyOwner()
     {
         beneficiary.transfer(address(this).balance);
-        abcToken.transfer(msg.sender, abcToken.balanceOf(address(this)));
+        BDEToken.transfer(msg.sender, BDEToken.balanceOf(address(this)));
     }
 
     /// @notice 查询是否是募资者，参与募资期
@@ -745,10 +758,10 @@ contract Resonance is Ownable{
 
         // TODO:
         // 共建期结束，返回0
-        if(resonanceDataManage.getOpeningTime().add(30 minutes) <= block.timestamp){
+        if(resonanceDataManage.getOpeningTime().add(8 hours) <= block.timestamp){
             _bpCountdown = 0;
         }else{
-            _bpCountdown = (resonanceDataManage.getOpeningTime().add(15 minutes)).sub(block.timestamp);
+            _bpCountdown = (resonanceDataManage.getOpeningTime().add(8 hours)).sub(block.timestamp);
         }
         _remainingToken = steps[currentStep].building.openTokenAmount.
             sub(steps[currentStep].building.raisedToken).
@@ -772,10 +785,10 @@ contract Resonance is Ownable{
 
         // TODO:
         // 募资期结束，返回0
-        if(resonanceDataManage.getOpeningTime().add(30 minutes) <= block.timestamp){
+        if(resonanceDataManage.getOpeningTime().add(24 hours) <= block.timestamp){
             _fpCountdown = 0;
         }else{
-            _fpCountdown = (resonanceDataManage.getOpeningTime().add(30 minutes)).sub(block.timestamp);
+            _fpCountdown = (resonanceDataManage.getOpeningTime().add(24 hours)).sub(block.timestamp);
         }
         _remainingETH = steps[currentStep].funding.raiseTarget.sub(steps[currentStep].funding.raisedETH);
         _rasiedETHAmount = steps[currentStep].funding.raisedETH;
@@ -884,21 +897,4 @@ contract Resonance is Ownable{
     function currentStepIsClosed(uint256 _stepIndex) public view returns(bool) {
         return steps[_stepIndex].stepIsClosed;
     }
-
-    // function getFunderFundsByStep(uint256 _stepIndex) public view returns(uint256[] memory){
-    //     require(_stepIndex <= currentStep, "stepIndex不存在");
-    //     uint256[] memory result = new uint256[](4);
-
-    //     result[0] = _calculationWithdrawTokenAmount(_stepIndex);
-    //     result[1] = _calculationWithdrawETHAmount(_stepIndex);
-
-    //     if(steps[_stepIndex].funder[msg.sender].isFunder) {
-    //         result[2] = steps[_stepIndex].funder[msg.sender].tokenAmount;
-    //         result[3] = steps[_stepIndex].funder[msg.sender].ethAmount;
-    //     } else {
-    //         result[2] = 0;
-    //         result[3] = 0;
-    //     }
-    //     return(result);
-    // }
 }
