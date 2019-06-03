@@ -6,7 +6,6 @@ import "./FissionReward.sol";
 import "./FOMOReward.sol";
 import "./LuckyReward.sol";
 import "./FaithReward.sol";
-import "./ABCToken.sol";
 
 /// @title 共振全局数据管理
 /// @dev 在这里处理一些全局数据
@@ -142,7 +141,6 @@ contract ResonanceDataManage{
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
         if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(8 hours)) {
-        // if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(15 minutes)) {
             return true;
         }else{
             return false;
@@ -152,7 +150,6 @@ contract ResonanceDataManage{
     // 是否是募资期
     function isFundingPeriod() public view returns(bool) {
         if(block.timestamp >= openingTime.add(8 hours) && block.timestamp <= openingTime.add(24 hours)) {
-        // if(block.timestamp >= openingTime.add(15 minutes) && block.timestamp <= openingTime.add(30 minutes)) {
             return true;
         }else{
             return false;

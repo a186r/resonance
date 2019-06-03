@@ -1,11 +1,12 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "./Authority.sol";
 
 // FOMO奖励 5%
 // 每一轮最后一名参与者获得2.5%奖励，倒数第2名获得1%，倒数3、4、5名各获得0.5%
 
-contract FOMOReward {
+contract FOMOReward is Authority{
 
     using SafeMath for uint256;
 
@@ -45,6 +46,7 @@ contract FOMOReward {
         uint256 _totalFOMOReward
     )
         public
+        // onlyAuthority()
         returns(address[] memory)
     {
         require(!currentStepHasFinished[_stepIndex], "当前轮次的FOMO奖励已经计算完成");

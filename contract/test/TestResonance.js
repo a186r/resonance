@@ -1,4 +1,5 @@
 var ABCToken = artifacts.require('ABCToken');
+var Authority = artifacts.require('Authority');
 var Resonance = artifacts.require('Resonance');
 var FissionReward = artifacts.require('FissionReward');
 var FOMOReward = artifacts.require('FOMOReward');
@@ -9,6 +10,7 @@ var ResonanceDataManage = artifacts.require('ResonanceDataManage');
 var abcToken;
 var resonance;
 var resonanceDataManage;
+var authority;
 
 var fissionReward;
 var FOMOReward;
@@ -34,8 +36,8 @@ contract('TestResonance', async (accounts) => {
 
         // console.log(ress);
 
-        let balanceOf0 = await abcToken.balanceOf(accounts[0]) / 1E18;
-        console.log("0-----账户0的余额是：", balanceOf0.toString());
+        // let balanceOf0 = await iERC20.balanceOf(accounts[0]) / 1E18;
+        // console.log("0-----账户0的余额是：", balanceOf0.toString());
 
         await abcToken.transfer(accounts[1], web3.utils.toWei("1000"), {
             from: accounts[0]
@@ -54,6 +56,7 @@ contract('TestResonance', async (accounts) => {
     });
 
     it('2...部署奖励合约', async () => {
+        authority = await Authority.new();
         fissionReward = await FissionReward.new();
         FOMOReward = await FOMOReward.new();
         luckyReward = await LuckyReward.new();
@@ -79,6 +82,7 @@ contract('TestResonance', async (accounts) => {
     it('4...初始化参数', async () => {
         resonance = await Resonance.new(
             resonanceDataManage.address,
+            authority.address,
             abcToken.address,
             fissionReward.address,
             FOMOReward.address,
@@ -95,6 +99,31 @@ contract('TestResonance', async (accounts) => {
 
         let initParamForFirstStepLog = await resonance.initParamForFirstStep(accounts[0], accounts[8], accounts[7]);
 
+        // 给ResonanceDatamanage设置权限
+        await authority.setAuthority(resonanceDataManage.address, {
+            from: accounts[0]
+        });
+
+        await authority.setAuthority(resonance.address, {
+            from: accounts[0]
+        });
+
+        await authority.setAuthority(accounts[0], {
+            from: accounts[0]
+        });
+
+        await authority.setAuthority(fissionReward.address, {
+            from: accounts[0]
+        });
+        await authority.setAuthority(FOMOReward.address, {
+            from: accounts[0]
+        });
+        await authority.setAuthority(luckyReward.address, {
+            from: accounts[0]
+        });
+        await authority.setAuthority(faithReward.address, {
+            from: accounts[0]
+        });
         // console.log(initParamForFirstStepLog);
     })
 
@@ -277,7 +306,7 @@ contract('TestResonance', async (accounts) => {
             winners,
             winners, {
                 from: accounts[0]
-        });
+            });
 
         // console.log("结算当前轮次奖励总金额：", a);
 
@@ -335,14 +364,16 @@ contract('TestResonance', async (accounts) => {
 
     it("20...查询轮次funders信息(个人中心)", async () => {
 
-        console.log("查询个人信息1：", await resonance.getFunderRewardInfo({from:accounts[2]}));
+        console.log("查询个人信息1：", await resonance.getFunderRewardInfo({
+            from: accounts[2]
+        }));
         // console.log("查询个人信息AFF：", await resonance.getFunderAffInfo({from:accounts[9]}));
         // console.log("查询个人信息Funds：", await resonance.getFunderFundsByStep(0, {from:accounts[3]}));
 
     })
 
     // getBuildingTokenFromParty
-    it("21...查询基金会可转入Token额度", async() => {
+    it("21...查询基金会可转入Token额度", async () => {
         // 结算一下，进入第三轮
 
         // winners[0] = accounts[0];
@@ -358,7 +389,7 @@ contract('TestResonance', async (accounts) => {
         //     winners, {
         //         from: accounts[0]
         //     });
-        
+
         // let aa = await resonance.settlementStep(
         //     winners,
         //     winners, {
@@ -373,7 +404,7 @@ contract('TestResonance', async (accounts) => {
         //     winners, {
         //         from: accounts[0]
         //     });
-    
+
         // console.log("查询组建期信息：", await resonance.getBuildingPerioInfo({
         //     from: accounts[0]
         // }));
@@ -385,7 +416,7 @@ contract('TestResonance', async (accounts) => {
         // }));
     })
 
-    it("22...查询FOMO奖励列表",async() => {
+    it("22...查询FOMO奖励列表", async () => {
         // console.log(await FOMOReward.getFOMOWinnerInfo(0));
 
         // console.log("查询当前轮次:", await resonance.currentStep.call());
@@ -417,7 +448,7 @@ contract('TestResonance', async (accounts) => {
 
         // 获取当前轮次社区开放额度
         console.log("当前轮次社区开放额度", await resonanceDataManage.getBuildingTokenAmount() / 1E18);
-        
+
         // 转入Token，参与共建
         await resonance.jointlyBuild(web3.utils.toWei("8000"), {
             from: accounts[2]

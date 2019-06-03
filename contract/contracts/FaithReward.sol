@@ -1,9 +1,10 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "./Authority.sol";
 
 // 信仰奖励
-contract FaithReward{
+contract FaithReward is Authority{
     using SafeMath for uint256;
 
     event FaithWinnerInfo(address[] _faithWinners, uint256[] _faithRewardAmount);
@@ -43,6 +44,7 @@ contract FaithReward{
         uint256 _totalFaithReward
     )
         public
+        // onlyAuthority()
         returns(bool)
     {
         require(!faithRewardFinished, "当前轮次的信仰奖励已经计算完成");

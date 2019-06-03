@@ -2,6 +2,7 @@ pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "./UintUtils.sol";
+import "./Authority.sol";
 
 // 1.裂变奖励
 // 裂变奖励可以在当前轮次的募资期计算结果，并预分配奖励额
@@ -9,13 +10,9 @@ import "./UintUtils.sol";
 // 这一步必须在募资期完成
 
 // TODO:如果要共享结构体，可以将结构体放在一个struct中，暂时先不拆
-contract FissionReward {
+contract FissionReward is Authority{
 
     using SafeMath for uint256;
-
-    constructor() public {
-
-    }
 
     event FissionInfo(uint256 indexed _stepIndex, address[] fissionWinners, uint256[] fissionRewards);
 
@@ -39,6 +36,10 @@ contract FissionReward {
     // 轮次=>奖励金
     mapping(uint256 => uint256) totalFissionReward;
 
+    constructor() public {
+
+    }
+
     /// @notice 获取裂变奖励信息
     function getFissionInfo(uint256 _stepIndex)
         public
@@ -53,7 +54,10 @@ contract FissionReward {
         uint256 _stepIndex,
         address[] memory _fissionWinner,
         uint256 _totalFissionReward
-    ) public {
+    )
+        public
+        // onlyAuthority()
+    {
         require(!currentStepHasFinished[_stepIndex], "本轮次裂变奖励已经分配结束");
         _dealFissionInfo(_stepIndex, _fissionWinner, _totalFissionReward);
     }
