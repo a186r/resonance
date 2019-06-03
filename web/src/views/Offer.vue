@@ -49,7 +49,7 @@
         <div class="reward-area">
           <div class="reward-type">
             <div :class="rewardList[i].class"></div>
-            <p>{{item.text}}</p>
+            <p>{{getText(i)}}</p>
           </div>
           <p>{{ $t('offer.currentTotalReward') }} <span class="value-span">{{rewardListData[i] && rewardListData[i][0]}}</span> ETH</p>
           <div class="reward-detail" v-if="rewardListData[i] && rewardListData[i][1] && rewardListData[i][1].length">
@@ -83,22 +83,26 @@ export default {
       depostETHAmount: '',
       address: '',
       rewardList: [{
-          text: '裂变奖励',
+          cn: '裂变奖励',
           class: 'fission',
           value: 23,
+          en: 'reward test'
         },{
-          text: 'FOMO 奖励',
+          cn: 'FOMO 奖励',
           class: 'fomo',
-          value: 23
+          value: 23,
+          en: 'reward test'
         },
         {
-          text: '幸运奖励',
+          cn: '幸运奖励',
           class: 'lucky',
-          value: 23
+          value: 23,
+          en: 'reward test'
         },{
-          text: '信仰奖励',
+          cn: '信仰奖励',
           class: 'faith',
-          value: 23
+          value: 23,
+          en: 'reward test'
         }
       ]
     }
@@ -113,6 +117,13 @@ export default {
     })
   },
   methods: {
+    getText(index) {
+      if (localStorage.getItem('currentLocale') && localStorage.getItem('currentLocale') == 'en') {
+        return this.rewardList[index].en
+      } else {
+        return this.rewardList[index].cn
+      }
+    },
     approve () {
       store.dispatch('approve', this.depostCADAmount)
     },

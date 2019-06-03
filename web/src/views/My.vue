@@ -32,15 +32,15 @@
           </div>
           <div class="my-detail-list">
             <div class="my-detail-list-left">
-              <p>{{detailList[0].text}}：{{myDetail.funderInvite.count}}</p>
-              <p>{{detailList[1].text}}：{{myDetail.funderInvite.reward}}</p>
-              <p>{{detailList[2].text}}：{{myDetail.funderAmount.depositCAD}}</p>
-              <p>{{detailList[3].text}}：{{myDetail.funderAmount.depositETH}}</p>
+              <p>{{getText(0)}}：{{myDetail.funderInvite.count}}</p>
+              <p>{{getText(1)}}：{{myDetail.funderInvite.reward}}</p>
+              <p>{{getText(2)}}：{{myDetail.funderAmount.depositCAD}}</p>
+              <p>{{getText(3)}}：{{myDetail.funderAmount.depositETH}}</p>
             </div>
             <div class="my-detail-list-middle">
             </div>
             <div class="my-detail-list-right">
-              <p v-for="i in 4" :key="i">{{detailList[i+3].text}}：{{ myDetail.rewardList && myDetail.rewardList[i-1]}}</p>
+              <p v-for="i in 4" :key="i">{{getText([i+3])}}：{{ myDetail.rewardList && myDetail.rewardList[i-1]}}</p>
             </div>
           </div>
         </div>
@@ -62,29 +62,37 @@ export default {
       inviteText: '我的邀请链接',
       detailList: [
         {
-          text: '我的邀请人数',
-          value: 23
+          cn: '我的邀请人数',
+          value: 23,
+          en: 'test'
         },{
-          text: '邀请所得金额',
-          value: 23
+          cn: '邀请所得金额',
+          value: 23,
+          en: 'test'
         },{
-          text: '组建投资金额',
-          value: 23
+          cn: '组建投资金额',
+          value: 23,
+          en: 'test'
         },{
-          text: '募资投资金额',
-          value: 23
+          cn: '募资投资金额',
+          value: 23,
+          en: 'test'
         },{
-          text: '幸运奖励',
-          value: 23
+          cn: '幸运奖励',
+          value: 23,
+          en: 'test'
         },{
-          text: '裂变奖励',
-          value: 23
+          cn: '裂变奖励',
+          value: 23,
+          en: 'test'
         },{
-          text: 'FOMO 奖励',
-          value: 23
+          cn: 'FOMO 奖励',
+          value: 23,
+          en: 'test'
         },{
-          text: '信仰奖励',
-          value: 23
+          cn: '信仰奖励',
+          value: 23,
+          en: 'test'
         }
       ]
     }
@@ -99,6 +107,13 @@ export default {
     })
   },
   methods: {
+    getText(index) {
+      if (localStorage.getItem('currentLocale') && localStorage.getItem('currentLocale') == 'en') {
+        return this.detailList[index].en
+      } else {
+        return this.detailList[index].cn
+      }
+    },
     withdrawAllETH () {
       console.log('withdraw eth')
       store.dispatch('withdrawAllETH')
