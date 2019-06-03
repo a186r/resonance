@@ -240,6 +240,6 @@ html {
 }
 .el-footer {
   color: #fff;
-  line-height: 60px;
+  line-height: .4rem;
 }
 </style>

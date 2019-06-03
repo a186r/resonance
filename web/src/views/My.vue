@@ -5,7 +5,8 @@
         <div class="withdraw dark-card">
           <div class="withdraw-cad"></div>
           <p>{{ $t('my.withdrawCAD') }}</p>
-          <p>{{ $t('my.canWithdrawAmount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawCAD}}</span> BDE（{{ $t('my.totalAmount') }}：{{myDetail.funderAmount.allCAD}} BDE）</p>
+          <p>{{ $t('my.canWithdrawAmount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawCAD}}</span> BDE</p> 
+          <div>（{{ $t('my.totalAmount') }}：{{myDetail.funderAmount.allCAD}} BDE）</div>
           <button class="custom-button" @click="withdrawAllCAD">{{ $t('my.withdraw') }}</button>
         </div>
       </el-col>
@@ -13,13 +14,16 @@
         <div class="withdraw dark-card" v-if="!isResonanceClosed">
           <div class="withdraw-eth"></div>
           <p>{{ $t('my.withdrawETH') }}</p>
-          <p>{{ $t('my.canWithdrawAmount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawETH}}</span> ETH（{{ $t('my.totalAmount') }}：{{myDetail.funderAmount.allETH}} ETH）</p>
+          <p>{{ $t('my.canWithdrawAmount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawETH}}</span> ETH </p>
+          <div>（{{ $t('my.totalAmount') }}：{{myDetail.funderAmount.allETH}} ETH）</div> 
           <button class="custom-button" @click="withdrawAllETH">{{ $t('my.withdraw') }}</button>
         </div>
         <div class="withdraw dark-card" v-else>
           <div class="withdraw-eth"></div>
           <p>{{ $t('my.closed') }}</p>
+          <el-tooltip class="item" effect="dark" content="全部资产包含信仰奖励和最后一轮募资退款" placement="bottom">
           <button class="custom-button" @click="refund">{{ $t('my.refund') }}</button>
+          </el-tooltip>
         </div>
       </el-col>
     </el-row>
@@ -33,14 +37,14 @@
           <div class="my-detail-list">
             <div class="my-detail-list-left">
               <p>{{detailList[0].text}}：{{myDetail.funderInvite.count}}</p>
-              <p>{{detailList[1].text}}：{{myDetail.funderInvite.reward}}</p>
-              <p>{{detailList[2].text}}：{{myDetail.funderAmount.depositCAD}}</p>
-              <p>{{detailList[3].text}}：{{myDetail.funderAmount.depositETH}}</p>
+              <p>{{detailList[1].text}}：{{myDetail.funderInvite.reward}} BDE</p>
+              <p>{{detailList[2].text}}：{{myDetail.funderAmount.depositCAD}} BDE</p>
+              <p>{{detailList[3].text}}：{{myDetail.funderAmount.depositETH}} ETH</p>
             </div>
             <div class="my-detail-list-middle">
             </div>
             <div class="my-detail-list-right">
-              <p v-for="i in 4" :key="i">{{detailList[i+3].text}}：{{ myDetail.rewardList && myDetail.rewardList[i-1]}}</p>
+              <p v-for="i in 4" :key="i">{{detailList[i+3].text}}：{{ myDetail.rewardList && myDetail.rewardList[i-1]}} ETH</p>
             </div>
           </div>
         </div>
