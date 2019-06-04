@@ -3,7 +3,7 @@
     <el-row :gutter="40">
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
-          <p>{{ $t('index.buildingPeriodText') }}（第 {{stepIndex + 1}} 轮）</p>
+          <p>{{ $t('index.buildingPeriodText') }} {{ $t('offer.number') }} {{stepIndex + 1}} {{ $t('offer.round') }}</p>
           <countdown :time="offerData.bpCountdown" v-if="offerData.bpCountdown > 0">
             <template slot-scope="props">{{ $t('offer.countDown') }}：{{ props.hours }} {{ $t('offer.hour') }} : {{ props.minutes }} {{ $t('offer.minute') }} : {{ props.seconds }} {{ $t('offer.second') }}</template>
           </countdown>
@@ -29,7 +29,7 @@
       </el-col>
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
-          <p>{{ $t('index.fundingPeriodText') }}（第 {{stepIndex + 1}} 轮）</p>
+          <p>{{ $t('index.fundingPeriodText') }} {{ $t('offer.number') }} {{stepIndex + 1}} {{ $t('offer.round') }}</p>
           <countdown :time="offerData.fpCountdown" v-if="offerData.bpCountdown < 1">
             <template slot-scope="props">{{ $t('offer.countDown') }}：{{ props.hours }} {{ $t('offer.hour') }} : {{ props.minutes }} {{ $t('offer.minute') }} : {{ props.seconds }} {{ $t('offer.second') }}</template>
           </countdown>
@@ -86,23 +86,23 @@ export default {
           cn: '裂变奖励',
           class: 'fission',
           value: 23,
-          en: 'reward test'
+          en: 'Fission reward'
         },{
           cn: 'FOMO 奖励',
           class: 'fomo',
           value: 23,
-          en: 'reward test'
+          en: 'FOMO reward'
         },
         {
           cn: '幸运奖励',
           class: 'lucky',
           value: 23,
-          en: 'reward test'
+          en: 'Lucky prize'
         },{
           cn: '信仰奖励',
           class: 'faith',
           value: 23,
-          en: 'reward test'
+          en: 'Faith reward'
         }
       ]
     }

@@ -68,35 +68,35 @@ export default {
         {
           cn: '我的邀请人数',
           value: 23,
-          en: 'test'
+          en: 'Invite the number'
         },{
           cn: '邀请所得金额',
           value: 23,
-          en: 'test'
+          en: 'Invitation amount'
         },{
           cn: '组建投资金额',
           value: 23,
-          en: 'test'
+          en: 'Investment amount'
         },{
           cn: '募资投资金额',
           value: 23,
-          en: 'test'
+          en: 'Raise investment amount'
         },{
           cn: '幸运奖励',
           value: 23,
-          en: 'test'
+          en: 'Lucky prize'
         },{
           cn: '裂变奖励',
           value: 23,
-          en: 'test'
+          en: 'Fission reward'
         },{
           cn: 'FOMO 奖励',
           value: 23,
-          en: 'test'
+          en: 'FOMO reward'
         },{
           cn: '信仰奖励',
           value: 23,
-          en: 'test'
+          en: 'Faith reward'
         }
       ]
     }

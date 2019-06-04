@@ -181,9 +181,9 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.5.2;\n\n/**\n * @title ERC20 interface\n * @dev see https://eips.ethereum.org/EIPS/eip-20\n */\ninterface IERC20 {\n    function transfer(address to, uint256 value) external returns (bool);\n\n    function approve(address spender, uint256 value) external returns (bool);\n\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\n\n    function totalSupply() external view returns (uint256);\n\n    function balanceOf(address who) external view returns (uint256);\n\n    function allowance(address owner, address spender) external view returns (uint256);\n\n    event Transfer(address indexed from, address indexed to, uint256 value);\n\n    event Approval(address indexed owner, address indexed spender, uint256 value);\n}\n",
-  "sourcePath": "/Users/a186r/dev/sourcecode/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
+  "sourcePath": "/root/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
   "ast": {
-    "absolutePath": "/Users/a186r/dev/sourcecode/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
+    "absolutePath": "/root/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
     "exportedSymbols": {
       "IERC20": [
         5218
@@ -1016,7 +1016,7 @@
     "src": "0:758:10"
   },
   "legacyAST": {
-    "absolutePath": "/Users/a186r/dev/sourcecode/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
+    "absolutePath": "/root/contract/contract/node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol",
     "exportedSymbols": {
       "IERC20": [
         5218
@@ -1853,8 +1853,8 @@
     "version": "0.5.2+commit.1df8f40c.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.0.6",
-  "updatedAt": "2019-06-04T07:09:39.560Z",
+  "schemaVersion": "3.0.10",
+  "updatedAt": "2019-06-04T08:23:54.380Z",
   "devdoc": {
     "details": "see https://eips.ethereum.org/EIPS/eip-20",
     "methods": {},
