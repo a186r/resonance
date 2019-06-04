@@ -61,8 +61,8 @@ contract('TestResonance', async (accounts) => {
     it('4...初始化参数', async () => {
         resonance = await Resonance.new(
             "0xb0295100a38d24e2960ba062766d1ed765bea282",
-            resonanceDataManage.address,
             authority.address,
+            resonanceDataManage.address,
             fissionReward.address,
             FOMOReward.address,
             luckyReward.address,

@@ -149,8 +149,8 @@ contract Resonance is Ownable{
     /// _BDEToken 用于共建的Token
     constructor(
         IERC20 _BDEToken, // TODO:与主网已发布的BDEToken一致
-        address _resonanceDataManageAddress,
         Authority _authority,
+        address _resonanceDataManageAddress,
         address _fassionRewardAddress,
         address _FOMORewardAddress,
         address _luckyRewardAddress,
