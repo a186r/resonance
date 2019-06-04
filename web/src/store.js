@@ -2,43 +2,100 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import Web3 from 'web3'
+import BigNumber from 'bignumber.js'
 import { formatEth, ethToWei } from './utils/ethUtils'
 
 const web3 = new Web3()
 
 Vue.use(Vuex)
 
+function getFormat(data, decimal) {
+  if (!data) { return 0 }
+  if (data.toString() === '0') { return 0 }
+  return BigNumber(web3.utils.fromWei(data.toString())).toFixed(decimal)
+}
+
+async function getStepIndex(contract) {
+  return contract.methods.getCurrentStepFundsInfo().call()
+}
+
+function getReward(contract, methodName, stepIndex, account, index, commit) {
+  let method
+  if (methodName !== 'getFaithRewardInfo') {
+    method = contract.methods[methodName](stepIndex)
+  } else {
+    method = contract.methods[methodName]()
+  }
+  method.call({
+    from: account,
+  }).then(res => {
+    // console.log(stepIndex, index, methodName, res)
+    res.index = index
+    res[0] = getFormat(res[0], 5)
+    if (index === 2) {
+      res[2] = res[1].map((item, i) => getFormat(res[2], 5))
+    } else {
+      res[2] = res[1].map((item, i) => getFormat(res[2][i], 5))
+    }
+    commit('GET_REWARD_LIST', res)
+  })
+}
+
 export default new Vuex.Store({
   state: {
     account: '',
     isBuilder: false,
     isMobile: false,
-    myDetail: [],
+    isResonanceClosed: false,
+    myDetail: {
+      rewardList: [],
+      funderAmount: {
+        withdrawCAD: 0,
+        withdrawETH: 0,
+        allCAD: 0,
+        allETH: 0,
+        depositCAD: 0,
+        depositETH: 0
+      },
+      funderInvite: {
+        count: 0,
+        reward: 0
+      }
+    },
     offerData: {
-      bpCountdown: 24 * 60 * 60 * 1000,
-      fpCountdown: 24 * 60 * 60 * 1000,
-      currentRound: 3,
-      remainingToken: 3000,
-      remainingETH: 23,
-      totalTokenAmount: 5000000,
-      totalETHAmount: 300,
-      eachAddressLimit: 20000
+      bpCountdown: 0,
+      fpCountdown: 0,
+      currentRound: 0,
+      remainingToken: 0,
+      remainingETH: 0,
+      totalTokenAmount: 0,
+      totalETHAmount: 0,
+      eachAddressLimit: 0
     },
     homeData: {
-      currentStepTokenAmount: 10000000,
-      currentStepRaisedETH: 100.1234,
+      currentStepTokenAmount: 0,
+      currentStepRaisedETH: 0,
       stepIndex: 0
     },
     rewardList: {
-      0: [],
-      1: [],
-      2: [],
-      3: []
+      0: {},
+      1: {},
+      2: {},
+      3: {}
     }
   },
   mutations: {
-    GET_FUNDER_INFO: (state, data) => {
-      state.myDetail = data
+    GET_RESONANCE_IS_CLOSED: (state, data) => {
+      state.isResonanceClosed = data
+    },
+    GET_FUNDER_AMOUNT: (state, data) => {
+      Object.assign(state.myDetail.funderAmount, data)
+    },
+    GET_FUNDER_REWARD: (state, data) => {
+      state.myDetail.rewardList = data
+    },
+    GET_FUNDER_INVITE: (state, data) => {
+      Object.assign(state.myDetail.funderInvite, data)
     },
     GET_OFFER_INFO: (state, data) => {
       Object.assign(state.offerData, data)
@@ -50,26 +107,57 @@ export default new Vuex.Store({
       state.isBuilder = data
     },
     GET_REWARD_LIST: (state, data) => {
-      console.log('reward ', data.index, data)
-      state.rewardList[data.index] = data
+      // console.log('reward ', data.index, data)
+      const index = data.index
+      const payload = {}
+      payload[index] = data
+      Object.assign(state.rewardList, payload)
     }
   },
   actions: {
     async getFunderInfo({ commit }, contract) {
-      contract.methods.getFunderInfo().call({}, (err, result) => {
-        console.log(err, 'get funder info', result, contract.address)
-        commit('GET_FUNDER_INFO', result)
+      contract.methods.getFunderAffInfo().call({from: this.state.account}, (err, result) => {
+        if (result) {
+          const data = {}
+          data.count = result[0].toString()
+          data.reward = getFormat(result[1], 0)
+          commit('GET_FUNDER_INVITE', data)
+        }
       })
+      contract.methods.getFunderRewardInfo().call({from: this.state.account}, (err, result) => {
+        for (let i in result) {
+          result[i] = getFormat(result[i], 5)
+        }
+        commit('GET_FUNDER_REWARD', result)
+      })
+      const res = await getStepIndex(contract)
+      if (res) {
+        const arr = ['getFunderWithdrawTokenAmount', 'getFunderWithdrawETHAmount', 'getFunderTokenAmount', 'getFunderETHAmount']
+        const properties = ['allCAD', 'allETH', 'depositCAD', 'depositETH']
+        const stepIndex = res[0].toNumber()
+        for (let i = 0; i < 4; i++) {
+          contract.methods[arr[i]](stepIndex).call({from: this.state.account}, (err, result) => {
+            if (result) {
+              const data = {}
+              let decimal = 5
+              if (i === 0 || i === 2) {
+                decimal = 0
+              }
+              data[properties[i]] = getFormat(result, decimal)
+              commit('GET_FUNDER_AMOUNT', data)
+            }
+          })
+        }
+      }
     },
     async getBuildingPeriodInfo({ commit }, contract) {
       contract.methods.getBuildingPerioInfo().call()
         .then(result => {
-          console.log('get building info', result)
           const data = {}
-          data.bpCountdown = result[0].toNumber() * 1000
-          data.remainingToken = web3.utils.fromWei(result[1].toString())
-          data.eachAddressLimit = web3.utils.fromWei(result[2].toString())
-          data.totalTokenAmount = web3.utils.fromWei(result[3].toString())
+          // data.bpCountdown = result[0].toNumber() * 1000
+          data.remainingToken = getFormat(result[1], 0)
+          data.eachAddressLimit = getFormat(result[2], 0)
+          data.totalTokenAmount = getFormat(result[3], 0)
           commit('GET_OFFER_INFO', data)
         })
         .catch(err => {
@@ -79,11 +167,22 @@ export default new Vuex.Store({
     async getFundingPeriodInfo({ commit }, contract) {
       contract.methods.getFundingPeriodInfo().call()
         .then(result => {
-          console.log('get funding info', result)
           const data = {}
-          data.fpCountdown = result[0].toNumber() * 1000
-          data.remainingETH = web3.utils.fromWei(result[1].toString())
-          data.totalETHAmount = web3.utils.fromWei(result[2].toString())
+          // data.fpCountdown = result[0].toNumber() * 1000
+          data.remainingETH = getFormat(result[1], 5)
+          data.totalETHAmount = getFormat(result[2], 5)
+          commit('GET_OFFER_INFO', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    async getOpeningTime({ commit }, contract) {
+      contract.methods.getOpeningTime().call()
+        .then(result => {
+          const data = {}
+          data.bpCountdown = (result.toNumber() * 1000) + 8 * 3600 * 1000 - new Date().getTime()
+          data.fpCountdown = data.bpCountdown + 16 * 3600 * 1000
           commit('GET_OFFER_INFO', data)
         })
         .catch(err => {
@@ -94,11 +193,10 @@ export default new Vuex.Store({
       const self = this
       contract.methods.getCurrentStepFundsInfo().call()
         .then(result => {
-          console.log('get current step info', result)
           const data = {}
           data.stepIndex = result[0].toNumber(),
-          data.currentStepTokenAmount = web3.utils.fromWei(result[1].toString()),
-          data.currentStepRaisedETH = web3.utils.fromWei(result[2].toString()),
+          data.currentStepTokenAmount = getFormat(result[1], 0),
+          data.currentStepRaisedETH = getFormat(result[2], 5),
           commit('GET_CURRENT_STEP_FUNDS_INFO', data)
         })
         .catch(err => {
@@ -148,7 +246,6 @@ export default new Vuex.Store({
       })
     },
     async toBeFissionPerson({ commit }, address) {
-      console.log(address)
       const self = this
       window.contract.methods.toBeFissionPerson(address).send({
         from: self.state.account
@@ -185,56 +282,89 @@ export default new Vuex.Store({
       })
     },
     async isBuilder({ commit }, contract) {
-      contract.methods.isBuilder().call({
-        from: this.state.account,
-      }).then(res => {
+      contract.methods.isBuilder(this.state.account).call()
+      .then(res => {
         commit('GET_ADDRESS_IS_BUILDER', res)
       })
     },
-    // async isBuilder({ commit }, contract) {
-    //   contract.methods.getStepFunders(0).call({
-    //     from: this.state.account,
-    //   }).then(res => {
-    //     console.log('funders: ', res)
-    //     // commit('GET_ADDRESS_IS_BUILDER', res)
-    //   }).catch(err => {
-    //     console.log('funders err', err)
-    //   })
-    // },
     async queryRewardList({commit}, contract) {
-      const stepIndex = this.state.homeData.stepIndex
-      console.log('stepIndex')
-      contract.methods.getFissionRewardInfo(stepIndex).call({
-        from: this.state.account,
-      }).then(res => {
-        res.index = 0
-        res[0] = web3.utils.fromWei(res[0].toString())
-        res[2] = res[2].map(item => web3.utils.fromWei(item.toString()))
-        commit('GET_REWARD_LIST', res)
+      if (window.contract) {
+        const data = await getStepIndex(window.contract)
+        const stepIndex = data[0].toNumber()
+        const arr = ['getFissionRewardInfo', 'getFOMORewardIofo', 'getLuckyRewardInfo', 'getFaithRewardInfo']
+        for (let i = 0; i < 4; i++) {
+          getReward(contract, arr[i], Math.abs(stepIndex - 1), this.state.account, i, commit)
+        }
+      } else {
+        const self = this
+        setTimeout(() => {
+          self.dispatch('queryRewardList', contract)
+        }, 1000)
+      }
+    },
+    async startListenEvent({commit}, data) {
+      const contract = data.contract
+      const eventName = data.eventName
+      contract.events[eventName]({}, (error, event) => { 
+        console.log(eventName, 'initial event: ', event, event.returnValues)
+        const data = {}
+        const homeData = {}
+        if (eventName === 'currentStepRaisedToken') {
+          data.totalTokenAmount = getFormat(event.returnValues.raisedTokenAmount, 0)
+          data.remainingToken = getFormat(event.returnValues.totalRemainingToken, 0)
+          // data.eachAddressLimit = getFormat(event.returnValues.remainingTokenForPersonal, 0)
+          homeData.currentStepTokenAmount = getFormat(event.returnValues.raisedTokenAmount, 0)
+        } else if (eventName === 'currentStepRaisedEther') {
+          data.totalETHAmount = getFormat(event.returnValues.raisedETHAmount, 5)
+          data.remainingETH = getFormat(event.returnValues.totalRemainingEther, 5)
+          homeData.currentStepRaisedETH = getFormat(event.returnValues.raisedETHAmount, 5)
+        }
+        commit('GET_OFFER_INFO', data)
+        commit('GET_CURRENT_STEP_FUNDS_INFO', homeData)
       })
-      contract.methods.getFOMORewardIofo(stepIndex).call({
-        from: this.state.account,
-      }).then(res => {
-        res.index = 1
-        res[0] = web3.utils.fromWei(res[0].toString())
-        res[2] = res[2].map(item => web3.utils.fromWei(item.toString()))
-        commit('GET_REWARD_LIST', res)
+      .on('data', (event) => {
+        console.log(eventName, 'listen event on data:', event)
       })
-      contract.methods.getLuckyRewardInfo(stepIndex).call({
-        from: this.state.account,
-      }).then(res => {
-        res.index = 2
-        res[0] = web3.utils.fromWei(res[0].toString())
-        res[2] = res[1].map(item => web3.utils.fromWei(res[1].toString()))
-        commit('GET_REWARD_LIST', res)
+      .on('changed', (event) => {
+        console.log(eventName, 'listen event on changed:', event)
       })
-      contract.methods.getFaithRewardInfo().call({
-        from: this.state.account,
+      .on('error', console.error)
+    },
+    async getWithdrawAmountPriv({commit}, contract) {
+      const res = await getStepIndex(contract)
+      if (!res || res[0].toNumber() === 0) {
+        console.log('current step index is 0')
+        return
+      }
+      contract.methods.getWithdrawAmountPriv().call({from: this.state.account}, (err, result) => {
+        console.log(err, 'getWithdrawAmountPriv', result)
+        if (result) {
+          const data = {}
+          data.withdrawCAD  = getFormat(result[0], 0)
+          data.withdrawETH = getFormat(result[1], 5)
+          commit('GET_FUNDER_AMOUNT', data)
+        }
+      })
+    },
+    async withdrawFaithRewardAndRefund({commit}) {
+      const self = this
+      window.contract.methods.withdrawFaithRewardAndRefund().send({
+        from: self.state.account,
       }).then(res => {
-        res.index = 3
-        res[0] = web3.utils.fromWei(res[0].toString())
-        res[2] = res[2].map(item => web3.utils.fromWei(item.toString()))
-        commit('GET_REWARD_LIST', res)
+        console.log(res)
+      }).catch(err => {
+        self._vm.$alert('Metamask 提交失败', '提示', {
+          confirmButtonText: '确定',
+        })
+      })
+    },
+    async getResonanceIsClosed({commit}, contract) {
+      contract.methods.getResonanceIsClosed().call()
+      .then(res => {
+        console.log('getResonanceIsClosed', res)
+        if (res) {
+          commit('GET_RESONANCE_IS_CLOSED', res)
+        }
       })
     },
     async getRewardList({commit}, params) {

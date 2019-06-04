@@ -6,7 +6,6 @@ import "./FissionReward.sol";
 import "./FOMOReward.sol";
 import "./LuckyReward.sol";
 import "./FaithReward.sol";
-import "./ABCToken.sol";
 
 /// @title 共振全局数据管理
 /// @dev 在这里处理一些全局数据
@@ -34,7 +33,7 @@ contract ResonanceDataManage{
     // 开始时间
     uint256 public openingTime;
     // 共振是否结束
-    bool crowdsaleClosed = false;
+    bool crowdsaleClosed;
 
     // 共振结束时的Step
     uint256 resonanceClosedStep;
@@ -46,16 +45,25 @@ contract ResonanceDataManage{
     uint256 buildingPercentOfParty = 50;
 
     // 当前轮次组建期基金会投入的Token数量；
-    uint256 buildingTokenFromParty;
+    // uint256 buildingTokenFromParty;
+    mapping(uint256 => uint256) buildingTokenFromParty;
 
     // 当前轮次组建期社区Token额度占比
     uint256 buildingPercentOfCommunity = 50;
 
     uint256 personalTokenLimited;// 当前轮次每个地址最多投入多少token
 
-    // 账号可提取总余额
-    mapping(address => uint256) private ETHBalance;
-    mapping(address => uint256) private tokenBalance;
+    // step => address => 可提取ether
+    mapping(uint256 => mapping(address => uint256)) private ETHBalance;
+    // step => address => 可提取token
+    mapping(uint256 => mapping(address => uint256)) private tokenBalance;
+
+    mapping(uint256 => mapping(address => uint256)) FissionBalance;
+    mapping(uint256 => mapping(address => uint256)) FOMOBalance;
+    mapping(uint256 => mapping(address => uint256)) LuckyBalance;
+
+    // 用户信仰奖励余额
+    mapping(address => uint256) private faithRewardBalance;
 
     constructor(
         address _fassionRewardAddress,
@@ -110,20 +118,20 @@ contract ResonanceDataManage{
         return crowdsaleClosed;
     }
 
-    function getETHBalance(address _addr) public view returns(uint256) {
-        return ETHBalance[_addr];
+    function getETHBalance(uint256 _stepIndex, address _addr) public view returns(uint256) {
+        return ETHBalance[_stepIndex][_addr];
     }
 
-    function setETHBalance(address _addr, uint256 _amount) public platform() {
-        ETHBalance[_addr] = _amount;
+    function setETHBalance(uint256 _stepIndex, address _addr, uint256 _amount) public platform() {
+        ETHBalance[_stepIndex][_addr] = _amount;
     }
 
-    function getTokenBalance(address _addr) public view returns(uint256) {
-        return tokenBalance[_addr];
+    function getTokenBalance(uint256 _stepIndex, address _addr) public view returns(uint256) {
+        return tokenBalance[_stepIndex][_addr];
     }
 
-    function setTokenBalance(address _addr, uint256 _amount) public platform() {
-        tokenBalance[_addr] = _amount;
+    function setTokenBalance(uint256 _stepIndex, address _addr, uint256 _amount) public platform() {
+        tokenBalance[_stepIndex][_addr] = _amount;
     }
 
     function getBuildingTokenAmount() public view returns(uint256) {
@@ -132,8 +140,7 @@ contract ResonanceDataManage{
 
     // 是否是共建期
     function isBuildingPeriod() public view returns(bool){
-        // if(block.timestamp >= openingTime && block.timestamp < openingTime.add(8 hours)) {
-        if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(30 minutes)) {
+        if(block.timestamp >= openingTime && block.timestamp <= openingTime.add(8 hours)) {
             return true;
         }else{
             return false;
@@ -143,8 +150,7 @@ contract ResonanceDataManage{
 
     // 是否是募资期
     function isFundingPeriod() public view returns(bool) {
-        // if(block.timestamp >= openingTime.add(8 hours) && block.timestamp < openingTime.add(24 hours)) {
-        if(block.timestamp >= openingTime.add(30 minutes) && block.timestamp <= openingTime.add(1 hours)) {
+        if(block.timestamp >= openingTime.add(8 hours) && block.timestamp <= openingTime.add(24 hours)) {
             return true;
         }else{
             return false;
@@ -157,9 +163,9 @@ contract ResonanceDataManage{
     /// @param raisedETH 募资期已经募集的ETH数量
     /// @param softCap 当前轮次软顶
     function crowdsaleIsClosed(
+        uint256 stepIndex,
         uint256 raisedETH,
-        uint256 softCap,
-        uint256 stepIndex
+        uint256 softCap
     )
         public
         platform()
@@ -168,20 +174,19 @@ contract ResonanceDataManage{
         // 1.当前轮次募资期募资额度没有达到软顶，共振结束
         if(raisedETH < softCap) {
             resonanceClosedStep = stepIndex;
-            crowdsaleClosed = true;
+            setCrowdsaleClosed(true);
         }else{
-            crowdsaleClosed = false;
+            setCrowdsaleClosed(false);
+            // 2.消耗完资金池的总额度，共振结束
+            if(fundsPool == 0) {
+                resonanceClosedStep = stepIndex;
+                setCrowdsaleClosed(true);
+            }else{
+                setCrowdsaleClosed(false);
+            }
         }
 
-        // 2.消耗完资金池的总额度，共振结束
-        if(fundsPool == 0) {
-            resonanceClosedStep = stepIndex;
-            crowdsaleClosed = true;
-        }else{
-            crowdsaleClosed = false;
-        }
-
-        return crowdsaleClosed;
+        return getResonanceIsClosed();
     }
 
     /// @notice 查询共振结束时的轮次Index
@@ -190,7 +195,6 @@ contract ResonanceDataManage{
     }
 
     /// @notice 查询共振是否结束
-    /// @dev view修饰符返回crowdsaleClosed
     function getResonanceIsClosed() public view returns(bool) {
         return crowdsaleClosed;
     }
@@ -201,12 +205,13 @@ contract ResonanceDataManage{
         platform()
     {
         fissionRewardInstance.dealFissionInfo(_stepIndex, _fissionWinnerList, totalFissionReward);
-        // 在这里累加用户总余额
+        // 在这里累加用户可提取余额
         for(uint i = 0; i < _fissionWinnerList.length; i++){
-            ETHBalance[_fissionWinnerList[i]] += fissionRewardInstance.fissionRewardAmount(_stepIndex,_fissionWinnerList[i]);
+            FissionBalance[_stepIndex][_fissionWinnerList[i]] = fissionRewardInstance.fissionRewardAmount(_stepIndex,_fissionWinnerList[i]);
         }
     }
 
+    /// @notice 分配FOMO奖励奖金
     function settlementFOMOReward(uint256 _stepIndex, address[] memory _funders, uint256 totalFOMOReward)
         public
         platform()
@@ -214,20 +219,22 @@ contract ResonanceDataManage{
         address[] memory FOMOWinnerList = FOMORewardInstance.dealFOMOWinner(_stepIndex, _funders, totalFOMOReward);
 
         for(uint i = 0; i < FOMOWinnerList.length; i++){
-            ETHBalance[FOMOWinnerList[i]] += FOMORewardInstance.FOMORewardAmount(_stepIndex,FOMOWinnerList[i]);
+            FOMOBalance[_stepIndex][FOMOWinnerList[i]] = FOMORewardInstance.FOMORewardAmount(_stepIndex, FOMOWinnerList[i]);
         }
     }
 
+    /// @notice 分配幸运奖励奖金
     function settlementLuckyReward(uint256 _stepIndex, address[] memory _LuckyWinnerList, uint256 totalLuckyReward)
         public
         platform()
     {
         luckyRewardInstance.dealLuckyInfo(_stepIndex, _LuckyWinnerList, totalLuckyReward);
         for(uint i = 0; i < _LuckyWinnerList.length; i++){
-            ETHBalance[_LuckyWinnerList[i]] += luckyRewardInstance.luckyRewardAmount(_stepIndex,_LuckyWinnerList[i]);
+            LuckyBalance[_stepIndex][_LuckyWinnerList[i]] = luckyRewardInstance.luckyRewardAmount(_stepIndex, _LuckyWinnerList[i]);
         }
     }
 
+    // 分配信仰奖励
     function dmSettlementFaithReward(address[] memory _faithWinners, uint256 totalFaithReward)
         public
         platform()
@@ -236,27 +243,42 @@ contract ResonanceDataManage{
         bool faithRewardFinished = faithRewardInstance.dealFaithWinner(_faithWinners, totalFaithReward);
 
         for(uint i = 0; i < _faithWinners.length; i++){
-            ETHBalance[_faithWinners[i]] += faithRewardInstance.faithRewardAmount(_faithWinners[i]);
+            faithRewardBalance[_faithWinners[i]] += faithRewardInstance.faithRewardAmount(_faithWinners[i]);
         }
         return faithRewardFinished;
     }
 
+    // 获取信仰奖励金额
+    function getFaithRewardBalance(address _addr) public view returns(uint256) {
+        return faithRewardBalance[_addr];
+    }
+
+    function setFaithRewardBalance(address _addr, uint256 _amount) public platform() returns(uint256) {
+        return faithRewardBalance[_addr] = _amount;
+    }
+
     /// @notice 返回可提取Token数量
-    function withdrawTokenAmount(address _addr) public view returns (uint256) {
-        return tokenBalance[_addr];
+    function withdrawTokenAmount(uint256 _stepIndex, address _addr) public view returns (uint256) {
+        return tokenBalance[_stepIndex][_addr];
     }
 
     /// @notice 返回可提取的ETH数量
-    function withdrawETHAmount(address _addr) public view returns (uint256) {
-        return ETHBalance[_addr];
+    function withdrawETHAmount(uint256 _stepIndex, address _addr) public view returns (uint256) {
+        return ETHBalance[_stepIndex][_addr]
+            .add(FissionBalance[_stepIndex][_addr])
+            .add(FOMOBalance[_stepIndex][_addr])
+            .add(LuckyBalance[_stepIndex][_addr]);
     }
 
-    function emptyTokenBalance(address _addr) public {
-        tokenBalance[_addr] = 0;
+    function emptyTokenBalance(uint256 _stepIndex, address _addr) public platform() {
+        tokenBalance[_stepIndex][_addr] = 0;
     }
 
-    function emptyETHBalance(address _addr) public {
-        ETHBalance[_addr] = 0;
+    function emptyETHBalance(uint256 _stepIndex, address _addr) public platform() {
+        ETHBalance[_stepIndex][_addr] = 0;
+        FissionBalance[_stepIndex][_addr] = 0;
+        FOMOBalance[_stepIndex][_addr] = 0;
+        LuckyBalance[_stepIndex][_addr] = 0;
     }
 
     /// @notice 查询当前轮次的裂变奖励获奖详情
@@ -311,29 +333,33 @@ contract ResonanceDataManage{
     function updateBuildingPercent(uint256 _stepIndex) public platform() returns (bool) {
         require(fundsPool > 0, "共建资金池已经消耗完毕");
         if(_stepIndex == 0){
-            setBuildingTokenFromParty(initBuildingTokenAmount.mul(50).div(100));
+            buildingTokenFromParty[_stepIndex] = initBuildingTokenAmount.mul(50).div(100);
             buildingPercentOfParty = 50;
+            buildingPercentOfCommunity = 50;
         }else{
             // 随着轮次推进，社区比例每轮次+1%，项目方比例每轮-1%
             if(buildingPercentOfParty < 66){
                 buildingPercentOfParty += 1;
                 buildingPercentOfCommunity -= 1;
             }
-            initBuildingTokenAmount = (initBuildingTokenAmount * 99 / 100) ** _stepIndex;
-            setBuildingTokenFromParty(initBuildingTokenAmount);
+            // 计算当前轮次一共开放的Token数量
+            // 每一轮是前一轮总数的99%，也就是（每一轮开放数量 = 前一轮的开放数量 - 前一轮开放数量 * 1%）
+            initBuildingTokenAmount = initBuildingTokenAmount.sub(initBuildingTokenAmount.mul(1).div(100));
+            // 计算当前轮次基金会可投入的数量
+            setBuildingTokenFromParty(_stepIndex, initBuildingTokenAmount.mul(buildingPercentOfParty).div(100));
         }
 
         return true;
     }
 
     /// @notice 设置当前轮次基金会应该投入的Token数量
-    function setBuildingTokenFromParty(uint256 _buildingPercentOfParty) internal platform() {
-        buildingTokenFromParty = _buildingPercentOfParty;
+    function setBuildingTokenFromParty(uint256 _stepIndex, uint256 _buildingPercentOfParty) internal platform() {
+        buildingTokenFromParty[_stepIndex] = _buildingPercentOfParty;
     }
 
     /// @notice 当前轮次基金会应该投入的Token数量
-    function getBuildingTokenFromParty() public view returns(uint256) {
-        return buildingTokenFromParty;
+    function getBuildingTokenFromParty(uint256 _stepIndex) public view returns(uint256) {
+        return buildingTokenFromParty[_stepIndex];
     }
 
 }

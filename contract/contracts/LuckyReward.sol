@@ -1,7 +1,7 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "./StringUtils.sol";
+import "./Authority.sol";
 
 // 2.10%用于幸运奖励
 // 每一轮结束后下一个ETH区块高度Hash最后一位作为幸运值
@@ -11,7 +11,7 @@ import "./StringUtils.sol";
 // 匹配幸运者
 // 这个合约给到外面的只有一个获奖者列表
 
-contract LuckyReward{
+contract LuckyReward is Authority{
 
     using SafeMath for uint256;
 
@@ -21,7 +21,7 @@ contract LuckyReward{
     mapping(uint256 => address[]) luckyWinners;
 
     // 人均奖金
-    mapping(uint256 => uint256) luckyRewards;
+    mapping(uint256 => uint256) public luckyRewards;
 
     // step => 获奖地址 => 奖金
     mapping(uint256 => mapping(address => uint256)) public luckyRewardAmount;
@@ -31,6 +31,7 @@ contract LuckyReward{
     // 幸运奖励分配结束
     mapping(uint256 => bool) currentStepHasFinished;
 
+    // 轮次=>奖励金
     mapping(uint256 => uint256) totalLyckyReward;
 
     constructor() public {
@@ -43,7 +44,6 @@ contract LuckyReward{
         view
         returns(uint256, address[] memory, uint256)
     {
-        // emit LuckyInfo(luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
         return(totalLyckyReward[_stepIndex], luckyWinners[_stepIndex], luckyRewards[_stepIndex]);
     }
 
@@ -52,7 +52,10 @@ contract LuckyReward{
         uint256 _stepIndex,
         address[] memory _luckyWinners,
         uint256 _totalLyckyReward
-    ) public {
+    )
+        public
+        onlyAuthority()
+    {
         require(!currentStepHasFinished[_stepIndex], "当前轮次的幸运奖励已经计算完成");
         _dealLuckyInfo(_stepIndex, _luckyWinners, _totalLyckyReward);
     }
@@ -77,27 +80,15 @@ contract LuckyReward{
             for(uint i = 0; i < luckyWinners[_stepIndex].length; i++){
                 luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]] = luckyRewards[_stepIndex];
 
-                // 累加奖金余额
-                luckyFunderTotalBalance[luckyWinners[_stepIndex][i]] += luckyRewardAmount[_stepIndex][luckyWinners[_stepIndex][i]];
+                // 幸运奖励奖金
+                luckyFunderTotalBalance[luckyWinners[_stepIndex][i]] = luckyRewards[_stepIndex];
             }
-
+            totalLyckyReward[_stepIndex] = luckyRewards[_stepIndex].mul(luckyWinners[_stepIndex].length);
             currentStepHasFinished[_stepIndex] = true;
-            totalLyckyReward[_stepIndex] = _totalLyckyReward;
         }else{ // 如果没有人中奖，设置一下状态就行了，不用再循环结算了
             currentStepHasFinished[_stepIndex] = true;
-            totalLyckyReward[_stepIndex] = _totalLyckyReward;
+            totalLyckyReward[_stepIndex] = 0;
             return;
         }
-    }
-
-    // 获取address的最后一位
-    function getLastFromAddress(address _addr) public pure returns(string memory) {
-        string memory addressStr = StringUtils.addr2string(_addr);
-        return StringUtils.substring(addressStr,41,42);
-    }
-
-    // 获取区块Hash的最后一位
-    function getLastFromBlockHash(bytes32 _blockHash) public pure returns(string memory){
-        return StringUtils.substring(StringUtils.bytes32Tostring(_blockHash),_blockHash.length-1,_blockHash.length);
     }
 }

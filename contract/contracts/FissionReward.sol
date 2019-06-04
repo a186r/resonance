@@ -2,6 +2,7 @@ pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "./UintUtils.sol";
+import "./Authority.sol";
 
 // 1.裂变奖励
 // 裂变奖励可以在当前轮次的募资期计算结果，并预分配奖励额
@@ -9,13 +10,9 @@ import "./UintUtils.sol";
 // 这一步必须在募资期完成
 
 // TODO:如果要共享结构体，可以将结构体放在一个struct中，暂时先不拆
-contract FissionReward {
+contract FissionReward is Authority{
 
     using SafeMath for uint256;
-
-    constructor() public {
-
-    }
 
     event FissionInfo(uint256 indexed _stepIndex, address[] fissionWinners, uint256[] fissionRewards);
 
@@ -38,25 +35,34 @@ contract FissionReward {
 
     // 轮次=>奖励金
     mapping(uint256 => uint256) totalFissionReward;
- 
+
+    constructor() public {
+
+    }
+
     /// @notice 获取裂变奖励信息
     function getFissionInfo(uint256 _stepIndex)
         public
         view
         returns(uint256, address[] memory, uint256[] memory)
     {
-        // emit FissionInfo(_stepIndex, fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
         return(totalFissionReward[_stepIndex], fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
     }
+
+    event PrintSender(address sender);
 
     /// @notice 处理裂变奖励信息
     function dealFissionInfo(
         uint256 _stepIndex,
         address[] memory _fissionWinner,
         uint256 _totalFissionReward
-    ) public {
+    )
+        public
+        onlyAuthority()
+    {
         require(!currentStepHasFinished[_stepIndex], "本轮次裂变奖励已经分配结束");
         _dealFissionInfo(_stepIndex, _fissionWinner, _totalFissionReward);
+        emit PrintSender(msg.sender);
     }
 
     function addAffman(
@@ -107,25 +113,25 @@ contract FissionReward {
 
         for(uint8 i = 0; i < winners; i++) {
             if (i == 0) { //第1名奖励10%
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(10).div(100));
+                fissionRewards[_stepIndex][i] = _totalFissionReward.mul(10).div(100);
             } else if (i >= 1 && i <= 2) { // 第2、3名奖励
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(75).div(1000));
+                fissionRewards[_stepIndex][i] = _totalFissionReward.mul(75).div(1000);
             } else if (i >= 3 && i <= 5) {
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(5).div(100));
+                fissionRewards[_stepIndex][i] = _totalFissionReward.mul(5).div(100);
             } else if (i >= 6 && i <= 9) {
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(25).div(1000));
+                fissionRewards[_stepIndex][i] = _totalFissionReward.mul(25).div(1000);
             } else {
-                fissionRewards[_stepIndex][i] = (_totalFissionReward.mul(50).div(100).div(40));
+                fissionRewards[_stepIndex][i] = _totalFissionReward.mul(50).div(100).div(40);
             }
 
             // 设置余额
-            fissionRewardAmount[_stepIndex][fissionWinners[_stepIndex][i]] = fissionRewards[_stepIndex][i];
+            fissionRewardAmount[_stepIndex][fissionWinners[_stepIndex][i]] += fissionRewards[_stepIndex][i];
 
             // 保存总奖励金额
-            fissionFunderTotalBalance[fissionWinners[_stepIndex][i]] += fissionRewardAmount[_stepIndex][fissionWinners[_stepIndex][i]];
-        }
+            fissionFunderTotalBalance[fissionWinners[_stepIndex][i]] = fissionRewardAmount[_stepIndex][fissionWinners[_stepIndex][i]];
 
-        totalFissionReward[_stepIndex] = _totalFissionReward;
+            totalFissionReward[_stepIndex] += fissionRewards[_stepIndex][i];
+        }
 
         currentStepHasFinished[_stepIndex] = true;
     }

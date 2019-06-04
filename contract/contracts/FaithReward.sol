@@ -1,9 +1,10 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "./Authority.sol";
 
 // 信仰奖励
-contract FaithReward{
+contract FaithReward is Authority{
     using SafeMath for uint256;
 
     event FaithWinnerInfo(address[] _faithWinners, uint256[] _faithRewardAmount);
@@ -43,11 +44,20 @@ contract FaithReward{
         uint256 _totalFaithReward
     )
         public
+        onlyAuthority()
         returns(bool)
     {
         require(!faithRewardFinished, "当前轮次的信仰奖励已经计算完成");
 
-        faithAmounts = new uint256[](_faithWinners.length);
+        uint256 winners;
+
+        winners = _faithWinners.length;
+
+        faithAmounts = new uint256[](winners);
+
+        faithWinners = new address[](winners);
+
+        faithWinners = _faithWinners;
 
         for(uint i = 0 ; i < _faithWinners.length; i++){
             if(i == 0){ // 第1名获得3%的奖励
@@ -59,12 +69,14 @@ contract FaithReward{
             }else{ // 第7、8、9、10各获得0.5%奖励
                 faithRewardAmount[_faithWinners[i]] = _totalFaithReward.mul(5).div(100);
             }
+
             faithAmounts.push(faithRewardAmount[_faithWinners[i]]);
+
+            totalFaithReward += faithRewardAmount[_faithWinners[i]];
         }
 
         // 信仰奖励已经分配完成
         faithRewardFinished = true;
-        totalFaithReward = _totalFaithReward;
         return faithRewardFinished;
     }
 

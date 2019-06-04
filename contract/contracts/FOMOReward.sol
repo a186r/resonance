@@ -1,11 +1,12 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "./Authority.sol";
 
 // FOMO奖励 5%
 // 每一轮最后一名参与者获得2.5%奖励，倒数第2名获得1%，倒数3、4、5名各获得0.5%
 
-contract FOMOReward {
+contract FOMOReward is Authority{
 
     using SafeMath for uint256;
 
@@ -35,7 +36,6 @@ contract FOMOReward {
         view
         returns(uint256, address[] memory, uint256[] memory)
     {
-        // emit FOMOWinnerInfo(FOMOWinners[_stepIndex], FOMORewards[_stepIndex]);
         return(totalFOMOReward[_stepIndex], FOMOWinners[_stepIndex], FOMORewards[_stepIndex]);
     }
 
@@ -46,6 +46,7 @@ contract FOMOReward {
         uint256 _totalFOMOReward
     )
         public
+        onlyAuthority()
         returns(address[] memory)
     {
         require(!currentStepHasFinished[_stepIndex], "当前轮次的FOMO奖励已经计算完成");
@@ -73,26 +74,27 @@ contract FOMOReward {
         FOMORewards[_stepIndex] = new uint256[](fundersLen);
         FOMOWinners[_stepIndex] = new address[](fundersLen);
 
-        for(uint i = 1; i < fundersLen; i++){
-
-            if(i == 1) {
-                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(50).div(100));
-            }else if(i == 2) {
-                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(20).div(100));
+        for(uint i = 0; i < fundersLen; i++){
+            if(i == 0) {
+                FOMORewards[_stepIndex][i] = _totalFOMOReward.mul(50).div(100);
+            }else if(i == 1) {
+                FOMORewards[_stepIndex][i] = _totalFOMOReward.mul(20).div(100);
             }else{
-                FOMORewards[_stepIndex].push(_totalFOMOReward.mul(10).div(100));
+                FOMORewards[_stepIndex][i] = _totalFOMOReward.mul(10).div(100);
             }
 
-            FOMOWinners[_stepIndex].push(_funders[fundersLen-i]);
+            FOMOWinners[_stepIndex][i] = _funders[fundersLen-1-i];
 
-            FOMORewardAmount[_stepIndex][FOMOWinners[_stepIndex][i]] = FOMORewards[_stepIndex][i];
+            FOMORewardAmount[_stepIndex][FOMOWinners[_stepIndex][i]] += FOMORewards[_stepIndex][i];
 
             // 保存FOMO中用户总奖励
-            FOMOFunderTotalBalance[FOMOWinners[_stepIndex][i]] += FOMORewardAmount[_stepIndex][FOMOWinners[_stepIndex][i]];
+            FOMOFunderTotalBalance[FOMOWinners[_stepIndex][i]] = FOMORewardAmount[_stepIndex][FOMOWinners[_stepIndex][i]];
+
+            totalFOMOReward[_stepIndex] += FOMORewards[_stepIndex][i];
         }
 
         currentStepHasFinished[_stepIndex] = true;
-        totalFOMOReward[_stepIndex] = _totalFOMOReward;
+
         return FOMOWinners[_stepIndex];
     }
 

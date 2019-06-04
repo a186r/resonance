@@ -29,7 +29,7 @@
         <router-view></router-view>
         <!-- <HelloI18n /> -->
       </el-main>
-      <el-footer>Footer</el-footer>
+      <el-footer>Copyright © 2018-2019 bdex | All rights reserved</el-footer>
     </el-container>
   </div>
 </template>
@@ -38,13 +38,14 @@
 import Web3 from "web3"
 import store from './store'
 import ResonanceJson from '../../contract/build/contracts/Resonance.json'
-import TokenJson from '../../contract/build/contracts/ABCToken.json'
+import TokenJson from '../../contract/build/contracts/BDEToken'
+import ResonanceDataManageJson from '../../contract/build/contracts/ResonanceDataManage.json'
 
 export default {
   name: 'app',
   data () {
     return {
-      account: ethereum.selectedAddress || '登录 metamask',
+      account: ethereum && ethereum.selectedAddress || '登录钱包',
       currentLanguage: localStorage.getItem('currentLocale') && localStorage.getItem('currentLocale') == 'en' ? 'English' : '中文简体'
     }
   },
@@ -64,7 +65,6 @@ export default {
     },
     async initTokenContract() {
       const address = TokenJson["networks"][web3.currentProvider.connection.networkVersion].address
-      console.log('token contract address:', address)
       const contract = await new web3.eth.Contract(
         TokenJson.abi,
         address
@@ -73,17 +73,28 @@ export default {
     },
     async initContract() {
       const address = ResonanceJson["networks"][web3.currentProvider.connection.networkVersion].address
-      console.log('contract address:', address)
       const contract = await new web3.eth.Contract(
         ResonanceJson.abi,
         address
       )
       return contract
     },
+    async initDataContract() {
+      const address = ResonanceDataManageJson["networks"][web3.currentProvider.connection.networkVersion].address
+      const contract = await new web3.eth.Contract(
+        ResonanceDataManageJson.abi,
+        address
+      )
+      return contract
+    },
     async unlockMetaMask() {
       const self = this
-
-      if (window.ethereum) {
+      if (window.web3 && window.web3.currentProvider.isTrust) {
+        window.web3 = new Web3(web3.currentProvider)
+        const account = web3.eth.accounts[0]
+        this.$alert(`trust`)
+        self.account = account
+      } else if (window.ethereum) {
         window.web3 = new Web3(ethereum)
         try {
           await ethereum.enable();
@@ -93,9 +104,7 @@ export default {
             confirmButtonText: '确定',
           })
         }
-      }
-      // Legacy dapp browsers...
-      else if (window.web3) {
+      } else if (window.web3) {
         window.web3 = new Web3(web3.currentProvider)
         const account = web3.eth.accounts[0]
         if (!account){
@@ -105,8 +114,7 @@ export default {
           return
         }
         self.account = account
-      }
-      else {
+      } else {
         self.$alert('您的浏览器还没有安装 MetaMask，请先安装该插件', '提示', {
           confirmButtonText: '确定',
         })
@@ -119,6 +127,7 @@ export default {
     await this.unlockMetaMask()
     const contract = await this.initContract()
     const tokenContract = await this.initTokenContract()
+    const dataContract = await this.initDataContract()
     window.contract = contract
     window.tokenContract = tokenContract
     // const amount = await tokenContract.methods.allowance(this.account, contract.address).call()
@@ -127,7 +136,13 @@ export default {
     store.dispatch('getBuildingPeriodInfo', contract)
     store.dispatch('getFundingPeriodInfo', contract)
     store.dispatch('getFunderInfo', contract)
+    store.dispatch('getWithdrawAmountPriv', contract)
     store.dispatch('isBuilder', contract)
+    const data = {contract: contract, eventName: 'currentStepRaisedToken'}
+    store.dispatch('startListenEvent', data)
+    data.eventName = 'currentStepRaisedEther'
+    store.dispatch('startListenEvent', data)
+    store.dispatch('getResonanceIsClosed', dataContract)
   }
 }
 </script>
@@ -174,6 +189,10 @@ html {
   color: #fff;
 }
 
+.el-message-box {
+  width: 4rem !important;
+}
+
 .el-container {
   height: 100%;
 }
@@ -215,5 +234,8 @@ html {
     }
   }
 }
-
+.el-footer {
+  color: #fff;
+  line-height: .4rem;
+}
 </style>

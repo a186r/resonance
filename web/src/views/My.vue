@@ -5,16 +5,25 @@
         <div class="withdraw dark-card">
           <div class="withdraw-cad"></div>
           <p>{{ $t('my.withdrawCAD') }}</p>
-          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail[0]}}</span> CAD</p>
+          <p>{{ $t('my.canWithdrawAmount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawCAD}}</span> BDE</p> 
+          <div>（{{ $t('my.totalAmount') }}：{{myDetail.funderAmount.allCAD}} BDE）</div>
           <button class="custom-button" @click="withdrawAllCAD">{{ $t('my.withdraw') }}</button>
         </div>
       </el-col>
       <el-col class="col-flex"  :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-        <div class="withdraw dark-card">
+        <div class="withdraw dark-card" v-if="!isResonanceClosed">
           <div class="withdraw-eth"></div>
           <p>{{ $t('my.withdrawETH') }}</p>
-          <p>{{ $t('my.amount') }}：<span class="value-span">{{myDetail[1]}}</span> ETH</p>
+          <p>{{ $t('my.canWithdrawAmount') }}：<span class="value-span">{{myDetail.funderAmount.withdrawETH}}</span> ETH </p>
+          <div>（{{ $t('my.totalAmount') }}：{{myDetail.funderAmount.allETH}} ETH）</div> 
           <button class="custom-button" @click="withdrawAllETH">{{ $t('my.withdraw') }}</button>
+        </div>
+        <div class="withdraw dark-card" v-else>
+          <div class="withdraw-eth"></div>
+          <p>{{ $t('my.closed') }}</p>
+          <el-tooltip class="item" effect="dark" content="全部资产包含信仰奖励和最后一轮募资退款" placement="bottom">
+          <button class="custom-button" @click="refund">{{ $t('my.refund') }}</button>
+          </el-tooltip>
         </div>
       </el-col>
     </el-row>
@@ -27,12 +36,15 @@
           </div>
           <div class="my-detail-list">
             <div class="my-detail-list-left">
-              <p v-for="i in 4" :key="i">{{detailList[i-1].text}}：{{myDetail[i+1]}}</p>
+              <p>{{getText(0)}}：{{myDetail.funderInvite.count}}</p>
+              <p>{{getText(1)}}：{{myDetail.funderInvite.reward}} BDE</p>
+              <p>{{getText(2)}}：{{myDetail.funderAmount.depositCAD}} BDE</p>
+              <p>{{getText(3)}}：{{myDetail.funderAmount.depositETH}} ETH</p>
             </div>
             <div class="my-detail-list-middle">
             </div>
             <div class="my-detail-list-right">
-              <p v-for="i in 4" :key="i">{{detailList[i+3].text}}：{{myDetail[i+5]}}</p>
+              <p v-for="i in 4" :key="i">{{getText([i+3])}}：{{ myDetail.rewardList && myDetail.rewardList[i-1]}} ETH</p>
             </div>
           </div>
         </div>
@@ -54,29 +66,37 @@ export default {
       inviteText: '我的邀请链接',
       detailList: [
         {
-          text: '我的邀请人数',
-          value: 23
+          cn: '我的邀请人数',
+          value: 23,
+          en: 'test'
         },{
-          text: '邀请所的金额',
-          value: 23
+          cn: '邀请所得金额',
+          value: 23,
+          en: 'test'
         },{
-          text: '组建投资金额',
-          value: 23
+          cn: '组建投资金额',
+          value: 23,
+          en: 'test'
         },{
-          text: '募资投资金额',
-          value: 23
+          cn: '募资投资金额',
+          value: 23,
+          en: 'test'
         },{
-          text: '幸运奖励',
-          value: 23
+          cn: '幸运奖励',
+          value: 23,
+          en: 'test'
         },{
-          text: '裂变奖励',
-          value: 23
+          cn: '裂变奖励',
+          value: 23,
+          en: 'test'
         },{
-          text: 'FOMO 奖励',
-          value: 23
+          cn: 'FOMO 奖励',
+          value: 23,
+          en: 'test'
         },{
-          text: '信仰奖励',
-          value: 23
+          cn: '信仰奖励',
+          value: 23,
+          en: 'test'
         }
       ]
     }
@@ -84,19 +104,28 @@ export default {
   computed: {
     ...mapState({
       myDetail: state => state.myDetail,
+      isResonanceClosed: state => state.isResonanceClosed,
       link: () => {
-        return document.baseURI + '?uid=' + store.state.account
+        return document.location.origin + '/#/offer' + '?uid=' + store.state.account
       }
     })
   },
   methods: {
+    getText(index) {
+      if (localStorage.getItem('currentLocale') && localStorage.getItem('currentLocale') == 'en') {
+        return this.detailList[index].en
+      } else {
+        return this.detailList[index].cn
+      }
+    },
     withdrawAllETH () {
-      console.log('withdraw eth')
       store.dispatch('withdrawAllETH')
     },
     withdrawAllCAD () {
-      console.log('withdraw cad')
       store.dispatch('withdrawAllCAD')
+    },
+    refund () {
+      store.dispatch('withdrawFaithRewardAndRefund')
     }
   },
   mounted() {

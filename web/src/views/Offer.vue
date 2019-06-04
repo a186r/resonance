@@ -3,19 +3,20 @@
     <el-row :gutter="40">
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
-          <p>{{ $t('index.buildingPeriodText') }}</p>
+          <p>{{ $t('index.buildingPeriodText') }}（第 {{stepIndex + 1}} 轮）</p>
           <countdown :time="offerData.bpCountdown" v-if="offerData.bpCountdown > 0">
             <template slot-scope="props">{{ $t('offer.countDown') }}：{{ props.hours }} {{ $t('offer.hour') }} : {{ props.minutes }} {{ $t('offer.minute') }} : {{ props.seconds }} {{ $t('offer.second') }}</template>
           </countdown>
           <p v-else>{{ $t('offer.buildingEnd') }}</p>
           <p>{{ $t('offer.remainCAD') }}：{{offerData.remainingToken}}</p>
+          <p>{{ $t('offer.eachAddressLimit') }}：{{offerData.eachAddressLimit}}</p>
           <p>{{ $t('offer.totalRaisedCAD') }}：{{offerData.totalTokenAmount}}</p>
           <div class="deposit-area" v-if="isBuilder">
             <div class="deposit-area-input">
-              <input class="custom-input" v-model="depostCADAmount" :placeholder="'CAD ' + $t('offer.depositAmount')" />
+              <input class="custom-input" :disabled="!isBuilding" v-model="depostCADAmount" :placeholder="'CAD ' + $t('offer.depositAmount')" />
             </div>
             <button class="custom-button" :disabled="!isBuilding" @click="approve">{{ $t('offer.approveContract') }}</button>
-            <button class="custom-button" @click="depositCAD">{{ $t('offer.depositCAD') }}</button>
+            <button class="custom-button" :disabled="!isBuilding" @click="depositCAD">{{ $t('offer.depositCAD') }}</button>
           </div>
           <div class="deposit-area" v-else>
             <div class="deposit-area-input">
@@ -28,7 +29,7 @@
       </el-col>
       <el-col class="col-flex" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <div class="period dark-card">
-          <p>{{ $t('index.fundingPeriodText') }}</p>
+          <p>{{ $t('index.fundingPeriodText') }}（第 {{stepIndex + 1}} 轮）</p>
           <countdown :time="offerData.fpCountdown" v-if="offerData.bpCountdown < 1">
             <template slot-scope="props">{{ $t('offer.countDown') }}：{{ props.hours }} {{ $t('offer.hour') }} : {{ props.minutes }} {{ $t('offer.minute') }} : {{ props.seconds }} {{ $t('offer.second') }}</template>
           </countdown>
@@ -36,9 +37,9 @@
           <p>{{ $t('offer.remainETH') }}：{{offerData.remainingETH}}</p>
           <div class="deposit-area">
             <div class="deposit-area-input">
-              <input class="custom-input" v-model="depostETHAmount" :placeholder="'ETH ' + $t('offer.depositAmount')" />
+              <input class="custom-input" :disabled="isBuilding" v-model="depostETHAmount" :placeholder="'ETH ' + $t('offer.depositAmount')" />
             </div>
-            <button class="custom-button" @click="depositETH">{{ $t('offer.depositETH') }}</button>
+            <button class="custom-button" :disabled="isBuilding" @click="depositETH">{{ $t('offer.depositETH') }}</button>
           </div>
         </div>
       </el-col>
@@ -48,15 +49,15 @@
         <div class="reward-area">
           <div class="reward-type">
             <div :class="rewardList[i].class"></div>
-            <p>{{item.text}}</p>
+            <p>{{getText(i)}}</p>
           </div>
-          <p>{{ $t('offer.currentTotalReward') }} <span class="value-span">{{rewardListData[i-1] && rewardListData[i-1][0]}}</span> ETH</p>
-          <div class="reward-detail" v-if="rewardListData[i-1] && rewardListData[i-1].length">
-            <div class="reward-detal-item" v-for="j in rewardListData[i-1].length > 5 ? 5 : rewardListData[i-1].length" :key="j">
+          <p>{{ $t('offer.currentTotalReward') }} <span class="value-span">{{rewardListData[i] && rewardListData[i][0]}}</span> ETH</p>
+          <div class="reward-detail" v-if="rewardListData[i] && rewardListData[i][1] && rewardListData[i][1].length">
+            <div class="reward-detal-item" v-for="j in rewardListData[i][1].length > 5 ? 5 : rewardListData[i][1].length" :key="j">
               <span class="rank">{{j > 3 ? j : ''}}  </span>
-              <span class="address">{{rewardListData[i-1][1][j]}}</span>
+              <span class="address">{{rewardListData[i][1][j-1]}}</span>
               <span>：</span>
-              <span>{{rewardListData[i-1][2][j]}} ETH</span>
+              <span>{{rewardListData[i][2][j-1]}} ETH</span>
             </div>
           </div>
           <div v-else>
@@ -77,28 +78,31 @@ export default {
   data () {
     return {
       approveAmount: 0,
-      isBuilding: true,
       buildingText: '组建期',
       depostCADAmount: '',
       depostETHAmount: '',
       address: '',
       rewardList: [{
-          text: '裂变奖励',
+          cn: '裂变奖励',
           class: 'fission',
           value: 23,
+          en: 'reward test'
         },{
-          text: 'FOMO 奖励',
+          cn: 'FOMO 奖励',
           class: 'fomo',
-          value: 23
+          value: 23,
+          en: 'reward test'
         },
         {
-          text: '幸运奖励',
+          cn: '幸运奖励',
           class: 'lucky',
-          value: 23
+          value: 23,
+          en: 'reward test'
         },{
-          text: '信仰奖励',
+          cn: '信仰奖励',
           class: 'faith',
-          value: 23
+          value: 23,
+          en: 'reward test'
         }
       ]
     }
@@ -106,11 +110,20 @@ export default {
   computed: {
     ...mapState({
       offerData: state => state.offerData,
+      stepIndex: state => state.homeData.stepIndex,
       isBuilder: state => state.isBuilder,
-      rewardListData: state => state.rewardList
+      rewardListData: state => state.rewardList,
+      isBuilding: state => state.offerData.bpCountdown > 0
     })
   },
   methods: {
+    getText(index) {
+      if (localStorage.getItem('currentLocale') && localStorage.getItem('currentLocale') == 'en') {
+        return this.rewardList[index].en
+      } else {
+        return this.rewardList[index].cn
+      }
+    },
     approve () {
       store.dispatch('approve', this.depostCADAmount)
     },
@@ -118,9 +131,20 @@ export default {
       store.dispatch('approve', 8)
     },
     depositETH () {
-      console.log('deposit eth', this.depostETHAmount)
-      if (parseFloat(this.depostETHAmount) > this.offerData.remainingETH) {
+      if (!this.depostETHAmount) {
+        this.$alert('请输入具体数量', '提示', {
+          confirmButtonText: '确定',
+        })
+        return
+      }
+      if (parseFloat(this.depostETHAmount) > parseFloat(this.offerData.remainingETH)) {
         this.$alert('您投入的 ETH 超出最大值', '提示', {
+          confirmButtonText: '确定',
+        })
+        return
+      }
+      if (parseFloat(this.depostETHAmount) < 0.1) {
+        this.$alert('请投入大于 0.1 个 ETH ', '提示', {
           confirmButtonText: '确定',
         })
         return
@@ -128,7 +152,13 @@ export default {
       store.dispatch('depositETH', this.depostETHAmount)
     },
     depositCAD () {
-      if (parseFloat(this.depostCADAmount) > this.offerData.remainingToken) {
+      if (!this.depostCADAmount) {
+        this.$alert('请输入具体数量', '提示', {
+          confirmButtonText: '确定',
+        })
+        return
+      }
+      if (parseFloat(this.depostCADAmount) > parseFloat(this.offerData.eachAddressLimit) || parseFloat(this.depostCADAmount) > parseFloat(this.offerData.remainingToken)) {
         this.$alert('您投入的 CAD 超出最大值', '提示', {
           confirmButtonText: '确定',
         })
@@ -141,7 +171,6 @@ export default {
     },
     async initDataContract() {
       const address = ResonanceDataManageJson["networks"][web3.currentProvider.connection.networkVersion].address
-      console.log('data contract address:', address)
       const contract = await new web3.eth.Contract(
         ResonanceDataManageJson.abi,
         address
@@ -152,6 +181,15 @@ export default {
   async created() {
     const contract = await this.initDataContract()
     store.dispatch('queryRewardList', contract)
+    store.dispatch('getOpeningTime', contract)
+  },
+  mounted() {
+    const url = document.baseURI
+    const params = url.split('?')[1]
+    if (params) {
+      const address = params.split('=')[1]
+      this.address = address
+    }
   }
 }
 </script>
@@ -184,6 +222,7 @@ export default {
   .reward-list {
     .reward-area {
       padding: 0.1rem 0.1rem;
+      height: 1.6rem;
       margin-bottom: 0.3rem;
       font-size: .14rem;
       background-color: $dark-main;
@@ -215,7 +254,7 @@ export default {
       }
       .reward-detail {
         font-size: 0.12rem;
-        margin-top: 0.2rem;
+        margin-top: 0.1rem;
         :nth-child(1) {
           .rank {
             background-image: url('~@/assets/image/1.png');
@@ -243,6 +282,7 @@ export default {
         .reward-detal-item {
           display: flex;
           justify-content: center;
+          height: .21rem;
           .rank {
             color: $theme;
             width: .2rem;
@@ -250,7 +290,7 @@ export default {
             text-align: center;
           }
           .address {
-            max-width: 60%;
+            max-width: 50%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
