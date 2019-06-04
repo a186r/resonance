@@ -2,7 +2,7 @@ pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
-import "./ABCToken.sol";
+import "../node_modules/openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "./UintUtils.sol";
 import "./FissionReward.sol";
 import "./FOMOReward.sol";
@@ -10,7 +10,6 @@ import "./LuckyReward.sol";
 import "./FaithReward.sol";
 import "./ResonanceDataManage.sol";
 import "./Authority.sol";
-import "./BDEToken.sol";
 
 // TODO:所有奖励以及token转出都让用户自己提取，不要批量转账(失败和出漏洞的风险太高)
 contract Resonance is Ownable{
@@ -58,16 +57,15 @@ contract Resonance is Ownable{
 
     // 变量
     // ERC20
-    // ABCToken public BDEToken; // ABCToken用于测试
-    HumanStandardToken BDEToken; // TODO:与主网BDEToken一致，可以在Ropsten上测试
+    IERC20 BDEToken; // TODO:与主网BDEToken一致，可以在Ropsten上测试
 
     Authority authority;
 
     ResonanceDataManage resonanceDataManage;
 
     // 收款方（每轮募集的60%转移到这个地址）
-    // address payable public beneficiary; // 0.5.2
-    address public beneficiary; // 0.4.24
+    address payable public beneficiary; // 0.5.2
+    // address public beneficiary; // 0.4.24
 
     // 投资者结构体
     struct Funder{
@@ -78,8 +76,6 @@ contract Resonance is Ownable{
         bool isFunder; // 是否是募资者（参与募资期）
         bool tokenHasWithdrawn; // Token提币完成
         bool ETHHasWithdrawn; // ETH已经提币完成
-        // uint256 withdrawTokenAmount; // 用户可提取Token数量
-        // uint256 withdrawETHAmount; //用户可提取ETH数量
     }
 
     mapping(address => bool) public isBuilder; //是否是共建者
@@ -152,10 +148,9 @@ contract Resonance is Ownable{
     /// @notice 构造函数
     /// _BDEToken 用于共建的Token
     constructor(
+        IERC20 _BDEToken, // TODO:与主网已发布的BDEToken一致
         address _resonanceDataManageAddress,
         Authority _authority,
-        // ABCToken _abcToken, // ABCToken 用于测试
-        HumanStandardToken _BDEToken, // TODO:与主网已发布的BDEToken一致
         address _fassionRewardAddress,
         address _FOMORewardAddress,
         address _luckyRewardAddress,
@@ -170,7 +165,6 @@ contract Resonance is Ownable{
         luckyRewardInstance = LuckyReward(_luckyRewardAddress);
         faithRewardInstance = FaithReward(_faithRewardAddress);
         currentStep = 0;
-        // BDEToken = _abcToken; // abc Token
         BDEToken = _BDEToken; // TODO:BDEToken
         authority = _authority;
     }
@@ -180,8 +174,8 @@ contract Resonance is Ownable{
     /// @dev 管理员调用这个设置对ResonanceDataManage的访问权限，并初始化第一轮的部分参数
     function initParamForFirstStep(
         address _newOwner,
-        // address payable _beneficiary, // 0.5.2
-        address _beneficiary, // 0.4.24
+        address payable _beneficiary, // 0.5.2
+        // address _beneficiary, // 0.4.24
         address _initialFissionPerson
     )
         public
@@ -562,8 +556,8 @@ contract Resonance is Ownable{
         // 本轮提取上一轮的
         uint256 withdrawStep = currentStep.sub(1);
 
-        // address payable dest = address(uint160(msg.sender)); // 0.5.2
-        address dest = address(uint160(msg.sender)); // 0.4.24
+        address payable dest = address(uint160(msg.sender)); // 0.5.2
+        // address dest = address(uint160(msg.sender)); // 0.4.24
 
         require(!steps[withdrawStep].funder[msg.sender].ETHHasWithdrawn, "用户在当前轮次已经提取ETH完成");
 
@@ -593,8 +587,8 @@ contract Resonance is Ownable{
         require(resonanceDataManage.getCrowdsaleClosed(), "共振还未结束，不能提取");
 
         require(!refundIsFinished[msg.sender], "退款已经提取完成了");
-        // address payable dest = address(uint160(msg.sender)); // 0.5.2
-        address dest = address(uint160(msg.sender)); // 0.4.24
+        address payable dest = address(uint160(msg.sender)); // 0.5.2
+        // address dest = address(uint160(msg.sender)); // 0.4.24
 
         uint256 resonanceClosedStep = resonanceDataManage.getResonanceClosedStep();
         uint256 withdrawTokenAmount;

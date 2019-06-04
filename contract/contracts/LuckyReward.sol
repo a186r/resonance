@@ -1,7 +1,6 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "./StringUtils.sol";
 import "./Authority.sol";
 
 // 2.10%用于幸运奖励
@@ -91,16 +90,5 @@ contract LuckyReward is Authority{
             totalLyckyReward[_stepIndex] = 0;
             return;
         }
-    }
-
-    // 获取address的最后一位
-    function getLastFromAddress(address _addr) public pure returns(string memory) {
-        string memory addressStr = StringUtils.addr2string(_addr);
-        return StringUtils.substring(addressStr,41,42);
-    }
-
-    // 获取区块Hash的最后一位
-    function getLastFromBlockHash(bytes32 _blockHash) public pure returns(string memory){
-        return StringUtils.substring(StringUtils.bytes32Tostring(_blockHash),_blockHash.length-1,_blockHash.length);
     }
 }

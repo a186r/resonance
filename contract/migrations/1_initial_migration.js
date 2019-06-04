@@ -1,6 +1,4 @@
 const Migrations = artifacts.require("Migrations");
-const ABCToken = artifacts.require("ABCToken");
-const HumanStandardToken = artifacts.require("HumanStandardToken");
 
 const UintUtils = artifacts.require("UintUtils");
 const StringUtils = artifacts.require("StringUtils");
@@ -23,10 +21,6 @@ module.exports = function (deployer) {
         await deployer.deploy(StringUtils)
         await deployer.link(StringUtils, [FissionReward, FOMOReward, LuckyReward, FaithReward, Resonance]);
 
-        await deployer.deploy(ABCToken, "ABCToken", "ABCT", 18)
-
-        await deployer.deploy(HumanStandardToken, 150000000, "BDEToken", 18, "BDE")
-
         await deployer.deploy(Authority)
 
         await deployer.deploy(FissionReward)
@@ -34,8 +28,6 @@ module.exports = function (deployer) {
         await deployer.deploy(LuckyReward)
         await deployer.deploy(FaithReward)
 
-        let ABCTInstance = await ABCToken.deployed()
-        let HumanStandardTokenInstance = await HumanStandardToken.deployed()
         let AuthorityInstance = await Authority.deployed()
         let FissionRewardInstance = await FissionReward.deployed()
         let FOMORewardInstance = await FOMOReward.deployed()
@@ -49,12 +41,12 @@ module.exports = function (deployer) {
             LuckyRewardInstance.address,
             FaithRewardInstance.address
         )
- 
+
         await deployer.deploy(
             Resonance,
+            "0x8f12e296e5fbf9eaafe73045648454237ee7247c",
             AuthorityInstance.address,
             ResonanceDataManage.address,
-            "0x809e634ea2f3c665ed9ec17f4e5a810f36c654af",
             FissionRewardInstance.address,
             FOMORewardInstance.address,
             LuckyRewardInstance.address,

@@ -1,8 +1,6 @@
 ## 部署信息
 - **合约部署在http://47.103.41.61:8545上**
 
-- **ABCToken是测试用的Token合约，在该地址上调用mintToken()即可生成测试Token**
-
 - **其他的业务接口和查询接口都在Resonance地址上调用**
 
 #### 合约地址：
@@ -21,7 +19,6 @@ Resonance:0x890cB5107cE22adb397C20EEB457413Ae9a9C490
 ```
 Compiling your contracts...
 ===========================
-> Compiling ./contracts/ABCToken.sol
 > Compiling ./contracts/FOMOReward.sol
 > Compiling ./contracts/FaithReward.sol
 > Compiling ./contracts/FissionReward.sol
