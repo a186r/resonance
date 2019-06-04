@@ -1,7 +1,7 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "./Authority.sol";
+import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 // 2.10%用于幸运奖励
 // 每一轮结束后下一个ETH区块高度Hash最后一位作为幸运值
@@ -11,7 +11,7 @@ import "./Authority.sol";
 // 匹配幸运者
 // 这个合约给到外面的只有一个获奖者列表
 
-contract LuckyReward is Authority{
+contract LuckyReward is Ownable{
 
     using SafeMath for uint256;
 
@@ -54,8 +54,8 @@ contract LuckyReward is Authority{
         uint256 _totalLyckyReward
     )
         public
-        onlyAuthority()
     {
+        require(tx.origin == owner(), "调用者没有调用权限");
         require(!currentStepHasFinished[_stepIndex], "当前轮次的幸运奖励已经计算完成");
         _dealLuckyInfo(_stepIndex, _luckyWinners, _totalLyckyReward);
     }

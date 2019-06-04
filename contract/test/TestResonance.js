@@ -1,4 +1,3 @@
-var Authority = artifacts.require('Authority');
 var Resonance = artifacts.require('Resonance');
 var FissionReward = artifacts.require('FissionReward');
 var FOMOReward = artifacts.require('FOMOReward');
@@ -9,7 +8,6 @@ var IERC20 = artifacts.require('IERC20');
 
 var resonance;
 var resonanceDataManage;
-var authority;
 
 var fissionReward;
 var FOMOReward;
@@ -37,7 +35,6 @@ contract('TestResonance', async (accounts) => {
     });
 
     it('2...部署奖励合约', async () => {
-        authority = await Authority.new();
         fissionReward = await FissionReward.new();
         FOMOReward = await FOMOReward.new();
         luckyReward = await LuckyReward.new();
@@ -61,7 +58,6 @@ contract('TestResonance', async (accounts) => {
     it('4...初始化参数', async () => {
         resonance = await Resonance.new(
             "0xb0295100a38d24e2960ba062766d1ed765bea282",
-            authority.address,
             resonanceDataManage.address,
             fissionReward.address,
             FOMOReward.address,
@@ -78,31 +74,6 @@ contract('TestResonance', async (accounts) => {
 
         let initParamForFirstStepLog = await resonance.initParamForFirstStep(accounts[0], accounts[8], accounts[7]);
 
-        // 给ResonanceDatamanage设置权限
-        console.log("resonanceDataManage是否有权限", await authority.setAuthority(resonanceDataManage.address, {
-            from: accounts[0]
-        }));
-
-        let resultResonance = await authority.setAuthority(resonance.address, {
-            from: accounts[0]
-        });
-
-        // await authority.setAuthority(accounts[0], {
-        //     from: accounts[0]
-        // });
-
-        // await authority.setAuthority(fissionReward.address, {
-        //     from: accounts[0]
-        // });
-        // await authority.setAuthority(FOMOReward.address, {
-        //     from: accounts[0]
-        // });
-        // await authority.setAuthority(luckyReward.address, {
-        //     from: accounts[0]
-        // });
-        // await authority.setAuthority(faithReward.address, {
-        //     from: accounts[0]
-        // });
     })
 
     it('5...成为裂变者', async () => {
@@ -440,10 +411,12 @@ contract('TestResonance', async (accounts) => {
         console.log("社区成员的余额是", await abcToken.balanceOf(accounts[3]) / 1E18);
 
     });
-
     it("24...dealFissionInfo", async () => {
         winners[0] = accounts[0];
         winners[1] = accounts[1];
-        await fissionReward.dealFissionInfo(1, winners, web3.utils.toWei("3"));
+        await fissionReward.dealFissionInfo(1, winners, web3.utils.toWei("3"), {
+            from: accounts[0]
+        });
     })
+
 })

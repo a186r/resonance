@@ -1,10 +1,10 @@
 pragma solidity >=0.4.21 <0.6.0;
 
 import "../node_modules/openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "./Authority.sol";
+import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 // 信仰奖励
-contract FaithReward is Authority{
+contract FaithReward is Ownable{
     using SafeMath for uint256;
 
     event FaithWinnerInfo(address[] _faithWinners, uint256[] _faithRewardAmount);
@@ -44,9 +44,9 @@ contract FaithReward is Authority{
         uint256 _totalFaithReward
     )
         public
-        onlyAuthority()
         returns(bool)
     {
+        require(tx.origin == owner(), "调用者没有调用权限");
         require(!faithRewardFinished, "当前轮次的信仰奖励已经计算完成");
 
         uint256 winners;
