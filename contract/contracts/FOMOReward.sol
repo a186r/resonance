@@ -46,7 +46,7 @@ contract FOMOReward is Authority{
         uint256 _totalFOMOReward
     )
         public
-        // onlyAuthority()
+        onlyAuthority()
         returns(address[] memory)
     {
         require(!currentStepHasFinished[_stepIndex], "当前轮次的FOMO奖励已经计算完成");

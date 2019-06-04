@@ -145,6 +145,7 @@ contract ResonanceDataManage{
         }else{
             return false;
         }
+        // return true;
     }
 
     // 是否是募资期
@@ -154,6 +155,7 @@ contract ResonanceDataManage{
         }else{
             return false;
         }
+        // return true;
     }
 
     /// @notice 判断共振是否结束

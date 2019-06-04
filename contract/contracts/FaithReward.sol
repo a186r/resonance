@@ -44,7 +44,7 @@ contract FaithReward is Authority{
         uint256 _totalFaithReward
     )
         public
-        // onlyAuthority()
+        onlyAuthority()
         returns(bool)
     {
         require(!faithRewardFinished, "当前轮次的信仰奖励已经计算完成");

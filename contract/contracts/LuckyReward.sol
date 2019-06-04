@@ -54,7 +54,7 @@ contract LuckyReward is Authority{
         uint256 _totalLyckyReward
     )
         public
-        // onlyAuthority()
+        onlyAuthority()
     {
         require(!currentStepHasFinished[_stepIndex], "当前轮次的幸运奖励已经计算完成");
         _dealLuckyInfo(_stepIndex, _luckyWinners, _totalLyckyReward);

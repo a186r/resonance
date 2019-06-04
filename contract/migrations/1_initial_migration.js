@@ -1,7 +1,6 @@
 const Migrations = artifacts.require("Migrations");
 
 const UintUtils = artifacts.require("UintUtils");
-const StringUtils = artifacts.require("StringUtils");
 const Authority = artifacts.require("Authority");
 
 const FissionReward = artifacts.require("FissionReward");
@@ -17,9 +16,6 @@ module.exports = function (deployer) {
 
         await deployer.deploy(UintUtils)
         await deployer.link(UintUtils, [FissionReward, FOMOReward, LuckyReward, FaithReward, Resonance, ResonanceDataManage]);
-
-        await deployer.deploy(StringUtils)
-        await deployer.link(StringUtils, [FissionReward, FOMOReward, LuckyReward, FaithReward, Resonance]);
 
         await deployer.deploy(Authority)
 
@@ -44,7 +40,7 @@ module.exports = function (deployer) {
 
         await deployer.deploy(
             Resonance,
-            "0x8f12e296e5fbf9eaafe73045648454237ee7247c",
+            "0x809e634ea2f3c665ed9ec17f4e5a810f36c654af",
             AuthorityInstance.address,
             ResonanceDataManage.address,
             FissionRewardInstance.address,

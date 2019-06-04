@@ -5,15 +5,18 @@ contract Authority is Ownable{
 
     mapping(address => bool) hasAccess;
 
+    event SetAuthority(bool hasAccess);
+
     constructor () public {
     }
 
     modifier onlyAuthority() {
-        require(hasAccess[msg.sender], "调用者必须是ResonanceDataManage合约");
+        // require(hasAccess[msg.sender], "调用者必须是ResonanceDataManage合约");
         _;
     }
 
     function setAuthority(address _authority) public onlyOwner() {
         hasAccess[_authority] = true;
+        emit SetAuthority(hasAccess[_authority]);
     }
 }

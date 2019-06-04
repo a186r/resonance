@@ -49,6 +49,8 @@ contract FissionReward is Authority{
         return(totalFissionReward[_stepIndex], fissionWinners[_stepIndex], fissionRewards[_stepIndex]);
     }
 
+    event PrintSender(address sender);
+
     /// @notice 处理裂变奖励信息
     function dealFissionInfo(
         uint256 _stepIndex,
@@ -56,10 +58,11 @@ contract FissionReward is Authority{
         uint256 _totalFissionReward
     )
         public
-        // onlyAuthority()
+        onlyAuthority()
     {
         require(!currentStepHasFinished[_stepIndex], "本轮次裂变奖励已经分配结束");
         _dealFissionInfo(_stepIndex, _fissionWinner, _totalFissionReward);
+        emit PrintSender(msg.sender);
     }
 
     function addAffman(
