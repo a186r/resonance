@@ -7,7 +7,7 @@ library UintUtils{
     using SafeMath for uint256;
 
     function toWei(uint256 _amount) public pure returns(uint256) {
-        return _amount*10**18;
+        return _amount*10**2;
     }
 
 }
