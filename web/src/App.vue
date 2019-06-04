@@ -38,7 +38,7 @@
 import Web3 from "web3"
 import store from './store'
 import ResonanceJson from '../../contract/build/contracts/Resonance.json'
-import TokenJson from '../../contract/build/contracts/BDEToken'
+import TokenJson from '../../contract/build/contracts/BDEToken.json'
 import ResonanceDataManageJson from '../../contract/build/contracts/ResonanceDataManage.json'
 
 export default {
