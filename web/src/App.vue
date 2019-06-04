@@ -72,9 +72,6 @@ export default {
       return contract
     },
     async initContract() {
-        console.warn('开始执行initTokenContract')
-        console.log('取的值是=====', web3.currentProvider.connection.networkVersion)
-        console.warn('地址是==============', ResonanceJson['networks'])
       const address = ResonanceJson["networks"][web3.currentProvider.connection.networkVersion].address
       const contract = await new web3.eth.Contract(
         ResonanceJson.abi,

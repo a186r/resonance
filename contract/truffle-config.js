@@ -25,6 +25,8 @@ var mnemonic = "organ increase urban chief adjust grow ladder motion feature dia
 
 var private = "c37b74594bb094e66e41a1b59d7558a8a7f4f5b937643c3eab35dc55fb636945";
 
+const myPrivate = '';
+
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -71,9 +73,9 @@ module.exports = {
     },
 
     mainnet: {
-      provider: () => new HDWalletProvider(private, `https://ropsten.infura.io/v3/255d1b91bd1545d385d84912b5ab80b4`),
-      network_id: 1, // Ropsten's id
-      gas: 8000000, // Ropsten has a lower block limit than mainnet
+      provider: () => new HDWalletProvider(myPrivate, `https://mainnet.infura.io/v3/4a74edfffce34c07bc80a78e3eb0874c`),
+      network_id: 1, // My id
+      gas: 8000000, // My has a lower block limit than mainnet
       gasPrice: 100000000000,
       confirmations: 0, // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
