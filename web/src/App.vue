@@ -38,7 +38,7 @@
 import Web3 from "web3"
 import store from './store'
 import ResonanceJson from '../../contract/build/contracts/Resonance.json'
-import TokenJson from '../../contract/build/contracts/ABCToken.json'
+import TokenJson from '../../contract/build/contracts/BDEToken.json'
 import ResonanceDataManageJson from '../../contract/build/contracts/ResonanceDataManage.json'
 
 export default {
@@ -65,7 +65,6 @@ export default {
     },
     async initTokenContract() {
       const address = TokenJson["networks"][web3.currentProvider.connection.networkVersion].address
-      console.log('token contract address:', address)
       const contract = await new web3.eth.Contract(
         TokenJson.abi,
         address
@@ -74,7 +73,6 @@ export default {
     },
     async initContract() {
       const address = ResonanceJson["networks"][web3.currentProvider.connection.networkVersion].address
-      console.log('contract address:', address)
       const contract = await new web3.eth.Contract(
         ResonanceJson.abi,
         address
@@ -83,7 +81,6 @@ export default {
     },
     async initDataContract() {
       const address = ResonanceDataManageJson["networks"][web3.currentProvider.connection.networkVersion].address
-      console.log('data contract address:', address)
       const contract = await new web3.eth.Contract(
         ResonanceDataManageJson.abi,
         address
@@ -91,7 +88,6 @@ export default {
       return contract
     },
     async unlockMetaMask() {
-      console.log('start login wallet...')
       const self = this
       if (window.web3 && window.web3.currentProvider.isTrust) {
         window.web3 = new Web3(web3.currentProvider)

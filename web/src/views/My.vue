@@ -119,15 +119,12 @@ export default {
       }
     },
     withdrawAllETH () {
-      console.log('withdraw eth')
       store.dispatch('withdrawAllETH')
     },
     withdrawAllCAD () {
-      console.log('withdraw cad')
       store.dispatch('withdrawAllCAD')
     },
     refund () {
-      console.log('refund')
       store.dispatch('withdrawFaithRewardAndRefund')
     }
   },

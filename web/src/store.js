@@ -37,7 +37,6 @@ function getReward(contract, methodName, stepIndex, account, index, commit) {
     } else {
       res[2] = res[1].map((item, i) => getFormat(res[2][i], 5))
     }
-    console.log(stepIndex, index, methodName, res)
     commit('GET_REWARD_LIST', res)
   })
 }
@@ -87,7 +86,6 @@ export default new Vuex.Store({
   },
   mutations: {
     GET_RESONANCE_IS_CLOSED: (state, data) => {
-      console.log('------------------closed update', data)
       state.isResonanceClosed = data
     },
     GET_FUNDER_AMOUNT: (state, data) => {
@@ -119,7 +117,6 @@ export default new Vuex.Store({
   actions: {
     async getFunderInfo({ commit }, contract) {
       contract.methods.getFunderAffInfo().call({from: this.state.account}, (err, result) => {
-        console.log('getFunderAffInfo', result)
         if (result) {
           const data = {}
           data.count = result[0].toString()
@@ -128,7 +125,6 @@ export default new Vuex.Store({
         }
       })
       contract.methods.getFunderRewardInfo().call({from: this.state.account}, (err, result) => {
-        console.log('getFunderRewardInfo', result)
         for (let i in result) {
           result[i] = getFormat(result[i], 5)
         }
@@ -141,7 +137,6 @@ export default new Vuex.Store({
         const stepIndex = res[0].toNumber()
         for (let i = 0; i < 4; i++) {
           contract.methods[arr[i]](stepIndex).call({from: this.state.account}, (err, result) => {
-            console.log(err, stepIndex, arr[i], result)
             if (result) {
               const data = {}
               let decimal = 5
@@ -158,7 +153,6 @@ export default new Vuex.Store({
     async getBuildingPeriodInfo({ commit }, contract) {
       contract.methods.getBuildingPerioInfo().call()
         .then(result => {
-          console.log('get building info', result)
           const data = {}
           // data.bpCountdown = result[0].toNumber() * 1000
           data.remainingToken = getFormat(result[1], 0)
@@ -173,7 +167,6 @@ export default new Vuex.Store({
     async getFundingPeriodInfo({ commit }, contract) {
       contract.methods.getFundingPeriodInfo().call()
         .then(result => {
-          console.log('get funding info', result)
           const data = {}
           // data.fpCountdown = result[0].toNumber() * 1000
           data.remainingETH = getFormat(result[1], 5)
@@ -187,7 +180,6 @@ export default new Vuex.Store({
     async getOpeningTime({ commit }, contract) {
       contract.methods.getOpeningTime().call()
         .then(result => {
-          console.log('get opening time', result)
           const data = {}
           data.bpCountdown = (result.toNumber() * 1000) + 8 * 3600 * 1000 - new Date().getTime()
           data.fpCountdown = data.bpCountdown + 16 * 3600 * 1000
@@ -201,7 +193,6 @@ export default new Vuex.Store({
       const self = this
       contract.methods.getCurrentStepFundsInfo().call()
         .then(result => {
-          console.log('get current step info', result)
           const data = {}
           data.stepIndex = result[0].toNumber(),
           data.currentStepTokenAmount = getFormat(result[1], 0),
@@ -255,7 +246,6 @@ export default new Vuex.Store({
       })
     },
     async toBeFissionPerson({ commit }, address) {
-      console.log(address)
       const self = this
       window.contract.methods.toBeFissionPerson(address).send({
         from: self.state.account
@@ -308,7 +298,6 @@ export default new Vuex.Store({
       } else {
         const self = this
         setTimeout(() => {
-          console.log('query reward list second time')
           self.dispatch('queryRewardList', contract)
         }, 1000)
       }

@@ -131,7 +131,6 @@ export default {
       store.dispatch('approve', 8)
     },
     depositETH () {
-      console.log('deposit eth', this.depostETHAmount)
       if (!this.depostETHAmount) {
         this.$alert('请输入具体数量', '提示', {
           confirmButtonText: '确定',
@@ -172,7 +171,6 @@ export default {
     },
     async initDataContract() {
       const address = ResonanceDataManageJson["networks"][web3.currentProvider.connection.networkVersion].address
-      console.log('data contract address:', address)
       const contract = await new web3.eth.Contract(
         ResonanceDataManageJson.abi,
         address
